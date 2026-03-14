@@ -1,0 +1,19 @@
+# Sanal Ortam
+venv/
+env/
+__pycache__/
+
+# API ve Güvenlik Anahtarları
+keys/
+.env
+.cdsapirc
+
+# Veri Dosyaları (Sadece klasör yapısı gitsin, içindeki dosyalar gitmesin)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# İşletim Sistemi Kalıntıları
+.DS_Store
+Thumbs.db
