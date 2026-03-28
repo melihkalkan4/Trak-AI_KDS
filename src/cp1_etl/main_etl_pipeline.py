@@ -1,6 +1,6 @@
 """
 =====================================================================================
-TRAK-AI KDS: OTONOM ETL VE VERİ FÜZYONU BORU HATTI (ORCHESTRATOR)
+TRAK-AIA KDS: OTONOM ETL VE VERİ FÜZYONU BORU HATTI (ORCHESTRATOR)
 =====================================================================================
 Bu dosya sistemin kalbidir. Tarih ve koordinat bilgilerini alır, 
 tüm alt modülleri sırasıyla çalıştırır ve nihai 'Öznitelik Matrisi'ni oluşturur.
@@ -10,6 +10,16 @@ tüm alt modülleri sırasıyla çalıştırır ve nihai 'Öznitelik Matrisi'ni 
 import pandas as pd
 import os
 import time
+import sys
+import os
+
+# Kodun çalıştığı klasörü değil, dosyanın olduğu klasörü referans almasını sağlar
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+
+# keys klasörüne ana dizinden (root) ulaşmak için yolu düzeltiyoruz
+# Eğer kodun içinde 'keys/trak-ai...' yazıyorsa onu şu değişkenle yönetebiliriz:
+KEY_PATH = os.path.join(current_dir, "../../keys/trak-ai-kds-d3e5e5b6e168.json")
 
 # Kendi yazdığımız modülleri içe aktarıyoruz
 from mod_soil_isric import fetch_soil_data
@@ -17,16 +27,26 @@ from mod_s2_gee import fetch_s2_data
 from mod_era5_cds import fetch_era5_data
 
 print("="*60)
-print("🚀 TRAK-AI KDS: Otonom ETL Boru Hattı Başlatıldı")
+print("🚀 TRAK-AIA KDS: Otonom ETL Boru Hattı Başlatıldı")
 print("="*60)
 
 # =====================================================================================
-# 1. AYARLAR VE PARAMETRELER (TEZDE DEĞİŞTİRİLECEK TEK YER BURASI)
+# 1. AYARLAR VE PARAMETRELER 
 # =====================================================================================
-START_YEAR = 2023 # Tezi yazarken burayı 2017 yapacağız
-END_YEAR = 2023
-LAT, LON = 41.40, 27.35
-ROI_COORDS = [[27.30, 41.35], [27.32, 41.35], [27.32, 41.37], [27.30, 41.37]]
+# Tez için modelin farklı iklim rejimlerini görmesi adına 2017-2024 arası tam periyot:
+START_YEAR = 2017 
+END_YEAR = 2024
+
+# Kırklareli, Vize - Evrenli Köyü Pilot Tarla Koordinatları (Decimal Degrees)
+LAT, LON = 41.530333, 27.861194
+
+# Uydu verisi için ilgi alanı poligonu (Merkez koordinat etrafında ~1-2 km'lik Bounding Box)
+ROI_COORDS = [
+    [27.851194, 41.520333], # Sol Alt
+    [27.871194, 41.520333], # Sağ Alt
+    [27.871194, 41.540333], # Sağ Üst
+    [27.851194, 41.540333]  # Sol Üst
+]
 
 start_time = time.time()
 
@@ -40,8 +60,7 @@ print("\n[ADIM 2/4] Uydu İndeksleri Çekiliyor (Dinamik/Boşluklu)...")
 df_s2 = fetch_s2_data(START_YEAR, END_YEAR, ROI_COORDS)
 
 print("\n[ADIM 3/4] İklim Verisi Çekiliyor (Dinamik/Sürekli)...")
-# API'yi yormamak için şimdilik test_mode=True (Sadece Ocak ayını çeker). 
-# Gerçek veri matrisini oluştururken test_mode=False yapacağız.
+# Tam veri setini çektiğimiz için test_mode=False olarak ayarlandı
 df_era5 = fetch_era5_data(START_YEAR, END_YEAR, LAT, LON, test_mode=False)
 
 # Güvenlik kontrolü
