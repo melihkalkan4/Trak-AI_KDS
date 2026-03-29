@@ -27,7 +27,7 @@ file_path = f'data/processed/master_feature_matrix_{START_YEAR}_{END_YEAR}.csv'
 
 # Eğer o isimde yoksa eski test dosyasını ara
 if not os.path.exists(file_path):
-    file_path = 'data/processed/master_feature_matrix_2023.csv'
+    file_path = 'data/processed/master_feature_matrix_2017_2024.csv'
     
 if not os.path.exists(file_path):
     # Eğer doğrudan ana dizine atıldıysa oradan al
