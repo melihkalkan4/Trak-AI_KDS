@@ -1,0 +1,19 @@
+[
+  "t2m_mean",
+  "t2m_max",
+  "t2m_min",
+  "tp_sum",
+  "ssr_sum",
+  "GDD",
+  "GDD_cum",
+  "evaporation_mm",
+  "drought_index_7d",
+  "temp_amplitude",
+  "dew_depression",
+  "NDVI_int",
+  "EVI_int",
+  "NDWI_int",
+  "NDVI_trend_7d",
+  "sin_doy",
+  "cos_doy"
+]

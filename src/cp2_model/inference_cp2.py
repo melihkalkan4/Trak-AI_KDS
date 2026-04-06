@@ -1,267 +1,253 @@
 """
-predict_cp2.py
-──────────────
-TRAK-AIA Karar Destek Sistemi — Tahmin Modülü
+===============================================================================
+TRAK-AI KDS  -  WP2: Inference & RAG-LLM Context Generator
+===============================================================================
+Hybrid model selection: best architecture per crop.
+Uses registered custom layers — simple tf.keras.models.load_model().
 
-Görev   : Eğitilmiş Conv-LSTM modellerinden NDVI tahmini üretir ve
-          RAG-LLM aşaması için zenginleştirilmiş bağlam metni hazırlar.
-Yazar   : TRAK-AIA Ekibi
-Python  : 3.9+
+Run:  python inference_cp2.py
+===============================================================================
 """
 
-from __future__ import annotations  # Python 3.9'da "X | None" sözdizimi için
+import os, json, logging, numpy as np, pandas as pd, joblib
 
-import logging
-import os
-from pathlib import Path
-from typing import Optional
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-import numpy as np
-import pandas as pd
 import tensorflow as tf
 
-# ── Ortam & Loglama ────────────────────────────────────────────────────────────
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"  # TF C++ uyarılarını gizle
+# Import registered custom layers so Keras can find them
+from train_models_cp2 import SelfAttention, ExtractLastNDVI, ScaleDelta, _ndvi_idx
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     datefmt="%H:%M:%S",
 )
-logger = logging.getLogger("trak-aia.predict")
+logger = logging.getLogger("trak-ai.inference")
 
-# ── Dizin yapısı ───────────────────────────────────────────────────────────────
-# Bu dosya: <proje_koku>/src/cp2/predict_cp2.py
-BASE_DIR: Path = Path(__file__).resolve().parent          # src/cp2/
-PROJECT_ROOT: Path = BASE_DIR.parents[1]                  # proje kökü (2 seviye yukarı)
-DATA_PATH: Path = PROJECT_ROOT / "data" / "processed" / "master_feature_matrix_2017_2024.csv"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(BASE_DIR))
+CSV_PATH = os.path.join(
+    PROJECT_ROOT, "data", "processed", "master_feature_matrix_2017_2024.csv"
+)
+FIELD_SUMMARY_DAYS = 15
 
-# ── Sabitler ───────────────────────────────────────────────────────────────────
-BEKLENEN_GIRDI_SEKLI = (1, 30, 7)   # (batch, zaman_adimi, ozellik_sayisi)
-SON_GUN_PENCERESI = 15              # Saha özeti için kaç gün geriye bakılacak
-
-# Zorunlu CSV sütunları — eksikse erken hata ver
-ZORUNLU_SUTUNLAR = ["tp_sum", "t2m_max", "t2m_min", "e_sum", "ssr_sum"]
-
-# ── Ürün konfigürasyonu ────────────────────────────────────────────────────────
-# Yeni ürün eklemek için yalnızca bu sözlüğe satır ekle.
-URUN_KONFIG: dict[str, dict[str, str]] = {
-    "Bugday": {
-        "model":  "model_wheat.keras",
-        "veri":   "X_wheat.npy",
-        "scaler": "scaler_wheat.pkl",
-        "etiket": "Buğday",
-    },
-    "Aycicegi": {
-        "model":  "model_sunflower.keras",
-        "veri":   "X_sunflower.npy",
-        "scaler": "scaler_sunflower.pkl",
-        "etiket": "Ayçiçeği",
-    },
+# Hybrid config: best model per crop (ordered by priority)
+CROP_CONFIG = {
+    "Wheat": dict(
+        model_files=[
+            "model_convlstm_wheat.keras",
+            "model_lstm_wheat.keras",
+            "model_attention_lstm_wheat.keras",
+        ],
+        scaler="scaler_wheat.pkl",
+        test_data="X_wheat.npy",
+        label="Wheat",
+        best_arch="Conv-LSTM (residual delta)",
+    ),
+    "Sunflower": dict(
+        model_files=[
+            "model_lstm_sunflower.keras",
+            "model_attention_lstm_sunflower.keras",
+            "model_convlstm_sunflower.keras",
+        ],
+        scaler="scaler_sunflower.pkl",
+        test_data="X_sunflower.npy",
+        label="Sunflower",
+        best_arch="LSTM (residual delta)",
+    ),
 }
 
 
-# ── Yardımcı Fonksiyonlar ──────────────────────────────────────────────────────
+def classify_ndvi(v):
+    if v < 0.15:
+        return dict(status="CRITICAL",
+                    desc="Very weak or damaged vegetation",
+                    action="Immediate field inspection required")
+    if v < 0.25:
+        return dict(status="LOW",
+                    desc="Stress indicators present",
+                    action="Investigate drought, disease, or nutrient deficiency")
+    if v < 0.40:
+        return dict(status="MODERATE",
+                    desc="Below-average health",
+                    action="Monitor closely, consider irrigation or fertilization")
+    if v < 0.55:
+        return dict(status="FAIR",
+                    desc="Acceptable vegetation health",
+                    action="Continue standard management")
+    if v < 0.70:
+        return dict(status="GOOD",
+                    desc="Healthy vegetation cover",
+                    action="Maintain current practices")
+    return dict(status="EXCELLENT",
+                desc="Dense and vigorous vegetation",
+                action="Optimal conditions")
 
-def ndvi_yorumla(deger: float) -> str:
-    """NDVI değerini literatür eşiklerine göre metinsel olarak yorumlar."""
-    if deger < 0.2:
-        return "KRİTİK — Bitki örtüsü çok zayıf veya hasarlı"
-    if deger < 0.4:
-        return "DÜŞÜK — Stres belirtileri mevcut, müdahale önerilir"
-    if deger < 0.6:
-        return "ORTA — Makul bitki sağlığı, takip edilmeli"
-    if deger < 0.8:
-        return "İYİ — Sağlıklı bitki örtüsü"
-    return "MÜKEMMEL — Yoğun ve güçlü bitki örtüsü"
+
+def classify_trend(current, predicted):
+    delta = predicted - current
+    pct = (delta / max(abs(current), 0.01)) * 100
+    if delta < -0.08:
+        return dict(trend="DECLINING", delta=round(delta, 4),
+                    pct_change=round(pct, 1),
+                    alert="Significant decline expected in 7 days")
+    if delta < -0.03:
+        return dict(trend="SLIGHT_DECLINE", delta=round(delta, 4),
+                    pct_change=round(pct, 1),
+                    alert="Minor decline expected, monitor conditions")
+    if delta > 0.05:
+        return dict(trend="GROWING", delta=round(delta, 4),
+                    pct_change=round(pct, 1),
+                    alert="Healthy growth trajectory")
+    return dict(trend="STABLE", delta=round(delta, 4),
+                pct_change=round(pct, 1),
+                alert="Stable conditions expected")
 
 
-def guncel_durum_ozeti_cikar(csv_yolu: Path = DATA_PATH) -> str:
-    """
-    İşlenmiş CSV'nin son `SON_GUN_PENCERESI` gününe bakarak tarlanın
-    mevcut iklim ve toprak durumunu özetler.
-
-    Döndürür
-    --------
-    str : LLM bağlamına eklenmeye hazır Türkçe özet cümlesi.
-          Dosya okunamazsa veya sütun eksikse açıklayıcı bir hata dizesi döner.
-    """
-    if not csv_yolu.exists():
-        logger.warning("Saha CSV dosyası bulunamadı: %s", csv_yolu)
-        return f"Saha verisi okunamadı (dosya yok: {csv_yolu})."
-
+def get_field_summary(csv_path=CSV_PATH):
+    if not os.path.exists(csv_path):
+        return "Field data unavailable."
     try:
-        df = pd.read_csv(csv_yolu)
-    except Exception as exc:
-        logger.error("CSV okuma hatası: %s", exc)
-        return f"Saha verisi okunamadı (okuma hatası: {exc})."
-
-    # Zorunlu sütun kontrolü — sessiz NaN yerine açık hata
-    eksik = [s for s in ZORUNLU_SUTUNLAR if s not in df.columns]
-    if eksik:
-        logger.error("CSV'de eksik sütunlar: %s", eksik)
-        return f"Saha verisi eksik sütunlar içeriyor: {eksik}."
-
-    son_n = df.tail(SON_GUN_PENCERESI)
-
-    toplam_yagis      = son_n["tp_sum"].sum()
-    ort_max_sicaklik  = son_n["t2m_max"].mean()
-    ort_min_sicaklik  = son_n["t2m_min"].mean()
-    toplam_buharlasma = son_n["e_sum"].sum()
-    ort_radyasyon     = son_n["ssr_sum"].mean()
-
+        df = pd.read_csv(csv_path)
+    except Exception:
+        return "Field data read error."
+    needed = ["tp_sum", "t2m_max", "t2m_min", "ssr_sum"]
+    if any(c not in df.columns for c in needed):
+        return "Incomplete field data."
+    last = df.tail(FIELD_SUMMARY_DAYS)
     return (
-        f"Son {SON_GUN_PENCERESI} Günün Saha Verileri: "
-        f"Toplam Yağış: {toplam_yagis:.2f} mm, "
-        f"Ort. Gündüz Sıcaklığı: {ort_max_sicaklik:.2f}°C, "
-        f"Ort. Gece Sıcaklığı: {ort_min_sicaklik:.2f}°C, "
-        f"Net Buharlaşma/Nem Kaybı (e_sum): {toplam_buharlasma:.4f}, "
-        f"Ortalama Yüzey Radyasyonu: {ort_radyasyon:.0f} J/m²."
+        f"Last {FIELD_SUMMARY_DAYS} Days: "
+        f"Precip={last['tp_sum'].sum():.1f}mm, "
+        f"Max Temp={last['t2m_max'].mean():.1f}C, "
+        f"Min Temp={last['t2m_min'].mean():.1f}C, "
+        f"Solar Rad={last['ssr_sum'].mean():.0f} J/m2."
     )
 
 
-def _model_yukle(model_yolu: Path) -> tf.keras.Model:
-    """Modeli yükler; bulunamazsa anlamlı hata fırlatır."""
-    if not model_yolu.exists():
-        raise FileNotFoundError(
-            f"Model bulunamadı: {model_yolu}\n"
-            "Lütfen önce train_cp2.py ile modeli eğitin."
-        )
-    logger.info("Model yükleniyor: %s", model_yolu.name)
-    return tf.keras.models.load_model(str(model_yolu))
-
-
-def _girdi_hazirla(
-    konfig: dict[str, str],
-    canli_veri: Optional[np.ndarray],
-) -> tuple[np.ndarray, str]:
+def predict(crop_type, live_data=None, field_summary=None):
     """
-    Tahmin için girdi dizisini ve kaynağını döndürür.
+    7-day NDVI forecast with health classification.
 
-    Üretim   → canli_veri parametresiyle dışarıdan (1, 30, 7) dizisi verilir.
-    Test/Dev → canli_veri=None ise X_*.npy'nin son dilimi kullanılır.
+    Parameters
+    ----------
+    crop_type    : 'Wheat' or 'Sunflower'
+    live_data    : numpy array (1, 30, 17). None = test mode.
+    field_summary: pre-computed string. None = auto-compute.
+
+    Returns
+    -------
+    dict with: crop, model_used, architecture, current_ndvi, predicted_ndvi,
+               health, trend, data_source, field_summary, llm_context
     """
-    if canli_veri is not None:
-        if canli_veri.shape != BEKLENEN_GIRDI_SEKLI:
-            raise ValueError(
-                f"Beklenen girdi şekli: {BEKLENEN_GIRDI_SEKLI}, "
-                f"gelen: {canli_veri.shape}"
-            )
-        return canli_veri, "canli_sensor_verisi"
-
-    # Test yolu
-    veri_yolu = BASE_DIR / konfig["veri"]
-    if not veri_yolu.exists():
-        raise FileNotFoundError(
-            f"Veri bulunamadı: {veri_yolu}\n"
-            "Lütfen önce preprocessing_cp2.py'yi çalıştırın."
-        )
-    X = np.load(str(veri_yolu))
-    logger.warning(
-        "Canlı veri yok — '%s' eğitim setinin son dilimi kullanılıyor (test modu).",
-        konfig["etiket"],
-    )
-    return X[-1:], "test_verisi_son_dilim"
-
-
-# ── Ana Tahmin Fonksiyonu ──────────────────────────────────────────────────────
-
-def tahmin_al(
-    urun_tipi: str,
-    canli_veri: Optional[np.ndarray] = None,
-    saha_ozeti: Optional[str] = None,
-) -> dict:
-    """
-    Belirtilen ürün için NDVI tahmini üretir.
-
-    Parametreler
-    ------------
-    urun_tipi   : 'Bugday' veya 'Aycicegi'
-    canli_veri  : (1, 30, 7) şeklinde numpy dizisi.
-                  None → X_*.npy'nin son dilimi (yalnızca test).
-    saha_ozeti  : Önceden hesaplanmış saha özeti metni.
-                  None → otomatik olarak CSV'den okunur.
-                  Birden fazla ürün tahmini alınıyorsa dışarıdan
-                  tek seferlik hesaplanıp buraya verilmesi önerilir.
-
-    Döndürür
-    --------
-    dict anahtarları:
-        urun          – Ürün etiketi (Türkçe)
-        tahmin_degeri – Kırpılmış NDVI (float, 4 ondalık)
-        yorum         – Metinsel NDVI yorumu
-        veri_kaynagi  – 'canli_sensor_verisi' | 'test_verisi_son_dilim'
-        saha_ozeti    – Son N günün iklim özeti
-        llm_baglami   – RAG-LLM'e doğrudan aktarılabilecek bağlam metni
-    """
-    if urun_tipi not in URUN_KONFIG:
-        gecerli = ", ".join(f"'{k}'" for k in URUN_KONFIG)
+    if crop_type not in CROP_CONFIG:
         raise ValueError(
-            f"Geçersiz ürün tipi: '{urun_tipi}'. Geçerli seçenekler: {gecerli}"
+            f"Unknown crop: '{crop_type}'. Valid: {list(CROP_CONFIG.keys())}"
         )
 
-    konfig = URUN_KONFIG[urun_tipi]
+    cfg = CROP_CONFIG[crop_type]
 
-    model        = _model_yukle(BASE_DIR / konfig["model"])
-    girdi, kaynak = _girdi_hazirla(konfig, canli_veri)
+    # Load best available model (priority order)
+    model, model_file = None, None
+    for mf in cfg["model_files"]:
+        path = os.path.join(BASE_DIR, mf)
+        if os.path.exists(path):
+            try:
+                model = tf.keras.models.load_model(path)
+                model_file = mf
+                break
+            except Exception as e:
+                logger.warning("Could not load %s: %s", mf, e)
 
-    # Scaler entegrasyonu (eğitimde kullanıldıysa yorumu kaldır)
-    # scaler_yolu = BASE_DIR / konfig["scaler"]
-    # if scaler_yolu.exists():
-    #     import joblib
-    #     scaler = joblib.load(str(scaler_yolu))
-    #     girdi = scaler.transform(girdi.reshape(-1, 7)).reshape(BEKLENEN_GIRDI_SEKLI)
+    if model is None:
+        raise FileNotFoundError(f"No model found for {crop_type}")
 
-    tahmin_ham  = float(model.predict(girdi, verbose=0)[0][0])
-    tahmin_klip = float(np.clip(tahmin_ham, -1.0, 1.0))
-    yorum       = ndvi_yorumla(tahmin_klip)
+    # Load scaler and feature info
+    scaler = joblib.load(os.path.join(BASE_DIR, cfg["scaler"]))
+    ndvi_idx = _ndvi_idx()
 
-    # Saha özeti: dışarıdan verilmediyse hesapla (tekrar I/O'yu önler)
-    if saha_ozeti is None:
-        saha_ozeti = guncel_durum_ozeti_cikar()
+    # Prepare input
+    if live_data is not None:
+        inp, source = live_data, "live_sensor_data"
+    else:
+        X = np.load(os.path.join(BASE_DIR, cfg["test_data"]))
+        inp, source = X[-1:], "test_data_last_window"
+        logger.warning("No live data — using last training window (test mode)")
 
-    llm_baglami = (
-        f"{konfig['etiket']} tarlası için tahmin edilen NDVI değeri "
-        f"{tahmin_klip:.4f} olup bitki gelişimi '{yorum}' "
-        f"olarak değerlendirilmektedir.\n"
-        f"{saha_ozeti}"
+    # Predict and inverse scale
+    raw = float(model.predict(inp, verbose=0)[0][0])
+    pred_scaled = float(np.clip(raw, 0, 1))
+
+    ndvi_min = scaler.data_min_[ndvi_idx]
+    ndvi_range = scaler.data_range_[ndvi_idx]
+    pred_real = float(np.clip(pred_scaled * ndvi_range + ndvi_min, -1, 1))
+    current_real = float(inp[0, -1, ndvi_idx] * ndvi_range + ndvi_min)
+
+    # Classify
+    health = classify_ndvi(pred_real)
+    trend = classify_trend(current_real, pred_real)
+
+    if field_summary is None:
+        field_summary = get_field_summary()
+
+    # LLM context for WP4 RAG pipeline
+    llm_context = (
+        f"TRAK-AI KDS 7-Day Forecast for {cfg['label']}:\n"
+        f"- Model: {cfg['best_arch']}\n"
+        f"- Current NDVI: {current_real:.4f}\n"
+        f"- Predicted NDVI (t+7): {pred_real:.4f}\n"
+        f"- Health Status: {health['status']} — {health['desc']}\n"
+        f"- Trend: {trend['trend']} ({trend['delta']:+.4f}, "
+        f"{trend['pct_change']:+.1f}%)\n"
+        f"- Alert: {trend['alert']}\n"
+        f"- Recommended Action: {health['action']}\n"
+        f"- {field_summary}"
     )
 
-    return {
-        "urun":          konfig["etiket"],
-        "tahmin_degeri": round(tahmin_klip, 4),
-        "yorum":         yorum,
-        "veri_kaynagi":  kaynak,
-        "saha_ozeti":    saha_ozeti,
-        "llm_baglami":   llm_baglami,   # düzeltildi: Kiril "и" → Latin "i"
-    }
+    return dict(
+        crop=cfg["label"],
+        model_used=model_file,
+        architecture=cfg["best_arch"],
+        current_ndvi=round(current_real, 4),
+        predicted_ndvi=round(pred_real, 4),
+        health=health,
+        trend=trend,
+        data_source=source,
+        field_summary=field_summary,
+        llm_context=llm_context,
+    )
 
-
-# ── CLI Girişi ─────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  TRAK-AIA KARAR DESTEK SİSTEMİ — TAHMİN MODÜLÜ")
+    print("  TRAK-AI KDS — Inference (Hybrid Model Selection)")
     print("=" * 60)
 
-    # CSV tek seferlik okunur, tüm ürünlerde paylaşılır
-    paylasilan_saha_ozeti = guncel_durum_ozeti_cikar()
-    logger.info("Saha özeti hazırlandı.")
+    summary = get_field_summary()
 
-    for urun_kodu in URUN_KONFIG:
-        print()
+    for crop in CROP_CONFIG:
+        print(f"\n{'─' * 60}")
         try:
-            sonuc = tahmin_al(urun_kodu, saha_ozeti=paylasilan_saha_ozeti)
+            r = predict(crop, field_summary=summary)
+            print(f"  Crop           : {r['crop']}")
+            print(f"  Architecture   : {r['architecture']}")
+            print(f"  Model File     : {r['model_used']}")
+            print(f"  Current NDVI   : {r['current_ndvi']:.4f}")
+            print(f"  Predicted NDVI : {r['predicted_ndvi']:.4f} (t+7)")
+            print(f"  Health         : {r['health']['status']} — "
+                  f"{r['health']['desc']}")
+            print(f"  Trend          : {r['trend']['trend']} "
+                  f"({r['trend']['delta']:+.4f}, "
+                  f"{r['trend']['pct_change']:+.1f}%)")
+            print(f"  Alert          : {r['trend']['alert']}")
+            print(f"  Action         : {r['health']['action']}")
+            print(f"  Data Source    : {r['data_source']}")
+            print(f"\n  LLM Context:")
+            for line in r["llm_context"].split("\n"):
+                print(f"    {line}")
+        except Exception as e:
+            logger.error("[%s] %s", crop, e)
 
-            print(f"  Ürün         : {sonuc['urun']}")
-            print(f"  NDVI         : {sonuc['tahmin_degeri']:.4f}")
-            print(f"  Yorum        : {sonuc['yorum']}")
-            print(f"  Veri kaynağı : {sonuc['veri_kaynagi']}")
-            print(f"  LLM Bağlamı  :\n    {sonuc['llm_baglami']}")
-
-        except (FileNotFoundError, ValueError) as hata:
-            logger.error("[%s] %s", urun_kodu, hata)
-
-    print()
-    print("─" * 60)
-    print("Tahmin modülü tamamlandı. Veriler RAG-LLM'e aktarılmaya hazır.")
+    print(f"\n{'=' * 60}")
+    print("  Inference complete. Ready for RAG-LLM (WP4).")
+    print(f"{'=' * 60}\n")

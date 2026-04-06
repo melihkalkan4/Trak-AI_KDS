@@ -1,0 +1,60 @@
+{
+  "Wheat": [
+    {
+      "model_name": "Attention-LSTM (Wheat)",
+      "best_val_loss": 0.007390401791781187,
+      "best_val_mae": 0.059231601655483246,
+      "epochs_run": 40,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_attention_lstm_wheat.keras"
+    },
+    {
+      "model_name": "Conv-LSTM (Wheat)",
+      "best_val_loss": 0.007052510976791382,
+      "best_val_mae": 0.0612541064620018,
+      "epochs_run": 43,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_convlstm_wheat.keras"
+    },
+    {
+      "model_name": "LSTM (Wheat)",
+      "best_val_loss": 0.006140801124274731,
+      "best_val_mae": 0.062101349234580994,
+      "epochs_run": 48,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_lstm_wheat.keras"
+    },
+    {
+      "model_name": "XGBoost (Wheat)",
+      "best_val_loss": 0.007401630856453567,
+      "best_val_mae": 0.06262552833004356,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_xgb_wheat.pkl"
+    }
+  ],
+  "Sunflower": [
+    {
+      "model_name": "Attention-LSTM (Sunflower)",
+      "best_val_loss": 0.007405848708003759,
+      "best_val_mae": 0.05944128707051277,
+      "epochs_run": 49,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_attention_lstm_sunflower.keras"
+    },
+    {
+      "model_name": "Conv-LSTM (Sunflower)",
+      "best_val_loss": 0.007841011509299278,
+      "best_val_mae": 0.059984032064676285,
+      "epochs_run": 35,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_convlstm_sunflower.keras"
+    },
+    {
+      "model_name": "LSTM (Sunflower)",
+      "best_val_loss": 0.007193226832896471,
+      "best_val_mae": 0.05893383175134659,
+      "epochs_run": 36,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_lstm_sunflower.keras"
+    },
+    {
+      "model_name": "XGBoost (Sunflower)",
+      "best_val_loss": 0.006634235428170733,
+      "best_val_mae": 0.06148976445605273,
+      "model_path": "C:\\Users\\Melih Kalkan\\Desktop\\Trak-AI_KDS\\src\\cp2_model\\model_xgb_sunflower.pkl"
+    }
+  ]
+}
