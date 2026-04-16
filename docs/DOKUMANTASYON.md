@@ -594,3 +594,395 @@ Karar Destek Sistemlerinde (KDS) çiftçinin sisteme olan güvenini (TAM/UTAUT) 
 
 ### 5. Sonraki Adım: Bilgi Tabanı ve Orketrasyon (ÇP-4)
 Sistemin sol beyni (Mantıksal Tahmin Motoru) tamamen otonom hale gelmiştir. Sıradaki aşama olan ÇP-4 kapsamında, elde edilen bu zengin "LLM Context" verisi; LangChain ve ChromaDB (Vektör Veritabanı) altyapısına kurulan RAG sistemine beslenecek, Ziraat Mühendisliği literatürüyle harmanlanıp çiftçi için doğal dilde otonom reçetelere dönüştürülecektir.
+# TRAK-AI KDS — Sürekli Proje Dokümantasyonu
+
+> **Proje:** Trakya Bölgesi için Otonom Akıllı Tarım Karar Destek Sistemi  
+> **Araştırmacı:** Melih Kalkan  
+> **Program:** TÜBİTAK 2209/A — Lisans Bitirme Tezi (2025/2026)  
+> **Uygulama Başlangıcı:** 3 Mart 2026  
+> **Hedef Teslim:** Haziran 2026  
+> **Son Güncelleme:** 8 Nisan 2026  
+
+---
+
+## İçindekiler
+
+1. [Proje Özeti ve Mimari](#1-proje-özeti-ve-mimari)
+2. [Çalışma Paketleri Özet Tablosu](#2-çalışma-paketleri-özet-tablosu)
+3. [Günlük Çalışma Kayıtları](#3-günlük-çalışma-kayıtları)
+4. [ÇP-1: ETL Veri Hattı — Detay ve Durum](#4-çp-1-etl-veri-hattı)
+5. [ÇP-2: Tahmin Modeli — Detay ve Durum](#5-çp-2-tahmin-modeli)
+6. [ÇP-3: Rover Donanımı ve Edge AI — Detay ve Durum](#6-çp-3-rover-donanımı-ve-edge-ai)
+7. [ÇP-4: Yerel RAG/LLM Entegrasyonu — Detay ve Durum](#7-çp-4-yerel-ragllm-entegrasyonu)
+8. [Hipotezler ve Metrikler Takip Tablosu](#8-hipotezler-ve-metrikler)
+9. [Teknik Kararlar ve Gerekçeler](#9-teknik-kararlar-ve-gerekçeler)
+10. [Açık Sorunlar ve Sonraki Adımlar](#10-açık-sorunlar-ve-sonraki-adımlar)
+
+---
+
+## 1. Proje Özeti ve Mimari
+
+TRAK-AI KDS, hassas tarımda "maliyet-doğruluk" çelişkisini üç katmanlı bir mimariyle çözmeyi hedeflemektedir:
+
+**Katman 1 — Makro Veri Füzyonu (Retrospektif Model):** Sentinel-2 uydu görüntüleri, ERA5 iklim yeniden analiz verileri ve SoilGrids dijital toprak haritalarından oluşan çok modlu veri matrisini ConvLSTM ve XGBoost/RF hibrit mimarisiyle birleştirerek "bugün bu tarlada beklenmesi gereken ideal toprak nemi ve fenolojik evre nedir?" sorusuna kantitatif yanıt üreten teorik referans motoru.
+
+**Katman 2 — Mikro Doğrulama (Otonom Rover + Edge AI):** Güneş enerjili, ESP32 tabanlı otonom IoT gezgini. SEN0193 kalibre toprak nemi sensörü ve ESP32-CAM üzerinde TFLite Micro ile çalışan YOLOv8-tiny modeli aracılığıyla teorik referansı sahada fiziksel olarak doğrulayan donanımsal katman.
+
+**Katman 3 — Karar Destek Arayüzü (Yerel RAG + LLM):** Tamamen offline çalışabilen, Ollama üzerinde koşan açık kaynaklı LLM (Llama-3-8B) ve FAISS vektör veritabanı ile Tri-RAG pipeline. Rover anomalisi tespit edildiğinde T.C. Tarım Bakanlığı rehberlerine dayalı, halüsinasyonsuz Türkçe mobil bildirim üreten karar katmanı.
+
+**Edge–Fog–Cloud Mimarisi:**
+- **Edge (Rover/ESP32):** Sensör okuma, TFLite çıkarım, MQTT veri paketleme. İnternet gerektirmez.
+- **Fog (Yerel Sunucu):** Ollama LLM, FAISS RAG, KDS kural motoru, prompt oluşturucu. İnternet gerektirmez.
+- **Cloud (Opsiyonel):** İnternet varsa veri senkronizasyonu ve uzaktan izleme. Sistem cloud olmadan da tam işlevsel.
+
+---
+
+## 2. Çalışma Paketleri Özet Tablosu
+
+| ÇP | Dönem | Hafta | Durum | Kritik Teslim |
+|----|-------|-------|-------|---------------|
+| ÇP-1: ETL Veri Hattı | 3–21 Mart 2026 | H1–H3 | ✅ Tamamlandı | Birleşik öznitelik matrisi (.parquet) |
+| ÇP-2: Tahmin Modeli | 22 Mart – 11 Nisan | H4–H6 | ✅ Tamamlandı | R² > 0.90 / RMSE < 3 puan |
+| ÇP-3: Rover + Edge AI | 12 Nisan – 2 Mayıs | H7–H9 | 🔄 Devam ediyor | İşlevsel Rover + Edge AI demo |
+| ÇP-4: Yerel RAG/LLM | 3–23 Mayıs | H10–H12 | 📋 Planlandı | Uçtan uca offline sistem |
+| Saha Testi + Tez | 24 Mayıs – 7 Haziran | H13–H14 | ⏳ Beklemede | Saha doğrulama raporu + tez |
+
+---
+
+## 3. Günlük Çalışma Kayıtları
+
+### 5 Nisan 2026 (Cumartesi) — H5/Hafta Sonu Çalışması
+
+**Konu:** Literatür taraması temelleri ve proje konumlandırması
+
+**Yapılanlar:**
+- TRAK-AI KDS projesinin literatürdeki konumlandırması tartışıldı
+- Projenin doldurmayı hedeflediği 6 temel literatür boşluğu (gap) belirlendi:
+  - Bulut-ağırlıklı KDS'lerin düşük bağlantılı çiftliklerde benimseme sorunu
+  - Makro tahmin ile mikro doğrulama arasındaki kopukluk
+  - Tarım robotları ile KDS entegrasyonunda standart eksikliği
+  - TinyML/Edge AI'da enerji-gecikme-bellek-karar etkisinin birlikte değerlendirilmemesi
+  - Çiftçi odaklı KDS'lerde anlaşılabilir açıklama eksikliği
+  - LLM halüsinasyon riski ve tarımsal doğruluk gerekliliği
+- H1–H10 hipotezleri formüle edildi (erişilebilirlik, maliyet/değer, yanlış alarm azaltma, güven/benimseme, entegrasyon maliyeti, gerçek zaman, verimlilik, saha uygunluğu, benimseme, anlaşılabilirlik)
+
+**Çıktılar:**
+- Hipotez-metrik eşleştirme tablosu
+- Literatür kümeleri (6 küme) tanımı
+
+---
+
+### 6 Nisan 2026 (Pazar) — Literatür Taraması Derinleştirme
+
+**Konu:** Kapsamlı literatür taraması ve kaynak tablosu oluşturma
+
+**Yapılanlar:**
+- ~75 adet hakemli kaynak (Q1/Q2 ağırlıklı) tarandı ve TRAK-AI modülleriyle ilişkilendirildi
+- Kaynaklar 6 tematik kümeye ayrıldı:
+  1. Uzaktan algılama + iklim/toprak füzyonu (Tablo 1–24)
+  2. Edge–Fog–Cloud mimarileri, IoRT veri mühendisliği (Tablo 25–33)
+  3. TinyML / Kuantizasyon / Benchmarking (Tablo 34–50)
+  4. Makro veri füzyonu ve tahmin (Tablo 34–47)
+  5. Edge AI ve mikro-doğrulama (Tablo 51–62)
+  6. LLM + RAG + XAI açıklanabilir karar desteği (Tablo 63–72)
+- Her kaynak için tezde kullanım alanı ve çekilecek metod/metrikler belirlendi
+- Mermaid diyagramları oluşturuldu (zaman çizgisi + modül-literatür ilişki haritası)
+
+**Çıktılar:**
+- `TRAKAI_KDS_İçin_Otonom_Robotik_ile_Yapay_Zekâ_Tabanlı_KDS_Entegrasyonu_Literatür_İncelemesi.pdf` (detaylı akademik analiz)
+- `TRAKAI_KDS_İçin_Otonom_Robotik_AI_Tabanlı_KDS_Entegrasyonu_Literatür_Taraması.pdf` (kaynak tablosu + Mermaid diyagramlar)
+
+**Önemli Kararlar:**
+- Tez bölüm eşlemesi belirlendi: Bölüm 1 (Trakya bağlamı) → Bölüm 2 (Literatür) → Bölüm 3 (Modelleme) → Bölüm 4 (Mimari) → Bölüm 5 (Deney) → Bölüm 6 (Kullanıcı çalışması) → Bölüm 7 (Tartışma)
+
+---
+
+### 7 Nisan 2026 (Pazartesi) — Metodoloji Yol Haritası Dokümanı
+
+**Konu:** Tam metodoloji ve teknik detay dokümanının hazırlanması
+
+**Yapılanlar:**
+- Projenin tüm teknik bileşenlerini kapsayan kapsamlı metodoloji dokümanı yazıldı
+- ETL katmanı detaylandırıldı: GEE API otomasyon betiği, Sentinel-2 bulut maskeleme, ERA5-Land değişken seti, SoilGrids REST API sorguları
+- Tahmin modeli mimarisi formalize edildi: ConvLSTM + XGBoost/RF hibrit yapı, pencere boyutu, Optuna hiperparametre optimizasyonu
+- Rover donanım mimarisi belgelendi: enerji sistemi (güneş paneli + TP4056 + LDO), ESP32 işlemci, SEN0193 polinom kalibrasyonu, Edge AI modülü (YOLOv8-tiny, Int8 kuantizasyon, TFLite Micro)
+- RAG/LLM arayüzü tasarlandı: Tri-RAG (Dense + Sparse + KG), LangChain, FAISS, bilgi tabanı yapısı
+- Uçtan uca senaryo örneği yazıldı (Rover anomali → LLM → Türkçe mobil bildirim)
+- Hafta hafta yol haritası (H1–H14) detaylandırıldı
+- Başarı kriterleri tablosu oluşturuldu
+
+**Çıktılar:**
+- `Trak-AI_KDS_Metodoloji_Yol_Haritasi.docx` — 8 bölümlük kapsamlı teknik doküman
+- Başarı kriterleri tablosu (6 metrik, hedef değerler, doğrulama yöntemleri)
+- Sistem Bileşenleri Özet Tablosu (5 katman × teknoloji yığını × çıktı)
+
+**Önemli Notlar:**
+- Hedef performans değerleri belirlendi: Nem R² > 0.90, BBCH doğruluk > 0.88, SEN0193 RMSE ≤ 1.02, Edge AI mAP > 0.85, yanlış pozitif < %10, uzman onayı ≥ 4/5
+
+---
+
+### 8 Nisan 2026 (Salı) — WP4 Detay Planlaması ve Mimari Tasarım
+
+**Konu:** ÇP-4 Tamamen Yerel (Offline) RAG Sistemi — Rover entegrasyonlu detaylı planlama
+
+**Yapılanlar:**
+- WP4'ün WP3 Rover ile entegrasyon mimarisi tasarlandı
+- Edge–Fog–Cloud üç katmanlı mimari diyagramı çizildi:
+  - Edge Katmanı (Rover/ESP32): SEN0193 → ESP32-CAM/TFLite → Anomali JSON → MQTT buffer
+  - Fog Katmanı (Yerel Sunucu): Bilgi tabanı → FAISS vektör DB → Ollama LLM + Tahmin modeli → Prompt oluşturucu → KDS kural motoru
+  - Çıktı Katmanı: Türkçe tavsiye + Mobil bildirim
+- Hafta hafta WP4 planı detaylandırıldı:
+
+**H10 — Bilgi Tabanı Hazırlığı ve Vektörizasyon:**
+- T.C. Tarım Bakanlığı rehberleri, BBCH referansları, zirai ilaç prospektüsleri toplanacak
+- RecursiveCharacterTextSplitter ile chunk'lama
+- Embedding modeli: `intfloat/multilingual-e5-small` (Türkçe uyumlu) veya `sentence-transformers/all-MiniLM-L6-v2`
+- FAISS indeks oluşturma (CPU'da bir kerelik işlem)
+- Teslim: Test sorguları ile doğru belge döndürme doğrulaması
+
+**H11 — Yerel LLM Kurulumu ve Tri-RAG Pipeline:**
+- Ollama ile `llama3:8b-instruct-q4_K_M` modeli yerel kurulum
+- LangChain Tri-RAG pipeline:
+  1. Dense retrieval — FAISS vektör araması
+  2. Sparse retrieval — BM25 anahtar kelime eşleştirmesi
+  3. Re-ranker birleştirme adımı
+- Prompt şablonu tasarımı: Rover JSON + ConvLSTM fark → tarla bağlamı → LLM
+- Teslim: Örnek anomali JSON'dan agronomik tutarlı Türkçe çıktı
+
+**H12 — Uçtan Uca Entegrasyon Testi:**
+- Tam zincir: ESP32 → Wi-Fi/MQTT → Mosquitto broker → Python orchestrator → Prompt → RAG/LLM → Türkçe bildirim
+- KDS kural motoru: anomali eşikleri (nem farkı > 10 puan, beklenmeyen hastalık) → LLM tetikleme
+- Tüm sistem internet olmadan test edilecek
+- Teslim: Rover saha taraması → 60sn içinde Türkçe bildirim (offline)
+
+**Teknik kısıtlar ve çözümler tartışıldı:**
+- Bilgisayarda GPU aktif değil, CPU kullanılıyor
+- Llama-3-8B Q4 → ~4.5 GB RAM, CPU-only modda 30–90sn yanıt süresi
+- Bu, KDS bildirimi için kabul edilebilir (Rover taraması zaten dakikalar sürüyor)
+- Alternatif: `phi3:mini` (3.8B, ~2 GB RAM) daha hızlı ama daha az yetenekli
+- Karar: Önce 8B ile başla, performansı ölç, gerekirse küçült
+
+**Başarı metrikleri belirlendi:**
+- RAG retrieval doğruluğu: ilk 3 chunk'ta doğru belge > 0.80
+- Uçtan uca gecikme: < 120sn (CPU-only)
+- Agronomik tutarlılık: kör uzman ≥ 4/5
+- Halüsinasyon oranı: RAG dışı bilgi içermeyen çıktı > 0.95
+
+**Çıktılar:**
+- WP4 Edge–Fog–Cloud mimari diyagramı (SVG)
+- WP4 detaylı haftalık plan (H10–H12)
+- Teknik karar gerekçesi (LLM model seçimi, embedding stratejisi)
+
+---
+
+## 4. ÇP-1: ETL Veri Hattı
+
+**Durum:** ✅ Tamamlandı (H1–H3, 3–21 Mart 2026)
+
+**Bileşenler:**
+
+| Veri Kaynağı | API / Yöntem | Çözünürlük | Çekilen Değişkenler |
+|---|---|---|---|
+| Sentinel-2 (ESA) | GEE Python API + eemont | 10m (VIS+NIR), 20m (RedEdge+SWIR) | NDVI, EVI, NDWI |
+| ERA5-Land (ECMWF) | cdsapi → CDS | ~9 km, günlük | T_max, T_min, T_çiy, yağış, radyasyon, ET |
+| SoilGrids 2.0 (ISRIC) | REST API | 250m, statik | kil, kum, silt, pH, SOC, CEC |
+
+**Teslim Edilen Çıktı:** Trakya pilot parselleri için 2017–2024 yılları arası boşluksuz, tarih/konum hizalı öznitelik matrisi (.parquet). GDD birikimi, büyüme hızı indeksi ve kümülatif NDVI eğrisi türetilmiş.
+
+---
+
+## 5. ÇP-2: Tahmin Modeli
+
+**Durum:** ✅ Tamamlandı (H4–H6, 22 Mart – 11 Nisan 2026)
+
+**Mimari:** ConvLSTM + XGBoost/RF hibrit. ConvLSTM uzamsal-zamansal özellik çıkarımı, XGBoost/RF güçlü sınıflandırma/regresyon.
+
+**Hedef Değişkenler:**
+- Tahmini Toprak Nemi (%): Kök bölgesi 0–30 cm
+- Fenolojik Evre (BBCH Skalası): Bitki büyüme evresi tahmini
+
+**Eğitim:** Google Colab Pro GPU, Optuna ile Bayesian hiperparametre araması.
+
+**Performans:**
+
+| Metrik | Hedef | Durum |
+|---|---|---|
+| Nem R² | > 0.90 | ✅ |
+| Nem RMSE | < 3 puan | ✅ |
+| BBCH Doğruluk | > 0.88 | ✅ |
+
+---
+
+## 6. ÇP-3: Rover Donanımı ve Edge AI
+
+**Durum:** 🔄 Devam ediyor (H7–H9, 12 Nisan – 2 Mayıs 2026)
+
+**Donanım Bileşenleri:**
+- İşlemci: ESP32 (çift çekirdek Xtensa LX6, dahili Wi-Fi/BT)
+- Sensör: DFRobot SEN0193 kapasitif toprak nemi
+- Kamera: ESP32-CAM modülü
+- Enerji: Esnek monokristal güneş paneli + TP4056 + LDO
+- İletişim: MQTT broker üzerinden, offline tampon desteği
+
+**Kalibrasyon:** Polinom regresyon (y = ax² + bx + c), SoilGrids kil/kum ağırlıklı. Hedef RMSE ≤ 1.02, R² ≥ 0.89.
+
+**Edge AI:** YOLOv8-tiny → Int8 kuantizasyon → .tflite → C-array → ESP32 flash. Hedef mAP@0.5 > 0.85.
+
+**Eğitim Veri Setleri:**
+- Buğday: GWHD 2021 (193K+ etiketli başak) + Kaggle patoloji setleri
+- Ayçiçeği: BARI destekli Mendeley/Kaggle BBCH ve hastalık setleri
+
+---
+
+## 7. ÇP-4: Yerel RAG/LLM Entegrasyonu
+
+**Durum:** 📋 Planlandı (H10–H12, 3–23 Mayıs 2026)
+
+**Felsefe:** Projenin "offline-first" ve "bulut bağımlılığını azaltma" iddiasının somutlaştığı paket. H1, H2, H8 hipotezleriyle doğrudan ilişkili. Hiçbir API anahtarı veya internet bağlantısı gerekmeden tam işlevsel KDS.
+
+**Mimari Kararlar:**
+
+| Bileşen | Seçim | Gerekçe |
+|---|---|---|
+| LLM Motoru | Ollama (yerel) | 0$ maliyet, offline çalışma, gizlilik |
+| LLM Modeli | Llama-3-8B-Instruct (Q4_K_M) | Türkçe yeteneği, 4.5GB RAM, kabul edilebilir kalite |
+| Embedding | intfloat/multilingual-e5-small | Türkçe desteği, CPU'da hızlı |
+| Vektör DB | FAISS | Yerel, hafif, GPU gerektirmez |
+| RAG Framework | LangChain | Tri-RAG desteği, modüler |
+| MQTT Broker | Mosquitto | Hafif, yerel, ESP32 uyumlu |
+| Yedek LLM | phi3:mini (3.8B) | CPU çok yavaşsa fallback |
+
+**Veri Akış Zinciri:**
+```
+ESP32 Rover
+  ├── SEN0193 → kalibre nem (%)
+  ├── ESP32-CAM → TFLite → {sınıf, güven, BBCH}
+  └── JSON paket → MQTT publish
+        ↓
+Mosquitto Broker (yerel Wi-Fi)
+        ↓
+Python Orchestrator
+  ├── ConvLSTM tahmin çıktısı al
+  ├── Rover ölçümü ile karşılaştır
+  ├── Fark > eşik? → Anomali!
+  │     ↓
+  │   Prompt oluşturucu
+  │     ├── Tarla bağlamı (koordinat, ürün, evre)
+  │     ├── Model tahmini vs Rover okuması
+  │     └── Anomali tipi ve şiddeti
+  │           ↓
+  │   Tri-RAG Pipeline
+  │     ├── Dense: FAISS semantik arama
+  │     ├── Sparse: BM25 anahtar kelime
+  │     └── Re-ranker birleştirme
+  │           ↓
+  │   Ollama LLM (Llama-3-8B Q4)
+  │     └── Türkçe tavsiye üretimi
+  │           ↓
+  │   Çiftçi mobil bildirimi
+  └── Fark < eşik? → Normal, log kaydet
+```
+
+**Bilgi Tabanı İçeriği:**
+- T.C. Tarım ve Orman Bakanlığı bölgesel yetiştirme rehberleri
+- Trakya bölgesi sulama ve gübreleme yönergeleri
+- Ruhsatlı zirai ilaç prospektüsleri ve dozaj tabloları
+- BBCH skalası referans belgeleri
+- Fenolojik evre geçiş kriterleri
+
+**Başarı Metrikleri:**
+
+| Metrik | Hedef | Doğrulama |
+|---|---|---|
+| RAG retrieval doğruluğu | İlk 3 chunk'ta > 0.80 | Test sorgu seti |
+| Uçtan uca gecikme | < 120sn (CPU-only) | Zamanlama ölçümü |
+| Agronomik tutarlılık | Uzman ≥ 4/5 | Kör uzman değerlendirmesi |
+| Halüsinasyon oranı | > 0.95 | RAG kaynak kontrolü |
+
+---
+
+## 8. Hipotezler ve Metrikler
+
+| # | Hipotez | Metrikler | İlgili ÇP | Durum |
+|---|---|---|---|---|
+| H1 | Bulutsuz çalışma modunda karar üretim gecikmesi daha iyi | Uyarı gecikmesi (ms), uptime (%), veri kaybı | ÇP-4 | 📋 |
+| H2 | Düşük maliyetli mimari UTAUT2 puanlarını artırır | UTAUT2 ölçekleri, niyet (BI) | ÇP-4 | 📋 |
+| H3 | Mikro doğrulama yanlış pozitif oranını düşürür | FP rate, precision/recall/F1 | ÇP-3 | 🔄 |
+| H4 | Mikro doğrulama + açıklama güveni artırır | PU/PEOU, güven maddeleri | ÇP-3+4 | 📋 |
+| H5 | Standart mesajlaşma entegrasyon süresini azaltır | Person-hour, MTBF, şema dönüşüm | ÇP-3 | 🔄 |
+| H6 | Streaming yaklaşımı çevrim süresini düşürür | End-to-end latency, mesaj kaybı | ÇP-3+4 | 📋 |
+| H7 | Kuantizasyon F1 korurken gecikme/enerji düşürür | Latency (ms), energy (mJ), RAM, F1 | ÇP-3 | 🔄 |
+| H8 | Edge çıkarım bağlantı kesintisinde çalışır | Offline başarı (%), kaçırılan olay (FN) | ÇP-3+4 | 📋 |
+| H9 | LLM+RAG açıklamaları PU ve BI'yi artırır | TAM/UTAUT ölçekleri | ÇP-4 | 📋 |
+| H10 | Açıklama katmanı yorumlama başarısını artırır | Doğru cevap (%), NASA-TLX | ÇP-4 | 📋 |
+
+---
+
+## 9. Teknik Kararlar ve Gerekçeler
+
+### 9.1 Neden Yerel (Offline) LLM?
+
+**Karar:** Bulut API (OpenAI/Anthropic) yerine Ollama üzerinde yerel Llama-3-8B.
+
+**Gerekçeler:**
+1. **Projenin temel iddiası:** Literatür taramasında (H1/H2) "bulut bağımlılığını azaltmak ve Edge AI kullanmak" hedefi açıkça belirtildi. Cloud API kullanmak bu iddiayı zayıflatır.
+2. **Maliyet:** Tamamen ücretsiz (0$). TÜBİTAK 2209/A bütçesi sınırlı.
+3. **Gizlilik:** Tarla verileri ve çiftçi bilgileri üçüncü taraf sunuculara gönderilmez.
+4. **Kırsal bağlantı:** Trakya'da tarla ortasında stabil internet garanti edilemez.
+5. **Bilimsel tutarlılık:** H1 hipotezi ("bulutsuz çalışma daha iyi") doğrudan test edilebilir.
+
+**Riskler ve Azaltma:**
+- CPU-only modda yavaş (30–90sn) → KDS bildirimi için kabul edilebilir; Rover taraması zaten dakikalar sürüyor
+- GPU aktif değil → Q4 kuantizasyon ile RAM kullanımı minimize edildi
+- Türkçe kalitesi sınırlı olabilir → Prompt mühendisliği + RAG ile bağlam sağlanarak telafi
+
+### 9.2 Neden Tri-RAG?
+
+**Karar:** Tek kanallı (sadece semantik) RAG yerine Tri-RAG (Dense + Sparse + KG/Re-rank).
+
+**Gerekçeler:**
+1. Tarımsal terminoloji çok spesifik: "Mildiyö" gibi hastalık adları semantik aramada kaybolabilir → BM25 sparse arama eklendi
+2. Hastalık → nem koşulu → evre → çözüm zinciri çok adımlı → KG/re-ranker birleştirme gerekli
+3. AgriGPT ve Tri-RAG yaklaşımı literatürde (Tablo 65, 67, 70) doğrudan destekleniyor
+
+### 9.3 Neden FAISS (ChromaDB/Pinecone değil)?
+
+**Karar:** FAISS tercih edildi.
+
+**Gerekçeler:**
+1. Tamamen yerel, dosya tabanlı → offline çalışır
+2. Sunucu gerektirmez (ChromaDB sunucu modunda çalışır)
+3. CPU üzerinde yeterli performans (bilgi tabanı birkaç yüz belge)
+4. Pinecone cloud-only → offline-first felsefesine aykırı
+
+---
+
+## 10. Açık Sorunlar ve Sonraki Adımlar
+
+### Açık Sorunlar
+
+| # | Sorun | Öncelik | Notlar |
+|---|---|---|---|
+| 1 | GPU bilgisayarda aktif değil | Orta | CPU-only LLM çıkarımı 30–90sn sürebilir |
+| 2 | Türkçe embedding model seçimi | Yüksek | multilingual-e5-small vs all-MiniLM karşılaştırması gerekli |
+| 3 | Bilgi tabanı PDF toplama | Yüksek | T.C. Tarım Bakanlığı rehberleri henüz sisteme yüklenmedi |
+| 4 | ESP32 ↔ MQTT ↔ Python entegrasyon testi | Yüksek | WP3 çıktısı WP4 girişi olacak |
+| 5 | Prompt şablonu optimizasyonu | Orta | Türkçe çıktı kalitesi prompt'a çok bağımlı |
+
+### Sonraki Adımlar (Kronolojik)
+
+1. **9–11 Nisan:** ÇP-3 Rover donanım montajı devam (SEN0193 kalibrasyon deneyleri)
+2. **12–18 Nisan:** Edge AI model eğitimi (YOLOv8-tiny GWHD + ayçiçeği)
+3. **19–25 Nisan:** Int8 kuantizasyon ve ESP32 flash yükleme
+4. **26 Nisan – 2 Mayıs:** Rover saha demonstrasyonu
+5. **3 Mayıs:** ÇP-4 başlangıç — Bilgi tabanı PDF toplama ve chunk'lama
+6. **5–9 Mayıs:** FAISS indeks oluşturma, embedding model karşılaştırması
+7. **10–16 Mayıs:** Ollama kurulumu, Tri-RAG pipeline, prompt şablonu
+8. **17–23 Mayıs:** Uçtan uca entegrasyon testi (Rover → RAG/LLM → bildirim)
+9. **24 Mayıs – 7 Haziran:** Pilot arazi deneyleri + tez yazımı
+
+---
+
+> **Not:** Bu doküman, projenin yaşayan bir kaydıdır. Her çalışma günü sonunda "Günlük Çalışma Kayıtları" bölümüne yeni giriş eklenmelidir. Teknik kararlar değiştiğinde Bölüm 9 güncellenmelidir.
+
+*TRAK-AI KDS • Lisans Bitirme Tezi • 2025/2026*
