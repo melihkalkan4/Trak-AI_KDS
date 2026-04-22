@@ -30,11 +30,11 @@ EMBEDDING_MODEL = "intfloat/multilingual-e5-small"
 # LLM (OLLAMA — yerel, offline)
 # ============================================================
 OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "llama3.1:8b-instruct-q4_K_M"
+OLLAMA_MODEL = "gemma3:4b"
 
 # Düşük temperature = daha az halüsinasyon
 LLM_TEMPERATURE = 0.1
-LLM_NUM_CTX = 4096  # context window (token)
+LLM_NUM_CTX = 2048  # context window (token)
 
 # ============================================================
 # CHUNK AYARLARI (PDF → parçalara bölme)
@@ -47,7 +47,7 @@ CHUNK_OVERLAP = 50      # parçalar arası örtüşme (bağlam kaybını önler)
 # ============================================================
 FAISS_TOP_K = 5         # Dense arama: kaç chunk getir
 BM25_TOP_K = 3          # Sparse arama: kaç chunk getir  
-FINAL_TOP_K = 3         # Son aşamada LLM'e kaç chunk gönder
+FINAL_TOP_K = 2         # Son aşamada LLM'e kaç chunk gönder
 
 # ============================================================
 # KDS ANOMALI EŞİKLERİ (Rover vs Model karşılaştırması)

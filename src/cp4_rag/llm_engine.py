@@ -104,8 +104,14 @@ def query_llm(prompt: str, system_prompt: str = None) -> dict:
             "model": OLLAMA_MODEL,
         }
     except Exception as e:
+        # Hata detayını göster
+        error_detail = str(e)
+        try:
+            error_detail = resp.text
+        except:
+            pass
         return {
-            "answer": f"[HATA] Beklenmeyen hata: {e}",
+            "answer": f"[HATA] {error_detail}",
             "duration_sec": 0,
             "tokens": 0,
             "model": OLLAMA_MODEL,
