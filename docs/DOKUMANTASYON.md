@@ -986,3 +986,597 @@ Python Orchestrator
 > **Not:** Bu doküman, projenin yaşayan bir kaydıdır. Her çalışma günü sonunda "Günlük Çalışma Kayıtları" bölümüne yeni giriş eklenmelidir. Teknik kararlar değiştiğinde Bölüm 9 güncellenmelidir.
 
 *TRAK-AI KDS • Lisans Bitirme Tezi • 2025/2026*
+# TRAK-AI KDS — Sürekli Proje Dokümantasyonu
+
+> **Proje:** Trakya Bölgesi için Otonom Akıllı Tarım Karar Destek Sistemi  
+> **Araştırmacı:** Melih Kalkan  
+> **Program:** TÜBİTAK 2209/A — Lisans Bitirme Tezi (2025/2026)  
+> **Uygulama Başlangıcı:** 3 Mart 2026  
+> **Hedef Teslim:** Haziran 2026  
+> **Son Güncelleme:** 11 Mayıs 2026  
+
+---
+
+## İçindekiler
+
+1. [Proje Özeti ve Mimari](#1-proje-özeti-ve-mimari)
+2. [Çalışma Paketleri Özet Tablosu](#2-çalışma-paketleri-özet-tablosu)
+3. [Günlük Çalışma Kayıtları](#3-günlük-çalışma-kayıtları)
+4. [ÇP-1: ETL Veri Hattı — Detay ve Durum](#4-çp-1-etl-veri-hattı)
+5. [ÇP-2: Tahmin Modeli — Detay ve Durum](#5-çp-2-tahmin-modeli)
+6. [ÇP-3: Rover Donanımı ve Edge AI — Detay ve Durum](#6-çp-3-rover-donanımı-ve-edge-ai)
+7. [ÇP-4: Yerel RAG/LLM Entegrasyonu — Detay ve Durum](#7-çp-4-yerel-ragllm-entegrasyonu)
+8. [Hipotezler ve Metrikler Takip Tablosu](#8-hipotezler-ve-metrikler)
+9. [Teknik Kararlar ve Gerekçeler](#9-teknik-kararlar-ve-gerekçeler)
+10. [Açık Sorunlar ve Sonraki Adımlar](#10-açık-sorunlar-ve-sonraki-adımlar)
+
+---
+
+## 1. Proje Özeti ve Mimari
+
+TRAK-AI KDS, hassas tarımda "maliyet-doğruluk" çelişkisini üç katmanlı bir mimariyle çözmeyi hedeflemektedir:
+
+**Katman 1 — Makro Veri Füzyonu (Retrospektif Model):** Sentinel-2 uydu görüntüleri, ERA5 iklim yeniden analiz verileri ve SoilGrids dijital toprak haritalarından oluşan çok modlu veri matrisini ConvLSTM ve XGBoost/RF hibrit mimarisiyle birleştirerek "bugün bu tarlada beklenmesi gereken ideal toprak nemi ve fenolojik evre nedir?" sorusuna kantitatif yanıt üreten teorik referans motoru.
+
+**Katman 2 — Mikro Doğrulama (Otonom Rover + Edge AI):** Güneş enerjili, ESP32 tabanlı otonom IoT gezgini. SEN0193 kalibre toprak nemi sensörü ve ESP32-CAM üzerinde TFLite Micro ile çalışan YOLOv8-tiny modeli aracılığıyla teorik referansı sahada fiziksel olarak doğrulayan donanımsal katman.
+
+**Katman 3 — Karar Destek Arayüzü (Yerel RAG + LLM):** Tamamen offline çalışabilen, Ollama üzerinde koşan açık kaynaklı LLM (Gemma-3-4B) ve FAISS vektör veritabanı ile Tri-RAG pipeline. Rover anomalisi tespit edildiğinde T.C. Tarım Bakanlığı rehberlerine dayalı, halüsinasyonsuz Türkçe mobil bildirim üreten karar katmanı.
+
+**Edge–Fog–Cloud Mimarisi:**
+- **Edge (Rover/ESP32):** Sensör okuma, TFLite çıkarım, MQTT veri paketleme. İnternet gerektirmez.
+- **Fog (Yerel Sunucu):** Ollama LLM, FAISS RAG, KDS kural motoru, prompt oluşturucu. İnternet gerektirmez.
+- **Cloud (Opsiyonel):** İnternet varsa veri senkronizasyonu ve uzaktan izleme. Sistem cloud olmadan da tam işlevsel.
+
+---
+
+## 2. Çalışma Paketleri Özet Tablosu
+
+| ÇP | Dönem | Hafta | Durum | Kritik Teslim |
+|----|-------|-------|-------|---------------|
+| ÇP-1: ETL Veri Hattı | 3–21 Mart 2026 | H1–H3 | ✅ Tamamlandı | Birleşik öznitelik matrisi (.parquet) |
+| ÇP-2: Tahmin Modeli | 22 Mart – 11 Nisan | H4–H6 | ✅ Tamamlandı | R² > 0.75 / MAE < 0.05 |
+| ÇP-3: Rover + Edge AI | 12 Nisan – 2 Mayıs | H7–H9 | 🔄 Firmware hazır, donanım sipariş edildi | Donanım montajı + Edge AI demo |
+| ÇP-4: Yerel RAG/LLM | 3–23 Mayıs | H10–H12 | ✅ Temel sistem çalışıyor | Uçtan uca offline sistem |
+| Saha Testi + Tez | 24 Mayıs – 7 Haziran | H13–H14 | ⏳ Beklemede | Saha doğrulama raporu + tez |
+
+---
+
+## 3. Günlük Çalışma Kayıtları
+
+### 5 Nisan 2026 (Cumartesi) — H5/Hafta Sonu Çalışması
+
+**Konu:** Literatür taraması temelleri ve proje konumlandırması
+
+**Yapılanlar:**
+- TRAK-AI KDS projesinin literatürdeki konumlandırması tartışıldı
+- Projenin doldurmayı hedeflediği 6 temel literatür boşluğu (gap) belirlendi:
+  - Bulut-ağırlıklı KDS'lerin düşük bağlantılı çiftliklerde benimseme sorunu
+  - Makro tahmin ile mikro doğrulama arasındaki kopukluk
+  - Tarım robotları ile KDS entegrasyonunda standart eksikliği
+  - TinyML/Edge AI'da enerji-gecikme-bellek-karar etkisinin birlikte değerlendirilmemesi
+  - Çiftçi odaklı KDS'lerde anlaşılabilir açıklama eksikliği
+  - LLM halüsinasyon riski ve tarımsal doğruluk gerekliliği
+- H1–H10 hipotezleri formüle edildi
+
+**Çıktılar:**
+- Hipotez-metrik eşleştirme tablosu
+- Literatür kümeleri (6 küme) tanımı
+
+---
+
+### 6 Nisan 2026 (Pazar) — Literatür Taraması Derinleştirme
+
+**Konu:** Kapsamlı literatür taraması ve kaynak tablosu oluşturma
+
+**Yapılanlar:**
+- ~75 adet hakemli kaynak (Q1/Q2 ağırlıklı) tarandı ve TRAK-AI modülleriyle ilişkilendirildi
+- Kaynaklar 6 tematik kümeye ayrıldı
+- Mermaid diyagramları oluşturuldu (zaman çizgisi + modül-literatür ilişki haritası)
+
+**Çıktılar:**
+- `TRAKAI_KDS_İçin_Otonom_Robotik_ile_Yapay_Zekâ_Tabanlı_KDS_Entegrasyonu_Literatür_İncelemesi.pdf`
+- `TRAKAI_KDS_İçin_Otonom_Robotik_AI_Tabanlı_KDS_Entegrasyonu_Literatür_Taraması.pdf`
+
+---
+
+### 7 Nisan 2026 (Pazartesi) — Metodoloji Yol Haritası Dokümanı
+
+**Konu:** Tam metodoloji ve teknik detay dokümanının hazırlanması
+
+**Yapılanlar:**
+- 8 bölümlük kapsamlı metodoloji dokümanı yazıldı
+- Başarı kriterleri tablosu oluşturuldu
+- Hafta hafta yol haritası (H1–H14) detaylandırıldı
+
+**Çıktılar:**
+- `Trak-AI_KDS_Metodoloji_Yol_Haritasi.docx`
+
+---
+
+### 8 Nisan 2026 (Salı) — WP4 Detay Planlaması ve Mimari Tasarım
+
+**Konu:** ÇP-4 Tamamen Yerel (Offline) RAG Sistemi — Rover entegrasyonlu detaylı planlama
+
+**Yapılanlar:**
+- Edge–Fog–Cloud üç katmanlı mimari diyagramı çizildi
+- Hafta hafta WP4 planı detaylandırıldı (H10–H12)
+- RAG bilgi tabanı kaynak araştırması: 35 kaynak, 7 kategori, 7+ ülke
+- ChatGPT Deep Research ile ek kaynak taraması yapıldı
+- RAG kaynak listesi Word dokümanı oluşturuldu
+
+**Çıktılar:**
+- WP4 Edge–Fog–Cloud mimari diyagramı (SVG)
+- `TRAK_AI_RAG_Birlesik_Kaynaklar_v2.docx` — 35 kaynaklı bilgi tabanı planı
+
+---
+
+### 16 Nisan 2026 (Çarşamba) — WP4 Haftalık Rapor
+
+**Konu:** Haftalık ilerleme raporu hazırlanması
+
+**Yapılanlar:**
+- Haftalık rapor taslağa uygun şekilde hazırlandı
+- Kullanılan araçlar, tamamlanan işler, sorunlar ve çözümler belgelendi
+
+**Çıktılar:**
+- `Melih_Kalkan_16_04_2026.docx` — haftalık rapor
+
+---
+
+### 22–26 Nisan 2026 (Salı–Cumartesi) — WP4 Kodlama ve Entegrasyon
+
+**Konu:** ÇP-4 RAG/LLM sisteminin sıfırdan kodlanması, ÇP-2 entegrasyonu ve demo
+
+**Yapılanlar:**
+
+**Gün 1 — Proje yapısı ve temel modüller:**
+- `src/cp4_rag/` klasör yapısı oluşturuldu (docs/, faiss_index/, 5 alt kategori)
+- `config.py` yazıldı: tüm ayarlar tek dosyada (model, chunk boyutu, eşikler, prompt)
+- `pdf_loader.py` yazıldı: PyMuPDF ile PDF okuma, RecursiveCharacterTextSplitter ile chunk'lama
+- `build_index.py` yazıldı: HuggingFace embedding + FAISS indeks oluşturma/yükleme
+- `retriever.py` yazıldı: Tri-RAG (Dense FAISS + Sparse BM25 + Re-rank birleştirme)
+- `llm_engine.py` yazıldı: Ollama API entegrasyonu, bağlantı kontrolü, hata yönetimi
+- `main_rag.py` yazıldı: CLI arayüzü (build, query, test, rover, info komutları)
+
+**Gün 2 — Paket kurulumu ve LLM deployment:**
+- Python paketleri kuruldu: langchain, faiss-cpu, sentence-transformers, pymupdf, rank-bm25
+- Ollama v0.20.7 Windows'a kuruldu
+- Llama-3.1-8B-Instruct (Q4_K_M, 4.9 GB) modeli indirildi
+- İlk test: BBCH Monograph PDF → 357 chunk → FAISS → sorgu → LLM yanıtı (100.7 sn, 272 token)
+- LangChain v2 import hataları çözüldü (langchain.schema → langchain_core.documents, langchain.text_splitter → langchain_text_splitters)
+- Ollama PATH sorunu çözüldü (VS Code terminal yeniden başlatma)
+
+**Gün 3 — Bilgi tabanı genişletme ve model optimizasyonu:**
+- `download_sources.py` yazıldı: 13 PDF kaynağı otomatik indiren script
+- 53 PDF bilgi tabanına yüklendi (BBCH, TR Bakanlık, FAO, ABD, hastalık kategorileri)
+- 14,866 chunk oluşturuldu ve FAISS'e yazıldı
+- RAM sorunu tespit edildi: 16 GB RAM'de Llama-3.1-8B (4.9 GB) + FAISS + Embedding sığmadı
+- phi3:mini denendi → Türkçe çıktı kalitesi çok düşük (anlamsız tekrarlar, halüsinasyon)
+- Gemma-3-4B (Google) modeline geçildi → Türkçe çıktı kalitesi dramatik şekilde iyileşti
+- Çiftçi dili prompt şablonu yazıldı ("Köy kahvesinde anlatır gibi yaz" prensibi)
+
+**Gün 4 — ÇP-2 entegrasyonu ve demo:**
+- `demo.py` yazıldı: ÇP-2 + ÇP-4 entegre çalışma
+- ÇP-2 `inference_cp2.py`'nin `predict()` fonksiyonu doğrudan çağrılıyor
+- Gerçek model çalışıyor: Buğday Conv-LSTM, Ayçiçeği LSTM
+- Rover mock verisi ile anomali tespiti: NDVI sapması, düşük nem, hastalık tespiti
+- TensorFlow bellek yönetimi: tahmin sonrası `gc.collect()` ile RAM temizleme
+- İnteraktif chatbot modu eklendi:
+  - "durum" komutu: LLM tarla verilerini doğal dilde anlatıyor
+  - "analiz" komutu: anomali tespiti + RAG kaynaklardan tavsiye üretimi
+  - Serbest soru: tarla bağlamı + RAG belgesi birleşik yanıt
+
+**Test Sonuçları:**
+- Otomatik analiz: Buğday normal, Ayçiçeği 3 anomali tespit (NDVI sapması, düşük nem, mildiyö)
+- LLM çıktı örneği: "DİKKAT: Tarlanızdaki toprak nemi çok düşük, sadece %11! Yarın sabah mutlaka sulama yapın. 2 parmak su verin..."
+- Yanıt süresi: 27.1 sn (Gemma-3-4B, CPU-only, 301 token)
+- ÇP-2 gerçek model: Buğday NDVI 0.4675→0.4413, Ayçiçeği NDVI 0.4895→0.4904
+
+**Çıktılar:**
+- `config.py` — tüm ayarlar + çiftçi dili system prompt
+- `pdf_loader.py` — PDF okuma ve chunk'lama
+- `build_index.py` — FAISS indeks oluşturma/yükleme
+- `retriever.py` — Tri-RAG retriever
+- `llm_engine.py` — Ollama LLM entegrasyonu
+- `main_rag.py` — CLI arayüzü
+- `demo.py` — ÇP-2 + ÇP-4 entegre demo (chatbot dahil)
+- `download_sources.py` — otomatik PDF indirici
+- FAISS indeksi: 14,866 vektör, 53 belge, 5 kategori
+
+**Teknik Kararlar:**
+- Llama-3.1-8B → RAM yetersizliği nedeniyle Gemma-3-4B'ye geçildi (16 GB RAM kısıtı)
+- phi3:mini Türkçe'de başarısız → Gemma-3 çok dilli desteği çok daha güçlü
+- FINAL_TOP_K 3→2'ye düşürüldü, LLM_NUM_CTX 4096→2048'e düşürüldü (RAM optimizasyonu)
+- TensorFlow tahmin sonrası bellekten temizleniyor (Ollama'ya yer açmak için)
+
+---
+
+### 2 Mayıs 2026 (Cumartesi) — ÇP-3 Rover Donanım Siparişleri ve Geliştirme Ortamı Kurulumu
+
+**Konu:** Rover fiziksel bileşenlerinin temin edilmesi ve WP3 yazılım altyapısının kurulması
+
+**Yapılanlar:**
+
+**Donanım Siparişleri (~3.440 TL toplam):**
+- 4WD Mobil Arazi Robot Platformu / mavi (Robotzade) — 496,80 TL
+- ESP32 WROOM-32 Type-C (Robotzade) — 287,04 TL
+- DHT22 Sıcaklık ve Nem Sensörü × 2 (Robotzade) — 331,20 TL
+- HC-SR04 Ultrasonik Sensör × 2 (Robotzade) — 88,32 TL
+- TP4056 Type-C Lityum Şarj Modülü × 2 (Robotzade) — 22,08 TL
+- Mini Ayarlanabilir LM2596 Buck Dönüştürücü (Robotzade) — 35,88 TL
+- 40 Pin Jumper Kablo (Robotzade) — 38,64 TL
+- GY-NEO6MV2 GPS Modülü (Robotistan) — 207,41 TL
+- 2'li Breadboard BB2T4D (Robotistan) — 384,65 TL
+- 18650 Pil Yuvası 2'li (Robotistan) — 29,63 TL
+- Güneş Paneli 6V 230mA (Robotistan) — 219,48 TL
+- Supex 18650 3.7V 2500mAh Pil × 2 (Robotistan) — 445,55 TL
+- LM2596S-12 Buck Entegresi (Robotistan) — 35,12 TL
+- ESP32-CAM WiFi + OV2640 (TLS Robotik) — 598,26 TL
+- L298N Voltaj Regulatörlü Motor Sürücü Kırmızı PCB (TLS Robotik) — 87,53 TL
+- CH340G RS232 USB-TTL Dönüştürücü (TLS Robotik) — 78,50 TL
+- Kapasitif Toprak Nemi Sensörü × 1 (Direnc.net) — 54,00 TL
+
+**Teknik Kararlar:**
+- Arduino ve Raspberry Pi kullanılmadı — ESP32 tek başına tüm işlevleri karşılıyor (motor kontrol + Wi-Fi + MQTT + GPS + sensör)
+- HC-SR04: iki farklı versiyon sipariş edildi, birini iptal etmek gerekiyor
+- LM2596 SMD entegre (Robotistan): lehim gerektiriyor, Robotzade hazır modülü önce kullanılacak
+- GPS bağlantısı: telefon hotspot üzerinden (tarlada sabit internet yok)
+- Kapasitif toprak nemi: SEN0193 stokta yok, eşdeğer kapasitif muadil kullanılıyor
+
+**Geliştirme Ortamı Kurulumu:**
+- PlatformIO IDE eklentisi (VS Code) kuruldu
+- Python 3.13.2 kuruldu; numpy / scipy / matplotlib eklendi (kalibrasyon scripti için)
+- Mosquitto MQTT broker 2.1.2 kuruldu ve PATH'e eklendi
+- MQTT broker testi başarılı: `mosquitto_pub` → `mosquitto_sub` mesaj iletimi doğrulandı
+
+**WP3 Yazılım Altyapısı Oluşturuldu:**
+
+Kod yapısı:
+```
+src/cp3_edge/
+├── trak_ai_rover/          ← ESP32 ana firmware (PlatformIO)
+│   ├── platformio.ini      ← lib_deps: PubSubClient, DHT, TinyGPSPlus, ArduinoJson
+│   └── src/
+│       ├── config.h        ← Pin tanımları, WiFi/MQTT ayarları, kalibrasyon katsayıları
+│       └── main.cpp        ← Motor kontrol, sensör okuma, GPS waypoint, MQTT yayın
+├── esp32_cam/              ← ESP32-CAM firmware
+│   ├── platformio.ini
+│   └── src/
+│       └── main.cpp        ← Kamera başlatma, mock inference, UART JSON çıkışı
+└── calibration/
+    └── kalibrasyon.py      ← SEN0193 polinom kalibrasyon scripti
+```
+
+Firmware özellikleri:
+- `config.h`: tüm pin sabitleri (SEN0193 × 2, DHT22, HC-SR04 × 2, L298N motor pinleri, GPS UART2, CAM UART1), MQTT broker IP, kalibrasyon katsayıları (CAL_A/B/C), zamanlama sabitleri
+- `trak_ai_rover/main.cpp`: `adcToNem()` polinom kalibrasyon, `mesafeOlc()` ultrasonik, motor kontrol (ileri/geri/sol/sağ), `haversineMetre()` GPS navigasyon, 6 waypoint zikzak tarama, `camVerisiOku()` UART JSON ayrıştırma, `mqttYayinla()` 13 alanlı JSON paketi
+- `esp32_cam/main.cpp`: AI Thinker pin map, 10 sınıflı BBCH etiket dizisi, kamera başlatma (QVGA/JPEG), mock inference (gerçek YOLOv8 TFLite model gelince güncellenecek), UART JSON çıkışı
+
+**Derleme Testleri:**
+- `trak_ai_rover`: ✅ SUCCESS — RAM: %13.9, Flash: %59.6
+- `esp32_cam`: ✅ SUCCESS — RAM: %8.0, Flash: %11.2 (2 deprecation uyarısı — işlevselliği etkilemez)
+
+**MQTT Broker IP:** 192.168.1.102 (config.h'a yazıldı, donanımlar gelince ESP32'ye yüklenecek)
+
+**Çıktılar:**
+- `src/cp3_edge/trak_ai_rover/src/config.h`
+- `src/cp3_edge/trak_ai_rover/src/main.cpp`
+- `src/cp3_edge/esp32_cam/src/main.cpp`
+- `src/cp3_edge/calibration/kalibrasyon.py`
+
+---
+
+## 4. ÇP-1: ETL Veri Hattı
+
+**Durum:** ✅ Tamamlandı (H1–H3, 3–21 Mart 2026)
+
+**Bileşenler:**
+
+| Veri Kaynağı | API / Yöntem | Çözünürlük | Çekilen Değişkenler |
+|---|---|---|---|
+| Sentinel-2 (ESA) | GEE Python API + eemont | 10m (VIS+NIR), 20m (RedEdge+SWIR) | NDVI, EVI, NDWI |
+| ERA5-Land (ECMWF) | cdsapi → CDS | ~9 km, günlük | T_max, T_min, T_çiy, yağış, radyasyon, ET |
+| SoilGrids 2.0 (ISRIC) | REST API / GEE Assets | 250m, statik | kil, kum, silt, pH, SOC, CEC |
+
+**Teslim Edilen Çıktı:** Trakya pilot parselleri için 2017–2024 yılları arası boşluksuz, tarih/konum hizalı öznitelik matrisi. 17 mühendislik özniteliği (GDD, kümülatif GDD, kuraklık indeksi, NDVI trend, sıcaklık amplitüdü, çiy noktası depresyonu, döngüsel zaman kodlaması).
+
+---
+
+## 5. ÇP-2: Tahmin Modeli
+
+**Durum:** ✅ Tamamlandı (H4–H6, 22 Mart – 11 Nisan 2026)
+
+**Mimari:** 4 model yarıştırıldı: LSTM, Conv-LSTM, Attention-LSTM, XGBoost. Residual Delta yaklaşımı (t+7 tahmin ufku, otokorelasyon tuzağından kaçınma).
+
+**Şampiyon Modeller:**
+- Buğday: Conv-LSTM (R² = 0.7151, MAE = 0.0445) — canlı sistemde yapısal avantaj
+- Ayçiçeği: LSTM (R² = 0.7957, MAE = 0.0409) — en yüksek doğruluk
+
+**Özellik Mühendisliği:** 17 özellik (iklimsel, agronomik, spektral, zamansal). 30 günlük pencere, t+7 tahmin ufku.
+
+**XAI Entegrasyonu:** XGBoost üzerinde SHAP analizi — hangi değişkenin tahmini ne yönde etkilediği şeffaf.
+
+**Çıkarım Modülü:** `inference_cp2.py` — hibrit model seçimi, sağlık sınıflandırması, trend analizi, LLM bağlam üretimi.
+
+---
+
+## 6. ÇP-3: Rover Donanımı ve Edge AI
+
+**Durum:** 🔄 Firmware hazır / Donanım sipariş edildi (H7–H9, 12 Nisan – 2 Mayıs 2026)
+
+**Donanım Bileşenleri (Sipariş Edildi):**
+- İşlemci: ESP32 WROOM-32 (çift çekirdek Xtensa LX6, dahili Wi-Fi/BT)
+- Sensör: Kapasitif toprak nemi × 1 + DHT22 sıcaklık/nem × 2
+- Mesafe: HC-SR04 ultrasonik × 2 (ön + arka engel tespiti)
+- Kamera: ESP32-CAM (AI Thinker, OV2640)
+- Motor: 4WD robot şasisi + L298N motor sürücü
+- Navigasyon: GY-NEO6MV2 GPS modülü
+- Enerji: Güneş paneli 6V 230mA + TP4056 şarj + 18650 × 2 (2500mAh)
+- İletişim: MQTT (Mosquitto 2.1.2 broker, Fog sunucusunda)
+
+**Firmware Mimarisi:**
+
+| Modül | Dosya | İşlev |
+|---|---|---|
+| Ana Rover | `trak_ai_rover/src/main.cpp` | Motor kontrol, sensör okuma, GPS waypoint navigasyon, MQTT yayın |
+| Yapılandırma | `trak_ai_rover/src/config.h` | Pin tanımları, WiFi/MQTT ayarları, kalibrasyon katsayıları |
+| Kamera/AI | `esp32_cam/src/main.cpp` | Kamera başlatma, BBCH sınıflandırma (mock → TFLite), UART JSON |
+| Kalibrasyon | `calibration/kalibrasyon.py` | SEN0193 ADC → nem% polinom regresyon, RMSE/R² analizi |
+
+**MQTT Yük Formatı (13 alan):**
+```json
+{
+  "timestamp": 12345, "gps_lat": 41.694, "gps_lon": 27.105, "gps_valid": true,
+  "nem_1_pct": 34.2, "nem_2_pct": 31.8, "hava_temp_c": 22.1, "hava_nem_pct": 58.0,
+  "engel_on_cm": 120, "engel_arka_cm": 999, "bbch_sinif": "BBCH_30_39",
+  "bbch_guven": 0.82, "waypoint_id": 2, "rover_id": "trak-ai-rover-01"
+}
+```
+
+**Waypoint Navigasyon:** 6 noktalı zikzak tarama (Haversine mesafe hesabı), engel < 30 cm → geri + sola dön kaçınma manevrası.
+
+**Kalibrasyon:** `adcToNem(adc) = CAL_A × adc² + CAL_B × adc + CAL_C`. Hedef RMSE ≤ 1.02, R² ≥ 0.89. Sensör gelince gerçek ölçüm noktalarıyla güncellenecek.
+
+**Edge AI (Sonraki Adım):** YOLOv8-tiny → Int8 kuantizasyon → .tflite → C-array → ESP32 flash. Şu an mock inference çalışıyor (10 sınıf: BBCH evreler + Sağlıklı + Hastalıklı). Hedef mAP@0.5 > 0.85.
+
+**Derleme Durumu:**
+
+| Proje | RAM | Flash | Durum |
+|---|---|---|---|
+| trak_ai_rover | %13.9 | %59.6 | ✅ SUCCESS |
+| esp32_cam | %8.0 | %11.2 | ✅ SUCCESS |
+
+---
+
+## 7. ÇP-4: Yerel RAG/LLM Entegrasyonu
+
+**Durum:** ✅ Temel sistem çalışıyor, ÇP-2 entegrasyonu tamamlandı (22–26 Nisan 2026)
+
+**Felsefe:** Projenin "offline-first" ve "bulut bağımlılığını azaltma" iddiasının somutlaştığı paket.
+
+**Mimari Kararlar (Güncellenmiş):**
+
+| Bileşen | İlk Plan | Nihai Seçim | Değişiklik Gerekçesi |
+|---|---|---|---|
+| LLM Modeli | Llama-3.1-8B Q4 | Gemma-3-4B | 16 GB RAM'e sığmadı |
+| Denenen alternatif | — | phi3:mini | Türkçe kalitesi çok düşük, iptal |
+| Embedding | multilingual-e5-small | multilingual-e5-small | Değişmedi |
+| Vektör DB | FAISS | FAISS | Değişmedi |
+| FINAL_TOP_K | 3 | 2 | RAM optimizasyonu |
+| LLM_NUM_CTX | 4096 | 2048 | RAM optimizasyonu |
+
+**Bilgi Tabanı İstatistikleri:**
+- Toplam PDF: 53 belge
+- Toplam chunk: 14,866
+- Kategori dağılımı: ABD 3,335 | FAO 3,766 | Hastalık 3,256 | TR Bakanlık 3,015 | BBCH 1,494
+- Embedding modeli: intfloat/multilingual-e5-small (384 boyut)
+
+**ÇP-2 Entegrasyonu:**
+- `inference_cp2.py`'nin `predict("Wheat")` ve `predict("Sunflower")` doğrudan çağrılıyor
+- Gerçek model çıktıları RAG prompt'una enjekte ediliyor
+- TensorFlow tahmin sonrası bellekten temizleniyor (Ollama RAM paylaşımı)
+
+**Demo Modları:**
+- Otomatik tarla analizi (anomali tespiti + LLM tavsiye)
+- "durum" komutu: doğal dilde tarla özeti
+- "analiz" komutu: anomali + RAG tavsiye
+- Serbest soru: tarla bağlamı + RAG birleşik yanıt
+
+**Performans Metrikleri (Ölçülen):**
+
+| Metrik | Hedef | Ölçülen | Durum |
+|---|---|---|---|
+| Uçtan uca gecikme | < 120sn | 27.1sn (Gemma-3-4B) | ✅ |
+| Token üretimi | — | 301 token/sorgu | ✅ |
+| Bilgi tabanı boyutu | — | 14,866 vektör | ✅ |
+| Çiftçi dili uyumu | Uzman ≥ 4/5 | Beklemede | ⏳ |
+| Halüsinasyon oranı | > 0.95 | Beklemede | ⏳ |
+
+---
+
+## 8. Hipotezler ve Metrikler
+
+| # | Hipotez | Metrikler | İlgili ÇP | Durum |
+|---|---|---|---|---|
+| H1 | Bulutsuz çalışma modunda karar üretim gecikmesi daha iyi | Uyarı gecikmesi (ms), uptime (%), veri kaybı | ÇP-4 | ✅ Doğrulandı (27sn offline) |
+| H2 | Düşük maliyetli mimari UTAUT2 puanlarını artırır | UTAUT2 ölçekleri, niyet (BI) | ÇP-4 | 📋 |
+| H3 | Mikro doğrulama yanlış pozitif oranını düşürür | FP rate, precision/recall/F1 | ÇP-3 | 🔄 |
+| H4 | Mikro doğrulama + açıklama güveni artırır | PU/PEOU, güven maddeleri | ÇP-3+4 | 📋 |
+| H5 | Standart mesajlaşma entegrasyon süresini azaltır | Person-hour, MTBF, şema dönüşüm | ÇP-3 | 🔄 |
+| H6 | Streaming yaklaşımı çevrim süresini düşürür | End-to-end latency, mesaj kaybı | ÇP-3+4 | 📋 |
+| H7 | Kuantizasyon F1 korurken gecikme/enerji düşürür | Latency (ms), energy (mJ), RAM, F1 | ÇP-3 | 🔄 |
+| H8 | Edge çıkarım bağlantı kesintisinde çalışır | Offline başarı (%), kaçırılan olay (FN) | ÇP-3+4 | ✅ Demo'da doğrulandı |
+| H9 | LLM+RAG açıklamaları PU ve BI'yi artırır | TAM/UTAUT ölçekleri | ÇP-4 | 📋 |
+| H10 | Açıklama katmanı yorumlama başarısını artırır | Doğru cevap (%), NASA-TLX | ÇP-4 | 📋 |
+
+---
+
+## 9. Teknik Kararlar ve Gerekçeler
+
+### 9.1 Neden Yerel (Offline) LLM?
+
+**Karar:** Bulut API yerine Ollama üzerinde yerel LLM.
+
+**Gerekçeler:**
+1. Projenin temel iddiası: "bulut bağımlılığını azaltmak"
+2. Maliyet: Tamamen ücretsiz (0$)
+3. Gizlilik: Tarla verileri üçüncü taraf sunuculara gönderilmez
+4. Kırsal bağlantı: Trakya'da tarla ortasında stabil internet garanti edilemez
+5. Bilimsel tutarlılık: H1 hipotezi doğrudan test edilebilir
+
+### 9.2 Neden Gemma-3-4B (Llama-3.1-8B veya phi3:mini değil)?
+
+**Karar:** Üç model denendi, Gemma-3-4B seçildi.
+
+**Deneme süreci:**
+1. Llama-3.1-8B Q4 (4.9 GB) → RAM yetersizliği: TensorFlow + FAISS + Embedding + LLM 16 GB'a sığmadı
+2. phi3:mini (2.3 GB) → RAM'e sığdı ama Türkçe çıktı kalitesi çok düşük: anlamsız tekrarlar, halüsinasyon, mekanik dil
+3. Gemma-3-4B (3.3 GB) → RAM'e sığdı VE Türkçe çıktı kalitesi çok iyi: doğal dil, çiftçi diline uyum, somut tavsiyeler
+
+### 9.3 Neden Tri-RAG?
+
+**Karar:** Dense + Sparse + Re-rank birleştirme.
+
+**Gerekçeler:**
+1. "Mildiyö" gibi özel terimler semantik aramada kaybolabiliyor → BM25 eklendi
+2. Her iki yöntemde de bulunan chunk'lara bonus skor → isabetlilik arttı
+3. Literatürde Tri-RAG yaklaşımı destekleniyor
+
+### 9.4 Neden FAISS?
+
+**Gerekçeler:**
+1. Tamamen yerel, dosya tabanlı → offline çalışır
+2. Sunucu gerektirmez
+3. 14,866 vektör için CPU performansı yeterli
+4. Pinecone cloud-only → offline-first felsefesine aykırı
+
+### 9.5 TensorFlow Bellek Yönetimi
+
+**Sorun:** TensorFlow + FAISS + Embedding + Ollama aynı anda 16 GB RAM'e sığmadı.
+
+**Çözüm:** ÇP-2 tahminleri tamamlandıktan sonra TensorFlow `gc.collect()` ile bellekten temizleniyor. FAISS indeksi yüklenirken embedding modeli bir kez yükleniyor. LLM_NUM_CTX 2048'e, FINAL_TOP_K 2'ye düşürüldü.
+
+---
+
+## 10. Açık Sorunlar ve Sonraki Adımlar
+
+**Güncelleme:** 11 Mayıs 2026
+
+### Açık Sorunlar
+
+| # | Sorun | Öncelik | Notlar |
+|---|---|---|---|
+| 1 | RAM 16 GB — eş zamanlı TF+LLM sığmıyor | Çözüldü | gc.collect() ile sıralı yükleme |
+| 2 | phi3:mini Türkçe kalitesi yetersiz | Çözüldü | Gemma-3-4B'ye geçildi |
+| 3 | LangChain v2 import hataları | Çözüldü | langchain_core, langchain_text_splitters |
+| 4 | HC-SR04 çift versiyon sipariş | Yüksek | Birini iptal et (Robotzade 88,32 TL'lik kalacak) |
+| 5 | LM2596 SMD entegre lehim gerektiriyor | Orta | Robotzade hazır modülü önce kullanılacak |
+| 6 | config.h WiFi/hotspot bilgisi boş | Yüksek | Donanım gelince telefon hotspot adı/şifresi eklenecek |
+| 7 | ESP32 ↔ MQTT ↔ Python entegrasyon testi | Yüksek | Donanımlar gelince gerçek test yapılacak |
+| 8 | YOLOv8-tiny model eğitimi | Yüksek | Google Colab'da GWHD + ayçiçeği setleriyle başlatılacak |
+| 9 | Agronomik tutarlılık uzman değerlendirmesi | Orta | Kör uzman testi henüz yapılmadı |
+| 10 | Halüsinasyon oranı ölçümü | Orta | RAG kaynak kontrolü testi yapılacak |
+
+### Sonraki Adımlar (Kronolojik)
+
+1. **Donanım montajı:** Şasi + motor + L298N + breadboard kurulumu; ESP32 firmware upload; motor/sensör/MQTT testi
+2. **SEN0193 kalibrasyonu:** Kuru/ıslak sınır değerleri ölçümü → `config.h` CAL_A/B/C güncelle
+3. **YOLOv8-tiny eğitimi:** Google Colab'da GWHD 2021 + ayçiçeği BBCH setleri; Int8 kuantizasyon; ESP32-CAM flash
+4. **Gerçek entegrasyon:** Rover MQTT → Python orchestrator → RAG/LLM (mock'tan gerçeğe geçiş)
+5. **Uçtan uca test:** Rover saha taraması → Anomali tespiti → RAG/LLM → Türkçe bildirim (< 120sn hedef)
+6. **Pilot arazi deneyleri + tez yazımı:** Mayıs sonu – Haziran 2026
+
+---
+
+> **Not:** Bu doküman, projenin yaşayan bir kaydıdır. Her çalışma günü sonunda "Günlük Çalışma Kayıtları" bölümüne yeni giriş eklenmelidir. Teknik kararlar değiştiğinde Bölüm 9 güncellenmelidir.
+
+---
+
+### 11 Mayıs 2026 — MQTT Orchestrator Entegrasyon Testi
+
+**Konu:** ÇP-3 ↔ ÇP-4 MQTT köprü entegrasyonu ve uçtan uca test
+
+**Yapılanlar:**
+- `src/mqtt_orchestrator.py` yazıldı: paho-mqtt ile localhost:1883'e bağlanan, `trakaia/rover/data` topic'ini dinleyen, gelen JSON'ı parse edip CP-2 tahmini çağıran, 4 anomali kuralını (nem farkı, düşük nem, hastalık güveni, BBCH sapması) kontrol eden, anomali varsa Tri-RAG + Gemma-3-4B ile Türkçe tavsiye üretip `trakaia/kds/advisory` topic'ine publish eden MQTT dinleyici.
+- `src/mqtt_test_publisher.py` yazıldı: Senaryo A (normal tarla) ve Senaryo B (3+ anomali) olmak üzere iki mock rover paketi üretip 5 saniye arayla MQTT broker'a gönderen test aracı.
+- Bağımlılık: `paho-mqtt==2.1.0` kuruldu.
+
+**Test Sonuçları:**
+
+| Senaryo | Anomali Sayısı | LLM Tetiklendi mi | Yanıt Süresi | Sonuç |
+|---|---|---|---|---|
+| A: Normal tarla (nem %28/%26.5, BBCH_50_59) | 0 | Hayır | ~22s (CP-2 test modu) | Başarılı |
+| B: Çoklu anomali (nem %11/%28, Mildiyö %82, BBCH_10_19) | 4 | Evet | 48.1s (177 token) | Başarılı |
+
+**Senaryo B'de Tespit Edilen Anomaliler:**
+1. `[YUKSEK]` NEM_FARKI: Toprak nemi sensörleri arası fark 17.0% (eşik: 10%)
+2. `[YUKSEK]` DUSUK_NEM: Ortalama toprak nemi çok düşük: 19.5% (eşik: 20%)
+3. `[YUKSEK]` HASTALIK: Mildiyö tespit edildi, güven: 82%
+4. `[ORTA]` BBCH_SAPMASI: Büyüme evresi beklenenin dışında: BBCH_10_19 (Ay 5 için beklenen BBCH 50-79)
+
+**LLM Çıktı Örneği (Senaryo B — Gemma-3-4B, 48.1s):**
+> DİKKAT! Tarlanızda ciddi bir su kaybı var!
+>
+> Toprak nemi çok düşük, sadece %19.5. Bu mevsimde en az %20 olması lazım. Bitkileriniz normalden zayıf görünüyor.
+>
+> Yapmanız gereken:
+>
+> 1. Hemen bugün veya yarın mutlaka sulama yapın.
+> 2. Damla sulama kullanıyorsanız, 2-3 saat çalıştırın.
+> 3. Yağmurlama yapıyorsanız, dekar başına 40-50 ton su verin.
+>
+> Eğer bu hafta içinde sulamazsanız, buğdayınızın verimi %30'a kadar düşebilir. Bu da size büyük zarara yol açabilir. Sulamayı sabah erken veya akşam serin saatlerde yapın.
+
+**Çıktılar:**
+- `src/mqtt_orchestrator.py` — MQTT dinleyici + anomali tespiti (4 kural) + Tri-RAG/LLM tetikleme + `trakaia/kds/advisory` publish
+- `src/mqtt_test_publisher.py` — Mock rover veri gönderici (Senaryo A: normal, Senaryo B: çoklu anomali)
+
+**Teknik Notlar:**
+- paho-mqtt 2.1.0'da `CallbackAPIVersion.VERSION1` deprecation uyarısı var; çalışmayı etkilemiyor. Gelecekte `VERSION2` API'sine geçiş gerekebilir.
+- Senaryo B'de beklenen 3 anomali yerine 4 anomali tetiklendi: `nem_ort = (11+28)/2 = 19.5` değeri `DUSUK_NEM` eşiğinin (20%) hemen altında kaldı. Bu davranış doğru — düşük nem + yüksek nem gradyanı aynı anda var.
+- CP-2 (TensorFlow Conv-LSTM) ikinci mesajda model önbellekten yüklendi, FAISS yeniden yüklenmedi; bellek yönetimi `gc.collect()` ile sağlandı.
+- Log dosyası encoding olarak cp1254 (Türkçe Windows) kullandı; Türkçe karakterler doğru üretildi, terminal görüntüsündeki bozulmalar sadece konsol encoding farkından kaynaklandı.
+- Tri-RAG sonuçları: Dense=5, Sparse=3, Birleşik=8, Final=2 belge (boosted=0 — nem/hastalık terminolojisi FAISS ve BM25'te farklı eşleşti).
+
+**Sonraki Adım:**
+- ESP32 rover firmware yükleme ve gerçek MQTT entegrasyonu (mock veri → gerçek sensör okuma)
+- YOLOv8-tiny eğitimi tamamlanınca `hastalik` / `hastalik_guven` alanları CP-3 firmware'e eklenerek orchestrator'ın hastalık tespiti dalı gerçek inference ile beslenecek
+
+*TRAK-AI KDS • Lisans Bitirme Tezi • 2025/2026*
+
+---
+
+### 11 Mayıs 2026 — Streamlit Web Arayüzü
+
+**Konu:** TRAK-AIA KDS web dashboard geliştirme
+
+**Yapılanlar:**
+- `src/dashboard.py` yazıldı: Streamlit ile 3 sayfalı web arayüzü. demo.py ile aynı import yapısı ve sys.path kullanılarak CP-2, CP-4 RAG/LLM ve MQTT modülleri entegre edildi.
+- Bağımlılıklar: `streamlit==1.57.0`, `plotly==6.7.0`, `folium==0.20.0`, `streamlit-folium==0.27.2` kuruldu (pip cache temizliği ile 4.5 GB disk alanı açıldı).
+
+**Özellikler:**
+| Sayfa | İçerik | Durum |
+|---|---|---|
+| 🌿 Tarla Durumu | Buğday + Ayçiçeği CP-2 tahminleri (NDVI, sağlık, t+7 trend), Plotly 30 günlük NDVI grafiği, 15 günlük iklim özeti, SHAP önem çubuk grafiği | Çalışıyor |
+| 📡 Rover İzleme | Senaryo A/B test butonları (MQTT publish), anomali banner, folium GPS haritası (OpenStreetMap), KDS tavsiyesi gösterimi | Çalışıyor |
+| 💬 Tarım Asistanı | st.chat_message/st.chat_input chat arayüzü, Tri-RAG + Gemma-3-4B Türkçe yanıt, kaynak belge expander, örnek soru sidebar butonları | Çalışıyor |
+
+**Teknik Kararlar:**
+- `@st.cache_resource` ile FAISS indeksi tek seferlik yükleniyor (sayfa geçişlerinde yeniden yüklenmez)
+- `@st.cache_data(ttl=300)` ile CP-2 tahminleri 5 dakika önbellekte tutuluyor
+- Page 2 MQTT advisory bekleme: `threading.Event` + paho-mqtt `loop_start()` ile bloke olmayan 90 sn timeout
+- `gc.collect()` ile CP-2 (TensorFlow) sonrası RAM temizliği — FAISS + TF aynı anda bellekte çakışmasını önler
+- Sidebar Ollama + FAISS durum göstergesi (TTL=60s önbellekli)
+- `st.session_state` ile chat geçmişi ve rover verisi oturum boyunca korunuyor
+
+**Çalıştırma:**
+```bash
+streamlit run src/dashboard.py
+# http://localhost:8501
+```
+
+**Test:** Streamlit HTTP 200 döndürdü, SPA doğrulama geçti. 3 sayfa syntax ve import hatası olmadan başlatıldı.
+
+**Ekran Görüntüsü Notu:** Tez için http://localhost:8501 adresinden screenshot alınacak.
+
+**Sonraki Adım:** ESP32 rover bağlantısı ve gerçek sensör verisi entegrasyonu
