@@ -9,11 +9,21 @@ Run:  python inference_cp2.py
 ===============================================================================
 """
 
-import os, json, logging, numpy as np, pandas as pd, joblib
+import os, sys, json, logging, numpy as np, pandas as pd, joblib
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import tensorflow as tf
+
+# Hava servisi (src/ altında — isteğe bağlı)
+_SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _SRC_DIR not in sys.path:
+    sys.path.insert(0, _SRC_DIR)
+try:
+    from weather_service import get_current_weather, get_7day_forecast, get_weather_alerts
+    _WEATHER_AVAILABLE = True
+except ImportError:
+    _WEATHER_AVAILABLE = False
 
 # Import registered custom layers so Keras can find them
 from train_models_cp2 import SelfAttention, ExtractLastNDVI, ScaleDelta, _ndvi_idx
@@ -204,6 +214,16 @@ def predict(crop_type, live_data=None, field_summary=None):
         f"- {field_summary}"
     )
 
+    # Hava verisi (isteğe bağlı — başarısız olursa None)
+    weather_current, weather_forecast, weather_alerts = None, None, None
+    if _WEATHER_AVAILABLE:
+        try:
+            weather_current = get_current_weather()
+            weather_forecast = get_7day_forecast()
+            weather_alerts = get_weather_alerts(weather_forecast) if weather_forecast else []
+        except Exception as e:
+            logger.warning("Hava servisi alınamadı: %s", e)
+
     return dict(
         crop=cfg["label"],
         model_used=model_file,
@@ -215,6 +235,9 @@ def predict(crop_type, live_data=None, field_summary=None):
         data_source=source,
         field_summary=field_summary,
         llm_context=llm_context,
+        weather_current=weather_current,
+        weather_forecast=weather_forecast,
+        weather_alerts=weather_alerts,
     )
 
 

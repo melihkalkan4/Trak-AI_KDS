@@ -33,6 +33,31 @@ from build_index import load_faiss_index
 from retriever import tri_rag_retrieve, format_context
 from llm_engine import check_ollama_connection, rag_query
 
+# Hava servisi (src/ altında — isteğe bağlı)
+try:
+    from weather_service import (
+        get_current_weather,
+        get_7day_forecast,
+        get_weather_alerts,
+    )
+    _WEATHER_AVAILABLE = True
+except ImportError:
+    _WEATHER_AVAILABLE = False
+
+# Agronomik takvim (src/ altında — isteğe bağlı)
+try:
+    from agro_calendar import (
+        get_current_phenology,
+        evaluate_planting_window,
+        get_irrigation_advice,
+        get_fertilization_advice,
+        BUGDAY_TAKVIM,
+        AYCICEGI_TAKVIM,
+    )
+    _AGRO_AVAILABLE = True
+except ImportError:
+    _AGRO_AVAILABLE = False
+
 # ── Sabitler ──────────────────────────────────────────────────────────────
 CSV_PATH = os.path.join(PROJECT_ROOT, "data", "processed",
                         "master_feature_matrix_2017_2024.csv")
@@ -119,6 +144,15 @@ def get_ndvi_history(n: int = 30):
     return df[["date", "NDVI_int", "t2m_mean", "tp_sum", "ssr_sum"]].tail(n).reset_index(drop=True)
 
 
+@st.cache_data(ttl=600, show_spinner=False)
+def get_weather():
+    if not _WEATHER_AVAILABLE:
+        return None, None
+    cur = get_current_weather()
+    fc  = get_7day_forecast()
+    return cur, fc
+
+
 @st.cache_data(ttl=60, show_spinner=False)
 def get_ollama_status():
     try:
@@ -130,6 +164,13 @@ def get_ollama_status():
     except Exception:
         pass
     return False, []
+
+
+@st.cache_data(ttl=300, show_spinner="Tarla verileri derleniyor...")
+def get_rich_context() -> str:
+    """CP-2 tahminleri + hava + agronomik takvim bağlamını önbellekli olarak döndürür (5 dk TTL)."""
+    from llm_engine import build_rich_context
+    return build_rich_context()
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -372,6 +413,55 @@ def page_tarla_durumu():
 
     st.divider()
 
+    # ── Hava Durumu (Open-Meteo) ──────────────────────────────────────────
+    st.subheader("🌤️ 7 Günlük Hava Tahmini")
+    wx_cur, wx_fc = get_weather()
+
+    if wx_cur:
+        wc1, wc2, wc3, wc4 = st.columns(4)
+        wc1.metric("🌡️ Anlık Sıcaklık", f"{wx_cur['temp_c']:.1f} °C")
+        wc2.metric("💧 Nem", f"%{wx_cur['humidity']:.0f}")
+        wc3.metric("💨 Rüzgar", f"{wx_cur['wind_kmh']:.0f} km/h")
+        wc4.metric("🌱 Toprak Sıcaklığı", f"{wx_cur['soil_temp_c']:.1f} °C")
+
+    if wx_fc:
+        alerts = get_weather_alerts(wx_fc)
+        for alert in alerts:
+            if alert["level"] == "error":
+                st.error(f"⚠️ {alert['text']}")
+            else:
+                st.warning(f"⚠️ {alert['text']}")
+
+        fc_df = pd.DataFrame(wx_fc)
+        fig_wx = go.Figure()
+        fig_wx.add_trace(go.Bar(
+            name="Yağış (mm)", x=fc_df["date"], y=fc_df["precip_mm"],
+            marker_color="#1565c0", opacity=0.7, yaxis="y2",
+        ))
+        fig_wx.add_trace(go.Scatter(
+            name="Maks °C", x=fc_df["date"], y=fc_df["temp_max"],
+            mode="lines+markers", line=dict(color="#e53935", width=2),
+        ))
+        fig_wx.add_trace(go.Scatter(
+            name="Min °C", x=fc_df["date"], y=fc_df["temp_min"],
+            mode="lines+markers", line=dict(color="#1565c0", width=2, dash="dot"),
+        ))
+        fig_wx.update_layout(
+            height=280, margin=dict(t=10, b=10, l=0, r=60),
+            plot_bgcolor="#fafafa",
+            legend=dict(orientation="h", y=1.1),
+            yaxis=dict(title="Sıcaklık (°C)"),
+            yaxis2=dict(title="Yağış (mm)", overlaying="y",
+                        side="right", showgrid=False),
+        )
+        st.plotly_chart(fig_wx, use_container_width=True)
+    elif not _WEATHER_AVAILABLE:
+        st.info("Hava servisi bulunamadı (weather_service.py eksik).")
+    else:
+        st.warning("Open-Meteo API'ye erişilemiyor (offline mod).")
+
+    st.divider()
+
     # ── SHAP Feature Importance (statik) ─────────────────────────────────
     st.subheader("🔍 Özellik Önemi (SHAP — Buğday Conv-LSTM)")
     features_ranked = [
@@ -399,6 +489,144 @@ def page_tarla_durumu():
         yaxis=dict(autorange="reversed"),
     )
     st.plotly_chart(fig2, use_container_width=True)
+
+    if not _AGRO_AVAILABLE:
+        return
+
+    st.divider()
+
+    # ── Agronomik Takvim ──────────────────────────────────────────────────
+    st.subheader("🌱 Agronomik Takvim")
+    wx_cur2, wx_fc2 = get_weather() if _WEATHER_AVAILABLE else (None, None)
+    now_month = datetime.now().month
+
+    col_w, col_s = st.columns(2)
+
+    _EVRE_EMOJI = {
+        "ekim_cimlenme": "🌱", "kardeslenme": "🌿", "sapa_kalkma": "🌾",
+        "basaklanma": "🌾", "ciceklenme": "🌸", "dane_dolumu": "🌾",
+        "olgunlasma": "🟡", "cimlenme": "🌱", "yaprak": "🍃",
+        "sap_uzamasi": "📏", "tabla_olusumu": "🌻", "dane_dolumu": "🌻",
+        "ara_donem": "💤",
+    }
+
+    for col, crop, takvim in [
+        (col_w, "Wheat", BUGDAY_TAKVIM),
+        (col_s, "Sunflower", AYCICEGI_TAKVIM),
+    ]:
+        with col:
+            st.markdown(f"**{'🌾 Buğday' if crop == 'Wheat' else '🌻 Ayçiçeği'}**")
+            fen = get_current_phenology(crop, now_month)
+            emoji = _EVRE_EMOJI.get(fen["evre"], "🔵")
+            kritik_badge = " 🔴 KRİTİK" if fen["kritik_mi"] else ""
+            st.markdown(f"{emoji} **{fen['aciklama']}**{kritik_badge}")
+            st.caption(f"BBCH {fen['bbch_aralik']}")
+
+            # Ekim penceresi
+            ekim_bas = takvim["ekim_ay_baslangic"]
+            ekim_bit = takvim["ekim_ay_bitis"]
+            if ekim_bas <= ekim_bit:
+                in_ekim = ekim_bas <= now_month <= ekim_bit
+            else:
+                in_ekim = now_month >= ekim_bas or now_month <= ekim_bit
+
+            if in_ekim and wx_cur2:
+                ekim = evaluate_planting_window(crop, wx_cur2, wx_fc2)
+                ekim_color = "🟢" if ekim["ekim_uygun"] else "🔴"
+                st.metric("Ekim Penceresi", f"{ekim_color} {ekim['skor']}/100", ekim["gerekce"][:60])
+            elif in_ekim:
+                st.metric("Ekim Penceresi", "⚪ Hava verisi yok", "")
+            else:
+                st.metric("Ekim Penceresi", "⬜ Dönem değil", f"Ekim: {ekim_bas}-{ekim_bit}. ay")
+
+            # Sulama tavsiyesi
+            soil_m = wx_cur2.get("soil_moisture", 30) if wx_cur2 else 30
+            sulama = get_irrigation_advice(crop, now_month, soil_m, wx_fc2)
+            acil_color = {"ACIL": "🔴", "PLANLI": "🟡", "GEREKSIZ": "🟢"}.get(sulama["aciliyet"], "⚪")
+            st.metric(
+                "Sulama",
+                f"{acil_color} {sulama['aciliyet']}",
+                f"{sulama['miktar_ton_dekar']} ton/dekar — {sulama['zamanlama']}" if sulama["sulama_gerekli"] else sulama["gerekce"][:55],
+            )
+
+            # Gübreleme
+            gubre = get_fertilization_advice(crop, now_month)
+            if gubre["gubre_zamani"]:
+                st.info(f"🌿 **Gübreleme:** {gubre['aciklama']}")
+
+    # Yıllık fenoloji takvimi (Plotly timeline)
+    st.markdown("**Yıllık Fenoloji Takvimi**")
+    month_labels = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
+
+    wheat_palette = ["#e3f2fd", "#bbdefb", "#90caf9", "#64b5f6", "#42a5f5", "#2196f3", "#1565c0"]
+    sun_palette   = ["#fff8e1", "#ffecb3", "#ffe082", "#ffd54f", "#ffca28", "#ffc107", "#e65100"]
+
+    fig_pheno = go.Figure()
+
+    for crop_label, takvim_data, palette in [
+        ("🌾 Buğday", BUGDAY_TAKVIM, wheat_palette),
+        ("🌻 Ayçiçeği", AYCICEGI_TAKVIM, sun_palette),
+    ]:
+        for i, (evre_adi, evre) in enumerate(takvim_data["fenoloji"].items()):
+            months = sorted(evre["ay"])
+            color = palette[i % len(palette)]
+
+            # Build contiguous month ranges
+            ranges = []
+            if months:
+                s, e = months[0], months[0]
+                for m in months[1:]:
+                    if m == e + 1:
+                        e = m
+                    else:
+                        ranges.append((s, e))
+                        s = e = m
+                ranges.append((s, e))
+
+            for s_m, e_m in ranges:
+                active = s_m <= now_month <= e_m
+                fig_pheno.add_trace(go.Bar(
+                    x=[e_m - s_m + 1],
+                    y=[crop_label],
+                    base=[s_m - 1],
+                    orientation="h",
+                    marker_color="#ff5722" if active else color,
+                    marker_line_width=0.5,
+                    marker_line_color="white",
+                    hovertemplate=(
+                        f"<b>{evre['aciklama']}</b><br>"
+                        f"BBCH: {evre['bbch']}<br>"
+                        f"Ay: {month_labels[s_m-1]}"
+                        + (f"–{month_labels[e_m-1]}" if s_m != e_m else "")
+                        + "<extra></extra>"
+                    ),
+                    showlegend=False,
+                ))
+
+    fig_pheno.add_vline(
+        x=now_month - 0.5,
+        line_dash="dash",
+        line_color="#d32f2f",
+        line_width=2,
+        annotation_text=f"▼ {month_labels[now_month - 1]}",
+        annotation_position="top right",
+        annotation_font_color="#d32f2f",
+    )
+    fig_pheno.update_layout(
+        barmode="overlay",
+        height=180,
+        margin=dict(t=30, b=20, l=10, r=10),
+        xaxis=dict(
+            tickmode="array",
+            tickvals=list(range(12)),
+            ticktext=month_labels,
+            range=[-0.5, 11.5],
+        ),
+        plot_bgcolor="#fafafa",
+        paper_bgcolor="white",
+        bargap=0.25,
+    )
+    st.plotly_chart(fig_pheno, use_container_width=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -542,6 +770,12 @@ def page_tarim_asistani():
             if st.button(soru, key=f"ornek_{soru[:20]}", use_container_width=True):
                 st.session_state._pending_question = soru
 
+    # Aktif veri bağlamı — LLM'e beslenen güncel veriler
+    with st.expander("📊 Aktif Veri Bağlamı (LLM'e beslenen güncel veriler)", expanded=False):
+        rich_ctx = get_rich_context()
+        st.code(rich_ctx, language="text")
+        st.caption("Her 5 dakikada bir güncellenir. Tıkla → kapat.")
+
     # Chat geçmişini göster
     for msg in st.session_state.chat_history:
         with st.chat_message(msg["role"]):
@@ -574,7 +808,7 @@ def page_tarim_asistani():
                 try:
                     docs = tri_rag_retrieve(user_input, vs, ch)
                     context = format_context(docs)
-                    result = rag_query(user_input, context)
+                    result = rag_query(user_input, context, get_rich_context())
                     answer = result.get("answer", "Yanıt alınamadı.")
                     dur = result.get("duration_sec", 0)
                     tok = result.get("tokens", 0)

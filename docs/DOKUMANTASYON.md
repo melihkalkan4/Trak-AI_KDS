@@ -1580,3 +1580,155 @@ streamlit run src/dashboard.py
 **Ekran Görüntüsü Notu:** Tez için http://localhost:8501 adresinden screenshot alınacak.
 
 **Sonraki Adım:** ESP32 rover bağlantısı ve gerçek sensör verisi entegrasyonu
+
+---
+
+## Task 3 — Hava Durumu Entegrasyonu ve RAG Güçlendirme (12 Mayıs 2026)
+
+### 3A — Open-Meteo Hava Servisi
+
+- **Yeni dosya:** `src/weather_service.py`
+- API key gerektirmez; offline modda `None` döner
+- Fonksiyonlar: `get_current_weather`, `get_7day_forecast`, `get_weather_alerts`, `format_weather_context`
+- Entegrasyon: `inference_cp2.py`, `mqtt_orchestrator.py`, `dashboard.py`
+
+**Canlı test çıktısı (Kırklareli-Vize, 12 Mayıs 2026 10:15):**
+| Parametre | Değer |
+|---|---|
+| Sıcaklık | 19.9°C |
+| Nem | %69 |
+| Yağış | 0.0 mm |
+| Rüzgar | 8.3 km/h |
+| Toprak sıcaklığı | 24.3°C |
+| Toprak nemi | %22.0 |
+
+7 günlük tahmin: 18–25°C arası, yağış 0–7.5 mm. Aktif uyarı yok.
+
+### 3B — RAG Bilgi Tabanı Güçlendirme
+
+| PDF | Boyut | Durum |
+|---|---|---|
+| TR21 Bölge Planı 2024–2028 | 6.8 MB | İndirildi ✅ |
+| Trakya Sulama Ayçiçeği | 1.7 MB | İndirildi ✅ |
+| FAO Sunflower Production | 1.2 MB | İndirildi ✅ |
+| FAO Irrigation Paper 56 | — | 404 Hatası ❌ |
+
+FAISS yeniden indeks: **56 belge, 16.903 vektör** (önceki: 14.866 vektör, +2.037)
+Embed süresi: ~16 dakika (intfloat/multilingual-e5-small, CPU)
+
+Kategori dağılımı:
+| Kategori | Chunk |
+|---|---|
+| abd | 3.335 |
+| fao | 4.461 |
+| hastalik | 3.256 |
+| tr_bakanlik | 3.015 |
+| bbch | 1.494 |
+| bolgesel | 1.342 |
+
+### 3C — RAG Kalite Test Sonuçları
+
+| # | Sorgu | Bulunan Belge | Kaynak |
+|---|---|---|---|
+| 1 | Trakya bölgesinde ayçiçeği sulama takvimi | 2 | Edirne Destekleme Sulama + **Trakya_Sulama_Aycicegi.pdf** (yeni) |
+| 2 | TR21 iklim değişikliği tahminleri | 2 | 6021_H2.pdf + **TR21_Bolge_Plani_2024_2028.pdf** (yeni) |
+| 3 | FAO ayçiçeği Kc değeri | 2 | 379598.pdf (2 farklı bölüm, boosted) |
+
+Tri-RAG pipeline: Dense=5, Sparse=3 → Birleşik=6–8, Final=2 chunk / sorgu
+
+### Simplify Düzeltmeleri
+
+6 sorun tespit edildi, 6 düzeltme uygulandı:
+
+| # | Dosya | Sorun | Düzeltme |
+|---|---|---|---|
+| 1 | `weather_service.py` | `get_weather_alerts` `list[str]` döndürüyordu | `list[dict]` → `{"level", "text"}` yapısına geçildi |
+| 2 | `weather_service.py:169` | `join(alerts)` dict üzerinde çalışmıyordu | `join(a["text"] for a in alerts)` |
+| 3a | `dashboard.py:38` | Gereksiz import aliasları | Alias kaldırıldı |
+| 3b | `dashboard.py:409` | Alert string karşılaştırması | `alert["level"]` kullanımına geçildi |
+| 4 | `mqtt_orchestrator.py` | `detect_anomalies` içinde çift `get_7day_forecast()` çağrısı | `forecast` parametresi eklendi, iç fetch kaldırıldı |
+| 5 | `llm_engine.py` | Weather None iken prompt'ta boş satır | `weather_block` conditional expression ile düzeltildi |
+| 6 | `inference_cp2.py` | `except Exception: pass` — sessiz hata | `logger.warning` ile görünür hale getirildi |
+
+
+---
+
+### 12 Mayıs 2026 — Agronomik Takvim ve Ekim Karar Motoru
+
+**Konu:** Fenolojik takvim, ekim penceresi değerlendirme, sulama/gübreleme tavsiye motoru
+
+**Yapılanlar:**
+- `src/agro_calendar.py` yazıldı: `BUGDAY_TAKVIM` + `AYCICEGI_TAKVIM` sabit veri sözlükleri; `get_current_phenology`, `evaluate_planting_window`, `get_irrigation_advice`, `get_fertilization_advice`, `format_agro_context` fonksiyonları
+- `src/cp4_rag/llm_engine.py` güncellendi: `rover_alert_query` imzasına `agro_context: str = None` eklendi; `agro_block` prompt'a ekleniyor
+- `src/mqtt_orchestrator.py` güncellendi: `agro_calendar` import bloğu eklendi; `detect_anomalies` fonksiyonuna 3 yeni kural eklendi; `on_message` agronomik bağlam üretip `rover_alert_query`'e geçiriyor
+- `src/dashboard.py` güncellendi: `agro_calendar` import bloğu eklendi; `page_tarla_durumu` içine "Agronomik Takvim" bölümü eklendi (2 sütunlu fenoloji + ekim/sulama/gübre kartları + Plotly timeline)
+
+**Agronomik Test Sonuçları (12 Mayıs 2026, Kırklareli-Vize):**
+
+| Test | Sonuç |
+|---|---|
+| Buğday mevcut evre (Mayıs) | Başaklanma — BBCH 50-59 — KRİTİK DÖNEM |
+| Ayçiçeği mevcut evre (Mayıs) | Çimlenme ve çıkış — BBCH 00-09 |
+| Ekim penceresi (Ayçiçeği, Mayıs) | Uygun değil — skor 70/100; engel: toprak yüzeyi 21.6°C (ideal 8-14°C, 10cm ölçümle doğrulayın) |
+| Sulama tavsiyesi (nem %25, nem eşiği %22) | GEREKSIZ — toprak nemi yeterli, sulama gerekmez |
+| Gübreleme (Ayçiçeği, Mayıs) | EVET — 4-6 yaprak dönemi: Amonyum sülfat, dekara 20-25 kg |
+| Gübreleme (Buğday, Mayıs) | Hayır — bu ay için planlı gübre uygulaması yok |
+
+**Yeni Anomali Kuralları (mqtt_orchestrator.py):**
+
+| Kural | Koşul | Seviye |
+|---|---|---|
+| `EKIM_FIRSATI` | Ekim sezonu + koşullar uygun (skor≥60, engel yok) | BİLGİ |
+| `SULAMA_ACIL` | Kritik fenolojik evre + toprak nemi eşik altı | KRİTİK |
+| `GUBRE_HATIRLATMA` | Gübreleme takvimi zamanı gelmiş | BİLGİ |
+
+**Dashboard Agronomik Takvim Bölümü:**
+- 2 sütun: Buğday | Ayçiçeği
+- Her ürün: fenolojik evre (emoji + kritik badge), BBCH aralığı, ekim/sulama/gübre metrik kartları
+- Plotly yıllık fenoloji zaman çizelgesi — aktif evre kırmızı (#ff5722), şu anki ay kesik çizgiyle işaretli
+
+**Sonraki Adım:** ESP32 rover firmware yükleme
+
+
+---
+
+### 12 Mayıs 2026 — LLM Prompt Mühendisliği ve Veri Bağlamı Güçlendirme
+
+**Konu:** LLM çıktı kalitesinin iyileştirilmesi — generic tavsiyeden veri-odaklı tavsiyeye geçiş
+
+**Sorun:** LLM genel tavsiyeler veriyordu ("Ziraat Odası'na danışın"), elindeki verileri kullanmıyordu.
+
+**Çözüm:**
+- `config.py` SYSTEM_PROMPT tamamen yeniden yazıldı: 8 kritik kural + 4 bölümlü yanıt yapısı (📊 MEVCUT DURUM / ⚠️ RİSKLER / ✅ YAPILMASI GEREKENLER / 📅 ÖNÜMÜZDEKI 7 GÜN)
+- `llm_engine.py`'ye `build_rich_context()` fonksiyonu eklendi: CP-2 tahminleri + hava durumu + agronomik takvim + statik toprak profili → tek bağlam bloğu
+- `rag_query()` güncellendi: `rich_context: str = None` parametresi eklendi; veri bloğu RAG belgelerinden önce prompt'a ekleniyor
+- `dashboard.py` güncellendi: `get_rich_context()` önbellekli wrapper (5 dk TTL), chatbot sayfasında "📊 Aktif Veri Bağlamı" expander eklendi, `rag_query()` çağrısına `rich_context` geçiriliyor
+
+**`build_rich_context()` Gerçek Test Çıktısı (12 Mayıs 2026):**
+```
+TARLA TAHMİN VERİLERİ:
+- Buğday: Mevcut=0.4675, Tahmin=0.4413, Değişim=-0.0262 (%-5.6), FAIR
+- Ayçiçeği: Mevcut=0.4895, Tahmin=0.4904, Değişim=+0.0009 (%+0.2), FAIR
+
+ANLIK HAVA: 20.6°C, %79 nem, toprak nemi %33.4, yağış 1.2mm
+7 GÜNLÜK: 12-25°C arası, 12 May %95 yağış ihtimali (7.1mm)
+
+AGRONOMİK TAKVİM (Ay 5):
+- Buğday: Başaklanma BBCH 50-59 — KRİTİK DÖNEM
+- Ayçiçeği: Çimlenme BBCH 00-09
+- Sulama: İkisi de GEREKSIZ (toprak nemi %33)
+- Gübreleme: Ayçiçeği EVET — Amonyum sülfat, dekara 20-25 kg
+```
+
+**Önceki vs Sonraki Karşılaştırma:**
+
+| Kriter | Önceki | Sonraki |
+|---|---|---|
+| Rakam kullanımı | Yok | NDVI, °C, %, mm, kg/dekar |
+| Hava tahmini analizi | Yok | 7 günlük tahmin değerlendirmesi |
+| Fenolojik evre | Yok | Mevcut evre + kritik dönem uyarısı |
+| Sulama miktarı | "Su verin" | "GEREKSIZ — toprak nemi %33" veya miktar + zamanlama |
+| Genel tavsiye | "Danışın" | Somut eylem planı |
+| Veri kaynağı | Sadece RAG belgeleri | CP-2 + Open-Meteo + Agronomik takvim + RAG |
+
+**Sonraki Adım:** ESP32 rover firmware yükleme

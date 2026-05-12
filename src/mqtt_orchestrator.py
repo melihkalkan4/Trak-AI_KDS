@@ -27,6 +27,29 @@ from build_index import load_faiss_index
 from retriever import tri_rag_retrieve, format_context
 from llm_engine import check_ollama_connection, rover_alert_query
 
+# Hava servisi (src/ altinda — isteğe bagli)
+_SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+if _SRC_DIR not in sys.path:
+    sys.path.insert(0, _SRC_DIR)
+try:
+    from weather_service import (
+        get_current_weather, get_7day_forecast,
+        get_weather_alerts, format_weather_context,
+    )
+    _WEATHER_AVAILABLE = True
+except ImportError:
+    _WEATHER_AVAILABLE = False
+
+try:
+    from agro_calendar import (
+        get_current_phenology, evaluate_planting_window,
+        get_irrigation_advice, get_fertilization_advice,
+        format_agro_context,
+    )
+    _AGRO_AVAILABLE = True
+except ImportError:
+    _AGRO_AVAILABLE = False
+
 # MQTT ayarlari
 MQTT_BROKER = "localhost"
 MQTT_PORT = 1883
@@ -63,10 +86,11 @@ def parse_bbch_low(bbch_sinif: str) -> int:
         return -1
 
 
-def detect_anomalies(payload: dict, cp2_result: dict) -> list:
+def detect_anomalies(payload: dict, cp2_result: dict, weather: dict = None, forecast: list = None) -> list:
     anomalies = []
     month = datetime.now().month
 
+    # ── Kural 1: Nem farkı ──────────────────────────────────────────────
     nem_1 = float(payload.get("nem_1_pct", 0))
     nem_2 = float(payload.get("nem_2_pct", 0))
     nem_fark = abs(nem_1 - nem_2)
@@ -80,6 +104,7 @@ def detect_anomalies(payload: dict, cp2_result: dict) -> list:
             "seviye": seviye,
         })
 
+    # ── Kural 2: Düşük nem ──────────────────────────────────────────────
     if nem_ort < NEM_DUSUK_ESIK:
         seviye = "KRITIK" if nem_ort < 15 else "YUKSEK"
         anomalies.append({
@@ -88,6 +113,7 @@ def detect_anomalies(payload: dict, cp2_result: dict) -> list:
             "seviye": seviye,
         })
 
+    # ── Kural 3: Hastalık güveni ─────────────────────────────────────────
     hastalik = payload.get("hastalik")
     hastalik_guven = float(payload.get("hastalik_guven", 0))
     if hastalik and hastalik_guven > HASTALIK_GUVEN_MIN:
@@ -98,6 +124,7 @@ def detect_anomalies(payload: dict, cp2_result: dict) -> list:
             "seviye": seviye,
         })
 
+    # ── Kural 4: BBCH sapması ────────────────────────────────────────────
     bbch_sinif = payload.get("bbch_sinif", "")
     if bbch_sinif:
         bbch_val = parse_bbch_low(bbch_sinif)
@@ -113,6 +140,83 @@ def detect_anomalies(payload: dict, cp2_result: dict) -> list:
                     ),
                     "seviye": "ORTA",
                 })
+
+    # ── Kural 5-7: Hava bazlı kurallar (Open-Meteo) ──────────────────────
+    if weather:
+        temp_c = weather.get("temp_c", 99)
+
+        if temp_c < 2:
+            anomalies.append({
+                "tip": "DON_RISKI",
+                "aciklama": f"Hava sicakligi {temp_c:.1f}C — don riski (esik: 2C)",
+                "seviye": "KRITIK",
+            })
+
+        if temp_c > 38:
+            anomalies.append({
+                "tip": "SICAK_STRESI",
+                "aciklama": f"Hava sicakligi {temp_c:.1f}C — bitki stres esigi asild (esik: 38C)",
+                "seviye": "YUKSEK",
+            })
+
+    if forecast:
+        dry_hot = sum(
+            1 for d in forecast if d["precip_mm"] == 0 and d["temp_max"] > 30
+        )
+        if dry_hot >= 3:
+            anomalies.append({
+                "tip": "KURAKLIK_RISKI",
+                "aciklama": (
+                    f"Tahmine gore {dry_hot} gun yagissiz ve sicak "
+                    f"(kuraklık riski esigi: 3 gun)"
+                ),
+                "seviye": "ORTA",
+            })
+
+    # ── Kural 8-10: Agronomik takvim kuralları ──────────────────────────────
+    if _AGRO_AVAILABLE:
+        nem_ort = (float(payload.get("nem_1_pct", 0)) + float(payload.get("nem_2_pct", 0))) / 2
+        weather_for_agro = weather if weather else {}
+
+        for crop in ("Wheat", "Sunflower"):
+            try:
+                # Kural 8: Ekim fırsatı
+                ekim = evaluate_planting_window(crop, weather_for_agro, forecast)
+                if ekim["ekim_uygun"]:
+                    anomalies.append({
+                        "tip": "EKIM_FIRSATI",
+                        "aciklama": (
+                            f"{crop}: {ekim['gerekce']} (skor: {ekim['skor']}/100)"
+                        ),
+                        "seviye": "BILGI",
+                    })
+
+                # Kural 9: Sulama acil (kritik fenolojik evrede düşük nem)
+                fenoloji = get_current_phenology(crop, month)
+                if fenoloji["kritik_mi"] and nem_ort < (
+                    20 if crop == "Wheat" else 22
+                ):
+                    sulama = get_irrigation_advice(crop, month, nem_ort, forecast)
+                    if sulama["aciliyet"] == "ACIL":
+                        anomalies.append({
+                            "tip": "SULAMA_ACIL",
+                            "aciklama": (
+                                f"{crop} kritik evrede ({fenoloji['aciklama']}) "
+                                f"toprak nemi dusuk: %{nem_ort:.0f}. {sulama['gerekce']}"
+                            ),
+                            "seviye": "KRITIK",
+                        })
+
+                # Kural 10: Gübreleme hatırlatması
+                gubre = get_fertilization_advice(crop, month)
+                if gubre["gubre_zamani"]:
+                    anomalies.append({
+                        "tip": "GUBRE_HATIRLATMA",
+                        "aciklama": f"{crop}: {gubre['aciklama']}",
+                        "seviye": "BILGI",
+                    })
+            except Exception:
+                pass
 
     return anomalies
 
@@ -182,8 +286,30 @@ def on_message(client, userdata, msg):
     except Exception as e:
         log(f"CP-2 hatasi (devam ediliyor): {e}")
 
+    # Hava verisi (isteğe bagli)
+    weather_current = None
+    weather_forecast = None
+    weather_context_str = None
+    if _WEATHER_AVAILABLE:
+        try:
+            weather_current = get_current_weather()
+            if weather_current:
+                log(f"Hava: {weather_current['temp_c']:.1f}C, nem %{weather_current['humidity']:.0f}")
+                weather_forecast = get_7day_forecast()
+                weather_context_str = format_weather_context(weather_current, weather_forecast)
+        except Exception as e:
+            log(f"Hava servisi hatasi (devam ediliyor): {e}")
+
     # Anomali tespiti
-    anomalies = detect_anomalies(payload, cp2_result)
+    # Agronomik bağlam (isteğe bağlı)
+    agro_context_str = None
+    if _AGRO_AVAILABLE:
+        try:
+            agro_context_str = format_agro_context("Wheat", weather_current, weather_forecast)
+        except Exception as e:
+            log(f"Agro takvim hatasi (devam ediliyor): {e}")
+
+    anomalies = detect_anomalies(payload, cp2_result, weather_current, weather_forecast)
     log(f"Anomali tespiti: {len(anomalies)} anomali bulundu")
 
     advisory = None
@@ -202,7 +328,7 @@ def on_message(client, userdata, msg):
 
         t0 = time.time()
         try:
-            llm_result = rover_alert_query(anomaly_context, field_context)
+            llm_result = rover_alert_query(anomaly_context, field_context, weather_context_str, agro_context_str)
             duration_sec = round(time.time() - t0, 1)
             advisory = llm_result.get("answer", "")
             log(f"LLM yanit suresi: {duration_sec}s | Token: {llm_result.get('tokens', 0)}")

@@ -118,49 +118,205 @@ def query_llm(prompt: str, system_prompt: str = None) -> dict:
         }
 
 
-def rag_query(query: str, context: str) -> dict:
+def build_rich_context() -> str:
     """
-    RAG sorgusu: Bağlam + soru → LLM → Türkçe yanıt.
-    
-    Bu fonksiyon retriever.py'den gelen context'i alır ve
-    LLM'e göndermek için tam prompt'u oluşturur.
-    
+    Tüm sistemden güncel veri toplayıp LLM bağlam metni oluşturur.
+
+    CP-2 model tahminleri + Open-Meteo hava durumu + agronomik takvim
+    + statik toprak profili tek bir metin bloğuna birleştirilir.
+    Her kaynak try/except ile korunur — bir kaynak başarısız olursa devam eder.
+    """
+    import sys
+    import os
+    import gc
+
+    _this_dir = os.path.dirname(os.path.abspath(__file__))
+    _src_dir = os.path.dirname(_this_dir)
+    _cp2_dir = os.path.join(_src_dir, "cp2_model")
+    for d in [_src_dir, _cp2_dir]:
+        if d not in sys.path:
+            sys.path.insert(0, d)
+
+    parts = []
+
+    # 1. CP-2 Model Tahminleri
+    try:
+        from inference_cp2 import predict
+        wheat = predict("Wheat")
+        gc.collect()
+        sunflower = predict("Sunflower")
+        gc.collect()
+
+        lines = ["TARLA TAHMİN VERİLERİ (ConvLSTM/LSTM Model):"]
+        for label, r in [("Buğday", wheat), ("Ayçiçeği", sunflower)]:
+            cur  = r.get("current_ndvi", 0)
+            pred = r.get("predicted_ndvi", 0)
+            t    = r.get("trend", {})
+            h    = r.get("health", {})
+            lines.append(
+                f"- {label}: Mevcut bitki sağlık endeksi={cur:.4f}, "
+                f"7 günlük tahmin={pred:.4f}, "
+                f"Değişim={t.get('delta', 0):+.4f} (%{t.get('pct_change', 0):+.1f}), "
+                f"Durum={h.get('status','?')} — {h.get('desc','')}"
+            )
+        lines.append(
+            "(Sağlık endeksi: <0.25=KRİTİK, 0.25-0.40=ZAYIF, "
+            "0.40-0.55=ORTA, 0.55-0.70=İYİ, >0.70=MÜKEMMEL)"
+        )
+        parts.append("\n".join(lines))
+    except Exception as e:
+        parts.append(f"[Model tahmini alınamadı: {e}]")
+
+    # 2. Anlık hava ve 7 günlük tahmin
+    try:
+        from weather_service import get_current_weather, get_7day_forecast, get_weather_alerts
+        weather  = get_current_weather()
+        forecast = get_7day_forecast()
+
+        if weather:
+            parts.append(
+                "ANLIK HAVA DURUMU (Open-Meteo, Kırklareli-Vize):\n"
+                f"- Hava sıcaklığı: {weather.get('temp_c','?')}°C\n"
+                f"- Hava nemi: %{weather.get('humidity','?')}\n"
+                f"- Toprak sıcaklığı (yüzey): {weather.get('soil_temp_c','?')}°C\n"
+                f"- Toprak nemi: %{weather.get('soil_moisture','?')}\n"
+                f"- Yağış: {weather.get('precipitation_mm',0)} mm\n"
+                f"- Rüzgar: {weather.get('wind_kmh','?')} km/h"
+            )
+
+        if forecast:
+            fc_lines = ["7 GÜNLÜK HAVA TAHMİNİ:"]
+            for day in forecast[:7]:
+                fc_lines.append(
+                    f"  {day.get('date','')}: "
+                    f"{day.get('temp_min','')}–{day.get('temp_max','')}°C, "
+                    f"Yağış: {day.get('precip_mm',0)}mm "
+                    f"(%{day.get('precip_prob',0)} ihtimal)"
+                )
+            parts.append("\n".join(fc_lines))
+
+        alerts = get_weather_alerts(forecast) if forecast else []
+        if alerts:
+            texts = [a["text"] if isinstance(a, dict) else str(a) for a in alerts]
+            parts.append("HAVA UYARILARI: " + " | ".join(texts))
+    except Exception as e:
+        parts.append(f"[Hava verisi alınamadı: {e}]")
+
+    # 3. Agronomik takvim
+    try:
+        from agro_calendar import (
+            get_current_phenology, get_irrigation_advice, get_fertilization_advice,
+        )
+        from datetime import datetime
+        month = datetime.now().month
+
+        agro_lines = [f"AGRONOMİK TAKVİM (Trakya, Ay {month}):"]
+        for crop_label, crop_key in [("Buğday", "Wheat"), ("Ayçiçeği", "Sunflower")]:
+            p = get_current_phenology(crop_key, month)
+            kritik = "EVET — DİKKAT!" if p.get("kritik_mi") else "Hayır"
+            agro_lines.append(
+                f"- {crop_label}: {p.get('aciklama','')} "
+                f"(BBCH {p.get('bbch_aralik','?')}), Kritik dönem: {kritik}"
+            )
+
+        soil_m = 25.0
+        try:
+            from weather_service import get_current_weather as _gcw
+            _w = _gcw()
+            if _w:
+                soil_m = _w.get("soil_moisture", 25.0)
+        except Exception:
+            pass
+
+        agro_lines.append("SULAMA DURUMU:")
+        for crop_label, crop_key in [("Buğday", "Wheat"), ("Ayçiçeği", "Sunflower")]:
+            irr = get_irrigation_advice(crop_key, month, soil_m)
+            agro_lines.append(
+                f"  - {crop_label}: {irr.get('aciliyet','?')} — {irr.get('gerekce','')}"
+            )
+
+        fert_lines = []
+        for crop_label, crop_key in [("Buğday", "Wheat"), ("Ayçiçeği", "Sunflower")]:
+            f_ = get_fertilization_advice(crop_key, month)
+            if f_.get("gubre_zamani"):
+                fert_lines.append(
+                    f"  - {crop_label}: EVET — {f_.get('tip','')}, {f_.get('doz','')}"
+                )
+        if fert_lines:
+            agro_lines.append("GÜBRELEME:")
+            agro_lines.extend(fert_lines)
+
+        parts.append("\n".join(agro_lines))
+    except Exception as e:
+        parts.append(f"[Agronomik takvim alınamadı: {e}]")
+
+    # 4. Toprak profili (statik — SoilGrids 2.0, Kırklareli-Vize)
+    parts.append(
+        "TOPRAK PROFİLİ (SoilGrids 2.0, Kırklareli-Vize):\n"
+        "- Kil: %30.97, Kum: %34.99, Silt: %34.04\n"
+        "- pH: 7.11 (nötr)\n"
+        "- Toprak tipi: Killi-tınlı (clay-loam)\n"
+        "- Su tutma kapasitesi: Orta-yüksek"
+    )
+
+    return "\n\n".join(parts)
+
+
+def rag_query(query: str, context: str, rich_context: str = None) -> dict:
+    """
+    RAG sorgusu: (isteğe bağlı zengin bağlam +) RAG belgeleri + soru → LLM → Türkçe yanıt.
+
     Args:
         query: Kullanıcının sorusu
         context: format_context()'den gelen kaynak metin
-    
+        rich_context: build_rich_context()'den gelen güncel tarla verileri (None ise atlanır)
+
     Returns:
         dict: {"answer": "...", "duration_sec": ..., "tokens": ...}
     """
-    full_prompt = f"""SORU: {query}
+    rich_block = (
+        "Aşağıda tarla hakkında güncel veriler var. Bu verileri MUTLAKA kullanarak yanıt ver:\n\n"
+        f"{rich_context}\n\n"
+    ) if rich_context else ""
 
-KAYNAK BELGELER:
-{context}
-
-Yukarıdaki kaynak belgelere dayanarak soruyu Türkçe yanıtla.
-Somut tavsiyeler ver: ne yapılmalı, ne zaman, ne kadar.
-Emin olmadığın bilgiyi uydurma."""
+    full_prompt = (
+        f"{rich_block}"
+        f"RAG'dan getirilen tarımsal belgeler:\n{context}\n\n"
+        f"Çiftçinin sorusu: {query}\n\n"
+        "Yukarıdaki TÜM verileri analiz ederek somut, rakamsal, "
+        "eyleme dönüştürülebilir Türkçe tavsiye ver."
+    )
 
     return query_llm(full_prompt)
 
 
-def rover_alert_query(anomaly_context: str, field_context: str) -> dict:
+def rover_alert_query(
+    anomaly_context: str,
+    field_context: str,
+    weather_context: str = None,
+    agro_context: str = None,
+) -> dict:
     """
     Rover anomali senaryosu için özel prompt.
-    
-    ÇP-2'nin inference çıktısı + Rover sensör verisi + RAG belgesi
+
+    ÇP-2 inference çıktısı + Rover sensör verisi + RAG belgesi +
+    (isteğe bağlı) hava durumu + (isteğe bağlı) agronomik takvim
     birleştirilip LLM'e gönderilir.
-    
+
     Args:
         anomaly_context: Anomali açıklaması (nem farkı, hastalık vb.)
         field_context: RAG'dan gelen ilgili belge parçaları
-    
+        weather_context: Open-Meteo hava durumu özeti (None ise atlanır)
+        agro_context: Agronomik takvim ve ekim/sulama/gübre durumu (None ise atlanır)
+
     Returns:
         dict: LLM yanıtı
     """
-    prompt = f"""ROVER ANOMALİ RAPORU:
-{anomaly_context}
+    weather_block = f"\nHAVA DURUMU BİLGİSİ:\n{weather_context}\n" if weather_context else ""
+    agro_block = f"\nAGRONOMİK TAKVİM BİLGİSİ:\n{agro_context}\n" if agro_context else ""
 
+    prompt = f"""ROVER ANOMALİ RAPORU:
+{anomaly_context}{weather_block}{agro_block}
 İLGİLİ TARIMSAL BİLGİ:
 {field_context}
 
@@ -169,7 +325,9 @@ kısa, net ve acil bir Türkçe tavsiye üret. Şunları belirt:
 1. Sorunun ne olduğu (basit dille)
 2. Hemen yapılması gereken eylem
 3. Yapılmazsa olabilecek risk
-4. Tavsiye edilen zamanlama"""
+4. Tavsiye edilen zamanlama
+Bu bilgilere dayanarak ekim zamanı uygunsa ekimi, sulama gerekiyorsa
+miktarı ve zamanlamasını, gübreleme zamanıysa dozu ve tipini de belirt."""
 
     return query_llm(prompt)
 
