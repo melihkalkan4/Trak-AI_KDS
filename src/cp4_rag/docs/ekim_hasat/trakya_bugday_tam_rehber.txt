@@ -1,0 +1,189 @@
+TRAKYA BÖLGESİ KIŞLIK BUĞDAY YETİŞTİRİCİLİK KAPSAMLI REHBERİ
+Edirne, Kırklareli, Tekirdağ İlleri — Tarımsal Uygulama Rehberi
+
+=========================================================
+BÖLGE ÖZELLİKLERİ
+=========================================================
+
+Trakya (Doğu Trakya), Türkiye'nin en önemli buğday üretim bölgelerinden biridir.
+Toplam tarım alanı: ≈ 1.2 milyon hektar
+Buğday ekim alanı: ≈ 500.000-600.000 hektar
+Bölge iklimi: Yarı-karasal, Karadeniz'in ılıtıcı etkisi
+Yıllık yağış: 550-650 mm (Kırklareli-Tekirdağ arası)
+
+Toprak profili (Ergene havzası ve çevresi):
+  Ağırlıklı olarak killi-tınlı (clay-loam) yapı
+  pH: 6.8-7.5 (nötr-hafif alkalin)
+  Organik madde: %1.5-3.0 (değişken)
+  Drenaj: Değişken; alüvyal ovalarda drenaj sorunu olabilir
+
+=========================================================
+EKİM PLANLAMA
+=========================================================
+
+Ekim Zamanı (Optimal):
+  Tarih: 15 Ekim – 15 Kasım
+  Toprak sıcaklığı (5 cm): 8–10°C optimal
+  Çok erken ekim (Eylül-Ekim başı): Kışa sağlam çıkan bitki haşere çekerek hastalığa açık olur
+  Çok geç ekim (Kasım sonu): Her 1 hafta gecikme = %3-5 verim kaybı
+
+  Son ekim tarihi: 30 Kasım (bundan sonra verim düşüşü belirginleşir)
+
+Neden Bu Tarih Aralığı?
+  15 Ekim – 15 Kasım ekiminde:
+  1. Tohum kışa girilmeden 3-5 yaprak + erken kardeş oluşturur
+  2. Kök sistemi donmadan derinleşir
+  3. Soğuk direnci (vernalizasyon) tamamlanır
+  4. Bahar ısınmasında hızlı büyüme başlar
+
+Tohum Seçimi:
+  Dekar başına tohum miktarı: 16-25 kg/da
+  1000 dane ağırlığına göre:
+    Küçük tohum (30-35 g/1000 dane): 16-18 kg/da
+    Orta tohum (35-45 g/1000 dane): 18-22 kg/da
+    İri tohum (45-55 g/1000 dane): 22-25 kg/da
+  Hedef: 400-500 bitki/m² (aşırı sık ekim verime katkı yapmaz)
+
+  Sertifikalı tohum kullanımı önerilir:
+    Hastalıklı tohumdan: Bunt, sürmece, septorya bulaşması
+    Tohumluk ilaçlaması: TMTD veya karbendazim bazlı ilaç + maneb
+
+Ekim Derinliği:
+  Normal koşul: 4-6 cm
+  Kuru toprak: 5-6 cm (neme yaklaşmak için derin)
+  Nemli toprak: 3-4 cm (toprak kabuğu riski varsa sığ)
+
+Sıra Arası Mesafe:
+  Tahıl mibzeri ile: 15-18 cm
+  Bıçaklı ekim: 7-12 cm
+  Geniş sıra aralığı yabancı ot baskısı için dezavantaj.
+
+=========================================================
+TOPRAK HAZIRLIĞI VE ROTASYON
+=========================================================
+
+Toprak Hazırlığı:
+  Ön bitki hasadı sonrası: Anız parçalama (değil: anız yakma — organik madde yitirilir)
+  Derin sürme: 25-35 cm derin pulluk, 2 yılda bir (sürekli sürme toprak sıkışmasına yol açar)
+  İkincil toprak hazırlığı: Disk veya kültivatör, ekimden önce kabartma
+  Toprak pH <6.5 ise: Kireçleme önerilir (ton başına 1-2 ton kireç)
+
+Ekim Nöbeti Önerileri:
+  İdeal: Ayçiçeği → buğday → buğday → ayçiçeği (2 yılda bir)
+  Sürekli buğday: Pas ve septorya riski artar, verim düşer
+  Mısır–buğday: Fusarium riski (mısır anızı fomopsis ve fusarium taşır)
+  Ayçiçeği–buğday: İyi; farklı hastalık ve yabancı ot spektrumu
+
+=========================================================
+GÜBRELEME PROGRAMI (Trakya Killi-Tınlı Toprak)
+=========================================================
+
+Toprak Analizi Esaslı Yaklaşım:
+  Her 3-4 yılda bir toprak analizi yaptırın.
+  Azot (N): Toprak analizi genellikle N önermez (değişken ve kaybolgan)
+  Fosfor (P₂O₅): Kritik değer: <5 kg/da → uygula; 5-10 → orta; >10 → az
+  Potasyum (K₂O): Trakya killi topraklarında genellikle yeterli
+
+Standart Gübreleme (hedef 500 kg/da kuru tarım):
+  Saf Azot (N): 14 kg/da
+  Saf Fosfor (P₂O₅): 4-5 kg/da
+  Saf Potasyum (K₂O): 3-5 kg/da (analiz gerektiriyorsa)
+
+Gübreleme Zamanlaması — 3'e Bölünmüş N Uygulaması:
+  1. UYGULAMA — Ekimle birlikte veya ekimden önce (Ekim):
+     DAP (Diamonyum Fosfat, 18-46-0): 20-25 kg/da
+     Fosforun tamamı + azotun %20-25'i bu uygulamada verilir.
+     Tohuma değmemesi gerekir (tohum yanması riski).
+
+  2. UYGULAMA — Erken ilkbahar kardeşlenme sonu (Şubat ortası – Mart başı, BBCH 21-25):
+     Üre (%46 N): 8-10 kg/da → saf azot 3.7-4.6 kg/da
+     Amonyum nitrat (%33 N) alternatifi: 12-15 kg/da
+     Toprak nemli olmalı (yağmur sonrası veya yağmur öncesi). Kuru toprakta kayıp artar.
+
+  3. UYGULAMA — Sapa kalkma (Mart sonu – Nisan başı, BBCH 30-32):
+     Amonyum nitrat (%33 N): 15-20 kg/da → saf azot 5-6.6 kg/da
+     Bu dönemde azot verimi en yüksek etkiyi yapar (sürgün + başak büyüklüğü).
+
+  TOPLAM: 3 uygulamada = 14-15 kg/da saf azot (kuru tarım)
+
+Sulu Tarım Gübreleme (hedef 700 kg/da):
+  Toplam saf azot: 16-18 kg/da
+  Fosfor: 5-6 kg/da
+  4. uygulamaya gerek yok; ancak sulama ile birlikte fertigasyon mümkünse küçük dozlarda ek N
+
+Mikro Besin Eksiklikleri:
+  Çinko (Zn) eksikliği: pH >7.0 topraklarda yaygın
+    Belirtisi: Yeni yapraklarda beyaz-sarı şeritler, büyüme geriliği
+    Tedavi: Çinko sülfat ZnSO4 — 2-3 kg/da topraktan veya %0.3 çözeltiden yapraktan
+  Manganez (Mn): Aşırı alkalin topraklarda sorun
+  Demir (Fe): Trakya topraklarında nadiren sorun
+
+=========================================================
+YABANCI OT YÖNETİMİ
+=========================================================
+
+Buğdayda Önemli Yabancı Otlar (Trakya):
+  Dar yapraklılar (Buğdaygiller): Yabani yulaf, tilki kuyruğu, çim
+  Geniş yapraklılar: Gelincik, köpekdişi, yabani hardal, çoban çantası, papatya
+
+  Ekonomik zarar eşiği:
+  Dar yapraklı: 3-5 bitki/m² → herbisit kararı
+  Geniş yapraklı: 10-15 bitki/m² → herbisit kararı
+
+Herbisit Uygulama Zamanları:
+  Dar yapraklı herbisitler: BBCH 21-32 (kardeşlenme-sapa kalkma başlangıcı)
+  Geniş yapraklı herbisitler: BBCH 13-32
+  Geç uygulama (BBCH 32 sonrası): Fitotoksisite riski
+
+Dikkat: Sapa kalkma sonrasında herbisit uygulamaktan kaçının.
+
+=========================================================
+HASTALIK YÖNETİMİ
+=========================================================
+
+Sarı Pas (Puccinia striiformis) — En Yaygın:
+  Risk: Şubat-Nisan, serin-nemli hava (10-15°C + yüksek nem)
+  Belirtisi: Yapraklarda sarı çizgiler halinde toz
+  Kritik Eşik: %5 yaprak alanı etkilenmişse ilaçla
+  İlaçlama zamanı: BBCH 25-39 (erken müdahale = yüksek etkinlik)
+  Fungisit: Triazol grubu (tebukonazol, propikonazol vb.) + strobulin karışımı
+
+Kahverengi Pas (Puccinia triticina):
+  Risk: Nisan-Mayıs, sıcak-ılık hava (15-25°C)
+  Belirtisi: Yaprakta turuncu-kahverengi oval lekeler
+  İlaçlama: Sarı pasla aynı fungisitler, BBCH 37-59
+
+Septorya (Mycosphaerella graminicola):
+  Risk: Sürekli ıslak/yağışlı hava
+  Belirtisi: Yapraklarda sarı sınırlı esmer lekeler, içinde küçük siyah noktalar
+  Bayrak yaprağı döneminde koruma kritik.
+
+Fusarium Başak Yanıklığı (Fusarium graminearum):
+  Risk: Çiçeklenme döneminde (BBCH 60-69) sıcak + nemli hava
+  Belirtisi: Başakta beyazlama, pembe spor kitlesi
+  DON toksin riski var → kaliteyi düşürür
+  Önlem: Çiçeklenme döneminde fungisit (karbendazim, tebukonazol)
+
+=========================================================
+HASAT ZAMANI VE SONRASI
+=========================================================
+
+Hasat Olgunluk Kriterleri:
+  1. Dane nemi: %13-15 → birleştirici ile ideal hasat
+  2. Sap ve başaklar altın-kehribar rengi
+  3. Daneler thumbnail testinde kırılıyor (ezimiyor)
+  4. Düşme sayısı (Falling Number): ≥ 350 sn hedeflenir
+
+Hasat Zamanlaması (Trakya):
+  Genellikle: 20 Haziran – 10 Temmuz
+  İlk kuru günde hasata başlayın.
+  Gecikmede her 1 hafta: %2-5 dane kaybı (dökülme + kuş)
+
+Dane Kurutma:
+  Nemli hasat (>15%): Hemen kurut veya 48 saat içinde satışa çıkar
+  Uzun depo için: %12 altına indir
+  Yüksek nem depoda: küf, ısınma, DON toksin riski
+
+Hasat Sonrası Toprak Bakımı:
+  Anız parçalama (anız yakmayın → hastalık taşınır, organik madde kaybolur)
+  Hasat sonrası sürme ile anız karıştırma → organik madde, hastalık devirimi azalır

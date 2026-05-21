@@ -1,0 +1,159 @@
+SULAMA PROGRAMLAMA VE SU YÖNETİMİ REHBERİ
+Trakya Bölgesi Buğday ve Ayçiçeği — Bilimsel Kaynaklar
+
+=========================================================
+TRAKYA'DA SULAMA GEREKSİNİMİ
+=========================================================
+
+Trakya iklimi: Yarı-karasal, yıllık yağış 570-620 mm
+Yaz ayları (Temmuz-Ağustos) yağış: 30-60 mm/ay (kurak)
+Bu dönem ayçiçeği kritik su ihtiyacı dönemidir → sulama şart.
+
+Buğday için: Yağış genellikle yeterlidir ama kritik dönemde supplemental sulama verimi %20-30 artırır.
+Ayçiçeği için: Yaz kuraklığında 3-4 sulama uygulaması zorunlu.
+
+=========================================================
+BUĞDAY SULAMA REHBERİ
+=========================================================
+
+Su İhtiyacı Aşamaya Göre (ET₀ bazlı):
+  Çimlenme-fide (BBCH 00-29): Kc = 0.30-0.50, günlük ET ≈ 1-2 mm
+  Sapa kalkma (BBCH 30-49): Kc = 0.70-0.90, günlük ET ≈ 2-4 mm
+  Başaklanma-çiçeklenme (BBCH 51-69): Kc = 1.0-1.15, günlük ET ≈ 4-7 mm ← ZİRVE
+  Dane dolumu (BBCH 71-89): Kc = 0.80-0.90, günlük ET ≈ 3-5 mm
+  Olgunlaşma: Kc = 0.25-0.40, günlük ET ≈ 1-2 mm
+
+Kritik Sulama Dönemleri:
+  1. Sapa kalkma (Mart-Nisan, BBCH 30-35): Yetersiz toprak neminde verim %10-15 düşer
+  2. Çiçeklenme (Mayıs, BBCH 60-69): Su stresi verimde %30 azalma yapar — EN KRİTİK
+  3. Dane dolumu başlangıcı (Mayıs sonu, BBCH 71-75): Hektolitre ağırlığını etkiler
+
+Sulama Zamanlaması (Toprak Nemi Bazlı):
+  Sulamayı BAŞLAT: Kullanılabilir toprak suyunun %50'si tükenince
+  Sulamayı BİTİR: Tarla kapasitesine ulaşınca
+  Killi-tınlı toprak için sulama miktarı: 40-60 mm (4-6 cm su derinliği = 4-6 ton/da)
+
+Trakya'da Tipik Buğday Sulama Planı:
+  Yağışlı Yıl: Genellikle ek sulama gerekmez (yağış yeterli)
+  Ortalama Yıl: 1-2 sulama (Nisan sulama + Mayıs sulama)
+    1. Sulama: Nisan ortası, BBCH 32-37 döneminde, 40-50 mm
+    2. Sulama: Mayıs başı, BBCH 60-71 döneminde, 40-60 mm
+  Kuru Yıl: 3 sulama (yukarıdakilere Mart sulaması ekle)
+
+Sulama Etkisi:
+  2 sulama → verim artışı: +80-150 kg/da (kuru tarıma göre)
+  Tek sulama (sadece çiçeklenme): +50-100 kg/da
+
+=========================================================
+AYÇİÇEĞİ SULAMA REHBERİ
+=========================================================
+
+Toplam Su İhtiyacı: 600-1.000 mm/sezon
+  (Yağış + sulama toplamı olarak)
+  Trakya'da yağış katkısı: 200-350 mm (Nisan-Ağustos)
+  Sulama ihtiyacı: 250-600 mm (yıla göre değişir)
+
+Kc Değerleri (FAO/Penman-Monteith):
+  Başlangıç (ilk 20-25 gün): Kc = 0.35
+  Gelişme dönemi (25-40 gün): Kc = 0.70-0.80
+  Orta dönem (R1-R6, çiçeklenme): Kc = 1.10-1.20 ← EN YÜKSEK
+  Son dönem (R6-R9): Kc = 0.70
+  Olum/hasat öncesi: Kc = 0.40
+
+Su Dağılımı Büyüme Aşamalarına Göre:
+  Vejetatif (ekim-R1): Toplam su ihtiyacının %20'si
+  Çiçeklenme (R1-R6): Toplam su ihtiyacının %55'i — EN KRİTİK
+  Dane dolumu ve olum (R6-R9): Toplam su ihtiyacının %25'i
+
+Toprak Nemi Eşikleri:
+  R1-R6 döneminde (kritik): Kullanılabilir su %45 tükenince sulama başlat
+  Diğer dönemlerde: %50 tükenince sulama başlat
+  R1-R6 döneminde tarla kapasitesinin %80'ini koru (hedef minimum nem)
+
+Trakya'da Tipik Ayçiçeği Sulama Programı (25 Nisan ekimi):
+  1. Sulama: Haziran 15-25 (R1, tabla görünümü başlangıcı)
+     Miktar: 50-70 mm | Zamanlama: Sabah erken veya akşam
+  2. Sulama: Temmuz 5-15 (R3-R4, tabla büyüme + çiçeklenme başlangıcı)
+     Miktar: 60-80 mm | En kritik sulama
+  3. Sulama: Temmuz 20-30 (R5, tam çiçeklenme)
+     Miktar: 50-70 mm
+  4. Sulama: Ağustos 1-10 (R6-R7, dane dolumu)
+     Miktar: 40-60 mm | Son sulama
+
+  Toplam 4 sulama = ≈ 200-280 mm sulama suyu
+  Olgunlaşma döneminde (Ağustos ortası sonrası) sulama DUR → tabla/sap kurumayı bekle
+
+Kuru Yıl (Haziran yağışı çok azsa):
+  5. sulama eklenebilir: Haziran başı (V12, R1 öncesi kuru ise)
+  Bu sulamanın faydası özellikle: Tabla büyüklüğünü artırır
+
+Sulama Yöntemi Önerileri:
+  Damla sulama → %30-40 su tasarrufu, kök bölgesine direkt
+  Yağmurlama → uniform dağılım, ancak çiçeklenme döneminde tablayı ıslatmaktan kaçın
+  Karık/salma sulama → geleneksel ama %40-50 su kaybı (Trakya yaygın)
+  Optimum: Damla sulama kurulumu için yatırım uzun vadede karlı
+
+=========================================================
+TOPRAK NEM TAKİBİ
+=========================================================
+
+Killi-Tınlı Toprak Su Tutma Özellikleri (Trakya):
+  Doygunluk noktası: ≈ %45-50 (hacimsel su içeriği)
+  Tarla kapasitesi (FC): ≈ %30-35
+  Solma noktası (PWP): ≈ %18-22
+  Kullanılabilir su (FC - PWP): ≈ %12-15 (yaklaşık 120-150 mm/m)
+
+Sensör Okumalarının Yorumlanması:
+  Toprak nemi %30-35 (tarla kapasitesinde): Sulama gerekmez
+  Toprak nemi %22-28: İzle, yakında sulama gerekebilir
+  Toprak nemi %18-22: Sulama zamanı (eşik geçildi)
+  Toprak nemi <18 (solma noktasına yakın): ACİL SULAMA
+
+Sulama Sonrası Bekleme:
+  Buğday: 3-5 gün (killi-tınlı toprak yavaş drene olur)
+  Ayçiçeği: 2-3 gün
+  Bir sonraki sulamaya kadar toprak yeterince drene olsun
+
+=========================================================
+EVAPOTRANSPIRASYON (ET) HESABI
+=========================================================
+
+Referans ET₀ Trakya (Penman-Monteith):
+  Nisan: ≈ 3.5 mm/gün
+  Mayıs: ≈ 5.0 mm/gün
+  Haziran: ≈ 6.5 mm/gün
+  Temmuz: ≈ 7.0 mm/gün ← ZIRVE
+  Ağustos: ≈ 6.5 mm/gün
+
+Bitki ET (ETc) = ET₀ × Kc
+
+Ayçiçeği Temmuz çiçeklenme döneminde:
+  ETc = 7.0 × 1.15 = ≈ 8 mm/gün
+  Haftada ≈ 56 mm sulama ihtiyacı
+  Eğer yağış yoksa ve sulama yok ise: 7-10 günde su stresi başlar
+
+Sulama Hesabı Örneği:
+  Toprak derinliği: 60 cm (kök bölgesi)
+  Kullanılabilir su: 12% × 60 cm = 72 mm
+  50% tüketim eşiği: 36 mm tüketince sulama başlat
+  Temmuz'da ETc 8 mm/gün → 36/8 = 4.5 gün sonra sulama (hiç yağış yoksa)
+
+=========================================================
+SULAMA HATALARI VE ÇÖZÜMLERI
+=========================================================
+
+Sık Yapılan Hatalar:
+  1. Çok az sulama — toprak yüzeyi ıslandı ama derine inmedi → Kök bölgesine ulaşmıyor, bitki streste
+  Çözüm: Tek seferde 50-80 mm ver, sık sık 15-20 mm verme
+
+  2. Çok sık sulama — toprak sürekli ıslak → Kökler sığ kalır, anaerobik ortam
+  Çözüm: Sulama arası toprak nemine bak, tükenme eşiğini bekle
+
+  3. Yanlış zamanlama — öğle sıcaklığında sulama → Buharlaşma kaybı %30-40 artar
+  Çözüm: Sabah 5-9 veya akşam 18-21 arası sulama
+
+  4. Hastalık döneminde yaprak ıslak kalma — sabaha kadar yaprak ıslak
+  Çözüm: Akşam yerine sabah sulama tercih et (gün içinde kurur)
+
+  5. Hasat öncesi sulama — geç sulama tane olumunu geciktirir
+  Çözüm: Fizyolojik olumdan sonra sulama kesinlikle dur

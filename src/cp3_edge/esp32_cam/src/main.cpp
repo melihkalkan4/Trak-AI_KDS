@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include "esp_camera.h"
+#include "mbedtls/base64.h"
 
 // AI Thinker ESP32-CAM Pin Tanımları
 #define PWDN_GPIO_NUM     32
@@ -20,27 +21,8 @@
 #define HREF_GPIO_NUM     23
 #define PCLK_GPIO_NUM     22
 
-// BBCH Sınıf Etiketleri
-const char* BBCH_SINIFLAR[] = {
-  "BBCH_00_10",
-  "BBCH_10_19",
-  "BBCH_20_29",
-  "BBCH_30_39",
-  "BBCH_51_59",
-  "BBCH_60_69",
-  "BBCH_71_79",
-  "BBCH_81_89",
-  "SAGLIKLI",
-  "HASTALIKLI",
-};
-
-unsigned long lastInferenceTime = 0;
-const unsigned long INFERENCE_INTERVAL_MS = 5000;
-
-struct InferenceResult {
-  int   sinifIndex;
-  float guvenSkoru;
-};
+unsigned long lastCaptureTime = 0;
+const unsigned long CAPTURE_INTERVAL_MS = 5000;
 
 bool kameraBaslat() {
   camera_config_t config;
@@ -64,8 +46,8 @@ bool kameraBaslat() {
   config.pin_reset     = RESET_GPIO_NUM;
   config.xclk_freq_hz  = 20000000;
   config.pixel_format  = PIXFORMAT_JPEG;
-  config.frame_size    = FRAMESIZE_QVGA;
-  config.jpeg_quality  = 12;
+  config.frame_size    = FRAMESIZE_QVGA;  // 320x240
+  config.jpeg_quality  = 15;              // Küçük boyut (~8-15KB)
   config.fb_count      = 1;
   config.grab_mode     = CAMERA_GRAB_WHEN_EMPTY;
 
@@ -74,59 +56,78 @@ bool kameraBaslat() {
     Serial.printf("[CAM] Hata: 0x%x\n", err);
     return false;
   }
-  Serial.println("[CAM] Kamera başlatıldı.");
+  Serial.println("[CAM] Kamera baslatildi. (QVGA, quality=15)");
   return true;
 }
 
-// Mock inference - YOLOv8 TFLite model gelince burası güncellenecek
-InferenceResult mockInference(camera_fb_t* fb) {
-  uint32_t toplam = 0;
-  int ornekSayisi = min((int)fb->len, 1000);
-  for (int i = 0; i < ornekSayisi; i++) toplam += fb->buf[i];
-  float ort = (float)toplam / ornekSayisi;
+// JPEG frame'i base64 encode et, JSON formatında Serial'e gönder
+void goruntuyuGonder(camera_fb_t* fb) {
+  // Base64 boyutunu hesapla
+  size_t b64_len = 0;
+  mbedtls_base64_encode(NULL, 0, &b64_len, fb->buf, fb->len);
 
-  InferenceResult sonuc;
-  if (ort > 180)      { sonuc.sinifIndex = 8; sonuc.guvenSkoru = 0.82f; }
-  else if (ort > 120) { sonuc.sinifIndex = 5; sonuc.guvenSkoru = 0.76f; }
-  else                { sonuc.sinifIndex = 9; sonuc.guvenSkoru = 0.71f; }
-  return sonuc;
-}
+  // Bellek ayır
+  uint8_t* b64_buf = (uint8_t*)malloc(b64_len + 1);
+  if (!b64_buf) {
+    Serial.println("[CAM] malloc hatasi — goruntusu gonderilemedi");
+    return;
+  }
 
-void sonucGonder(InferenceResult& sonuc) {
-  StaticJsonDocument<128> doc;
-  doc["bbch"]  = BBCH_SINIFLAR[sonuc.sinifIndex];
-  doc["guven"] = sonuc.guvenSkoru;
-  doc["sinif"] = sonuc.sinifIndex;
-  String json;
-  serializeJson(doc, json);
-  Serial.println(json);
+  // Encode et
+  mbedtls_base64_encode(b64_buf, b64_len, &b64_len, fb->buf, fb->len);
+  b64_buf[b64_len] = '\0';
+
+  // JSON: prefix + data + suffix — tek satır (\n ile biter, rover readStringUntil('\n') okur)
+  Serial.print("{\"type\":\"image\",\"fmt\":\"jpeg\",\"w\":320,\"h\":240,\"bytes\":");
+  Serial.print((int)fb->len);
+  Serial.print(",\"data\":\"");
+  Serial.print((char*)b64_buf);
+  Serial.println("\"}");
+
+  Serial.printf("[CAM] Goruntu gonderildi: %d bytes JPEG -> %d bytes base64\n",
+                (int)fb->len, (int)b64_len);
+  free(b64_buf);
 }
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("=== TRAK-AI ESP32-CAM BAŞLIYOR ===");
+  Serial.println("=== TRAK-AI ESP32-CAM BASLIYOR (Hybrid Edge-Fog) ===");
   if (!kameraBaslat()) {
     delay(3000);
     ESP.restart();
   }
-  Serial.println("[SETUP] Hazır!");
+  Serial.println("[SETUP] Hazir! Komutlar: CAPTURE");
 }
 
 void loop() {
+  // Ana rover'dan CAPTURE komutu gelirse anlik goruntu gonder
+  if (Serial.available()) {
+    String cmd = Serial.readStringUntil('\n');
+    cmd.trim();
+    if (cmd == "CAPTURE") {
+      camera_fb_t* fb = esp_camera_fb_get();
+      if (fb) {
+        goruntuyuGonder(fb);
+        esp_camera_fb_return(fb);
+      } else {
+        Serial.println("[CAM] CAPTURE hatasi: goruntu alinamadi");
+      }
+    }
+  }
+
+  // Periyodik otomatik goruntu gonderimi (her 5 saniye)
   unsigned long now = millis();
-  if (now - lastInferenceTime >= INFERENCE_INTERVAL_MS) {
+  if (now - lastCaptureTime >= CAPTURE_INTERVAL_MS) {
     camera_fb_t* fb = esp_camera_fb_get();
     if (!fb) {
-      Serial.println("[CAM] Görüntü alınamadı!");
-      lastInferenceTime = now;
+      Serial.println("[CAM] Goruntu alinamadi!");
+      lastCaptureTime = now;
       return;
     }
-    InferenceResult sonuc = mockInference(fb);
+    goruntuyuGonder(fb);
     esp_camera_fb_return(fb);
-    sonucGonder(sonuc);
-    Serial.printf("[INF] %s (güven: %.2f)\n",
-      BBCH_SINIFLAR[sonuc.sinifIndex], sonuc.guvenSkoru);
-    lastInferenceTime = now;
+    lastCaptureTime = now;
   }
+
   delay(100);
 }

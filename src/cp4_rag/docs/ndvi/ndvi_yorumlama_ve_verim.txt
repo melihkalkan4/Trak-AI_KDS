@@ -1,0 +1,174 @@
+NDVI (Normalize Edilmiş Fark Bitki Örtüsü İndeksi) YORUMLAMA REHBERİ
+Trakya Bölgesi Buğday ve Ayçiçeği — Uzaktan Algılama Tabanlı Tarla İzleme
+
+=========================================================
+NDVI NEDİR?
+=========================================================
+
+NDVI (Normalized Difference Vegetation Index), bitki sağlığını ve yoğunluğunu uzaktan ölçen bir indekstir.
+Formül: NDVI = (NIR − RED) / (NIR + RED)
+  NIR: Yakın kızılötesi yansıma
+  RED: Kırmızı ışık yansıması
+
+Değer aralığı: −1.0 ile +1.0 arası
+  Su, yapay yüzeyler: −1.0 ile 0.0
+  Çıplak toprak, taş: 0.0 ile 0.25
+  Seyrek bitki örtüsü: 0.25 ile 0.45
+  Orta yoğunlukta bitki: 0.45 ile 0.65
+  Yoğun, sağlıklı bitki: 0.65 ile 0.90
+  Maksimum (tropikal orman): 0.90 ile 1.0
+
+=========================================================
+BUĞDAY İÇİN NDVI YORUMLAMA EŞİKLERİ
+=========================================================
+
+NDVI < 0.25 — KRİTİK DURUM:
+  Bitki örtüsü yok veya büyük ölçüde tahrip olmuş.
+  Olası nedenler: Kışa zarar (don), şiddetli hastalık (pas, fusarium), su baskını, yeniden ekim gerekebilir.
+  Eylem: Acil tarla kontrolü. Ziraat mühendisi çağır.
+
+NDVI 0.25–0.40 — ZAYIF / STRESLI:
+  Bitki örtüsü var ama sağlıksız, stres altında veya seyrek.
+  Olası nedenler: Azot eksikliği, kuraklık stresi, toprak problemi, erken gelişme dönemi.
+  Eylem: Tarla gezisi yapın. Sararmış yaprak → azot; solgun yaprak → su stresi; lekeli yaprak → hastalık.
+
+NDVI 0.40–0.55 — ORTA:
+  Ortalama gelişme. Verim tahmini belirsiz.
+  Yoğun izleme önerilir. Bitki iyi olmakla birlikte optimal değil.
+  Eylem: Azot durumunu kontrol edin, sulama takvimini gözden geçirin.
+
+NDVI 0.55–0.70 — İYİ:
+  Sağlıklı ve yoğun bitki örtüsü. Gelişme normal seyrinde.
+  Trakya ortalaması için bu aralık başaklanma döneminde hedef değerdir.
+  Eylem: İzlemeye devam, müdahale genellikle gerekmiyor.
+
+NDVI > 0.70 — MÜKEMMEL:
+  Çok yoğun, aktif büyüyen bitki örtüsü. Yüksek verim potansiyeli.
+  Buğday için Nisan-Mayıs döneminde ulaşılabilir.
+  Eylem: Koruyucu izleme, verim beklentisi yüksek.
+
+=========================================================
+MEVSİMSEL NDVI PATERNİ — TRAKYA KIŞLIK BUĞDAY
+=========================================================
+
+Kışlık buğday 15 Ekim ekiminde tipik NDVI seyri:
+
+  Kasım (çimlenme/fide): NDVI ≈ 0.15–0.30
+    Tarlaya henüz kapanmamış, toprak görünüyor
+  Aralık-Ocak (kardeşlenme/kış):  NDVI ≈ 0.25–0.40
+    Kış yavaşlaması, sıcaklık düşük
+  Şubat (erken sapa kalkma): NDVI ≈ 0.35–0.50
+    Isınma ile büyüme başlar
+  Mart-Nisan (sapa kalkma/bayrak yaprak): NDVI ≈ 0.55–0.75
+    En hızlı büyüme dönemi, NDVI hızla yükselir
+  Nisan-Mayıs (başaklanma/çiçeklenme): NDVI ≈ 0.70–0.85
+    Maksimum yeşil alan, en yüksek NDVI
+  Mayıs-Haziran (dane dolumu): NDVI ≈ 0.55–0.75
+    Yavaş düşüş başlar
+  Haziran (olgunlaşma): NDVI ≈ 0.30–0.50
+    Sararma ile hızlı düşüş
+  Hasat öncesi: NDVI ≈ 0.15–0.25
+    Tarlada altın-sarı renk
+
+Anomali Tespiti:
+  Eğer NDVI beklenen bu eğriden belirgin sapma gösteriyorsa (örneğin Nisan'da 0.55 yerine 0.35):
+  → Stres analizi yapın: kuraklık mı? hastalık mı? besin eksikliği mi?
+
+=========================================================
+MEVSİMSEL NDVI PATERNİ — TRAKYA YAZLIK AYÇİÇEĞİ
+=========================================================
+
+Ayçiçeği 25 Nisan ekiminde tipik NDVI seyri:
+
+  Mayıs başı (çimlenme/V2): NDVI ≈ 0.10–0.25
+    Yeni çıkış, toprak hâlâ görünüyor
+  Mayıs ortası-sonu (V4-V8): NDVI ≈ 0.25–0.45
+    Hızlı büyüme, yaprak alanı artıyor
+  Haziran (V12-R1): NDVI ≈ 0.50–0.70
+    Tabla oluşumu öncesi vejetatif zirve
+  Haziran sonu – Temmuz (R1-R5, çiçeklenme): NDVI ≈ 0.65–0.85
+    Maksimum yeşil alan, çiçeklenme dönemi
+  Ağustos (R6-R9, dane dolumu-olum): NDVI ≈ 0.40–0.65
+    Yapraklar sararmaya başlar, NDVI düşer
+  Ağustos sonu – Eylül (hasat): NDVI ≈ 0.20–0.35
+    Tabla ve yapraklar tamamen sarı-kahverengi
+
+Kritik İzleme Noktası:
+  NDVI'nın Temmuz çiçeklenme zirvesinde beklenen 0.70+ değerin altında kalması
+  (örneğin 0.50-0.55) ciddi uyarıdır. Olası neden: su stresi, sclerotinia, azot yetersizliği.
+
+=========================================================
+NDVI VE VERİM TAHMİNİ
+=========================================================
+
+NDVI-Verim Korelasyonu:
+  Buğday için R² değeri: 0.65–0.82 (dane dolumu döneminde)
+  Ayçiçeği için R²: 0.55–0.75 (çiçeklenme döneminde)
+
+  Bu değerler NDVI'nın tek başına verim tahmin etmede güçlü ama tam olmayan bir gösterge olduğunu gösterir. Hava durumu ve toprak nemi ile birlikte değerlendirildiğinde doğruluk %90'a çıkabilir.
+
+Kritik NDVI Gözlem Dönemleri için Trakya Referans Değerleri:
+
+  Buğday — Başaklanma (Nisan-Mayıs):
+    Mükemmel verim beklentisi: NDVI ≥ 0.72
+    İyi verim beklentisi: NDVI 0.60–0.72
+    Orta verim: NDVI 0.50–0.60
+    Düşük verim riski: NDVI < 0.50
+
+  Ayçiçeği — Tam çiçeklenme (Temmuz):
+    Mükemmel verim beklentisi: NDVI ≥ 0.70
+    İyi verim beklentisi: NDVI 0.58–0.70
+    Orta verim: NDVI 0.45–0.58
+    Düşük verim riski: NDVI < 0.45
+
+Trakya Referans Verim Değerleri:
+  Buğday kuru tarım: Dekar başına 250–400 kg
+  Buğday sulu tarım: Dekar başına 500–700 kg
+  Ayçiçeği: Dekar başına 150–280 kg
+
+=========================================================
+NDVI ANOMALİ TESPİTİ VE ERKEN UYARI
+=========================================================
+
+Ani NDVI Düşüşü (haftalar içinde >0.10 düşüş):
+  Olası nedenler:
+  - Su stresi (toprak nemi düştü, sulama yok)
+  - Sarı pas (Puccinia striiformis) — buğdayda
+  - Kahverengi pas (Puccinia triticina) — buğdayda
+  - Mildiyö (Sclerospora) — ayçiçeğinde
+  - Yaprak biti salgını
+  - Dolu/fırtına hasarı
+
+  Eylem: 48 saat içinde tarla kontrolü. Stres kaynağını belirlemeden ilaçlama yapma.
+
+Beklenen Değerin Altında Sürekli Düşük NDVI:
+  Tarla bazında düşük NDVI (komşu tarlalara göre):
+  - Toprak sorunu (tuzluluk, pH, drenaj)
+  - Yetersiz gübreleme (özellikle azot)
+  - Tohumluk sorunu (çıkış oranı düşük)
+  - Geçen yıldan kalan hastalık/yabancı ot baskısı
+
+Parçalı NDVI Haritası (tarla içinde düzensiz dağılım):
+  - Nem dağılımı eşitsiz → sulama sistemi kontrolü
+  - Kompaksiyon bölgeleri (makinenin geçtiği alanlar)
+  - Gizli drenaj sorunları
+  - Hastalık odakları (başlangıç noktası belirle)
+
+=========================================================
+NDVI İZLEME FREKANSI VE ARAÇLAR
+=========================================================
+
+Önerilen izleme sıklığı:
+  - Vejetatif dönem: 7-10 günde bir
+  - Kritik dönemler (başaklanma, çiçeklenme): 3-5 günde bir
+  - Hasat öncesi: Günlük veya gün aşırı takip
+
+Trakya'da kullanılabilir araçlar:
+  - Sentinel-2 uydu görüntüsü: 5 günde bir, 10m çözünürlük, ücretsiz
+  - NDVI değeri 0.20'nin altında bulut kaplı → veri güvenilmez, bulut filtreleme şart
+  - Yerden okuma için SPAD klorofil metre veya taşınabilir NDVI sensörü
+
+NDVI Okumalarında Dikkat Edilecekler:
+  - Sulama sonrası yansıma değişir → sulama hemen öncesi veya 24 saat sonra oku
+  - Yağmur/bulut → uydu okumalarını bozar, alternatif tarih seç
+  - Gün içi saat: Sabah 10 – öğleden sonra 14 arası en doğru okuma

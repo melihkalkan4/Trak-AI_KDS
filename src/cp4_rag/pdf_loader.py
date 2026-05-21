@@ -1,7 +1,7 @@
 """
-TRAK-AI KDS — PDF Yükleyici ve Chunk'lama Modülü
-==================================================
-docs/ klasöründeki PDF'leri okur, metin çıkarır, chunk'lara böler.
+TRAK-AI KDS — Belge Yükleyici ve Chunk'lama Modülü
+====================================================
+docs/ klasöründeki PDF ve TXT dosyalarını okur, metin çıkarır, chunk'lara böler.
 """
 import fitz
 from pathlib import Path
@@ -11,21 +11,19 @@ from config import DOCS_DIR, CHUNK_SIZE, CHUNK_OVERLAP
 
 
 def load_all_pdfs() -> list:
-    """docs/ altındaki tüm PDF'leri oku ve metin çıkar."""
+    """docs/ altındaki tüm PDF ve TXT belgelerini oku ve metin çıkar."""
     documents = []
-    pdf_files = list(DOCS_DIR.rglob("*.pdf"))
 
-    if not pdf_files:
-        print(f"\n[UYARI] Hiç PDF bulunamadı!")
-        print(f"PDF'leri şu klasörlere koy:")
-        print(f"  {DOCS_DIR / 'bbch'}")
-        print(f"  {DOCS_DIR / 'tr_bakanlik'}")
-        print(f"  {DOCS_DIR / 'fao'}")
-        print(f"  {DOCS_DIR / 'abd'}")
-        print(f"  {DOCS_DIR / 'hastalik'}")
+    pdf_files = list(DOCS_DIR.rglob("*.pdf"))
+    txt_files = list(DOCS_DIR.rglob("*.txt"))
+    all_files = pdf_files + txt_files
+
+    if not all_files:
+        print(f"\n[UYARI] Hiç belge bulunamadı (PDF veya TXT)!")
+        print(f"Belgeleri şu klasörlere koy: {DOCS_DIR}")
         return documents
 
-    print(f"\n{len(pdf_files)} PDF bulundu, okunuyor...")
+    print(f"\n{len(pdf_files)} PDF + {len(txt_files)} TXT bulundu, okunuyor...")
 
     for pdf_path in pdf_files:
         try:
@@ -41,18 +39,32 @@ def load_all_pdfs() -> list:
                 continue
 
             category = pdf_path.parent.name
-
             documents.append({
                 "text": text,
                 "source": pdf_path.name,
                 "category": category,
                 "pages": page_count,
             })
-
             print(f"  [OK] {pdf_path.name} — {page_count} sayfa, {len(text):,} karakter")
-
         except Exception as e:
             print(f"  [HATA] {pdf_path.name}: {e}")
+
+    for txt_path in txt_files:
+        try:
+            text = txt_path.read_text(encoding="utf-8")
+            if len(text.strip()) < 100:
+                print(f"  [ATLANDI] {txt_path.name} (metin çok kısa)")
+                continue
+            category = txt_path.parent.name
+            documents.append({
+                "text": text,
+                "source": txt_path.name,
+                "category": category,
+                "pages": 1,
+            })
+            print(f"  [OK] {txt_path.name} — {len(text):,} karakter (TXT)")
+        except Exception as e:
+            print(f"  [HATA] {txt_path.name}: {e}")
 
     print(f"\nToplam {len(documents)} belge başarıyla yüklendi.")
     return documents

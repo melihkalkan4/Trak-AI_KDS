@@ -1,0 +1,181 @@
+TRAKYA BÖLGESİ YAZLIK AYÇİÇEĞİ YETİŞTİRİCİLİK KAPSAMLI REHBERİ
+Edirne, Kırklareli, Tekirdağ İlleri — Tarımsal Uygulama Rehberi
+
+=========================================================
+BÖLGESEL ÖNEM VE GENEL BİLGİ
+=========================================================
+
+Trakya, Türkiye ayçiçeği üretiminin %40-50'sini karşılar.
+Türkiye, dünya ayçiçeği üretiminde önemli ülkeler arasındadır (6-8. sıra).
+Trakya'da ayçiçeği ekim alanı: ≈ 300.000-350.000 hektar
+
+Ayçiçeği çeşitleri:
+  Yağlık (konfeksiyonluk değil): %90 üretim, yağ oranı %42-50
+  Konfeksiyonluk (çerezlik): Büyük dane, düşük yağ (%25-35), ayrı çeşitler
+
+Verim hedefleri:
+  Kuru tarım (yağışa bağlı): 120-200 kg/dekar
+  Sulu tarım (sulama ile): 180-300 kg/dekar
+  Yüksek girdi + hibrit çeşit: 250-350 kg/dekar mümkün
+
+=========================================================
+EKİM ZAMANI VE HAZIRLIĞI
+=========================================================
+
+Optimal Ekim Dönemi:
+  Tarih: 20 Nisan – 15 Mayıs
+  Toprak sıcaklığı (5 cm): ≥ 8°C (tercihen ≥ 10°C)
+  Trakya'da toprak 8°C'ye ulaşma tarihi: Ortalama 10-20 Nisan
+
+  Neden bu tarih aralığı?
+  Erken ekim (Nisan başı): Toprak soğuk → yavaş çimlenme → fungal damping-off
+  Geç ekim (Mayıs sonu): Çiçeklenme Ağustos ortasına denk gelir → sıcak stres + kurak
+  İdeal: Çiçeklenme Temmuz'a, hasat Ağustos sonuna denk gelsin
+
+  KESIN UYARI: Son don tarihini kontrol et.
+  Trakya'da son don tarihi: Nisan 10-20 (ortalama)
+  Çıkış sonrası (VE aşaması) −2°C → fideler ölür, YENİDEN EKİM GEREKİR
+  Hava tahminine bak, don riski varsa ekimi 5-7 gün ertele.
+
+Sıra Arası ve Ekim Sıklığı:
+  Sıra arası: 65-70 cm (Trakya bölgesi standardı)
+  Sıra üzeri: 25-30 cm (55.000-70.000 bitki/ha hedefi)
+  Ekim derinliği: 4-6 cm (nem olan katmana ulaşacak şekilde)
+  Tohum miktarı: 0.4-0.7 kg/da (hibrit tohumla az tohum önerilir)
+
+  Optimum bitki sıklığı:
+  Kuru tarım: 55.000-65.000 bitki/ha
+  Sulu tarım: 65.000-75.000 bitki/ha (su yeterli olduğunda sık bitkide verim yüksek)
+
+Toprak Hazırlığı:
+  Derin sürme: 25-35 cm (ayçiçeği derin kök atar, toprak hazırlığı önemli)
+  Tava oluşturmadan önce diskaro geçme
+  Pulverizatör ile ufalama son aşamada
+  Ayçiçeği sonrası: Kökleri parçala (Sclerotinia sklerotu toprakta kalabilir)
+
+Ekim Nöbeti:
+  Ayçiçeği için zorunlu öneri: En az 4 yılda bir dönüşüm
+  Sürekli ayçiçeği: Sclerotinia, Phoma ve Orobanche (canavarotu) birikir
+  İyi rotasyonlar: Buğday-buğday-ayçiçeği veya mısır-ayçiçeği
+  Orobanche yoğun alanlarda: Imidazolinone toleranslı çeşit + herbisit
+
+=========================================================
+GÜBRELEME PROGRAMI
+=========================================================
+
+Makro Besinler İhtiyacı:
+  Ayçiçeği 350 kg/da verim için:
+    Azot (N): 10-12 kg/da saf azot
+    Fosfor (P₂O₅): 6-8 kg/da
+    Potasyum (K₂O): 8-10 kg/da (killi-tınlı topraklarda genellikle yeterli)
+  Hibrit çeşitler daha yüksek besin kaldırır → analiz yapın
+
+Gübreleme Zamanlaması:
+  1. UYGULAMA — Ekimle (Nisan):
+     DAP (18-46-0) veya NPK karma gübre: 25-30 kg/da
+     Fosforun büyük kısmı ve azotun 1/3'ü
+     Tohumun 5-8 cm yanına veya altına, yoksa yanma yapar.
+
+  2. UYGULAMA — V8-V12 dönemi (Mayıs ortası, BBCH 18-V12):
+     Amonyum Sülfat (%21 N, %24 S): 20-25 kg/da
+     Kükürt içermesi avantajlıdır (yağ kalitesini artırır)
+     VEYA Üre (%46): 10-12 kg/da
+     Bu uygulama tabla oluşumu ve yağ içeriğini doğrudan etkiler.
+
+Mikro Besin:
+  Bor (B) eksikliği: Ayçiçeğinde yaygın, killi-tınlı topraklarda riskli
+    Belirtisi: Çiçeklenme sorunları, tablo orta kısmında boş dane
+    Önlem: Çiçeklenme öncesi (R1-R2) yapraktan bor uygulaması
+    Doz: %0.2-0.3 boraks çözeltisi yapraktan
+  Çinko (Zn): Alkalin topraklarda sorun olabilir
+
+=========================================================
+HASTALIK VE ZARALI YÖNETİMİ
+=========================================================
+
+Sclerotinia (Beyaz Çürüklük — Sclerotinia sclerotiorum):
+  EN TEHLIKELI ayçiçeği hastalığı.
+  Risk koşulları: Çiçeklenme döneminde (R1-R5) serin (<20°C) ve nemli (>90% nispi nem) hava, özellikle yağmur sonrası.
+  Belirtisi: Başak sapında beyaz pamuksu miselyum, sert siyah sklerot oluşumu
+  Bulaşma yolu: Arılar çiçek poleniyle sporlary taşır
+  Korunma:
+    - Dayanıklı çeşit seçimi
+    - Kültürel önlem: 4 yıldan kısa rotasyon yapma
+    - Fungisit: Boscalid + iprodion veya dimoksistrobin; R1-R3 döneminde uygula
+  NOT: Fungisit uygularken arı girişini azalt (sabah erken veya akşam geç)
+
+Downy Mildew (Mildiyö — Plasmopara halstedii):
+  Risk: Serin ve nemli bahar koşulları, V4-R1 döneminde
+  Belirtisi: Yaprak alt yüzünde beyaz tüylü küf, üst yüzde sarı lekeler
+  Tohumla bulaşabilir → sertifikalı ilaçlı tohum kullanımı önemli
+  Fungisit: Metalaksil bazlı ilaç
+
+Alternaria Yaprak Lekesi (Alternaria helianthi, A. zinniae):
+  Risk: Çiçeklenme sonrası, yaşlı yapraklar
+  Belirtisi: Kahverengi-siyah lekeler, yaprak yanıklığı
+  Verime etkisi: Yaşlı yapraklarda olduğu için düşük, ama yoğunsa erken olum
+
+Phoma Çökerteni (Phoma macdonaldii):
+  Risk: Geç sezon, nemi seven patojen
+  Belirtisi: Tablo sapında siyah lezyonlar, erken ölüm
+  Önlem: Rotasyon, dayanıklı çeşit
+
+Orobanche (Canavarotu):
+  Parazit yabancı ot. Ayçiçeği köküne tutunur.
+  Risk: Tekrarlı ayçiçeği ekiminde birikir
+  Kontrol: Imidazolinone toleranslı çeşit + mesosulfuron herbisiti veya glyphosate uygulaması
+
+Yabancı Ot Yönetimi:
+  Çıkış öncesi herbisit: S-metolaklor veya trifluralin (ekim + toprak karıştırma)
+  Çıkış sonrası: Dar yapraklı → sethoksidim veya kletodim; geniş yapraklılar → çeşide bağlı
+  V4 öncesinde yabancı ot baskısı kritik — ilk 4-5 yaprak döneminde yabancı ot varsa verim %10-25 düşer
+
+=========================================================
+HASAT VE HASAT SONRASI
+=========================================================
+
+Hasat Olgunluk Kriterleri:
+  1. Tablo rengi: Sarı-kahverenginin %70-80'i
+  2. Arka yüz: Tamamen sarı-kahverengi (koyu altın)
+  3. Tablo sapı: Kurumaya başlamış
+  4. Dane nemi: %12-14 → birleştirici ile ideal
+  5. Yağ oranı: Fizyolojik olum tamamlanmamışsa yağ düşüktür
+
+Hasat Zamanlaması (Trakya):
+  Genellikle: 15 Ağustos – 20 Eylül
+  Erken hasatın dezavantajı: Yağ oranı düşük, nem yüksek
+  Geç hasatın dezavantajı: Tabla kırılması, kuş zararı, tablo çürümesi
+
+  UYARI: Hasat öncesi tablo kırılması (bird damage) ciddi kayıp yaratabilir.
+  Yüksek kuş baskısı alanda: Erken hasat ve kurutma tercih et.
+
+Birleştirici Ayarları:
+  Tablo yüksekliğine göre kesici kafası ayarı
+  Döven açıklığı: Geniş bırakın (dane kırılması azalır)
+  Hız: Yavaş ilerleyin, tablo kaybını önleyin
+
+Kurutma ve Depolama:
+  Depoya girecek dane nemi: ≤ %8 (uzun süreli depo)
+  Hasat nemi >15%: Kurutma zorunlu (kurutma maliyeti hesaba katın)
+  Depo sıcaklığı: ≤ 15°C (uzun vadeli depo için)
+  Küf ve ısınmaya karşı: Düzenli kontrol, aerasyon
+
+Yağ Kalitesi ve Değer:
+  Yağ oranı: %42-48 (ham dane bazında) → rafineriye gidiş
+  Oleik asit oranı (yüksek oleik çeşitlerde): %80+ (premium fiyat)
+  Düşük yağ nedenler: Erken hasat, su stresi, yüksek sıcaklık stres döneminde
+  Hasatta her 1 hafta gecikme (R9 sonrası): Yağ kaybı %1-2 artar
+
+=========================================================
+ÇEŞİT SEÇİMİ ÖNERİLERİ
+=========================================================
+
+Trakya için önemli çeşit özellikleri:
+  1. Sclerotinia direnci: EN ÖNEMLİ kriter
+  2. Downy mildew direnci: Önemli, sertifikalı tohumlukta ilaçlı olmalı
+  3. Yağ oranı: ≥ %44 tercih
+  4. Gün uzunluğuna tepki: Nötr tipler tercih (fotoperiyodizme duyarsız)
+  5. Tam olum süresi: 120-130 gün (Trakya koşullarına uygun)
+  6. Lodoze (devrilme) toleransı: Uzun boylu çeşitlerde risk, kısa saplı tercih
+
+Dikkat: Her yıl yeni hibrit tohum kullanın (eski tohumla 2. yıl ekim = verim kaybı %20-30).

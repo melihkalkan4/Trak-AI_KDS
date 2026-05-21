@@ -1,0 +1,51 @@
+{
+  "crop": "Wheat",
+  "n_samples": 8,
+  "feature_names": [
+    "ndvi_peak",
+    "ndvi_mean_grow",
+    "ndvi_sum",
+    "gdd_total",
+    "gdd_critical",
+    "precip_total",
+    "precip_grow",
+    "drought_days",
+    "heat_stress_days",
+    "frost_days",
+    "temp_mean_grow",
+    "temp_amplitude_mean",
+    "evi_peak",
+    "ndwi_min",
+    "radiation_total",
+    "soil_clay",
+    "soil_ph"
+  ],
+  "metrics": {
+    "r2": -0.467,
+    "mae": 16.67,
+    "rmse": 19.82,
+    "mape": 5.12
+  },
+  "trakya_median_yield": 324.0,
+  "confidence_interval_half_width": 29.7,
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "yields": [
+    310.0,
+    330.0,
+    315.0,
+    298.0,
+    350.0,
+    342.0,
+    335.0,
+    318.0
+  ]
+}

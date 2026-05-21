@@ -1,0 +1,51 @@
+{
+  "crop": "Sunflower",
+  "n_samples": 8,
+  "feature_names": [
+    "ndvi_peak",
+    "ndvi_mean_grow",
+    "ndvi_sum",
+    "gdd_total",
+    "gdd_critical",
+    "precip_total",
+    "precip_grow",
+    "drought_days",
+    "heat_stress_days",
+    "frost_days",
+    "temp_mean_grow",
+    "temp_amplitude_mean",
+    "evi_peak",
+    "ndwi_min",
+    "radiation_total",
+    "soil_clay",
+    "soil_ph"
+  ],
+  "metrics": {
+    "r2": -0.3584,
+    "mae": 13.1,
+    "rmse": 15.32,
+    "mape": 7.29
+  },
+  "trakya_median_yield": 180.0,
+  "confidence_interval_half_width": 23.0,
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "yields": [
+    168.0,
+    182.0,
+    175.0,
+    158.0,
+    195.0,
+    200.0,
+    190.0,
+    178.0
+  ]
+}

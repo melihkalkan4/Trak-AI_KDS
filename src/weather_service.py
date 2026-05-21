@@ -171,6 +171,85 @@ def format_weather_context(
     return " ".join(parts) if parts else None
 
 
+def collect_and_save_weather(tarla_id: int, force: bool = False) -> bool:
+    """Tarla için anlık hava verisini çekip DB'ye kaydet.
+
+    force=False → bugün zaten kayıt varsa atla (UNIQUE kısıtı zaten korur,
+    ama önce kontrol ederek gereksiz API çağrısını önleriz).
+    """
+    try:
+        from database import get_tarla, save_weather_snapshot, get_weather_by_date_range
+    except ImportError:
+        return False
+
+    tarla = get_tarla(tarla_id)
+    if not tarla:
+        return False
+
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    if not force:
+        existing = get_weather_by_date_range(tarla_id, today, today)
+        if existing:
+            return True  # zaten var, tekrar çekmeye gerek yok
+
+    lat = tarla.get("konum_lat", DEFAULT_LAT)
+    lon = tarla.get("konum_lon", DEFAULT_LON)
+
+    current  = get_current_weather(lat, lon)
+    forecast = get_7day_forecast(lat, lon)
+
+    if not current and not forecast:
+        return False
+
+    # Bugünün tahmin satırını bul (veya current'ı kullan)
+    today_fc = {}
+    if forecast:
+        for d in forecast:
+            if d.get("date", "").startswith(today):
+                today_fc = d
+                break
+
+    temp_c   = current.get("temp_c")   if current else None
+    hava_nem = current.get("humidity") if current else None
+    precip   = today_fc.get("precip_mm", current.get("precipitation_mm", 0) if current else 0)
+    wind     = current.get("wind_kmh") if current else None
+    soil_tmp = current.get("soil_temp_c") if current else None
+    soil_nem = current.get("soil_moisture") if current else None
+    t_max    = today_fc.get("temp_max")
+    t_min    = today_fc.get("temp_min")
+    et0      = today_fc.get("et0_mm")
+    precip_p = today_fc.get("precip_prob")
+
+    save_weather_snapshot(tarla_id, {
+        "tarih":           today,
+        "konum_lat":       lat,
+        "konum_lon":       lon,
+        "hava_temp_c":     temp_c,
+        "hava_nem_pct":    hava_nem,
+        "toprak_temp_c":   soil_tmp,
+        "toprak_nem_pct":  soil_nem,
+        "yagis_mm":        precip,
+        "ruzgar_kmh":      wind,
+        "temp_max":        t_max,
+        "temp_min":        t_min,
+        "yagis_gunluk_mm": precip,
+        "et0_mm":          et0,
+        "yagis_olasilik":  precip_p,
+    })
+    return True
+
+
+def collect_weather_for_all_tarlalar() -> dict:
+    """Tüm tarlalar için hava verisini topla. {tarla_id: True/False} döndür."""
+    try:
+        from database import get_tarlalar
+        tarlalar = get_tarlalar()
+    except ImportError:
+        return {}
+    return {t["id"]: collect_and_save_weather(t["id"]) for t in tarlalar}
+
+
 if __name__ == "__main__":
     print("=== Open-Meteo Hava Servisi Testi ===")
     cur = get_current_weather()

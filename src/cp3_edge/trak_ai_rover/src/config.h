@@ -7,7 +7,7 @@
 // MQTT
 #define MQTT_BROKER   "192.168.1.102"
 #define MQTT_PORT     1883
-#define MQTT_TOPIC    "trak-ai/rover/data"
+#define MQTT_TOPIC    "trakaia/rover/data"
 #define MQTT_CLIENT   "trak-ai-rover-01"
 
 // Sensör Pinleri
@@ -32,9 +32,9 @@
 #define GPS_TX_PIN  17
 #define GPS_BAUD    9600
 
-// ESP32-CAM (UART1)
-#define CAM_RX_PIN   3
-#define CAM_TX_PIN   1
+// ESP32-CAM (UART1) — GPIO 1/3 USB pinleri; 22/23 kullan
+#define CAM_RX_PIN  22
+#define CAM_TX_PIN  23
 
 // Kalibrasyon Katsayıları (sensör gelince güncellenecek)
 #define CAL_A   0.0000023f

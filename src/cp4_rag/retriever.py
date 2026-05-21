@@ -17,6 +17,8 @@ def tri_rag_retrieve(query: str, vectorstore, chunks: list) -> list:
 
     dense_docs = []
     for doc, score in dense_results:
+        if float(score) > 1.5:  # L2 > 1.5 = semantik benzerlik yok
+            continue
         dense_docs.append({
             "text": doc.page_content,
             "metadata": doc.metadata,

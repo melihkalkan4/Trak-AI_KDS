@@ -1,0 +1,140 @@
+BUĞDAY FENOLOJİSİ VE BÜYÜME GÜN DERECELERİ (GDD) REHBERİ
+Trakya Bölgesi Kışlık Buğday — Güncel Tarımsal Bilgi Kaynağı
+
+=========================================================
+GDD NEDİR VE NEDEN ÖNEMLİDİR?
+=========================================================
+
+Büyüme Gün Dereceleri (GDD / Growing Degree Days), bitkinin belirli bir dönemde biriktirdiği ısı enerjisini ifade eder. Takvim günleri değil, sıcaklık birikimi büyümeyi belirler. Trakya'daki yıldan yıla değişen hava koşullarında GDD, hasat zamanını ve fenolojik aşamaları takvimsiz olarak tahmin etmenin en güvenilir yöntemidir.
+
+Buğday için baz sıcaklık (alt eşik): 0°C
+GDD hesabı: Günlük GDD = [(Maks. sıcaklık + Min. sıcaklık) / 2] − 0°C
+Negatif değerler sıfır kabul edilir (buz çözme yoksa birikme yok).
+Üst eşik: 35°C (bu değerin üzerindeki sıcaklıklar 35°C olarak alınır).
+
+=========================================================
+TRAKYA'DA AYLIK ORTALAMA SICAKLIKLAR VE GDD BİRİKİMİ
+=========================================================
+
+Aylık ortalama sıcaklık (Kırklareli iklim istasyonu verileri):
+  Ekim: 14.5°C → 16 günde (15 Ekim'den): ≈ 232 GDD
+  Kasım: 8.9°C → aylık: ≈ 267 GDD
+  Aralık: 4.9°C → aylık: ≈ 152 GDD
+  Ocak:   2.8°C → aylık: ≈ 87 GDD
+  Şubat:  3.8°C → aylık: ≈ 106 GDD
+  Mart:   7.3°C → aylık: ≈ 226 GDD
+  Nisan: 12.4°C → aylık: ≈ 372 GDD
+  Mayıs: 17.5°C → aylık: ≈ 543 GDD
+  Haziran: 22.0°C → aylık: ≈ 660 GDD
+
+Kümülatif GDD birikimi (15 Ekim ekiminden itibaren):
+  Kasım sonu: ≈ 499 GDD
+  Aralık sonu: ≈ 651 GDD
+  Ocak sonu: ≈ 738 GDD
+  Şubat sonu: ≈ 844 GDD
+  Mart sonu: ≈ 1.070 GDD
+  Nisan sonu: ≈ 1.442 GDD
+  Mayıs sonu: ≈ 1.985 GDD
+  Haziran sonu: ≈ 2.645 GDD
+
+=========================================================
+BBCH AŞAMALARINA GÖRE GDD EŞİKLERİ
+=========================================================
+
+Aşağıdaki eşikler Trakya kışlık buğday çeşitleri için yaklaşık değerlerdir.
+GDD birikimi 15 Ekim ekiminden itibaren hesaplanır.
+
+BBCH 00-09 — Çimlenme ve Çıkış:
+  Gerekli GDD: 80–120°C·gün
+  Tahmini tarih: Ekim sonu – Kasım başı
+  Karar ipucu: Çıkış gecikmesi GDD <80 ise soğuk/kuru toprak, >150 ise yeniden ekim değerlendirin.
+
+BBCH 10-19 — Fide Gelişimi (1-9 yaprak):
+  Gerekli GDD: 150–350°C·gün
+  Tahmini tarih: Kasım
+  Karar ipucu: Her yaprak için ≈ 80 GDD gerekir. Kasım sonunda 4-5 yapraklı bitki normaldir.
+
+BBCH 20-29 — Kardeşlenme:
+  Gerekli GDD: 350–600°C·gün
+  Tahmini tarih: Kasım sonu – Aralık
+  Karar ipucu: Kış girmeden 3-5 kardeşlenme idealdir. Toprak donunca GDD birikimi yavaşlar.
+
+BBCH 30-39 — Sapa Kalkma (Gövde uzaması):
+  Gerekli GDD: 700–900°C·gün
+  Tahmini tarih: Şubat sonu – Mart
+  Karar ipucu: Bu dönem azot uygulaması için kritik penceredir. 2. azot gübrelemesi BBCH 30-31'de yapılmalıdır (üre veya amonyum nitrat).
+
+BBCH 37-39 — Bayrak Yaprak – Başak kabara:
+  Gerekli GDD: 850–1.050°C·gün
+  Tahmini tarih: Mart sonu – Nisan başı
+  Karar ipucu: Bayrak yaprağı çıkış dönemi fungisit uygulaması için en etkili zamandır (septorya, sarı pas, kahverengi pas önlemi). Bu pencereyi kaçırmayın.
+
+BBCH 51-59 — Başaklanma:
+  Gerekli GDD: 1.050–1.200°C·gün
+  Tahmini tarih: Nisan ortası – Mayıs başı
+  Karar ipucu: Başaklanma tamamlandıktan sonra fungisit etkisi düşer. Fusarium başak yanıklığı için başaklanma dönemi riskli.
+
+BBCH 60-69 — Çiçeklenme (Tozlanma):
+  Gerekli GDD: 1.100–1.300°C·gün
+  Tahmini tarih: Mayıs başı – Mayıs ortası
+  Karar ipucu: Çiçeklenme döneminde yüksek nem (>85%) ve sıcaklık (>15°C) fusarium riskini artırır. Yağmurlu hava = fungisit uygulaması düşünün.
+
+BBCH 70-79 — Dane Dolumu (Sütlü olum):
+  Gerekli GDD: 1.300–1.600°C·gün
+  Tahmini tarih: Mayıs sonu – Haziran başı
+  Karar ipucu: Su stresi bu dönemde dane ağırlığını %20-40 düşürür. Sulama imkânı varsa destekleyin. Yaprak biti (aphid) takibi önemli.
+
+BBCH 87-89 — Fizyolojik Olum:
+  Gerekli GDD: 1.600–1.800°C·gün
+  Tahmini tarih: Haziran ortası – Haziran sonu
+  Karar ipucu: Fizyolojik olumda dane nemi %30-35. Hasat için dane nemi %13-15'e düşene kadar bekleyin.
+
+BBCH 99 — Hasat Olumu:
+  Gerekli GDD: 1.800–2.000°C·gün
+  Tahmini tarih: Haziran sonu – Temmuz başı
+  Karar ipucu: Trakya'da hasat genellikle 20 Haziran – 10 Temmuz arası. İlk kuru günde hasata başlayın.
+
+=========================================================
+GDD BAZLI KARAR ÖNERİLERİ
+=========================================================
+
+Erken Uyarı Sistemi için GDD Eşikleri:
+- GDD < 100 ve çıkış yok → toprak sıcaklığı ve nemi kontrol et, tohum çürümesi riski
+- GDD 300-400 ve kardeşlenme yok → azot eksikliği veya hastalık araştır
+- GDD 1.050-1.200 ve başak çıkmıyor → verim kaybı riski, ziraat mühendisine danış
+- GDD 1.600 sonrası yeşil yaprak kalıntısı → hastalık (pas, almaç) kontrolü
+
+Azot Gübreleme Zamanlaması:
+  1. Ekim gübresi (BBCH 00): DAP 20-20-0, dekar başına 20-25 kg
+  2. İlkbahar I (BBCH 21-25, GDD ~400): Üre %46, dekar başına 8-10 kg
+  3. İlkbahar II (BBCH 30-31, GDD ~750): Amonyum nitrat %33, dekar başına 15-20 kg
+
+Sulama Zamanlaması (GDD ile):
+  - GDD 1.100-1.300 (dane dolumu): Can suyu kritik. Toprak nemi %60 tarla kapasitesinin altındaysa sulayın.
+  - Tek sulama yapılacaksa: Dane dolumunun başlangıcında (BBCH 71, GDD 1.300) verin.
+
+=========================================================
+HASAT ZAMANI VE KALİTE GÖSTERGELERİ
+=========================================================
+
+Fiziksel İşaretler:
+- Başak ve sap altın-kehribar rengi almış
+- Daneler thumbnail testi geçiyor (basınca ezilmiyor, kırılıyor)
+- Saplar kırılgan ve kuru
+- Tarlada yeşil bitki kalmamış (sararmış)
+
+Nem Kriterleri:
+- İdeal hasat nemi: %13-15
+- Kabul edilir: %15-18 (kurutma gerektirir)
+- Yüksek nem (%20+) hasat riskleri: toksin (DON), fırın değeri kaybı, storajda küf
+
+Kalite Göstergeleri:
+- Düşme sayısı (Falling Number) ≥ 350 saniye: iyi kalite
+- Düşme sayısı 200-350 saniye: uyarı, yağmurda çimlenme riski
+- Düşme sayısı < 200 saniye: kötü kalite, değer düşüklüğü
+- Hektolitre ağırlığı hedefi: ≥ 76 kg/hl
+- Protein oranı hedefi (ekmeklik): %11-13
+
+Hasat Gecikmesinin Maliyeti:
+- Her 1 hafta gecikme: %2-5 verim kaybı (dane dökülmesi, kuş zararı)
+- Yağmurlu gecikme: Düşme sayısı hızla düşer, DON miktarı artar

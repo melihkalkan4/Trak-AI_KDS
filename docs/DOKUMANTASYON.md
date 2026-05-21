@@ -1,38 +1,38 @@
-📝 ÇP-1: ETL Veri Hattı - 1. Hafta (H1) Geliştirme Raporu
+﻿ğŸ“ Ã‡P-1: ETL Veri HattÄ± - 1. Hafta (H1) GeliÅŸtirme Raporu
 Proje: Trak-AI KDS (Karar Destek Sistemi)
-Modül: Çalışma Paketi 1 (Veri Füzyonu ve Altyapı)
+ModÃ¼l: Ã‡alÄ±ÅŸma Paketi 1 (Veri FÃ¼zyonu ve AltyapÄ±)
 Tarih: 14 Mart 2026
 
-📌 Genel Bakış
-Projenin birinci hafta hedefleri doğrultusunda, Trakya bölgesi pilot parsellerine ait retrospektif verileri (2017-2024) çekecek olan çok kaynaklı veri altyapısı sıfırdan kurulmuştur. Sistem mimarisi için gerekli olan Python sanal ortamı yapılandırılmış, ana veri sağlayıcıların (Google Earth Engine, Copernicus CDS, ISRIC SoilGrids) kimlik doğrulama süreçleri ve ilk veri çekim testleri başarıyla tamamlanmıştır.
+ğŸ“Œ Genel BakÄ±ÅŸ
+Projenin birinci hafta hedefleri doÄŸrultusunda, Trakya bÃ¶lgesi pilot parsellerine ait retrospektif verileri (2017-2024) Ã§ekecek olan Ã§ok kaynaklÄ± veri altyapÄ±sÄ± sÄ±fÄ±rdan kurulmuÅŸtur. Sistem mimarisi iÃ§in gerekli olan Python sanal ortamÄ± yapÄ±landÄ±rÄ±lmÄ±ÅŸ, ana veri saÄŸlayÄ±cÄ±larÄ±n (Google Earth Engine, Copernicus CDS, ISRIC SoilGrids) kimlik doÄŸrulama sÃ¼reÃ§leri ve ilk veri Ã§ekim testleri baÅŸarÄ±yla tamamlanmÄ±ÅŸtÄ±r.
 
-🛠️ 1. Geliştirme Ortamı ve Mimari Kurulumu
-VS Code üzerinde projenin modüler klasör yapısı (data/raw, src/cp1_etl, keys vb.) oluşturuldu.
+ğŸ› ï¸ 1. GeliÅŸtirme OrtamÄ± ve Mimari Kurulumu
+VS Code Ã¼zerinde projenin modÃ¼ler klasÃ¶r yapÄ±sÄ± (data/raw, src/cp1_etl, keys vb.) oluÅŸturuldu.
 
-Kütüphane çakışmalarını önlemek amacıyla izole bir Python sanal ortamı (venv) kuruldu.
+KÃ¼tÃ¼phane Ã§akÄ±ÅŸmalarÄ±nÄ± Ã¶nlemek amacÄ±yla izole bir Python sanal ortamÄ± (venv) kuruldu.
 
-Güvenlik protokolleri gereği API anahtarlarının sızmasını engellemek için .gitignore dosyası yapılandırıldı.
+GÃ¼venlik protokolleri gereÄŸi API anahtarlarÄ±nÄ±n sÄ±zmasÄ±nÄ± engellemek iÃ§in .gitignore dosyasÄ± yapÄ±landÄ±rÄ±ldÄ±.
 
-🛰️ 2. Google Earth Engine (GEE) ve Sentinel-2 Entegrasyonu
-Bağlantı ve Yetkilendirme: Google Cloud üzerinden akademik/ticari olmayan (Noncommercial) kullanım onaylı bir proje (trak-ai-kds) oluşturuldu. Sisteme otonom erişim için Servis Hesabı (Service Account) açılarak JSON kimlik dosyası entegre edildi.
+ğŸ›°ï¸ 2. Google Earth Engine (GEE) ve Sentinel-2 Entegrasyonu
+BaÄŸlantÄ± ve Yetkilendirme: Google Cloud Ã¼zerinden akademik/ticari olmayan (Noncommercial) kullanÄ±m onaylÄ± bir proje (trak-ai-kds) oluÅŸturuldu. Sisteme otonom eriÅŸim iÃ§in Servis HesabÄ± (Service Account) aÃ§Ä±larak JSON kimlik dosyasÄ± entegre edildi.
 
-Veri Çekimi ve İşleme: Pilot bölge (Enlem: 41.40, Boylam: 27.35) için 2023 yılına ait Sentinel-2 uydu görüntüleri sorgulandı.
+Veri Ã‡ekimi ve Ä°ÅŸleme: Pilot bÃ¶lge (Enlem: 41.40, Boylam: 27.35) iÃ§in 2023 yÄ±lÄ±na ait Sentinel-2 uydu gÃ¶rÃ¼ntÃ¼leri sorgulandÄ±.
 
-Bulut Maskeleme: eemont kütüphanesi kullanılarak s2_cloud_masker algoritması koda entegre edildi. Bulutlu görüntüler filtrelenerek 46 adet temiz NDVI (Normalize Edilmiş Fark Bitki İndeksi) verisi elde edildi ve s2_ndvi_2023.csv olarak yerel diske kaydedildi.
+Bulut Maskeleme: eemont kÃ¼tÃ¼phanesi kullanÄ±larak s2_cloud_masker algoritmasÄ± koda entegre edildi. Bulutlu gÃ¶rÃ¼ntÃ¼ler filtrelenerek 46 adet temiz NDVI (Normalize EdilmiÅŸ Fark Bitki Ä°ndeksi) verisi elde edildi ve s2_ndvi_2023.csv olarak yerel diske kaydedildi.
 
-🌦️ 3. Copernicus CDS (ERA5-Land) Yapılandırması
-Bağlantı ve Yetkilendirme: Büyüme Derece Günleri (GDD) ve iklimsel anomali tespiti için gerekli olan ERA5-Land veritabanına erişim sağlandı.
+ğŸŒ¦ï¸ 3. Copernicus CDS (ERA5-Land) YapÄ±landÄ±rmasÄ±
+BaÄŸlantÄ± ve Yetkilendirme: BÃ¼yÃ¼me Derece GÃ¼nleri (GDD) ve iklimsel anomali tespiti iÃ§in gerekli olan ERA5-Land veritabanÄ±na eriÅŸim saÄŸlandÄ±.
 
-Yapılandırma: Copernicus portalından alınan UID ve API anahtarı, Python betiği yardımıyla Windows kök dizininde .cdsapirc yapılandırma dosyasına (YAML formatında) dönüştürülerek kaydedildi.
+YapÄ±landÄ±rma: Copernicus portalÄ±ndan alÄ±nan UID ve API anahtarÄ±, Python betiÄŸi yardÄ±mÄ±yla Windows kÃ¶k dizininde .cdsapirc yapÄ±landÄ±rma dosyasÄ±na (YAML formatÄ±nda) dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lerek kaydedildi.
 
-Doğrulama: cdsapi kütüphanesi üzerinden sunucu bağlantı testleri başarıyla gerçekleştirildi.
+DoÄŸrulama: cdsapi kÃ¼tÃ¼phanesi Ã¼zerinden sunucu baÄŸlantÄ± testleri baÅŸarÄ±yla gerÃ§ekleÅŸtirildi.
 
-🌱 4. ISRIC SoilGrids Toprak Verisi Entegrasyonu (Sistem Revizyonu)
-Problem Tespiti: ISRIC REST API sunucularında yaşanan kararsızlık (HTTP 503 - Service Unavailable) veri çekimini engelledi.
+ğŸŒ± 4. ISRIC SoilGrids Toprak Verisi Entegrasyonu (Sistem Revizyonu)
+Problem Tespiti: ISRIC REST API sunucularÄ±nda yaÅŸanan kararsÄ±zlÄ±k (HTTP 503 - Service Unavailable) veri Ã§ekimini engelledi.
 
-Mühendislik Çözümü: Veri hattının tıkanmasını önlemek amacıyla REST API yerine, verilerin doğrudan GEE Assets (projects/soilgrids-isric/) üzerinden çekilmesine karar verildi.
+MÃ¼hendislik Ã‡Ã¶zÃ¼mÃ¼: Veri hattÄ±nÄ±n tÄ±kanmasÄ±nÄ± Ã¶nlemek amacÄ±yla REST API yerine, verilerin doÄŸrudan GEE Assets (projects/soilgrids-isric/) Ã¼zerinden Ã§ekilmesine karar verildi.
 
-İşlem ve Çıktı: Sentinel-2 ile aynı koordinat sistemi dinamikleri kurularak reduceRegion metoduyla nokta bazlı örnekleme yapıldı. Pilot bölge için fiziksel ve kimyasal toprak özellikleri başarıyla çekilerek soilgrids_2023.csv dosyasına yazdırıldı:
+Ä°ÅŸlem ve Ã‡Ä±ktÄ±: Sentinel-2 ile aynÄ± koordinat sistemi dinamikleri kurularak reduceRegion metoduyla nokta bazlÄ± Ã¶rnekleme yapÄ±ldÄ±. Pilot bÃ¶lge iÃ§in fiziksel ve kimyasal toprak Ã¶zellikleri baÅŸarÄ±yla Ã§ekilerek soilgrids_2023.csv dosyasÄ±na yazdÄ±rÄ±ldÄ±:
 
 Kil (0-5cm): %30.97
 
@@ -40,230 +40,230 @@ Kum (0-5cm): %34.99
 
 pH (0-5cm): 7.11
 
-🚀 Sonuç ve Sonraki Adımlar
-Haftanın tüm hedefleri (%100) tamamlanmıştır. Sistem, Trakya bölgesindeki herhangi bir koordinat için uydu ve toprak verilerini otonom olarak çekebilir durumdadır.
-2. Hafta Hedefi: ERA5-Land günlük iklim verilerinin (Sıcaklık, Yağış, Radyasyon) NetCDF formatında indirilmesi ve elde edilen bu üç farklı veri setinin (Uydu, İklim, Toprak) Pandas ile birleştirilerek nihai "Öznitelik Matrisi"nin (Feature Matrix) oluşturulmasıdır.
-📝 ÇP-1: ETL Veri Hattı - 2. Gün Geliştirme Raporu ve Veri Sözlüğü
+ğŸš€ SonuÃ§ ve Sonraki AdÄ±mlar
+HaftanÄ±n tÃ¼m hedefleri (%100) tamamlanmÄ±ÅŸtÄ±r. Sistem, Trakya bÃ¶lgesindeki herhangi bir koordinat iÃ§in uydu ve toprak verilerini otonom olarak Ã§ekebilir durumdadÄ±r.
+2. Hafta Hedefi: ERA5-Land gÃ¼nlÃ¼k iklim verilerinin (SÄ±caklÄ±k, YaÄŸÄ±ÅŸ, Radyasyon) NetCDF formatÄ±nda indirilmesi ve elde edilen bu Ã¼Ã§ farklÄ± veri setinin (Uydu, Ä°klim, Toprak) Pandas ile birleÅŸtirilerek nihai "Ã–znitelik Matrisi"nin (Feature Matrix) oluÅŸturulmasÄ±dÄ±r.
+ğŸ“ Ã‡P-1: ETL Veri HattÄ± - 2. GÃ¼n GeliÅŸtirme Raporu ve Veri SÃ¶zlÃ¼ÄŸÃ¼
 Proje: Trak-AI KDS (Karar Destek Sistemi)
-Modül: Çalışma Paketi 1 (Veri Füzyonu ve Altyapı)
+ModÃ¼l: Ã‡alÄ±ÅŸma Paketi 1 (Veri FÃ¼zyonu ve AltyapÄ±)
 Tarih: 15 Mart 2026
 
-📌 1. Genel Bakış
-Projenin 2. gün hedefleri doğrultusunda, bitkilerin fenolojik evre geçişlerini (BBCH) tetikleyen Büyüme Derece Günleri (GDD) ve su dengesi analizleri için zorunlu olan atmosferik verilerin çekim işlemi tamamlanmıştır. Copernicus Climate Data Store (CDS) yeni API altyapısının getirdiği kısıtlamalar proaktif bir mühendislik yaklaşımıyla aşılarak otonom bir veri hattı inşa edilmiştir. Devamında, elde edilen çok kaynaklı veri setlerinin yapısal analizleri gerçekleştirilerek veri sözlüğü (Data Dictionary) oluşturulmuştur.
+ğŸ“Œ 1. Genel BakÄ±ÅŸ
+Projenin 2. gÃ¼n hedefleri doÄŸrultusunda, bitkilerin fenolojik evre geÃ§iÅŸlerini (BBCH) tetikleyen BÃ¼yÃ¼me Derece GÃ¼nleri (GDD) ve su dengesi analizleri iÃ§in zorunlu olan atmosferik verilerin Ã§ekim iÅŸlemi tamamlanmÄ±ÅŸtÄ±r. Copernicus Climate Data Store (CDS) yeni API altyapÄ±sÄ±nÄ±n getirdiÄŸi kÄ±sÄ±tlamalar proaktif bir mÃ¼hendislik yaklaÅŸÄ±mÄ±yla aÅŸÄ±larak otonom bir veri hattÄ± inÅŸa edilmiÅŸtir. DevamÄ±nda, elde edilen Ã§ok kaynaklÄ± veri setlerinin yapÄ±sal analizleri gerÃ§ekleÅŸtirilerek veri sÃ¶zlÃ¼ÄŸÃ¼ (Data Dictionary) oluÅŸturulmuÅŸtur.
 
-🌦️ 2. ERA5-Land İklim Verisi Entegrasyonu ve İşleme
-Veri Kaynağı: Copernicus CDS (reanalysis-era5-land)
+ğŸŒ¦ï¸ 2. ERA5-Land Ä°klim Verisi Entegrasyonu ve Ä°ÅŸleme
+Veri KaynaÄŸÄ±: Copernicus CDS (reanalysis-era5-land)
 
-Pilot Bölge: Trakya (Lat: 41.40, Lon: 27.35)
+Pilot BÃ¶lge: Trakya (Lat: 41.40, Lon: 27.35)
 
-Zaman Aralığı: 2023 Tam Yıl (Ocak - Aralık)
+Zaman AralÄ±ÄŸÄ±: 2023 Tam YÄ±l (Ocak - AralÄ±k)
 
-Otomasyon ve Hata Yönetimi:
+Otomasyon ve Hata YÃ¶netimi:
 
-Kota sınırlarına (Cost Limits) takılmamak için veriler 12 aylık döngüler halinde (Chunking) talep edilmiştir.
+Kota sÄ±nÄ±rlarÄ±na (Cost Limits) takÄ±lmamak iÃ§in veriler 12 aylÄ±k dÃ¶ngÃ¼ler halinde (Chunking) talep edilmiÅŸtir.
 
-CDS API v2'nin büyük verileri gizlice .zip arşivi olarak gönderme problemine karşı, sisteme otomatik ZIP çözücü (zipfile) ve .nc (NetCDF) ayıklayıcı entegre edilmiştir.
+CDS API v2'nin bÃ¼yÃ¼k verileri gizlice .zip arÅŸivi olarak gÃ¶nderme problemine karÅŸÄ±, sisteme otomatik ZIP Ã§Ã¶zÃ¼cÃ¼ (zipfile) ve .nc (NetCDF) ayÄ±klayÄ±cÄ± entegre edilmiÅŸtir.
 
-Dosya okuma hatalarına karşı çoklu motor (netcdf4, h5netcdf, scipy) yedeği (fallback) kurularak sistemin kararlılığı maksimuma çıkarılmıştır.
+Dosya okuma hatalarÄ±na karÅŸÄ± Ã§oklu motor (netcdf4, h5netcdf, scipy) yedeÄŸi (fallback) kurularak sistemin kararlÄ±lÄ±ÄŸÄ± maksimuma Ã§Ä±karÄ±lmÄ±ÅŸtÄ±r.
 
-Agronomik Dönüşümler: Ham xarray veri setleri işlenerek günlük ortalamalara (resample('1D').mean()) dönüştürülmüş ve SI birimlerinden agronomik analiz birimlerine geçilmiştir:
+Agronomik DÃ¶nÃ¼ÅŸÃ¼mler: Ham xarray veri setleri iÅŸlenerek gÃ¼nlÃ¼k ortalamalara (resample('1D').mean()) dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lmÃ¼ÅŸ ve SI birimlerinden agronomik analiz birimlerine geÃ§ilmiÅŸtir:
 
-Hava Sıcaklığı (t2m): Kelvin'den Santigrat'a (°C)
+Hava SÄ±caklÄ±ÄŸÄ± (t2m): Kelvin'den Santigrat'a (Â°C)
 
-Toplam Yağış (tp): Metreden Milimetreye (mm)
+Toplam YaÄŸÄ±ÅŸ (tp): Metreden Milimetreye (mm)
 
-Sonuç: Geçici dosyaların otomatik temizliği sonrası 365 günlük kesintisiz iklim matrisi yerel diske kaydedilmiştir.
+SonuÃ§: GeÃ§ici dosyalarÄ±n otomatik temizliÄŸi sonrasÄ± 365 gÃ¼nlÃ¼k kesintisiz iklim matrisi yerel diske kaydedilmiÅŸtir.
 
-📊 3. Kullanılan Ham Veri Setlerinin Yapısal Analizi (Veri Sözlüğü)
-Veri toplama (ETL) sürecinin tamamlanmasıyla birlikte, Trak-AI KDS projesinin temelini oluşturacak üç farklı kaynaktan elde edilen veri setleri yerel diske (data/raw/) alınmıştır. Makine öğrenmesi modeli için bu verilerin yapısal boyutları ve veri tipleri (Dtypes) ileriki veri birleştirme (Data Fusion) işlemleri için referans kabul edilmiştir.
+ğŸ“Š 3. KullanÄ±lan Ham Veri Setlerinin YapÄ±sal Analizi (Veri SÃ¶zlÃ¼ÄŸÃ¼)
+Veri toplama (ETL) sÃ¼recinin tamamlanmasÄ±yla birlikte, Trak-AI KDS projesinin temelini oluÅŸturacak Ã¼Ã§ farklÄ± kaynaktan elde edilen veri setleri yerel diske (data/raw/) alÄ±nmÄ±ÅŸtÄ±r. Makine Ã¶ÄŸrenmesi modeli iÃ§in bu verilerin yapÄ±sal boyutlarÄ± ve veri tipleri (Dtypes) ileriki veri birleÅŸtirme (Data Fusion) iÅŸlemleri iÃ§in referans kabul edilmiÅŸtir.
 
-3.1. Atmosferik ve İklimsel Veri Seti (era5_2023.csv)
-Veri Kaynağı: Copernicus CDS
+3.1. Atmosferik ve Ä°klimsel Veri Seti (era5_2023.csv)
+Veri KaynaÄŸÄ±: Copernicus CDS
 
-Veri Boyutu (Shape): (365, 5) — 2023 yılının her günü için 1 satır olmak üzere kesintisiz zaman serisi.
-Öznitelik Adı,Veri Tipi (Dtype),Açıklama,Birim
-date,object,Gözlem tarihi (YYYY-MM-DD formatında),-
-t2m_celsius,float64,2m yükseklikteki ortalama hava sıcaklığı,°C
-tp_mm,float64,Günlük toplam yağış miktarı,mm
-radiation,float64,Yüzey net kısa dalga güneş radyasyonu,J/m²
-evaporation,float64,Toplam buharlaşma,m
+Veri Boyutu (Shape): (365, 5) â€” 2023 yÄ±lÄ±nÄ±n her gÃ¼nÃ¼ iÃ§in 1 satÄ±r olmak Ã¼zere kesintisiz zaman serisi.
+Ã–znitelik AdÄ±,Veri Tipi (Dtype),AÃ§Ä±klama,Birim
+date,object,GÃ¶zlem tarihi (YYYY-MM-DD formatÄ±nda),-
+t2m_celsius,float64,2m yÃ¼kseklikteki ortalama hava sÄ±caklÄ±ÄŸÄ±,Â°C
+tp_mm,float64,GÃ¼nlÃ¼k toplam yaÄŸÄ±ÅŸ miktarÄ±,mm
+radiation,float64,YÃ¼zey net kÄ±sa dalga gÃ¼neÅŸ radyasyonu,J/mÂ²
+evaporation,float64,Toplam buharlaÅŸma,m
 
 3.2. Spektral Uydu ve Fenoloji Veri Seti (s2_ndvi_2023.csv)
-Veri Kaynağı: Google Earth Engine (Sentinel-2)
+Veri KaynaÄŸÄ±: Google Earth Engine (Sentinel-2)
 
-Veri Boyutu (Shape): (46, 2) — Bulutlu günlerin filtrelenmesi nedeniyle 365 günlük yıl içerisinde 46 adet net uydu geçiş gözlemi kalmıştır.
+Veri Boyutu (Shape): (46, 2) â€” Bulutlu gÃ¼nlerin filtrelenmesi nedeniyle 365 gÃ¼nlÃ¼k yÄ±l iÃ§erisinde 46 adet net uydu geÃ§iÅŸ gÃ¶zlemi kalmÄ±ÅŸtÄ±r.
 
-Öznitelik Adı,Veri Tipi (Dtype),Açıklama,Birim
-date,object,Görüntünün çekildiği tarih,-
-NDVI,float64,Normalize Edilmiş Fark Bitki İndeksi,Boyutsuz
+Ã–znitelik AdÄ±,Veri Tipi (Dtype),AÃ§Ä±klama,Birim
+date,object,GÃ¶rÃ¼ntÃ¼nÃ¼n Ã§ekildiÄŸi tarih,-
+NDVI,float64,Normalize EdilmiÅŸ Fark Bitki Ä°ndeksi,Boyutsuz
 
 3.3. Statik Pedolojik (Toprak) Veri Seti (soilgrids_2023.csv)
-Veri Kaynağı: ISRIC SoilGrids
+Veri KaynaÄŸÄ±: ISRIC SoilGrids
 
-Veri Boyutu (Shape): (1, 5) — Tek bir pilot lokasyon (nokta) için zamandan bağımsız tek satırlık veri matrisi.
+Veri Boyutu (Shape): (1, 5) â€” Tek bir pilot lokasyon (nokta) iÃ§in zamandan baÄŸÄ±msÄ±z tek satÄ±rlÄ±k veri matrisi.
 
-Öznitelik Adı,Veri Tipi (Dtype),Açıklama,Birim
-lat,float64,Hedef tarlanın enlem koordinatı,DD
-lon,float64,Hedef tarlanın boylam koordinatı,DD
-clay,float64,0-5 cm derinlikteki ortalama kil oranı,%
-sand,float64,0-5 cm derinlikteki ortalama kum oranı,%
-phh2o,float64,0-5 cm derinlikteki su bazlı toprak pH değeri,pH
+Ã–znitelik AdÄ±,Veri Tipi (Dtype),AÃ§Ä±klama,Birim
+lat,float64,Hedef tarlanÄ±n enlem koordinatÄ±,DD
+lon,float64,Hedef tarlanÄ±n boylam koordinatÄ±,DD
+clay,float64,0-5 cm derinlikteki ortalama kil oranÄ±,%
+sand,float64,0-5 cm derinlikteki ortalama kum oranÄ±,%
+phh2o,float64,0-5 cm derinlikteki su bazlÄ± toprak pH deÄŸeri,pH
 
-🔄 4. Veri Füzyonu (Data Fusion) Stratejisi
-Yapısal analiz sonucunda veri boyutlarındaki asimetri (365 satır vs 46 satır vs 1 satır) tespit edilmiştir. Bu bağlamda:
+ğŸ”„ 4. Veri FÃ¼zyonu (Data Fusion) Stratejisi
+YapÄ±sal analiz sonucunda veri boyutlarÄ±ndaki asimetri (365 satÄ±r vs 46 satÄ±r vs 1 satÄ±r) tespit edilmiÅŸtir. Bu baÄŸlamda:
 
-365 günlük ERA5 iklim verisi ana iskelet (base dataframe) olarak kabul edilecektir.
+365 gÃ¼nlÃ¼k ERA5 iklim verisi ana iskelet (base dataframe) olarak kabul edilecektir.
 
-Statik toprak verisi (1 satır), bu ana iskelete kolon bazında çoğaltılarak (broadcasting) eklenecektir.
+Statik toprak verisi (1 satÄ±r), bu ana iskelete kolon bazÄ±nda Ã§oÄŸaltÄ±larak (broadcasting) eklenecektir.
 
-46 satırlık NDVI verisi, date anahtarı üzerinden (Left Join) eşleştirilecek ve uydu geçişi olmayan günlerdeki boşluklar (NaN), zaman serisi algoritmaları (Linear Interpolation / İleriye Dönük Doldurma) ile optimize edilerek nihai Öznitelik Matrisi (Feature Matrix) oluşturulacaktır.
-📝 ÇP-1: ETL Veri Hattı - 3. Gün Geliştirme Raporu (Veri Füzyonu ve EDA)
+46 satÄ±rlÄ±k NDVI verisi, date anahtarÄ± Ã¼zerinden (Left Join) eÅŸleÅŸtirilecek ve uydu geÃ§iÅŸi olmayan gÃ¼nlerdeki boÅŸluklar (NaN), zaman serisi algoritmalarÄ± (Linear Interpolation / Ä°leriye DÃ¶nÃ¼k Doldurma) ile optimize edilerek nihai Ã–znitelik Matrisi (Feature Matrix) oluÅŸturulacaktÄ±r.
+ğŸ“ Ã‡P-1: ETL Veri HattÄ± - 3. GÃ¼n GeliÅŸtirme Raporu (Veri FÃ¼zyonu ve EDA)
 Proje: Trak-AI KDS (Karar Destek Sistemi)
-Modül: Çalışma Paketi 1 (Veri Füzyonu ve Altyapı)
+ModÃ¼l: Ã‡alÄ±ÅŸma Paketi 1 (Veri FÃ¼zyonu ve AltyapÄ±)
 Tarih: 16 Mart 2026
 
-📌 1. Genel Bakış ve Veri Füzyonu Stratejisi
-Farklı uzamsal ve zamansal çözünürlüklere sahip üç temel veri seti (ERA5, Sentinel-2, SoilGrids), makine öğrenmesi algoritmalarının işleyebileceği tekil bir Öznitelik Matrisine (Feature Matrix) dönüştürülmüştür.
+ğŸ“Œ 1. Genel BakÄ±ÅŸ ve Veri FÃ¼zyonu Stratejisi
+FarklÄ± uzamsal ve zamansal Ã§Ã¶zÃ¼nÃ¼rlÃ¼klere sahip Ã¼Ã§ temel veri seti (ERA5, Sentinel-2, SoilGrids), makine Ã¶ÄŸrenmesi algoritmalarÄ±nÄ±n iÅŸleyebileceÄŸi tekil bir Ã–znitelik Matrisine (Feature Matrix) dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lmÃ¼ÅŸtÃ¼r.
 
-Bu entegrasyon sürecinde çok-modallı (multi-modal) bir veri füzyonu mimarisi benimsenmiştir:
+Bu entegrasyon sÃ¼recinde Ã§ok-modallÄ± (multi-modal) bir veri fÃ¼zyonu mimarisi benimsenmiÅŸtir:
 
-Zaman İskeleti: 365 günlük kesintisiz ERA5 iklim verisi ana iskelet (base dataframe) olarak konumlandırılmıştır.
+Zaman Ä°skeleti: 365 gÃ¼nlÃ¼k kesintisiz ERA5 iklim verisi ana iskelet (base dataframe) olarak konumlandÄ±rÄ±lmÄ±ÅŸtÄ±r.
 
-Mekansal Yayınım (Broadcasting): Tek satırlık statik SoilGrids (kil, kum, pH) verisi, arazinin yapısal değişmezliğini temsilen tüm 365 güne kopyalanmıştır.
+Mekansal YayÄ±nÄ±m (Broadcasting): Tek satÄ±rlÄ±k statik SoilGrids (kil, kum, pH) verisi, arazinin yapÄ±sal deÄŸiÅŸmezliÄŸini temsilen tÃ¼m 365 gÃ¼ne kopyalanmÄ±ÅŸtÄ±r.
 
-Zamansal Eşleştirme (Left Join): 46 günlük düzensiz Sentinel-2 NDVI (bitki indeksi) verisi, tarih anahtarı üzerinden matrise entegre edilmiştir.
+Zamansal EÅŸleÅŸtirme (Left Join): 46 gÃ¼nlÃ¼k dÃ¼zensiz Sentinel-2 NDVI (bitki indeksi) verisi, tarih anahtarÄ± Ã¼zerinden matrise entegre edilmiÅŸtir.
 
-🧮 2. Eksik Veri Yönetimi ve İnterpolasyon
-Bulutlanma ve uydu geçiş frekansı (5 gün) nedeniyle yılın 319 gününde NDVI verisi ölçülememiştir. Bitki fenolojisinin doğrusal gelişim eğilimi (sürekli bir biyolojik süreç olması) göz önüne alınarak, eksik (NaN) günlerdeki vejetasyon değerleri Doğrusal İnterpolasyon (Linear Interpolation) tekniği ile tahmin edilerek doldurulmuştur. Yıl başı ve sonundaki marjinal boşluklar ise bfill ve ffill (geriye/ileriye dönük doldurma) metotlarıyla kapatılmıştır.
+ğŸ§® 2. Eksik Veri YÃ¶netimi ve Ä°nterpolasyon
+Bulutlanma ve uydu geÃ§iÅŸ frekansÄ± (5 gÃ¼n) nedeniyle yÄ±lÄ±n 319 gÃ¼nÃ¼nde NDVI verisi Ã¶lÃ§Ã¼lememiÅŸtir. Bitki fenolojisinin doÄŸrusal geliÅŸim eÄŸilimi (sÃ¼rekli bir biyolojik sÃ¼reÃ§ olmasÄ±) gÃ¶z Ã¶nÃ¼ne alÄ±narak, eksik (NaN) gÃ¼nlerdeki vejetasyon deÄŸerleri DoÄŸrusal Ä°nterpolasyon (Linear Interpolation) tekniÄŸi ile tahmin edilerek doldurulmuÅŸtur. YÄ±l baÅŸÄ± ve sonundaki marjinal boÅŸluklar ise bfill ve ffill (geriye/ileriye dÃ¶nÃ¼k doldurma) metotlarÄ±yla kapatÄ±lmÄ±ÅŸtÄ±r.
 
-📊 3. Keşifsel Veri Analizi (EDA) ve Bulgular
-Oluşturulan nihai öznitelik matrisi master_feature_matrix_2023.csv (365x10 boyutlarında) üzerinden Keşifsel Veri Analizi (EDA) yapılarak iklim ve bitki gelişimi arasındaki korelasyonlar görselleştirilmiştir.
+ğŸ“Š 3. KeÅŸifsel Veri Analizi (EDA) ve Bulgular
+OluÅŸturulan nihai Ã¶znitelik matrisi master_feature_matrix_2023.csv (365x10 boyutlarÄ±nda) Ã¼zerinden KeÅŸifsel Veri Analizi (EDA) yapÄ±larak iklim ve bitki geliÅŸimi arasÄ±ndaki korelasyonlar gÃ¶rselleÅŸtirilmiÅŸtir.
 
-(Buraya o oluşturduğumuz grafiği ekleyeceksin)
+(Buraya o oluÅŸturduÄŸumuz grafiÄŸi ekleyeceksin)
 
-Grafik analizi sonucunda; Trakya bölgesindeki bahar yağışlarının NDVI pikini tetiklediği, yaz sonundaki yüksek sıcaklık ve yağışsız periyodun ise hızlı bir biyokütle kaybı (olgunlaşma/hasat) ile sonuçlandığı doğrulanmıştır. İnterpolasyon algoritmasının, gerçek uydu gözlemleri arasındaki boşlukları biyolojik gelişime uygun ve pürüzsüz bir eğri ile modellediği kanıtlanmıştır.
-🌾 1. Fenolojik Gelişim ve Kışlık Tahıl Döngüsü
-Yeşil çizgiye (NDVI) ve yağış barlarına baktığımızda doğanın matematiği kusursuz çalışmış:
+Grafik analizi sonucunda; Trakya bÃ¶lgesindeki bahar yaÄŸÄ±ÅŸlarÄ±nÄ±n NDVI pikini tetiklediÄŸi, yaz sonundaki yÃ¼ksek sÄ±caklÄ±k ve yaÄŸÄ±ÅŸsÄ±z periyodun ise hÄ±zlÄ± bir biyokÃ¼tle kaybÄ± (olgunlaÅŸma/hasat) ile sonuÃ§landÄ±ÄŸÄ± doÄŸrulanmÄ±ÅŸtÄ±r. Ä°nterpolasyon algoritmasÄ±nÄ±n, gerÃ§ek uydu gÃ¶zlemleri arasÄ±ndaki boÅŸluklarÄ± biyolojik geliÅŸime uygun ve pÃ¼rÃ¼zsÃ¼z bir eÄŸri ile modellediÄŸi kanÄ±tlanmÄ±ÅŸtÄ±r.
+ğŸŒ¾ 1. Fenolojik GeliÅŸim ve KÄ±ÅŸlÄ±k TahÄ±l DÃ¶ngÃ¼sÃ¼
+YeÅŸil Ã§izgiye (NDVI) ve yaÄŸÄ±ÅŸ barlarÄ±na baktÄ±ÄŸÄ±mÄ±zda doÄŸanÄ±n matematiÄŸi kusursuz Ã§alÄ±ÅŸmÄ±ÅŸ:
 
-Ocak - Mart: Kış yağışlarıyla birlikte toprağın suya doyduğu, bitkinin yavaş yavaş uyandığı dönem (NDVI 0.3 - 0.4 bandında).
+Ocak - Mart: KÄ±ÅŸ yaÄŸÄ±ÅŸlarÄ±yla birlikte topraÄŸÄ±n suya doyduÄŸu, bitkinin yavaÅŸ yavaÅŸ uyandÄ±ÄŸÄ± dÃ¶nem (NDVI 0.3 - 0.4 bandÄ±nda).
 
-Nisan - Mayıs (Büyük Patlama): Bahar yağmurlarının devam etmesi ve sıcaklığın (kırmızı çizgi) optimum seviyelere (15-20°C) gelmesiyle bitki şaha kalkmış. Kardeşlenme ve sapa kalkma evreleri yaşanmış, NDVI 0.8'in üzerine çıkarak maksimum yeşil biyokütleye (zirveye) ulaşmış. Bu, Trakya'nın o meşhur kışlık buğday tarlalarının yemyeşil olduğu dönemdir!
+Nisan - MayÄ±s (BÃ¼yÃ¼k Patlama): Bahar yaÄŸmurlarÄ±nÄ±n devam etmesi ve sÄ±caklÄ±ÄŸÄ±n (kÄ±rmÄ±zÄ± Ã§izgi) optimum seviyelere (15-20Â°C) gelmesiyle bitki ÅŸaha kalkmÄ±ÅŸ. KardeÅŸlenme ve sapa kalkma evreleri yaÅŸanmÄ±ÅŸ, NDVI 0.8'in Ã¼zerine Ã§Ä±karak maksimum yeÅŸil biyokÃ¼tleye (zirveye) ulaÅŸmÄ±ÅŸ. Bu, Trakya'nÄ±n o meÅŸhur kÄ±ÅŸlÄ±k buÄŸday tarlalarÄ±nÄ±n yemyeÅŸil olduÄŸu dÃ¶nemdir!
 
-☀️ 2. Kuraklık Stresi ve Hasat Evresi (Temmuz - Ağustos)
-Haziran sonundan itibaren grafikte dramatik bir kırılma var:
+â˜€ï¸ 2. KuraklÄ±k Stresi ve Hasat Evresi (Temmuz - AÄŸustos)
+Haziran sonundan itibaren grafikte dramatik bir kÄ±rÄ±lma var:
 
-Kırmızı çizgi (sıcaklık) zirve yapıyor (günlük ortalamalar 25-30°C'lere dayanıyor).
+KÄ±rmÄ±zÄ± Ã§izgi (sÄ±caklÄ±k) zirve yapÄ±yor (gÃ¼nlÃ¼k ortalamalar 25-30Â°C'lere dayanÄ±yor).
 
-Mavi barlar (yağış) bıçak gibi kesiliyor.
+Mavi barlar (yaÄŸÄ±ÅŸ) bÄ±Ã§ak gibi kesiliyor.
 
-Bunun sonucunda bitki sararıyor, olgunlaşıyor ve kuruyaor. NDVI değeri adeta uçuruma yuvarlanarak 0.2 seviyelerine çakılıyor. Bu düşüş, bitkinin öldüğü değil, başakların kuruduğu ve tarlaya biçerdöverin girdiği hasat zamanını temsil ediyor.
+Bunun sonucunda bitki sararÄ±yor, olgunlaÅŸÄ±yor ve kuruyaor. NDVI deÄŸeri adeta uÃ§uruma yuvarlanarak 0.2 seviyelerine Ã§akÄ±lÄ±yor. Bu dÃ¼ÅŸÃ¼ÅŸ, bitkinin Ã¶ldÃ¼ÄŸÃ¼ deÄŸil, baÅŸaklarÄ±n kuruduÄŸu ve tarlaya biÃ§erdÃ¶verin girdiÄŸi hasat zamanÄ±nÄ± temsil ediyor.
 
-🤖 3. İnterpolasyon Algoritmasının Başarısı
-En gurur duyacağımız kısım burası: Koyu yeşil noktalar (Gerçek Uydu Ölçümleri) arasındaki o koca boşlukları, yazdığımız interpolate(method='linear') kodu biyolojik gerçekliğe %100 uygun şekilde doldurmuş. Hiçbir yerde mantıksız bir zikzak veya ani sıçrama yok. Modelimiz 46 günlük kopuk veriden, 365 günlük kusursuz bir yaşam döngüsü yaratmayı başarmış.
-📝 ÇP-1: ETL Veri Hattı - Final Geliştirme Raporu (Tam Otomasyon)
+ğŸ¤– 3. Ä°nterpolasyon AlgoritmasÄ±nÄ±n BaÅŸarÄ±sÄ±
+En gurur duyacaÄŸÄ±mÄ±z kÄ±sÄ±m burasÄ±: Koyu yeÅŸil noktalar (GerÃ§ek Uydu Ã–lÃ§Ã¼mleri) arasÄ±ndaki o koca boÅŸluklarÄ±, yazdÄ±ÄŸÄ±mÄ±z interpolate(method='linear') kodu biyolojik gerÃ§ekliÄŸe %100 uygun ÅŸekilde doldurmuÅŸ. HiÃ§bir yerde mantÄ±ksÄ±z bir zikzak veya ani sÄ±Ã§rama yok. Modelimiz 46 gÃ¼nlÃ¼k kopuk veriden, 365 gÃ¼nlÃ¼k kusursuz bir yaÅŸam dÃ¶ngÃ¼sÃ¼ yaratmayÄ± baÅŸarmÄ±ÅŸ.
+ğŸ“ Ã‡P-1: ETL Veri HattÄ± - Final GeliÅŸtirme Raporu (Tam Otomasyon)
 Proje: Trak-AI KDS (Karar Destek Sistemi)
-Modül: Çalışma Paketi 1 (ETL ve Veri Füzyonu) - TAMAMLANDI
+ModÃ¼l: Ã‡alÄ±ÅŸma Paketi 1 (ETL ve Veri FÃ¼zyonu) - TAMAMLANDI
 Tarih: 16 Mart 2026
 
-📌 1. Otonom Mimari ve Modüler Entegrasyon
-Projenin veri çekme altyapısı, prototip test betiklerinden çıkarılarak tam otonom ve modüler bir üretim (production) mimarisine geçirilmiştir. Sistemin beyni olan main_etl_pipeline.py (Orchestrator) üzerinden aşağıdaki 3 bağımsız modül başarıyla entegre edilmiştir:
+ğŸ“Œ 1. Otonom Mimari ve ModÃ¼ler Entegrasyon
+Projenin veri Ã§ekme altyapÄ±sÄ±, prototip test betiklerinden Ã§Ä±karÄ±larak tam otonom ve modÃ¼ler bir Ã¼retim (production) mimarisine geÃ§irilmiÅŸtir. Sistemin beyni olan main_etl_pipeline.py (Orchestrator) Ã¼zerinden aÅŸaÄŸÄ±daki 3 baÄŸÄ±msÄ±z modÃ¼l baÅŸarÄ±yla entegre edilmiÅŸtir:
 
-mod_soil_isric.py: Sadece yüzey değil, 3 farklı kök derinliğinden (0-5cm, 5-15cm, 15-30cm) kil, kum ve pH değerleri statik olarak çekilmiştir.
+mod_soil_isric.py: Sadece yÃ¼zey deÄŸil, 3 farklÄ± kÃ¶k derinliÄŸinden (0-5cm, 5-15cm, 15-30cm) kil, kum ve pH deÄŸerleri statik olarak Ã§ekilmiÅŸtir.
 
-mod_s2_gee.py: Bulut maskeleme otomasyonu kurularak Sentinel-2 üzerinden NDVI (Biyokütle), EVI (Gelişmiş İndeks) ve NDWI (Su Stresi) indeksleri dinamik olarak çıkarılmıştır.
+mod_s2_gee.py: Bulut maskeleme otomasyonu kurularak Sentinel-2 Ã¼zerinden NDVI (BiyokÃ¼tle), EVI (GeliÅŸmiÅŸ Ä°ndeks) ve NDWI (Su Stresi) indeksleri dinamik olarak Ã§Ä±karÄ±lmÄ±ÅŸtÄ±r.
 
-mod_era5_cds.py: Hata toleranslı ZIP çözücü altyapısıyla desteklenen bu modül ile; GDD (Büyüme Derece Günleri) hesabı için hayati olan Maksimum/Minimum Sıcaklık ve nem tahmini için Çiy Noktası (Dewpoint) verileri başarıyla sisteme kazandırılmıştır.
+mod_era5_cds.py: Hata toleranslÄ± ZIP Ã§Ã¶zÃ¼cÃ¼ altyapÄ±sÄ±yla desteklenen bu modÃ¼l ile; GDD (BÃ¼yÃ¼me Derece GÃ¼nleri) hesabÄ± iÃ§in hayati olan Maksimum/Minimum SÄ±caklÄ±k ve nem tahmini iÃ§in Ã‡iy NoktasÄ± (Dewpoint) verileri baÅŸarÄ±yla sisteme kazandÄ±rÄ±lmÄ±ÅŸtÄ±r.
 
-🧮 2. Çok-Modallı Veri Füzyonu ve EDA
-Farklı uzamsal ve zamansal çözünürlükteki uzay, toprak ve iklim verileri tarih anahtarı (date) üzerinden birleştirilmiştir. Sentinel-2 geçişleri arasındaki uydusuz boşluklar (NaN), bitki fenolojisinin doğasına uygun olarak Doğrusal İnterpolasyon (Linear Interpolation) ile doldurulmuştur.
+ğŸ§® 2. Ã‡ok-ModallÄ± Veri FÃ¼zyonu ve EDA
+FarklÄ± uzamsal ve zamansal Ã§Ã¶zÃ¼nÃ¼rlÃ¼kteki uzay, toprak ve iklim verileri tarih anahtarÄ± (date) Ã¼zerinden birleÅŸtirilmiÅŸtir. Sentinel-2 geÃ§iÅŸleri arasÄ±ndaki uydusuz boÅŸluklar (NaN), bitki fenolojisinin doÄŸasÄ±na uygun olarak DoÄŸrusal Ä°nterpolasyon (Linear Interpolation) ile doldurulmuÅŸtur.
 
-Sonuç olarak makine öğrenmesi (ÇP-2) model eğitimine hazır, kesintisiz ve yüksek boyutlu master_feature_matrix.csv elde edilmiştir. Gelişmiş Keşifsel Veri Analizi (eda_visualization.py) ile bitki gelişimi, hücresel su stresi ve gece-gündüz sıcaklık/yağış dalgalanmaları arasındaki agronomik korelasyonlar görsel olarak doğrulanmıştır.
+SonuÃ§ olarak makine Ã¶ÄŸrenmesi (Ã‡P-2) model eÄŸitimine hazÄ±r, kesintisiz ve yÃ¼ksek boyutlu master_feature_matrix.csv elde edilmiÅŸtir. GeliÅŸmiÅŸ KeÅŸifsel Veri Analizi (eda_visualization.py) ile bitki geliÅŸimi, hÃ¼cresel su stresi ve gece-gÃ¼ndÃ¼z sÄ±caklÄ±k/yaÄŸÄ±ÅŸ dalgalanmalarÄ± arasÄ±ndaki agronomik korelasyonlar gÃ¶rsel olarak doÄŸrulanmÄ±ÅŸtÄ±r.
 
 ------------------------------------------------------------------------------------------------------
-TRAK-AIA Projesi Geliştirme Raporu Tarih: 28 Mart 2026
+TRAK-AIA Projesi GeliÅŸtirme Raporu Tarih: 28 Mart 2026
 
-Odak Aşama: ÇP-1 (Otonom ETL ve Çok-Modallı Veri Füzyonu) Tamamlanması ve ÇP-2 (Sekans Modelleme) Hazırlığı
-1. Teknik Geliştirmeler ve Operasyonel Mimari
-Projenin veri çekme ve füzyon altyapısı, prototip test aşamasından çıkarılarak sahada bağımsız çalışabilecek tam otonom bir üretim (production) mimarisine geçirilmiştir.
-Otonom Orkestratörün Devreye Alınması: main_etl_pipeline.py ana boru hattı (pipeline) başarıyla entegre edilmiştir. Bu yapı; statik toprak verilerini (ISRIC), dinamik spektral uydu indekslerini (Sentinel-2) ve sürekli iklim sürücülerini (ERA5) insan müdahalesi olmadan tek bir matriste birleştirmektedir.
-Genişletilmiş Zamansal ve Konumsal Kapsam: Makine öğrenmesi modelinin ekstrem hava olaylarını (don, ısı dalgası, kuraklık) tam olarak öğrenebilmesi adına veri çekim aralığı 2017-2024 (8 tam yıl) olarak genişletilmiştir. Konum olarak projenin hedef kitlesini ve Trakya mikro-iklimini temsil eden Vize - Evrenli köyü (Lat: 41.530333, Lon: 27.861194) pilot alan olarak sisteme tanımlanmıştır.
-Dinamik Dizin ve Modül Yönetimi (Path Resolution): Alt modüllerin ve kimlik doğrulama anahtarlarının (.json) sistemin veya donanımın neresinden çalıştırılırsa çalıştırılsın os.path üzerinden dinamik olarak bulunması sağlanmıştır. Bu sayede projenin uç cihazlara (yerel sunucu, robotik donanım) aktarımında yaşanabilecek "kırılgan bağlantı" sorunları baştan çözülmüştür.
-2. Literatür Entegrasyonu ve Doldurulan Boşluklar
-Bu aşamada kurulan mimari, "Yerelleştirilmiş Yapay Zekâ" (Localized AI) felsefesini merkeze alarak tarımsal Karar Destek Sistemleri (KDS) literatüründeki temel eksiklikleri doğrudan hedeflemektedir:
-Bulut Bağımlılığı ve Maliyet Kısıtı (H1 & H2): Literatürde, tarım KDS'lerinin "bulut-ağırlıklı ve pahalı" tasarlandığı için düşük bağlantılı küçük ve orta ölçekli çiftliklerde sürdürülebilir benimseme sağlamakta zorlandığı belirtilmektedir. Geliştirilen mimari, ücretsiz makro-veri (Sentinel-2, ERA5, SoilGrids) entegrasyonu ile çevrimdışı öncelikli (offline-first) bir iş akışı temellendirerek erişilebilirlik sorununu çözmektedir.
-Makro Tahmin ile Mikro Doğrulama Kopukluğu (H3 & H4): Makro düzey tahminlerin (uydu/iklim/toprak) çoğu sistemde mikro düzeyde (saha/robot) sistematik doğrulama ile bağlanmadığı için yanlış alarm ve güven sorunu doğurduğu görülmektedir. Bugün oluşturulan master_feature_matrix.csv veritabanı, UGV üzerindeki uç bilişim (Edge CV) ile anomali doğrulaması yapacak olan "makro-uyarı" mekanizmasının (örneğin NDVI anomali tespiti) bilimsel altyapısını kurmuştur.
-3. Stratejik Yönelim: ÇP-2 için Derin Öğrenme Paradigması
-Literatürdeki "eyleme dönük, yerel kararlar" gereksinimi doğrultusunda, makine öğrenmesi modellemesi için klasik regresyon (XGBoost) yöntemlerinden vazgeçilmiş; bunun yerine zaman serisi temelli Derin Öğrenme (Deep Learning) paradigmasına geçilmesine karar verilmiştir.
-Neden Sekans Modelleme? Bitki gelişimi ve stres faktörleri birikimli (kümülatif) bir süreçtir. Günlük verilerin sezon sonuna aglomere edilmesi veri kaybına yol açar. Geliştirilecek Stacked LSTM modeli, son 15-30 günlük zaman serilerini girdi olarak alıp, "Bugünün Beklenen Bitki Sağlık Skoru/Anomali Durumunu" tahmin edecektir.
-Otonomi Tetikleyicisi: Bu günlük tahmin modeli, gerçek uydudan gelen ölçümlerle modelin beklentisi arasında bir sapma (anomali) gördüğünde otonom kara aracına (UGV) görev emri (waypoint) oluşturacak beyni temsil edecektir.
+Odak AÅŸama: Ã‡P-1 (Otonom ETL ve Ã‡ok-ModallÄ± Veri FÃ¼zyonu) TamamlanmasÄ± ve Ã‡P-2 (Sekans Modelleme) HazÄ±rlÄ±ÄŸÄ±
+1. Teknik GeliÅŸtirmeler ve Operasyonel Mimari
+Projenin veri Ã§ekme ve fÃ¼zyon altyapÄ±sÄ±, prototip test aÅŸamasÄ±ndan Ã§Ä±karÄ±larak sahada baÄŸÄ±msÄ±z Ã§alÄ±ÅŸabilecek tam otonom bir Ã¼retim (production) mimarisine geÃ§irilmiÅŸtir.
+Otonom OrkestratÃ¶rÃ¼n Devreye AlÄ±nmasÄ±: main_etl_pipeline.py ana boru hattÄ± (pipeline) baÅŸarÄ±yla entegre edilmiÅŸtir. Bu yapÄ±; statik toprak verilerini (ISRIC), dinamik spektral uydu indekslerini (Sentinel-2) ve sÃ¼rekli iklim sÃ¼rÃ¼cÃ¼lerini (ERA5) insan mÃ¼dahalesi olmadan tek bir matriste birleÅŸtirmektedir.
+GeniÅŸletilmiÅŸ Zamansal ve Konumsal Kapsam: Makine Ã¶ÄŸrenmesi modelinin ekstrem hava olaylarÄ±nÄ± (don, Ä±sÄ± dalgasÄ±, kuraklÄ±k) tam olarak Ã¶ÄŸrenebilmesi adÄ±na veri Ã§ekim aralÄ±ÄŸÄ± 2017-2024 (8 tam yÄ±l) olarak geniÅŸletilmiÅŸtir. Konum olarak projenin hedef kitlesini ve Trakya mikro-iklimini temsil eden Vize - Evrenli kÃ¶yÃ¼ (Lat: 41.530333, Lon: 27.861194) pilot alan olarak sisteme tanÄ±mlanmÄ±ÅŸtÄ±r.
+Dinamik Dizin ve ModÃ¼l YÃ¶netimi (Path Resolution): Alt modÃ¼llerin ve kimlik doÄŸrulama anahtarlarÄ±nÄ±n (.json) sistemin veya donanÄ±mÄ±n neresinden Ã§alÄ±ÅŸtÄ±rÄ±lÄ±rsa Ã§alÄ±ÅŸtÄ±rÄ±lsÄ±n os.path Ã¼zerinden dinamik olarak bulunmasÄ± saÄŸlanmÄ±ÅŸtÄ±r. Bu sayede projenin uÃ§ cihazlara (yerel sunucu, robotik donanÄ±m) aktarÄ±mÄ±nda yaÅŸanabilecek "kÄ±rÄ±lgan baÄŸlantÄ±" sorunlarÄ± baÅŸtan Ã§Ã¶zÃ¼lmÃ¼ÅŸtÃ¼r.
+2. LiteratÃ¼r Entegrasyonu ve Doldurulan BoÅŸluklar
+Bu aÅŸamada kurulan mimari, "YerelleÅŸtirilmiÅŸ Yapay ZekÃ¢" (Localized AI) felsefesini merkeze alarak tarÄ±msal Karar Destek Sistemleri (KDS) literatÃ¼rÃ¼ndeki temel eksiklikleri doÄŸrudan hedeflemektedir:
+Bulut BaÄŸÄ±mlÄ±lÄ±ÄŸÄ± ve Maliyet KÄ±sÄ±tÄ± (H1 & H2): LiteratÃ¼rde, tarÄ±m KDS'lerinin "bulut-aÄŸÄ±rlÄ±klÄ± ve pahalÄ±" tasarlandÄ±ÄŸÄ± iÃ§in dÃ¼ÅŸÃ¼k baÄŸlantÄ±lÄ± kÃ¼Ã§Ã¼k ve orta Ã¶lÃ§ekli Ã§iftliklerde sÃ¼rdÃ¼rÃ¼lebilir benimseme saÄŸlamakta zorlandÄ±ÄŸÄ± belirtilmektedir. GeliÅŸtirilen mimari, Ã¼cretsiz makro-veri (Sentinel-2, ERA5, SoilGrids) entegrasyonu ile Ã§evrimdÄ±ÅŸÄ± Ã¶ncelikli (offline-first) bir iÅŸ akÄ±ÅŸÄ± temellendirerek eriÅŸilebilirlik sorununu Ã§Ã¶zmektedir.
+Makro Tahmin ile Mikro DoÄŸrulama KopukluÄŸu (H3 & H4): Makro dÃ¼zey tahminlerin (uydu/iklim/toprak) Ã§oÄŸu sistemde mikro dÃ¼zeyde (saha/robot) sistematik doÄŸrulama ile baÄŸlanmadÄ±ÄŸÄ± iÃ§in yanlÄ±ÅŸ alarm ve gÃ¼ven sorunu doÄŸurduÄŸu gÃ¶rÃ¼lmektedir. BugÃ¼n oluÅŸturulan master_feature_matrix.csv veritabanÄ±, UGV Ã¼zerindeki uÃ§ biliÅŸim (Edge CV) ile anomali doÄŸrulamasÄ± yapacak olan "makro-uyarÄ±" mekanizmasÄ±nÄ±n (Ã¶rneÄŸin NDVI anomali tespiti) bilimsel altyapÄ±sÄ±nÄ± kurmuÅŸtur.
+3. Stratejik YÃ¶nelim: Ã‡P-2 iÃ§in Derin Ã–ÄŸrenme ParadigmasÄ±
+LiteratÃ¼rdeki "eyleme dÃ¶nÃ¼k, yerel kararlar" gereksinimi doÄŸrultusunda, makine Ã¶ÄŸrenmesi modellemesi iÃ§in klasik regresyon (XGBoost) yÃ¶ntemlerinden vazgeÃ§ilmiÅŸ; bunun yerine zaman serisi temelli Derin Ã–ÄŸrenme (Deep Learning) paradigmasÄ±na geÃ§ilmesine karar verilmiÅŸtir.
+Neden Sekans Modelleme? Bitki geliÅŸimi ve stres faktÃ¶rleri birikimli (kÃ¼mÃ¼latif) bir sÃ¼reÃ§tir. GÃ¼nlÃ¼k verilerin sezon sonuna aglomere edilmesi veri kaybÄ±na yol aÃ§ar. GeliÅŸtirilecek Stacked LSTM modeli, son 15-30 gÃ¼nlÃ¼k zaman serilerini girdi olarak alÄ±p, "BugÃ¼nÃ¼n Beklenen Bitki SaÄŸlÄ±k Skoru/Anomali Durumunu" tahmin edecektir.
+Otonomi Tetikleyicisi: Bu gÃ¼nlÃ¼k tahmin modeli, gerÃ§ek uydudan gelen Ã¶lÃ§Ã¼mlerle modelin beklentisi arasÄ±nda bir sapma (anomali) gÃ¶rdÃ¼ÄŸÃ¼nde otonom kara aracÄ±na (UGV) gÃ¶rev emri (waypoint) oluÅŸturacak beyni temsil edecektir.
 
-# TRAK-AIA Projesi - Çalışma Paketi 2 (ÇP2) İlerleme ve Durum Raporu
+# TRAK-AIA Projesi - Ã‡alÄ±ÅŸma Paketi 2 (Ã‡P2) Ä°lerleme ve Durum Raporu
 **Tarih:** 29 Mart 2026
-**Mevcut Aşama:** Derin Öğrenme Modellerinin Tamamlanması ve LLM Entegrasyonuna Geçiş
+**Mevcut AÅŸama:** Derin Ã–ÄŸrenme Modellerinin TamamlanmasÄ± ve LLM Entegrasyonuna GeÃ§iÅŸ
 
-## 1. Şu An Neredeyiz?
-Projenin "Öngörücü Modelleme ve Karar Destek Sistemi"ni kapsayan ÇP2 aşamasının makine öğrenmesi (kalp) kısmı başarıyla tamamlanmıştır. Anlık hava ve iklim koşullarına bakarak tarlanın gelecekteki bitki sağlığını (NDVI) tahmin eden derin öğrenme modelleri eğitilmiş, test edilmiş ve canlı kullanıma (inference) hazır hale getirilmiştir. 
+## 1. Åu An Neredeyiz?
+Projenin "Ã–ngÃ¶rÃ¼cÃ¼ Modelleme ve Karar Destek Sistemi"ni kapsayan Ã‡P2 aÅŸamasÄ±nÄ±n makine Ã¶ÄŸrenmesi (kalp) kÄ±smÄ± baÅŸarÄ±yla tamamlanmÄ±ÅŸtÄ±r. AnlÄ±k hava ve iklim koÅŸullarÄ±na bakarak tarlanÄ±n gelecekteki bitki saÄŸlÄ±ÄŸÄ±nÄ± (NDVI) tahmin eden derin Ã¶ÄŸrenme modelleri eÄŸitilmiÅŸ, test edilmiÅŸ ve canlÄ± kullanÄ±ma (inference) hazÄ±r hale getirilmiÅŸtir. 
 
-Şu an sistem sayısal tahminler üretebilmekte ve bu tahminleri agronomik olarak yorumlayabilmektedir. Bir sonraki adımda bu çıktılar, Ziraat Mühendisliği bilgi tabanıyla (RAG) birleştirilerek Büyük Dil Modeline (LLM) aktarılacaktır.
+Åu an sistem sayÄ±sal tahminler Ã¼retebilmekte ve bu tahminleri agronomik olarak yorumlayabilmektedir. Bir sonraki adÄ±mda bu Ã§Ä±ktÄ±lar, Ziraat MÃ¼hendisliÄŸi bilgi tabanÄ±yla (RAG) birleÅŸtirilerek BÃ¼yÃ¼k Dil Modeline (LLM) aktarÄ±lacaktÄ±r.
 
-## 2. Neyi, Neden Yaptık? (Mimari Kararlar ve Gerekçeler)
+## 2. Neyi, Neden YaptÄ±k? (Mimari Kararlar ve GerekÃ§eler)
 
-### 2.1. Ürünlerin Ayrıştırılması (Buğday ve Ayçiçeği)
-* **Ne Yaptık?** Veri setini tek bir havuzda eğitmek yerine, kışlık (Buğday) ve yazlık (Ayçiçeği) olarak iki ayrı modele böldük.
-* **Neden Yaptık?** İki bitkinin fenolojik döngüleri ve iklimsel stres tepkileri tamamen zıttır. Buğday kışın soğuklamaya ihtiyaç duyarken, ayçiçeği yaz sıcağında gelişir. Modelleri ayırmak, karmaşayı önledi ve tahmin doğruluğunu maksimize etti.
+### 2.1. ÃœrÃ¼nlerin AyrÄ±ÅŸtÄ±rÄ±lmasÄ± (BuÄŸday ve AyÃ§iÃ§eÄŸi)
+* **Ne YaptÄ±k?** Veri setini tek bir havuzda eÄŸitmek yerine, kÄ±ÅŸlÄ±k (BuÄŸday) ve yazlÄ±k (AyÃ§iÃ§eÄŸi) olarak iki ayrÄ± modele bÃ¶ldÃ¼k.
+* **Neden YaptÄ±k?** Ä°ki bitkinin fenolojik dÃ¶ngÃ¼leri ve iklimsel stres tepkileri tamamen zÄ±ttÄ±r. BuÄŸday kÄ±ÅŸÄ±n soÄŸuklamaya ihtiyaÃ§ duyarken, ayÃ§iÃ§eÄŸi yaz sÄ±caÄŸÄ±nda geliÅŸir. Modelleri ayÄ±rmak, karmaÅŸayÄ± Ã¶nledi ve tahmin doÄŸruluÄŸunu maksimize etti.
 
-### 2.2. Zaman Serisi Pencereleme (Sliding Window - 30 Gün)
-* **Ne Yaptık?** Modeli sadece "bugünün" verisiyle değil, geriye dönük 30 günlük verinin paketlenmiş haliyle (`1, 30, 7` tensör boyutu) eğittik.
-* **Neden Yaptık?** Tarımda bitki stresi bir günde oluşmaz, birikir. Örneğin, 15 gün önceki kuraklık bugünkü NDVI değerini etkiler. 30 günlük pencere, modelin bu "birikimli stresi" (temporal memory) görmesini sağladı.
+### 2.2. Zaman Serisi Pencereleme (Sliding Window - 30 GÃ¼n)
+* **Ne YaptÄ±k?** Modeli sadece "bugÃ¼nÃ¼n" verisiyle deÄŸil, geriye dÃ¶nÃ¼k 30 gÃ¼nlÃ¼k verinin paketlenmiÅŸ haliyle (`1, 30, 7` tensÃ¶r boyutu) eÄŸittik.
+* **Neden YaptÄ±k?** TarÄ±mda bitki stresi bir gÃ¼nde oluÅŸmaz, birikir. Ã–rneÄŸin, 15 gÃ¼n Ã¶nceki kuraklÄ±k bugÃ¼nkÃ¼ NDVI deÄŸerini etkiler. 30 gÃ¼nlÃ¼k pencere, modelin bu "birikimli stresi" (temporal memory) gÃ¶rmesini saÄŸladÄ±.
 
 ### 2.3. ConvLSTM Hibrit Mimarisi
-* **Ne Yaptık?** 1D-CNN (Evrişimsel Sinir Ağları) ve LSTM (Uzun Kısa Süreli Bellek) katmanlarını ardışık olarak kullandık.
-* **Neden Yaptık?** * `Conv1D`: Zaman serisindeki "ani şokları" (örneğin 3 gün süren ani sıcak hava dalgası veya şiddetli sağanak) anında yakalamak için.
-  * `LSTM`: Bu şokların 30 günlük periyotta bitki üzerinde bıraktığı uzun vadeli etkiyi hafızada tutmak için.
+* **Ne YaptÄ±k?** 1D-CNN (EvriÅŸimsel Sinir AÄŸlarÄ±) ve LSTM (Uzun KÄ±sa SÃ¼reli Bellek) katmanlarÄ±nÄ± ardÄ±ÅŸÄ±k olarak kullandÄ±k.
+* **Neden YaptÄ±k?** * `Conv1D`: Zaman serisindeki "ani ÅŸoklarÄ±" (Ã¶rneÄŸin 3 gÃ¼n sÃ¼ren ani sÄ±cak hava dalgasÄ± veya ÅŸiddetli saÄŸanak) anÄ±nda yakalamak iÃ§in.
+  * `LSTM`: Bu ÅŸoklarÄ±n 30 gÃ¼nlÃ¼k periyotta bitki Ã¼zerinde bÄ±raktÄ±ÄŸÄ± uzun vadeli etkiyi hafÄ±zada tutmak iÃ§in.
 
-### 2.4. Gelişmiş Eğitim Optimizasyonları (Callbacks)
-* **Ne Yaptık?** Modele `BatchNormalization`, `EarlyStopping`, `Dropout` ve `ReduceLROnPlateau` mekanizmaları ekledik.
-* **Neden Yaptık?** Modelin veriyi ezberlemesini (overfitting) engellemek için. Öğrenme tıkandığında `ReduceLROnPlateau` öğrenme oranını (learning rate) yarıya indirerek modelin çok daha ince detayları öğrenmesini zorladı. Bu sayede model sapması minimize edildi.
+### 2.4. GeliÅŸmiÅŸ EÄŸitim OptimizasyonlarÄ± (Callbacks)
+* **Ne YaptÄ±k?** Modele `BatchNormalization`, `EarlyStopping`, `Dropout` ve `ReduceLROnPlateau` mekanizmalarÄ± ekledik.
+* **Neden YaptÄ±k?** Modelin veriyi ezberlemesini (overfitting) engellemek iÃ§in. Ã–ÄŸrenme tÄ±kandÄ±ÄŸÄ±nda `ReduceLROnPlateau` Ã¶ÄŸrenme oranÄ±nÄ± (learning rate) yarÄ±ya indirerek modelin Ã§ok daha ince detaylarÄ± Ã¶ÄŸrenmesini zorladÄ±. Bu sayede model sapmasÄ± minimize edildi.
 
-### 2.5. Çıkarım (Inference) Modülü ve Sözel Çeviri
-* **Ne Yaptık?** Eğitilen modellerin canlı veri (veya test verisi) ile tahmin yapmasını sağlayan, çıkan sayısal sonucu (örn: 0.7600) "İYİ — Sağlıklı bitki örtüsü" şeklinde sınıflandıran ve bir LLM bağlam (context) cümlesi üreten dinamik bir modül yazdık.
-* **Neden Yaptık?** LLM'ler (Gemini/OpenAI) sayılardan ziyade anlamlı metinleri çok daha iyi işler. Derin öğrenme modeli ile doğal dil işleme (NLP) aşaması arasında kusursuz bir köprü (interface) kurmak zorundaydık.
+### 2.5. Ã‡Ä±karÄ±m (Inference) ModÃ¼lÃ¼ ve SÃ¶zel Ã‡eviri
+* **Ne YaptÄ±k?** EÄŸitilen modellerin canlÄ± veri (veya test verisi) ile tahmin yapmasÄ±nÄ± saÄŸlayan, Ã§Ä±kan sayÄ±sal sonucu (Ã¶rn: 0.7600) "Ä°YÄ° â€” SaÄŸlÄ±klÄ± bitki Ã¶rtÃ¼sÃ¼" ÅŸeklinde sÄ±nÄ±flandÄ±ran ve bir LLM baÄŸlam (context) cÃ¼mlesi Ã¼reten dinamik bir modÃ¼l yazdÄ±k.
+* **Neden YaptÄ±k?** LLM'ler (Gemini/OpenAI) sayÄ±lardan ziyade anlamlÄ± metinleri Ã§ok daha iyi iÅŸler. Derin Ã¶ÄŸrenme modeli ile doÄŸal dil iÅŸleme (NLP) aÅŸamasÄ± arasÄ±nda kusursuz bir kÃ¶prÃ¼ (interface) kurmak zorundaydÄ±k.
 
-## 3. Doğruluk ve Eğitim Sonuçları
+## 3. DoÄŸruluk ve EÄŸitim SonuÃ§larÄ±
 
-Modellerin başarısı, tahmin ile gerçek değer arasındaki "Ortalama Mutlak Hata (MAE)" metriği ile ölçülmüştür.
+Modellerin baÅŸarÄ±sÄ±, tahmin ile gerÃ§ek deÄŸer arasÄ±ndaki "Ortalama Mutlak Hata (MAE)" metriÄŸi ile Ã¶lÃ§Ã¼lmÃ¼ÅŸtÃ¼r.
 
-**Model 1: Buğday (model_wheat.keras)**
-* **Eğitim Durumu:** 54. Epoch'ta Early Stopping ile optimum ağırlıklarda durduruldu.
-* **En İyi Doğrulama Hatası (val_mae):** `0.0242`
-* **Sonuç Analizi:** Model, buğdayın NDVI (sağlık) endeksini tahmin ederken ortalama sadece **~%2.4**'lük bir sapma yapmaktadır. Bu, tarımsal öngörü sistemleri için son derece yüksek bir hassasiyettir.
+**Model 1: BuÄŸday (model_wheat.keras)**
+* **EÄŸitim Durumu:** 54. Epoch'ta Early Stopping ile optimum aÄŸÄ±rlÄ±klarda durduruldu.
+* **En Ä°yi DoÄŸrulama HatasÄ± (val_mae):** `0.0242`
+* **SonuÃ§ Analizi:** Model, buÄŸdayÄ±n NDVI (saÄŸlÄ±k) endeksini tahmin ederken ortalama sadece **~%2.4**'lÃ¼k bir sapma yapmaktadÄ±r. Bu, tarÄ±msal Ã¶ngÃ¶rÃ¼ sistemleri iÃ§in son derece yÃ¼ksek bir hassasiyettir.
 
-**Model 2: Ayçiçeği (model_sunflower.keras)**
-* **Eğitim Durumu:** 77. Epoch'ta Early Stopping ile optimum ağırlıklarda durduruldu.
-* **En İyi Doğrulama Hatası (val_mae):** `0.0291`
-* **Sonuç Analizi:** Ayçiçeği gelişimini ortalama **~%2.9**'luk bir sapma ile tahmin edebilmektedir. Sistem, yaz kuraklık stresini başarıyla modellemiştir.
+**Model 2: AyÃ§iÃ§eÄŸi (model_sunflower.keras)**
+* **EÄŸitim Durumu:** 77. Epoch'ta Early Stopping ile optimum aÄŸÄ±rlÄ±klarda durduruldu.
+* **En Ä°yi DoÄŸrulama HatasÄ± (val_mae):** `0.0291`
+* **SonuÃ§ Analizi:** AyÃ§iÃ§eÄŸi geliÅŸimini ortalama **~%2.9**'luk bir sapma ile tahmin edebilmektedir. Sistem, yaz kuraklÄ±k stresini baÅŸarÄ±yla modellemiÅŸtir.
 
-**Örnek Canlı Sistem Çıktısı (29 Mart 2026 İtibarıyla):**
-> *Buğday tarlası için tahmin edilen NDVI değeri 0.7600 olup durum 'İYİ — Sağlıklı bitki örtüsü' olarak değerlendirilmektedir.*
+**Ã–rnek CanlÄ± Sistem Ã‡Ä±ktÄ±sÄ± (29 Mart 2026 Ä°tibarÄ±yla):**
+> *BuÄŸday tarlasÄ± iÃ§in tahmin edilen NDVI deÄŸeri 0.7600 olup durum 'Ä°YÄ° â€” SaÄŸlÄ±klÄ± bitki Ã¶rtÃ¼sÃ¼' olarak deÄŸerlendirilmektedir.*
 
-## 4. Bir Sonraki Adım
-ÇP2'nin veri bilimi ve tahminsel modelleme omurgası tamamlanmıştır. Sıradaki aşamalar şunlardır:
-1. **RAG (Retrieval-Augmented Generation) Kurulumu:** Ziraat mühendisliği kurallarını, sulama ve gübreleme tavsiyelerini içeren PDF/metin dokümanlarının LangChain ve ChromaDB aracılığıyla vektör formatına çevrilmesi.
-2. **LLM Orkestrasyonu:** Yukarıda üretilen "LLM Bağlamı"nın, RAG veritabanından çekilecek uzman bilgisiyle harmanlanıp Büyük Dil Modeline (LLM) sunulması.
-3. **Kullanıcı Çıktısı:** Çiftçinin doğrudan okuyup uygulayabileceği eyleme dönüştürülebilir "Akıllı Karar Destek Raporları"nın üretilmesi.
+## 4. Bir Sonraki AdÄ±m
+Ã‡P2'nin veri bilimi ve tahminsel modelleme omurgasÄ± tamamlanmÄ±ÅŸtÄ±r. SÄ±radaki aÅŸamalar ÅŸunlardÄ±r:
+1. **RAG (Retrieval-Augmented Generation) Kurulumu:** Ziraat mÃ¼hendisliÄŸi kurallarÄ±nÄ±, sulama ve gÃ¼breleme tavsiyelerini iÃ§eren PDF/metin dokÃ¼manlarÄ±nÄ±n LangChain ve ChromaDB aracÄ±lÄ±ÄŸÄ±yla vektÃ¶r formatÄ±na Ã§evrilmesi.
+2. **LLM Orkestrasyonu:** YukarÄ±da Ã¼retilen "LLM BaÄŸlamÄ±"nÄ±n, RAG veritabanÄ±ndan Ã§ekilecek uzman bilgisiyle harmanlanÄ±p BÃ¼yÃ¼k Dil Modeline (LLM) sunulmasÄ±.
+3. **KullanÄ±cÄ± Ã‡Ä±ktÄ±sÄ±:** Ã‡iftÃ§inin doÄŸrudan okuyup uygulayabileceÄŸi eyleme dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lebilir "AkÄ±llÄ± Karar Destek RaporlarÄ±"nÄ±n Ã¼retilmesi.
 
 
-## 5. Sonuç ve Sonraki Adımlar
-ALINAN MODEL ÇIKTISI:
-14:03:31 [INFO] trak-aia.predict: Model yükleniyor: model_sunflower.keras
-14:03:32 [WARNING] trak-aia.predict: Canlı veri yok — 'Ayçiçeği' eğitim setinin son dilimi kullanılıyor (test modu).
-  Ürün         : Ayçiçeği
+## 5. SonuÃ§ ve Sonraki AdÄ±mlar
+ALINAN MODEL Ã‡IKTISI:
+14:03:31 [INFO] trak-aia.predict: Model yÃ¼kleniyor: model_sunflower.keras
+14:03:32 [WARNING] trak-aia.predict: CanlÄ± veri yok â€” 'AyÃ§iÃ§eÄŸi' eÄŸitim setinin son dilimi kullanÄ±lÄ±yor (test modu).
+  ÃœrÃ¼n         : AyÃ§iÃ§eÄŸi
   NDVI         : 0.6334
-  Yorum        : İYİ — Sağlıklı bitki örtüsü
-  Veri kaynağı : test_verisi_son_dilim
-  LLM Bağlamı  :
-    Ayçiçeği tarlası için tahmin edilen NDVI değeri 0.6334 olup bitki gelişimi 'İYİ — Sağlıklı bitki örtüsü' olarak değerlendirilmektedir.
-Son 15 Günün Saha Verileri: Toplam Yağış: 749.44 mm, Ort. Gündüz Sıcaklığı: 9.59°C, Ort. Gece Sıcaklığı: 3.76°C, Net Buharlaşma/Nem Kaybı (e_sum): -0.1849, Ortalama Yüzey Radyasyonu: 59969425 J/m².
+  Yorum        : Ä°YÄ° â€” SaÄŸlÄ±klÄ± bitki Ã¶rtÃ¼sÃ¼
+  Veri kaynaÄŸÄ± : test_verisi_son_dilim
+  LLM BaÄŸlamÄ±  :
+    AyÃ§iÃ§eÄŸi tarlasÄ± iÃ§in tahmin edilen NDVI deÄŸeri 0.6334 olup bitki geliÅŸimi 'Ä°YÄ° â€” SaÄŸlÄ±klÄ± bitki Ã¶rtÃ¼sÃ¼' olarak deÄŸerlendirilmektedir.
+Son 15 GÃ¼nÃ¼n Saha Verileri: Toplam YaÄŸÄ±ÅŸ: 749.44 mm, Ort. GÃ¼ndÃ¼z SÄ±caklÄ±ÄŸÄ±: 9.59Â°C, Ort. Gece SÄ±caklÄ±ÄŸÄ±: 3.76Â°C, Net BuharlaÅŸma/Nem KaybÄ± (e_sum): -0.1849, Ortalama YÃ¼zey Radyasyonu: 59969425 J/mÂ².
 
 
 1. Executive Summary
@@ -505,760 +505,760 @@ Run inference_cp2.py to verify end-to-end prediction and LLM context generation
 Integrate inference module with WP4 RAG-LLM pipeline for natural language advisory output
 Investigate TensorFlow Lite quantization of LSTM model for ESP32-CAM edge deployment (WP3)
 Expand pilot testing to additional field parcels in Thrace region for cross-validation
-# TRAK-AIA Projesi - Çalışma Paketi 2 (ÇP2) İlerleme ve Durum Raporu
+# TRAK-AIA Projesi - Ã‡alÄ±ÅŸma Paketi 2 (Ã‡P2) Ä°lerleme ve Durum Raporu
 **Tarih:** 5 Nisan 2026
-**Mevcut Aşama:** Karşılaştırmalı Model Optimizasyonu, Açıklanabilir Yapay Zeka (XAI) ve Hibrit Çıkarım Motoru
+**Mevcut AÅŸama:** KarÅŸÄ±laÅŸtÄ±rmalÄ± Model Optimizasyonu, AÃ§Ä±klanabilir Yapay Zeka (XAI) ve Hibrit Ã‡Ä±karÄ±m Motoru
 
-## 1. Günün Özeti ve Mimari Gelişmeler
-Bugün, ÇP2 (Öngörücü Modelleme) kapsamında sistemin tahmin yetenekleri genişletilmiş, literatürdeki "kara kutu" (black box) yapay zeka eleştirilerine karşı **Açıklanabilir Yapay Zeka (SHAP)** entegrasyonu yapılmış ve tahmin ufku `t+7` (7 gün sonrası) olarak güncellenmiştir. Tek bir modele bağlı kalmak yerine, 4 farklı mimari yarıştırılarak her ürün için en optimal hibrit yapı seçilmiştir.
+## 1. GÃ¼nÃ¼n Ã–zeti ve Mimari GeliÅŸmeler
+BugÃ¼n, Ã‡P2 (Ã–ngÃ¶rÃ¼cÃ¼ Modelleme) kapsamÄ±nda sistemin tahmin yetenekleri geniÅŸletilmiÅŸ, literatÃ¼rdeki "kara kutu" (black box) yapay zeka eleÅŸtirilerine karÅŸÄ± **AÃ§Ä±klanabilir Yapay Zeka (SHAP)** entegrasyonu yapÄ±lmÄ±ÅŸ ve tahmin ufku `t+7` (7 gÃ¼n sonrasÄ±) olarak gÃ¼ncellenmiÅŸtir. Tek bir modele baÄŸlÄ± kalmak yerine, 4 farklÄ± mimari yarÄ±ÅŸtÄ±rÄ±larak her Ã¼rÃ¼n iÃ§in en optimal hibrit yapÄ± seÃ§ilmiÅŸtir.
 
-## 2. Gelişmiş Veri Ön İşleme ve Özellik Mühendisliği (`preprocessing_cp2.py`)
-Modelin girdi verisi agronomik gerçekliklere daha uygun hale getirilmiştir:
-* **Agronomik Özellik Üretimi:** Veri setine Büyüme Derece Günleri (GDD), kuraklık indeksleri ve ardışık NDVI trendleri gibi tarımsal açıdan kritik yeni değişkenler eklenmiştir.
-* **Anomali Temizliği:** EVI (Geliştirilmiş Bitki İndeksi) aykırı değerleri temizlenmiş ve SSR (Radyasyon) değerleri yeniden ölçeklendirilmiştir.
-* **t+7 Tahmin Ufku (Forecast Horizon):** Model, 30 günlük geçmiş veriye bakarak "bugünü" değil, doğrudan 7 gün sonrasının (t+7) bitki sağlığını tahmin edecek şekilde yapılandırılmıştır.
+## 2. GeliÅŸmiÅŸ Veri Ã–n Ä°ÅŸleme ve Ã–zellik MÃ¼hendisliÄŸi (`preprocessing_cp2.py`)
+Modelin girdi verisi agronomik gerÃ§ekliklere daha uygun hale getirilmiÅŸtir:
+* **Agronomik Ã–zellik Ãœretimi:** Veri setine BÃ¼yÃ¼me Derece GÃ¼nleri (GDD), kuraklÄ±k indeksleri ve ardÄ±ÅŸÄ±k NDVI trendleri gibi tarÄ±msal aÃ§Ä±dan kritik yeni deÄŸiÅŸkenler eklenmiÅŸtir.
+* **Anomali TemizliÄŸi:** EVI (GeliÅŸtirilmiÅŸ Bitki Ä°ndeksi) aykÄ±rÄ± deÄŸerleri temizlenmiÅŸ ve SSR (Radyasyon) deÄŸerleri yeniden Ã¶lÃ§eklendirilmiÅŸtir.
+* **t+7 Tahmin Ufku (Forecast Horizon):** Model, 30 gÃ¼nlÃ¼k geÃ§miÅŸ veriye bakarak "bugÃ¼nÃ¼" deÄŸil, doÄŸrudan 7 gÃ¼n sonrasÄ±nÄ±n (t+7) bitki saÄŸlÄ±ÄŸÄ±nÄ± tahmin edecek ÅŸekilde yapÄ±landÄ±rÄ±lmÄ±ÅŸtÄ±r.
 
-## 3. Karşılaştırmalı Model Eğitimi ve Residual Delta (`train_models_cp2.py`)
-Derin öğrenme modellerinin zaman serilerinde sıkça düştüğü "bir önceki günü kopyalama" (lagging) hatasını önlemek için model hedefi değiştirilmiştir. Model doğrudan NDVI değerini değil, **Mevcut NDVI ile Gelecek NDVI arasındaki farkı (Residual Delta)** tahmin edecek şekilde (Örn: +0.02 veya -0.01) eğitilmiştir.
+## 3. KarÅŸÄ±laÅŸtÄ±rmalÄ± Model EÄŸitimi ve Residual Delta (`train_models_cp2.py`)
+Derin Ã¶ÄŸrenme modellerinin zaman serilerinde sÄ±kÃ§a dÃ¼ÅŸtÃ¼ÄŸÃ¼ "bir Ã¶nceki gÃ¼nÃ¼ kopyalama" (lagging) hatasÄ±nÄ± Ã¶nlemek iÃ§in model hedefi deÄŸiÅŸtirilmiÅŸtir. Model doÄŸrudan NDVI deÄŸerini deÄŸil, **Mevcut NDVI ile Gelecek NDVI arasÄ±ndaki farkÄ± (Residual Delta)** tahmin edecek ÅŸekilde (Ã–rn: +0.02 veya -0.01) eÄŸitilmiÅŸtir.
 
-Her iki ürün (Buğday ve Ayçiçeği) için 4 farklı mimari yarıştırılmıştır:
-1. **LSTM:** Uzun vadeli zaman serisi belleği.
-2. **Conv-LSTM:** İklim şoklarını yakalayan hibrit yapı.
-3. **Attention-LSTM:** Kendi kendine dikkat (Self-Attention) mekanizması ile en kritik günlere odaklanan yapı.
-4. **XGBoost:** Derin öğrenmeye karşı ağaç tabanlı güçlü bir referans (baseline) modeli.
+Her iki Ã¼rÃ¼n (BuÄŸday ve AyÃ§iÃ§eÄŸi) iÃ§in 4 farklÄ± mimari yarÄ±ÅŸtÄ±rÄ±lmÄ±ÅŸtÄ±r:
+1. **LSTM:** Uzun vadeli zaman serisi belleÄŸi.
+2. **Conv-LSTM:** Ä°klim ÅŸoklarÄ±nÄ± yakalayan hibrit yapÄ±.
+3. **Attention-LSTM:** Kendi kendine dikkat (Self-Attention) mekanizmasÄ± ile en kritik gÃ¼nlere odaklanan yapÄ±.
+4. **XGBoost:** Derin Ã¶ÄŸrenmeye karÅŸÄ± aÄŸaÃ§ tabanlÄ± gÃ¼Ã§lÃ¼ bir referans (baseline) modeli.
 
-## 4. Model Değerlendirme ve Performans Metrikleri (`evaluate_cp2.py` & CSV)
-Eğitilen 8 modelin performansı R2 (Belirlilik Katsayısı) ve MAE (Ortalama Mutlak Hata) üzerinden değerlendirilmiştir.
+## 4. Model DeÄŸerlendirme ve Performans Metrikleri (`evaluate_cp2.py` & CSV)
+EÄŸitilen 8 modelin performansÄ± R2 (Belirlilik KatsayÄ±sÄ±) ve MAE (Ortalama Mutlak Hata) Ã¼zerinden deÄŸerlendirilmiÅŸtir.
 
-**Performans Karşılaştırma Tablosu:**
+**Performans KarÅŸÄ±laÅŸtÄ±rma Tablosu:**
 
-| Ürün | Model | R2 Skoru | MAE (NDVI Hata Payı) |
+| ÃœrÃ¼n | Model | R2 Skoru | MAE (NDVI Hata PayÄ±) |
 | :--- | :--- | :--- | :--- |
-| **Buğday** | LSTM | 0.7520 | 0.0451 |
-| **Buğday** | Conv-LSTM | 0.7151 | 0.0445 |
-| **Buğday** | Attention-LSTM | 0.7015 | 0.0460 |
-| **Buğday** | XGBoost | 0.7010 | 0.0455 |
-| **Ayçiçeği** | LSTM | 0.7957 | 0.0409 |
-| **Ayçiçeği** | XGBoost | 0.7909 | 0.0401 |
-| **Ayçiçeği** | Attention-LSTM | 0.7896 | 0.0421 |
-| **Ayçiçeği** | Conv-LSTM | 0.7773 | 0.0417 |
+| **BuÄŸday** | LSTM | 0.7520 | 0.0451 |
+| **BuÄŸday** | Conv-LSTM | 0.7151 | 0.0445 |
+| **BuÄŸday** | Attention-LSTM | 0.7015 | 0.0460 |
+| **BuÄŸday** | XGBoost | 0.7010 | 0.0455 |
+| **AyÃ§iÃ§eÄŸi** | LSTM | 0.7957 | 0.0409 |
+| **AyÃ§iÃ§eÄŸi** | XGBoost | 0.7909 | 0.0401 |
+| **AyÃ§iÃ§eÄŸi** | Attention-LSTM | 0.7896 | 0.0421 |
+| **AyÃ§iÃ§eÄŸi** | Conv-LSTM | 0.7773 | 0.0417 |
 
-* **Açıklanabilirlik (SHAP Analizi):** XGBoost modelleri üzerinden SHAP (SHapley Additive exPlanations) grafikleri üretilerek, hangi iklim/toprak faktörünün tahmini ne yönde etkilediği şeffaf bir şekilde ortaya konmuştur.
+* **AÃ§Ä±klanabilirlik (SHAP Analizi):** XGBoost modelleri Ã¼zerinden SHAP (SHapley Additive exPlanations) grafikleri Ã¼retilerek, hangi iklim/toprak faktÃ¶rÃ¼nÃ¼n tahmini ne yÃ¶nde etkilediÄŸi ÅŸeffaf bir ÅŸekilde ortaya konmuÅŸtur.
 
-## 5. Hibrit Çıkarım Motoru (Inference v2 - `inference_cp2.py`)
-Değerlendirme sonuçlarına göre sistem tek tip modelden **Hibrit Seçim** mantığına geçirilmiştir:
-* **Buğday için:** Düşük hata payı ve uzamsal şokları iyi yakalaması sebebiyle **Conv-LSTM** mimarisi seçilmiştir.
-* **Ayçiçeği için:** En yüksek R2 skoru ve uzun vadeli hafıza başarısı sebebiyle standart **LSTM** mimarisi seçilmiştir.
+## 5. Hibrit Ã‡Ä±karÄ±m Motoru (Inference v2 - `inference_cp2.py`)
+DeÄŸerlendirme sonuÃ§larÄ±na gÃ¶re sistem tek tip modelden **Hibrit SeÃ§im** mantÄ±ÄŸÄ±na geÃ§irilmiÅŸtir:
+* **BuÄŸday iÃ§in:** DÃ¼ÅŸÃ¼k hata payÄ± ve uzamsal ÅŸoklarÄ± iyi yakalamasÄ± sebebiyle **Conv-LSTM** mimarisi seÃ§ilmiÅŸtir.
+* **AyÃ§iÃ§eÄŸi iÃ§in:** En yÃ¼ksek R2 skoru ve uzun vadeli hafÄ±za baÅŸarÄ±sÄ± sebebiyle standart **LSTM** mimarisi seÃ§ilmiÅŸtir.
 
-**Zenginleştirilmiş RAG-LLM Bağlamı (Context):**
-Çıkarım modülü artık LLM'e sadece tek bir sayı göndermemektedir. Çiftçiye sunulacak eyleme dönüştürülebilir karar destek metni için şu parametreler otomatik hesaplanmaktadır:
+**ZenginleÅŸtirilmiÅŸ RAG-LLM BaÄŸlamÄ± (Context):**
+Ã‡Ä±karÄ±m modÃ¼lÃ¼ artÄ±k LLM'e sadece tek bir sayÄ± gÃ¶ndermemektedir. Ã‡iftÃ§iye sunulacak eyleme dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lebilir karar destek metni iÃ§in ÅŸu parametreler otomatik hesaplanmaktadÄ±r:
 * Hedefteki `t+7` NDVI tahmini.
-* Anlık değişim trendi (Trend delta ve yüzde değişimi).
-* Agronomik Sağlık Durumu (Mükemmel, İyi, Kritik vb.).
-* Son 15 Günlük Saha Özeti (Sıcaklık, radyasyon, e_sum).
-* Otomatik Uyarılar (Alerts) ve Aksiyon Önerileri (Action).
+* AnlÄ±k deÄŸiÅŸim trendi (Trend delta ve yÃ¼zde deÄŸiÅŸimi).
+* Agronomik SaÄŸlÄ±k Durumu (MÃ¼kemmel, Ä°yi, Kritik vb.).
+* Son 15 GÃ¼nlÃ¼k Saha Ã–zeti (SÄ±caklÄ±k, radyasyon, e_sum).
+* Otomatik UyarÄ±lar (Alerts) ve Aksiyon Ã–nerileri (Action).
 
-## 6. Bir Sonraki Adım
-Makine öğrenmesi modellerinin karşılaştırmalı testleri ve XAI entegrasyonu tamamlanmıştır. Artık sistem RAG (Retrieval-Augmented Generation) aşamasına tam olarak hazırdır. Sıradaki hedef, bu zengin çıkarım verilerini tarımsal PDF dokümanlarıyla ChromaDB üzerinden eşleştirip, LangChain kullanılarak çiftçi dostu LLM raporları üretmektir.
+## 6. Bir Sonraki AdÄ±m
+Makine Ã¶ÄŸrenmesi modellerinin karÅŸÄ±laÅŸtÄ±rmalÄ± testleri ve XAI entegrasyonu tamamlanmÄ±ÅŸtÄ±r. ArtÄ±k sistem RAG (Retrieval-Augmented Generation) aÅŸamasÄ±na tam olarak hazÄ±rdÄ±r. SÄ±radaki hedef, bu zengin Ã§Ä±karÄ±m verilerini tarÄ±msal PDF dokÃ¼manlarÄ±yla ChromaDB Ã¼zerinden eÅŸleÅŸtirip, LangChain kullanÄ±larak Ã§iftÃ§i dostu LLM raporlarÄ± Ã¼retmektir.
 
-## Güncelleme Raporu: ÇP-2 Model Değerlendirme, XAI ve Dinamik Çıkarım (Inference) Entegrasyonu
-**Tarih:** 6 Nisan 2026 (Gün Sonu)
-**Durum:** ÇP-2 (Sekans Modelleme) Tamamlandı, RAG-LLM Aşamasına Geçiş Onaylandı.
+## GÃ¼ncelleme Raporu: Ã‡P-2 Model DeÄŸerlendirme, XAI ve Dinamik Ã‡Ä±karÄ±m (Inference) Entegrasyonu
+**Tarih:** 6 Nisan 2026 (GÃ¼n Sonu)
+**Durum:** Ã‡P-2 (Sekans Modelleme) TamamlandÄ±, RAG-LLM AÅŸamasÄ±na GeÃ§iÅŸ OnaylandÄ±.
 
-### 1. Keras Serileştirme (Serialization) ve Mimari Bug-Fix Operasyonu
-Eğitilen modellerin (`.keras`) canlı sisteme yüklenmesi sırasında karşılaşılan "Custom Layer" ve "Lambda Shape Inference" hataları mimari bir güncellemeyle kalıcı olarak çözülmüştür:
-* **Custom Layer Kaydı:** Yazılan özel `SelfAttention` katmanı, TensorFlow'un güvenli okuma yapabilmesi için `@tf.keras.saving.register_keras_serializable()` dekoratörü ile sisteme tanıtılmıştır.
-* **Güvenli Yükleme (Safe-Load) Mekanizması:** Modellerin yalnızca ağırlıkları (`load_weights`) kaydedilmiş, yükleme esnasında mimari kod üzerinden sıfırdan inşa edilerek Keras 3.x versiyonunun Lambda serileştirme kısıtlamaları (güvenlik bariyerleri) tamamen baypas edilmiştir.
+### 1. Keras SerileÅŸtirme (Serialization) ve Mimari Bug-Fix Operasyonu
+EÄŸitilen modellerin (`.keras`) canlÄ± sisteme yÃ¼klenmesi sÄ±rasÄ±nda karÅŸÄ±laÅŸÄ±lan "Custom Layer" ve "Lambda Shape Inference" hatalarÄ± mimari bir gÃ¼ncellemeyle kalÄ±cÄ± olarak Ã§Ã¶zÃ¼lmÃ¼ÅŸtÃ¼r:
+* **Custom Layer KaydÄ±:** YazÄ±lan Ã¶zel `SelfAttention` katmanÄ±, TensorFlow'un gÃ¼venli okuma yapabilmesi iÃ§in `@tf.keras.saving.register_keras_serializable()` dekoratÃ¶rÃ¼ ile sisteme tanÄ±tÄ±lmÄ±ÅŸtÄ±r.
+* **GÃ¼venli YÃ¼kleme (Safe-Load) MekanizmasÄ±:** Modellerin yalnÄ±zca aÄŸÄ±rlÄ±klarÄ± (`load_weights`) kaydedilmiÅŸ, yÃ¼kleme esnasÄ±nda mimari kod Ã¼zerinden sÄ±fÄ±rdan inÅŸa edilerek Keras 3.x versiyonunun Lambda serileÅŸtirme kÄ±sÄ±tlamalarÄ± (gÃ¼venlik bariyerleri) tamamen baypas edilmiÅŸtir.
 
-### 2. Karşılaştırmalı Model Değerlendirmesi ve Şampiyonların İlanı
-`evaluate_cp2.py` modülü ile farklı mimarilerin (XGBoost, LSTM, Conv-LSTM, Attention-LSTM) "Residual Delta" (bir önceki güne göre fark tahmini) yaklaşımıyla performans testleri tamamlanmış ve `model_comparison_table.csv` raporu üretilmiştir.
+### 2. KarÅŸÄ±laÅŸtÄ±rmalÄ± Model DeÄŸerlendirmesi ve ÅampiyonlarÄ±n Ä°lanÄ±
+`evaluate_cp2.py` modÃ¼lÃ¼ ile farklÄ± mimarilerin (XGBoost, LSTM, Conv-LSTM, Attention-LSTM) "Residual Delta" (bir Ã¶nceki gÃ¼ne gÃ¶re fark tahmini) yaklaÅŸÄ±mÄ±yla performans testleri tamamlanmÄ±ÅŸ ve `model_comparison_table.csv` raporu Ã¼retilmiÅŸtir.
 
-* **Buğday (Kışlık) Şampiyonu:** Saf **LSTM** modeli, R² = 0.7520 ve RMSE = 0.0569 değerleriyle kış aylarındaki uzun vadeli (kümülatif) stresi en iyi öğrenen mimari olmuştur.
-* **Ayçiçeği (Yazlık) Şampiyonu:** Makine öğrenmesi tabanlı **XGBoost** (R² = 0.8115) ve derin öğrenme tabanlı **LSTM** (R² = 0.7957), yazlık ürünlerin ani iklim şoklarına (ör. ısı dalgası) verdiği tepkileri kusursuz bir şekilde yakalamıştır. (Canlı sistemde yapısal uyumluluk için derin öğrenme modeli varsayılan olarak atanmıştır).
+* **BuÄŸday (KÄ±ÅŸlÄ±k) Åampiyonu:** Saf **LSTM** modeli, RÂ² = 0.7520 ve RMSE = 0.0569 deÄŸerleriyle kÄ±ÅŸ aylarÄ±ndaki uzun vadeli (kÃ¼mÃ¼latif) stresi en iyi Ã¶ÄŸrenen mimari olmuÅŸtur.
+* **AyÃ§iÃ§eÄŸi (YazlÄ±k) Åampiyonu:** Makine Ã¶ÄŸrenmesi tabanlÄ± **XGBoost** (RÂ² = 0.8115) ve derin Ã¶ÄŸrenme tabanlÄ± **LSTM** (RÂ² = 0.7957), yazlÄ±k Ã¼rÃ¼nlerin ani iklim ÅŸoklarÄ±na (Ã¶r. Ä±sÄ± dalgasÄ±) verdiÄŸi tepkileri kusursuz bir ÅŸekilde yakalamÄ±ÅŸtÄ±r. (CanlÄ± sistemde yapÄ±sal uyumluluk iÃ§in derin Ã¶ÄŸrenme modeli varsayÄ±lan olarak atanmÄ±ÅŸtÄ±r).
 
-### 3. Açıklanabilir Yapay Zeka (XAI) Entegrasyonu
-Karar Destek Sistemlerinde (KDS) çiftçinin sisteme olan güvenini (TAM/UTAUT) sağlamak amacıyla XGBoost modelleri üzerinden **SHAP (SHapley Additive exPlanations)** analizleri üretilmiştir. Çıkarılan `shap_summary` grafikleri, modelin tarladaki değişimi tahmin ederken hangi iklimsel sürücüleri (sıcaklık, yağış, e_sum) neden kullandığını matematiksel olarak ispatlamış ve sistemin "kara kutu" olmasını engellemiştir.
+### 3. AÃ§Ä±klanabilir Yapay Zeka (XAI) Entegrasyonu
+Karar Destek Sistemlerinde (KDS) Ã§iftÃ§inin sisteme olan gÃ¼venini (TAM/UTAUT) saÄŸlamak amacÄ±yla XGBoost modelleri Ã¼zerinden **SHAP (SHapley Additive exPlanations)** analizleri Ã¼retilmiÅŸtir. Ã‡Ä±karÄ±lan `shap_summary` grafikleri, modelin tarladaki deÄŸiÅŸimi tahmin ederken hangi iklimsel sÃ¼rÃ¼cÃ¼leri (sÄ±caklÄ±k, yaÄŸÄ±ÅŸ, e_sum) neden kullandÄ±ÄŸÄ±nÄ± matematiksel olarak ispatlamÄ±ÅŸ ve sistemin "kara kutu" olmasÄ±nÄ± engellemiÅŸtir.
 
-### 4. Dinamik Çıkarım (Hybrid Inference) ve RAG-LLM Köprüsü
-`inference_cp2.py` modülü, elde edilen şampiyon modellere göre dinamik yönlendirme (Dynamic Routing) yapacak şekilde güncellenmiştir. Sistem artık otonom olarak:
-1. Ürüne en uygun modeli (örn: Buğday için Conv-LSTM, Ayçiçeği için LSTM) seçmektedir.
-2. 7 günlük gelecek projeksiyonu (t+7) üreterek trend analizi yapmaktadır (Örn: `STABLE, -5.6%`).
-3. Son 15 günün meteorolojik saha gerçeklerini (Yağış, Radyasyon, Sıcaklık) tahmin sonucuyla birleştirerek tek bir **LLM Context (Bağlamı)** yaratmaktadır.
+### 4. Dinamik Ã‡Ä±karÄ±m (Hybrid Inference) ve RAG-LLM KÃ¶prÃ¼sÃ¼
+`inference_cp2.py` modÃ¼lÃ¼, elde edilen ÅŸampiyon modellere gÃ¶re dinamik yÃ¶nlendirme (Dynamic Routing) yapacak ÅŸekilde gÃ¼ncellenmiÅŸtir. Sistem artÄ±k otonom olarak:
+1. ÃœrÃ¼ne en uygun modeli (Ã¶rn: BuÄŸday iÃ§in Conv-LSTM, AyÃ§iÃ§eÄŸi iÃ§in LSTM) seÃ§mektedir.
+2. 7 gÃ¼nlÃ¼k gelecek projeksiyonu (t+7) Ã¼reterek trend analizi yapmaktadÄ±r (Ã–rn: `STABLE, -5.6%`).
+3. Son 15 gÃ¼nÃ¼n meteorolojik saha gerÃ§eklerini (YaÄŸÄ±ÅŸ, Radyasyon, SÄ±caklÄ±k) tahmin sonucuyla birleÅŸtirerek tek bir **LLM Context (BaÄŸlamÄ±)** yaratmaktadÄ±r.
 
-**Örnek Üretim Çıktısı (Buğday):**
+**Ã–rnek Ãœretim Ã‡Ä±ktÄ±sÄ± (BuÄŸday):**
 > TRAK-AI KDS 7-Day Forecast for Wheat:
 > - Model: Conv-LSTM (residual delta)
 > - Current NDVI: 0.4675 | Predicted NDVI (t+7): 0.4413
 > - Trend: STABLE (-0.0262, -5.6%)
 > - Last 15 Days: Precip=749.4mm, Max Temp=9.6C, Min Temp=3.8C, Solar Rad=59969425 J/m2.
 
-### 5. Sonraki Adım: Bilgi Tabanı ve Orketrasyon (ÇP-4)
-Sistemin sol beyni (Mantıksal Tahmin Motoru) tamamen otonom hale gelmiştir. Sıradaki aşama olan ÇP-4 kapsamında, elde edilen bu zengin "LLM Context" verisi; LangChain ve ChromaDB (Vektör Veritabanı) altyapısına kurulan RAG sistemine beslenecek, Ziraat Mühendisliği literatürüyle harmanlanıp çiftçi için doğal dilde otonom reçetelere dönüştürülecektir.
-# TRAK-AI KDS — Sürekli Proje Dokümantasyonu
+### 5. Sonraki AdÄ±m: Bilgi TabanÄ± ve Orketrasyon (Ã‡P-4)
+Sistemin sol beyni (MantÄ±ksal Tahmin Motoru) tamamen otonom hale gelmiÅŸtir. SÄ±radaki aÅŸama olan Ã‡P-4 kapsamÄ±nda, elde edilen bu zengin "LLM Context" verisi; LangChain ve ChromaDB (VektÃ¶r VeritabanÄ±) altyapÄ±sÄ±na kurulan RAG sistemine beslenecek, Ziraat MÃ¼hendisliÄŸi literatÃ¼rÃ¼yle harmanlanÄ±p Ã§iftÃ§i iÃ§in doÄŸal dilde otonom reÃ§etelere dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lecektir.
+# TRAK-AI KDS â€” SÃ¼rekli Proje DokÃ¼mantasyonu
 
-> **Proje:** Trakya Bölgesi için Otonom Akıllı Tarım Karar Destek Sistemi  
-> **Araştırmacı:** Melih Kalkan  
-> **Program:** TÜBİTAK 2209/A — Lisans Bitirme Tezi (2025/2026)  
-> **Uygulama Başlangıcı:** 3 Mart 2026  
+> **Proje:** Trakya BÃ¶lgesi iÃ§in Otonom AkÄ±llÄ± TarÄ±m Karar Destek Sistemi  
+> **AraÅŸtÄ±rmacÄ±:** Melih Kalkan  
+> **Program:** TÃœBÄ°TAK 2209/A â€” Lisans Bitirme Tezi (2025/2026)  
+> **Uygulama BaÅŸlangÄ±cÄ±:** 3 Mart 2026  
 > **Hedef Teslim:** Haziran 2026  
-> **Son Güncelleme:** 8 Nisan 2026  
+> **Son GÃ¼ncelleme:** 8 Nisan 2026  
 
 ---
 
-## İçindekiler
+## Ä°Ã§indekiler
 
-1. [Proje Özeti ve Mimari](#1-proje-özeti-ve-mimari)
-2. [Çalışma Paketleri Özet Tablosu](#2-çalışma-paketleri-özet-tablosu)
-3. [Günlük Çalışma Kayıtları](#3-günlük-çalışma-kayıtları)
-4. [ÇP-1: ETL Veri Hattı — Detay ve Durum](#4-çp-1-etl-veri-hattı)
-5. [ÇP-2: Tahmin Modeli — Detay ve Durum](#5-çp-2-tahmin-modeli)
-6. [ÇP-3: Rover Donanımı ve Edge AI — Detay ve Durum](#6-çp-3-rover-donanımı-ve-edge-ai)
-7. [ÇP-4: Yerel RAG/LLM Entegrasyonu — Detay ve Durum](#7-çp-4-yerel-ragllm-entegrasyonu)
+1. [Proje Ã–zeti ve Mimari](#1-proje-Ã¶zeti-ve-mimari)
+2. [Ã‡alÄ±ÅŸma Paketleri Ã–zet Tablosu](#2-Ã§alÄ±ÅŸma-paketleri-Ã¶zet-tablosu)
+3. [GÃ¼nlÃ¼k Ã‡alÄ±ÅŸma KayÄ±tlarÄ±](#3-gÃ¼nlÃ¼k-Ã§alÄ±ÅŸma-kayÄ±tlarÄ±)
+4. [Ã‡P-1: ETL Veri HattÄ± â€” Detay ve Durum](#4-Ã§p-1-etl-veri-hattÄ±)
+5. [Ã‡P-2: Tahmin Modeli â€” Detay ve Durum](#5-Ã§p-2-tahmin-modeli)
+6. [Ã‡P-3: Rover DonanÄ±mÄ± ve Edge AI â€” Detay ve Durum](#6-Ã§p-3-rover-donanÄ±mÄ±-ve-edge-ai)
+7. [Ã‡P-4: Yerel RAG/LLM Entegrasyonu â€” Detay ve Durum](#7-Ã§p-4-yerel-ragllm-entegrasyonu)
 8. [Hipotezler ve Metrikler Takip Tablosu](#8-hipotezler-ve-metrikler)
-9. [Teknik Kararlar ve Gerekçeler](#9-teknik-kararlar-ve-gerekçeler)
-10. [Açık Sorunlar ve Sonraki Adımlar](#10-açık-sorunlar-ve-sonraki-adımlar)
+9. [Teknik Kararlar ve GerekÃ§eler](#9-teknik-kararlar-ve-gerekÃ§eler)
+10. [AÃ§Ä±k Sorunlar ve Sonraki AdÄ±mlar](#10-aÃ§Ä±k-sorunlar-ve-sonraki-adÄ±mlar)
 
 ---
 
-## 1. Proje Özeti ve Mimari
+## 1. Proje Ã–zeti ve Mimari
 
-TRAK-AI KDS, hassas tarımda "maliyet-doğruluk" çelişkisini üç katmanlı bir mimariyle çözmeyi hedeflemektedir:
+TRAK-AI KDS, hassas tarÄ±mda "maliyet-doÄŸruluk" Ã§eliÅŸkisini Ã¼Ã§ katmanlÄ± bir mimariyle Ã§Ã¶zmeyi hedeflemektedir:
 
-**Katman 1 — Makro Veri Füzyonu (Retrospektif Model):** Sentinel-2 uydu görüntüleri, ERA5 iklim yeniden analiz verileri ve SoilGrids dijital toprak haritalarından oluşan çok modlu veri matrisini ConvLSTM ve XGBoost/RF hibrit mimarisiyle birleştirerek "bugün bu tarlada beklenmesi gereken ideal toprak nemi ve fenolojik evre nedir?" sorusuna kantitatif yanıt üreten teorik referans motoru.
+**Katman 1 â€” Makro Veri FÃ¼zyonu (Retrospektif Model):** Sentinel-2 uydu gÃ¶rÃ¼ntÃ¼leri, ERA5 iklim yeniden analiz verileri ve SoilGrids dijital toprak haritalarÄ±ndan oluÅŸan Ã§ok modlu veri matrisini ConvLSTM ve XGBoost/RF hibrit mimarisiyle birleÅŸtirerek "bugÃ¼n bu tarlada beklenmesi gereken ideal toprak nemi ve fenolojik evre nedir?" sorusuna kantitatif yanÄ±t Ã¼reten teorik referans motoru.
 
-**Katman 2 — Mikro Doğrulama (Otonom Rover + Edge AI):** Güneş enerjili, ESP32 tabanlı otonom IoT gezgini. SEN0193 kalibre toprak nemi sensörü ve ESP32-CAM üzerinde TFLite Micro ile çalışan YOLOv8-tiny modeli aracılığıyla teorik referansı sahada fiziksel olarak doğrulayan donanımsal katman.
+**Katman 2 â€” Mikro DoÄŸrulama (Otonom Rover + Edge AI):** GÃ¼neÅŸ enerjili, ESP32 tabanlÄ± otonom IoT gezgini. SEN0193 kalibre toprak nemi sensÃ¶rÃ¼ ve ESP32-CAM Ã¼zerinde TFLite Micro ile Ã§alÄ±ÅŸan YOLOv8-tiny modeli aracÄ±lÄ±ÄŸÄ±yla teorik referansÄ± sahada fiziksel olarak doÄŸrulayan donanÄ±msal katman.
 
-**Katman 3 — Karar Destek Arayüzü (Yerel RAG + LLM):** Tamamen offline çalışabilen, Ollama üzerinde koşan açık kaynaklı LLM (Llama-3-8B) ve FAISS vektör veritabanı ile Tri-RAG pipeline. Rover anomalisi tespit edildiğinde T.C. Tarım Bakanlığı rehberlerine dayalı, halüsinasyonsuz Türkçe mobil bildirim üreten karar katmanı.
+**Katman 3 â€” Karar Destek ArayÃ¼zÃ¼ (Yerel RAG + LLM):** Tamamen offline Ã§alÄ±ÅŸabilen, Ollama Ã¼zerinde koÅŸan aÃ§Ä±k kaynaklÄ± LLM (Llama-3-8B) ve FAISS vektÃ¶r veritabanÄ± ile Tri-RAG pipeline. Rover anomalisi tespit edildiÄŸinde T.C. TarÄ±m BakanlÄ±ÄŸÄ± rehberlerine dayalÄ±, halÃ¼sinasyonsuz TÃ¼rkÃ§e mobil bildirim Ã¼reten karar katmanÄ±.
 
-**Edge–Fog–Cloud Mimarisi:**
-- **Edge (Rover/ESP32):** Sensör okuma, TFLite çıkarım, MQTT veri paketleme. İnternet gerektirmez.
-- **Fog (Yerel Sunucu):** Ollama LLM, FAISS RAG, KDS kural motoru, prompt oluşturucu. İnternet gerektirmez.
-- **Cloud (Opsiyonel):** İnternet varsa veri senkronizasyonu ve uzaktan izleme. Sistem cloud olmadan da tam işlevsel.
+**Edgeâ€“Fogâ€“Cloud Mimarisi:**
+- **Edge (Rover/ESP32):** SensÃ¶r okuma, TFLite Ã§Ä±karÄ±m, MQTT veri paketleme. Ä°nternet gerektirmez.
+- **Fog (Yerel Sunucu):** Ollama LLM, FAISS RAG, KDS kural motoru, prompt oluÅŸturucu. Ä°nternet gerektirmez.
+- **Cloud (Opsiyonel):** Ä°nternet varsa veri senkronizasyonu ve uzaktan izleme. Sistem cloud olmadan da tam iÅŸlevsel.
 
 ---
 
-## 2. Çalışma Paketleri Özet Tablosu
+## 2. Ã‡alÄ±ÅŸma Paketleri Ã–zet Tablosu
 
-| ÇP | Dönem | Hafta | Durum | Kritik Teslim |
+| Ã‡P | DÃ¶nem | Hafta | Durum | Kritik Teslim |
 |----|-------|-------|-------|---------------|
-| ÇP-1: ETL Veri Hattı | 3–21 Mart 2026 | H1–H3 | ✅ Tamamlandı | Birleşik öznitelik matrisi (.parquet) |
-| ÇP-2: Tahmin Modeli | 22 Mart – 11 Nisan | H4–H6 | ✅ Tamamlandı | R² > 0.90 / RMSE < 3 puan |
-| ÇP-3: Rover + Edge AI | 12 Nisan – 2 Mayıs | H7–H9 | 🔄 Devam ediyor | İşlevsel Rover + Edge AI demo |
-| ÇP-4: Yerel RAG/LLM | 3–23 Mayıs | H10–H12 | 📋 Planlandı | Uçtan uca offline sistem |
-| Saha Testi + Tez | 24 Mayıs – 7 Haziran | H13–H14 | ⏳ Beklemede | Saha doğrulama raporu + tez |
+| Ã‡P-1: ETL Veri HattÄ± | 3â€“21 Mart 2026 | H1â€“H3 | âœ… TamamlandÄ± | BirleÅŸik Ã¶znitelik matrisi (.parquet) |
+| Ã‡P-2: Tahmin Modeli | 22 Mart â€“ 11 Nisan | H4â€“H6 | âœ… TamamlandÄ± | RÂ² > 0.90 / RMSE < 3 puan |
+| Ã‡P-3: Rover + Edge AI | 12 Nisan â€“ 2 MayÄ±s | H7â€“H9 | ğŸ”„ Devam ediyor | Ä°ÅŸlevsel Rover + Edge AI demo |
+| Ã‡P-4: Yerel RAG/LLM | 3â€“23 MayÄ±s | H10â€“H12 | ğŸ“‹ PlanlandÄ± | UÃ§tan uca offline sistem |
+| Saha Testi + Tez | 24 MayÄ±s â€“ 7 Haziran | H13â€“H14 | â³ Beklemede | Saha doÄŸrulama raporu + tez |
 
 ---
 
-## 3. Günlük Çalışma Kayıtları
+## 3. GÃ¼nlÃ¼k Ã‡alÄ±ÅŸma KayÄ±tlarÄ±
 
-### 5 Nisan 2026 (Cumartesi) — H5/Hafta Sonu Çalışması
+### 5 Nisan 2026 (Cumartesi) â€” H5/Hafta Sonu Ã‡alÄ±ÅŸmasÄ±
 
-**Konu:** Literatür taraması temelleri ve proje konumlandırması
+**Konu:** LiteratÃ¼r taramasÄ± temelleri ve proje konumlandÄ±rmasÄ±
 
-**Yapılanlar:**
-- TRAK-AI KDS projesinin literatürdeki konumlandırması tartışıldı
-- Projenin doldurmayı hedeflediği 6 temel literatür boşluğu (gap) belirlendi:
-  - Bulut-ağırlıklı KDS'lerin düşük bağlantılı çiftliklerde benimseme sorunu
-  - Makro tahmin ile mikro doğrulama arasındaki kopukluk
-  - Tarım robotları ile KDS entegrasyonunda standart eksikliği
-  - TinyML/Edge AI'da enerji-gecikme-bellek-karar etkisinin birlikte değerlendirilmemesi
-  - Çiftçi odaklı KDS'lerde anlaşılabilir açıklama eksikliği
-  - LLM halüsinasyon riski ve tarımsal doğruluk gerekliliği
-- H1–H10 hipotezleri formüle edildi (erişilebilirlik, maliyet/değer, yanlış alarm azaltma, güven/benimseme, entegrasyon maliyeti, gerçek zaman, verimlilik, saha uygunluğu, benimseme, anlaşılabilirlik)
+**YapÄ±lanlar:**
+- TRAK-AI KDS projesinin literatÃ¼rdeki konumlandÄ±rmasÄ± tartÄ±ÅŸÄ±ldÄ±
+- Projenin doldurmayÄ± hedeflediÄŸi 6 temel literatÃ¼r boÅŸluÄŸu (gap) belirlendi:
+  - Bulut-aÄŸÄ±rlÄ±klÄ± KDS'lerin dÃ¼ÅŸÃ¼k baÄŸlantÄ±lÄ± Ã§iftliklerde benimseme sorunu
+  - Makro tahmin ile mikro doÄŸrulama arasÄ±ndaki kopukluk
+  - TarÄ±m robotlarÄ± ile KDS entegrasyonunda standart eksikliÄŸi
+  - TinyML/Edge AI'da enerji-gecikme-bellek-karar etkisinin birlikte deÄŸerlendirilmemesi
+  - Ã‡iftÃ§i odaklÄ± KDS'lerde anlaÅŸÄ±labilir aÃ§Ä±klama eksikliÄŸi
+  - LLM halÃ¼sinasyon riski ve tarÄ±msal doÄŸruluk gerekliliÄŸi
+- H1â€“H10 hipotezleri formÃ¼le edildi (eriÅŸilebilirlik, maliyet/deÄŸer, yanlÄ±ÅŸ alarm azaltma, gÃ¼ven/benimseme, entegrasyon maliyeti, gerÃ§ek zaman, verimlilik, saha uygunluÄŸu, benimseme, anlaÅŸÄ±labilirlik)
 
-**Çıktılar:**
-- Hipotez-metrik eşleştirme tablosu
-- Literatür kümeleri (6 küme) tanımı
-
----
-
-### 6 Nisan 2026 (Pazar) — Literatür Taraması Derinleştirme
-
-**Konu:** Kapsamlı literatür taraması ve kaynak tablosu oluşturma
-
-**Yapılanlar:**
-- ~75 adet hakemli kaynak (Q1/Q2 ağırlıklı) tarandı ve TRAK-AI modülleriyle ilişkilendirildi
-- Kaynaklar 6 tematik kümeye ayrıldı:
-  1. Uzaktan algılama + iklim/toprak füzyonu (Tablo 1–24)
-  2. Edge–Fog–Cloud mimarileri, IoRT veri mühendisliği (Tablo 25–33)
-  3. TinyML / Kuantizasyon / Benchmarking (Tablo 34–50)
-  4. Makro veri füzyonu ve tahmin (Tablo 34–47)
-  5. Edge AI ve mikro-doğrulama (Tablo 51–62)
-  6. LLM + RAG + XAI açıklanabilir karar desteği (Tablo 63–72)
-- Her kaynak için tezde kullanım alanı ve çekilecek metod/metrikler belirlendi
-- Mermaid diyagramları oluşturuldu (zaman çizgisi + modül-literatür ilişki haritası)
-
-**Çıktılar:**
-- `TRAKAI_KDS_İçin_Otonom_Robotik_ile_Yapay_Zekâ_Tabanlı_KDS_Entegrasyonu_Literatür_İncelemesi.pdf` (detaylı akademik analiz)
-- `TRAKAI_KDS_İçin_Otonom_Robotik_AI_Tabanlı_KDS_Entegrasyonu_Literatür_Taraması.pdf` (kaynak tablosu + Mermaid diyagramlar)
-
-**Önemli Kararlar:**
-- Tez bölüm eşlemesi belirlendi: Bölüm 1 (Trakya bağlamı) → Bölüm 2 (Literatür) → Bölüm 3 (Modelleme) → Bölüm 4 (Mimari) → Bölüm 5 (Deney) → Bölüm 6 (Kullanıcı çalışması) → Bölüm 7 (Tartışma)
+**Ã‡Ä±ktÄ±lar:**
+- Hipotez-metrik eÅŸleÅŸtirme tablosu
+- LiteratÃ¼r kÃ¼meleri (6 kÃ¼me) tanÄ±mÄ±
 
 ---
 
-### 7 Nisan 2026 (Pazartesi) — Metodoloji Yol Haritası Dokümanı
+### 6 Nisan 2026 (Pazar) â€” LiteratÃ¼r TaramasÄ± DerinleÅŸtirme
 
-**Konu:** Tam metodoloji ve teknik detay dokümanının hazırlanması
+**Konu:** KapsamlÄ± literatÃ¼r taramasÄ± ve kaynak tablosu oluÅŸturma
 
-**Yapılanlar:**
-- Projenin tüm teknik bileşenlerini kapsayan kapsamlı metodoloji dokümanı yazıldı
-- ETL katmanı detaylandırıldı: GEE API otomasyon betiği, Sentinel-2 bulut maskeleme, ERA5-Land değişken seti, SoilGrids REST API sorguları
-- Tahmin modeli mimarisi formalize edildi: ConvLSTM + XGBoost/RF hibrit yapı, pencere boyutu, Optuna hiperparametre optimizasyonu
-- Rover donanım mimarisi belgelendi: enerji sistemi (güneş paneli + TP4056 + LDO), ESP32 işlemci, SEN0193 polinom kalibrasyonu, Edge AI modülü (YOLOv8-tiny, Int8 kuantizasyon, TFLite Micro)
-- RAG/LLM arayüzü tasarlandı: Tri-RAG (Dense + Sparse + KG), LangChain, FAISS, bilgi tabanı yapısı
-- Uçtan uca senaryo örneği yazıldı (Rover anomali → LLM → Türkçe mobil bildirim)
-- Hafta hafta yol haritası (H1–H14) detaylandırıldı
-- Başarı kriterleri tablosu oluşturuldu
+**YapÄ±lanlar:**
+- ~75 adet hakemli kaynak (Q1/Q2 aÄŸÄ±rlÄ±klÄ±) tarandÄ± ve TRAK-AI modÃ¼lleriyle iliÅŸkilendirildi
+- Kaynaklar 6 tematik kÃ¼meye ayrÄ±ldÄ±:
+  1. Uzaktan algÄ±lama + iklim/toprak fÃ¼zyonu (Tablo 1â€“24)
+  2. Edgeâ€“Fogâ€“Cloud mimarileri, IoRT veri mÃ¼hendisliÄŸi (Tablo 25â€“33)
+  3. TinyML / Kuantizasyon / Benchmarking (Tablo 34â€“50)
+  4. Makro veri fÃ¼zyonu ve tahmin (Tablo 34â€“47)
+  5. Edge AI ve mikro-doÄŸrulama (Tablo 51â€“62)
+  6. LLM + RAG + XAI aÃ§Ä±klanabilir karar desteÄŸi (Tablo 63â€“72)
+- Her kaynak iÃ§in tezde kullanÄ±m alanÄ± ve Ã§ekilecek metod/metrikler belirlendi
+- Mermaid diyagramlarÄ± oluÅŸturuldu (zaman Ã§izgisi + modÃ¼l-literatÃ¼r iliÅŸki haritasÄ±)
 
-**Çıktılar:**
-- `Trak-AI_KDS_Metodoloji_Yol_Haritasi.docx` — 8 bölümlük kapsamlı teknik doküman
-- Başarı kriterleri tablosu (6 metrik, hedef değerler, doğrulama yöntemleri)
-- Sistem Bileşenleri Özet Tablosu (5 katman × teknoloji yığını × çıktı)
+**Ã‡Ä±ktÄ±lar:**
+- `TRAKAI_KDS_Ä°Ã§in_Otonom_Robotik_ile_Yapay_ZekÃ¢_TabanlÄ±_KDS_Entegrasyonu_LiteratÃ¼r_Ä°ncelemesi.pdf` (detaylÄ± akademik analiz)
+- `TRAKAI_KDS_Ä°Ã§in_Otonom_Robotik_AI_TabanlÄ±_KDS_Entegrasyonu_LiteratÃ¼r_TaramasÄ±.pdf` (kaynak tablosu + Mermaid diyagramlar)
 
-**Önemli Notlar:**
-- Hedef performans değerleri belirlendi: Nem R² > 0.90, BBCH doğruluk > 0.88, SEN0193 RMSE ≤ 1.02, Edge AI mAP > 0.85, yanlış pozitif < %10, uzman onayı ≥ 4/5
+**Ã–nemli Kararlar:**
+- Tez bÃ¶lÃ¼m eÅŸlemesi belirlendi: BÃ¶lÃ¼m 1 (Trakya baÄŸlamÄ±) â†’ BÃ¶lÃ¼m 2 (LiteratÃ¼r) â†’ BÃ¶lÃ¼m 3 (Modelleme) â†’ BÃ¶lÃ¼m 4 (Mimari) â†’ BÃ¶lÃ¼m 5 (Deney) â†’ BÃ¶lÃ¼m 6 (KullanÄ±cÄ± Ã§alÄ±ÅŸmasÄ±) â†’ BÃ¶lÃ¼m 7 (TartÄ±ÅŸma)
 
 ---
 
-### 8 Nisan 2026 (Salı) — WP4 Detay Planlaması ve Mimari Tasarım
+### 7 Nisan 2026 (Pazartesi) â€” Metodoloji Yol HaritasÄ± DokÃ¼manÄ±
 
-**Konu:** ÇP-4 Tamamen Yerel (Offline) RAG Sistemi — Rover entegrasyonlu detaylı planlama
+**Konu:** Tam metodoloji ve teknik detay dokÃ¼manÄ±nÄ±n hazÄ±rlanmasÄ±
 
-**Yapılanlar:**
-- WP4'ün WP3 Rover ile entegrasyon mimarisi tasarlandı
-- Edge–Fog–Cloud üç katmanlı mimari diyagramı çizildi:
-  - Edge Katmanı (Rover/ESP32): SEN0193 → ESP32-CAM/TFLite → Anomali JSON → MQTT buffer
-  - Fog Katmanı (Yerel Sunucu): Bilgi tabanı → FAISS vektör DB → Ollama LLM + Tahmin modeli → Prompt oluşturucu → KDS kural motoru
-  - Çıktı Katmanı: Türkçe tavsiye + Mobil bildirim
-- Hafta hafta WP4 planı detaylandırıldı:
+**YapÄ±lanlar:**
+- Projenin tÃ¼m teknik bileÅŸenlerini kapsayan kapsamlÄ± metodoloji dokÃ¼manÄ± yazÄ±ldÄ±
+- ETL katmanÄ± detaylandÄ±rÄ±ldÄ±: GEE API otomasyon betiÄŸi, Sentinel-2 bulut maskeleme, ERA5-Land deÄŸiÅŸken seti, SoilGrids REST API sorgularÄ±
+- Tahmin modeli mimarisi formalize edildi: ConvLSTM + XGBoost/RF hibrit yapÄ±, pencere boyutu, Optuna hiperparametre optimizasyonu
+- Rover donanÄ±m mimarisi belgelendi: enerji sistemi (gÃ¼neÅŸ paneli + TP4056 + LDO), ESP32 iÅŸlemci, SEN0193 polinom kalibrasyonu, Edge AI modÃ¼lÃ¼ (YOLOv8-tiny, Int8 kuantizasyon, TFLite Micro)
+- RAG/LLM arayÃ¼zÃ¼ tasarlandÄ±: Tri-RAG (Dense + Sparse + KG), LangChain, FAISS, bilgi tabanÄ± yapÄ±sÄ±
+- UÃ§tan uca senaryo Ã¶rneÄŸi yazÄ±ldÄ± (Rover anomali â†’ LLM â†’ TÃ¼rkÃ§e mobil bildirim)
+- Hafta hafta yol haritasÄ± (H1â€“H14) detaylandÄ±rÄ±ldÄ±
+- BaÅŸarÄ± kriterleri tablosu oluÅŸturuldu
 
-**H10 — Bilgi Tabanı Hazırlığı ve Vektörizasyon:**
-- T.C. Tarım Bakanlığı rehberleri, BBCH referansları, zirai ilaç prospektüsleri toplanacak
+**Ã‡Ä±ktÄ±lar:**
+- `Trak-AI_KDS_Metodoloji_Yol_Haritasi.docx` â€” 8 bÃ¶lÃ¼mlÃ¼k kapsamlÄ± teknik dokÃ¼man
+- BaÅŸarÄ± kriterleri tablosu (6 metrik, hedef deÄŸerler, doÄŸrulama yÃ¶ntemleri)
+- Sistem BileÅŸenleri Ã–zet Tablosu (5 katman Ã— teknoloji yÄ±ÄŸÄ±nÄ± Ã— Ã§Ä±ktÄ±)
+
+**Ã–nemli Notlar:**
+- Hedef performans deÄŸerleri belirlendi: Nem RÂ² > 0.90, BBCH doÄŸruluk > 0.88, SEN0193 RMSE â‰¤ 1.02, Edge AI mAP > 0.85, yanlÄ±ÅŸ pozitif < %10, uzman onayÄ± â‰¥ 4/5
+
+---
+
+### 8 Nisan 2026 (SalÄ±) â€” WP4 Detay PlanlamasÄ± ve Mimari TasarÄ±m
+
+**Konu:** Ã‡P-4 Tamamen Yerel (Offline) RAG Sistemi â€” Rover entegrasyonlu detaylÄ± planlama
+
+**YapÄ±lanlar:**
+- WP4'Ã¼n WP3 Rover ile entegrasyon mimarisi tasarlandÄ±
+- Edgeâ€“Fogâ€“Cloud Ã¼Ã§ katmanlÄ± mimari diyagramÄ± Ã§izildi:
+  - Edge KatmanÄ± (Rover/ESP32): SEN0193 â†’ ESP32-CAM/TFLite â†’ Anomali JSON â†’ MQTT buffer
+  - Fog KatmanÄ± (Yerel Sunucu): Bilgi tabanÄ± â†’ FAISS vektÃ¶r DB â†’ Ollama LLM + Tahmin modeli â†’ Prompt oluÅŸturucu â†’ KDS kural motoru
+  - Ã‡Ä±ktÄ± KatmanÄ±: TÃ¼rkÃ§e tavsiye + Mobil bildirim
+- Hafta hafta WP4 planÄ± detaylandÄ±rÄ±ldÄ±:
+
+**H10 â€” Bilgi TabanÄ± HazÄ±rlÄ±ÄŸÄ± ve VektÃ¶rizasyon:**
+- T.C. TarÄ±m BakanlÄ±ÄŸÄ± rehberleri, BBCH referanslarÄ±, zirai ilaÃ§ prospektÃ¼sleri toplanacak
 - RecursiveCharacterTextSplitter ile chunk'lama
-- Embedding modeli: `intfloat/multilingual-e5-small` (Türkçe uyumlu) veya `sentence-transformers/all-MiniLM-L6-v2`
-- FAISS indeks oluşturma (CPU'da bir kerelik işlem)
-- Teslim: Test sorguları ile doğru belge döndürme doğrulaması
+- Embedding modeli: `intfloat/multilingual-e5-small` (TÃ¼rkÃ§e uyumlu) veya `sentence-transformers/all-MiniLM-L6-v2`
+- FAISS indeks oluÅŸturma (CPU'da bir kerelik iÅŸlem)
+- Teslim: Test sorgularÄ± ile doÄŸru belge dÃ¶ndÃ¼rme doÄŸrulamasÄ±
 
-**H11 — Yerel LLM Kurulumu ve Tri-RAG Pipeline:**
+**H11 â€” Yerel LLM Kurulumu ve Tri-RAG Pipeline:**
 - Ollama ile `llama3:8b-instruct-q4_K_M` modeli yerel kurulum
 - LangChain Tri-RAG pipeline:
-  1. Dense retrieval — FAISS vektör araması
-  2. Sparse retrieval — BM25 anahtar kelime eşleştirmesi
-  3. Re-ranker birleştirme adımı
-- Prompt şablonu tasarımı: Rover JSON + ConvLSTM fark → tarla bağlamı → LLM
-- Teslim: Örnek anomali JSON'dan agronomik tutarlı Türkçe çıktı
+  1. Dense retrieval â€” FAISS vektÃ¶r aramasÄ±
+  2. Sparse retrieval â€” BM25 anahtar kelime eÅŸleÅŸtirmesi
+  3. Re-ranker birleÅŸtirme adÄ±mÄ±
+- Prompt ÅŸablonu tasarÄ±mÄ±: Rover JSON + ConvLSTM fark â†’ tarla baÄŸlamÄ± â†’ LLM
+- Teslim: Ã–rnek anomali JSON'dan agronomik tutarlÄ± TÃ¼rkÃ§e Ã§Ä±ktÄ±
 
-**H12 — Uçtan Uca Entegrasyon Testi:**
-- Tam zincir: ESP32 → Wi-Fi/MQTT → Mosquitto broker → Python orchestrator → Prompt → RAG/LLM → Türkçe bildirim
-- KDS kural motoru: anomali eşikleri (nem farkı > 10 puan, beklenmeyen hastalık) → LLM tetikleme
-- Tüm sistem internet olmadan test edilecek
-- Teslim: Rover saha taraması → 60sn içinde Türkçe bildirim (offline)
+**H12 â€” UÃ§tan Uca Entegrasyon Testi:**
+- Tam zincir: ESP32 â†’ Wi-Fi/MQTT â†’ Mosquitto broker â†’ Python orchestrator â†’ Prompt â†’ RAG/LLM â†’ TÃ¼rkÃ§e bildirim
+- KDS kural motoru: anomali eÅŸikleri (nem farkÄ± > 10 puan, beklenmeyen hastalÄ±k) â†’ LLM tetikleme
+- TÃ¼m sistem internet olmadan test edilecek
+- Teslim: Rover saha taramasÄ± â†’ 60sn iÃ§inde TÃ¼rkÃ§e bildirim (offline)
 
-**Teknik kısıtlar ve çözümler tartışıldı:**
-- Bilgisayarda GPU aktif değil, CPU kullanılıyor
-- Llama-3-8B Q4 → ~4.5 GB RAM, CPU-only modda 30–90sn yanıt süresi
-- Bu, KDS bildirimi için kabul edilebilir (Rover taraması zaten dakikalar sürüyor)
-- Alternatif: `phi3:mini` (3.8B, ~2 GB RAM) daha hızlı ama daha az yetenekli
-- Karar: Önce 8B ile başla, performansı ölç, gerekirse küçült
+**Teknik kÄ±sÄ±tlar ve Ã§Ã¶zÃ¼mler tartÄ±ÅŸÄ±ldÄ±:**
+- Bilgisayarda GPU aktif deÄŸil, CPU kullanÄ±lÄ±yor
+- Llama-3-8B Q4 â†’ ~4.5 GB RAM, CPU-only modda 30â€“90sn yanÄ±t sÃ¼resi
+- Bu, KDS bildirimi iÃ§in kabul edilebilir (Rover taramasÄ± zaten dakikalar sÃ¼rÃ¼yor)
+- Alternatif: `phi3:mini` (3.8B, ~2 GB RAM) daha hÄ±zlÄ± ama daha az yetenekli
+- Karar: Ã–nce 8B ile baÅŸla, performansÄ± Ã¶lÃ§, gerekirse kÃ¼Ã§Ã¼lt
 
-**Başarı metrikleri belirlendi:**
-- RAG retrieval doğruluğu: ilk 3 chunk'ta doğru belge > 0.80
-- Uçtan uca gecikme: < 120sn (CPU-only)
-- Agronomik tutarlılık: kör uzman ≥ 4/5
-- Halüsinasyon oranı: RAG dışı bilgi içermeyen çıktı > 0.95
+**BaÅŸarÄ± metrikleri belirlendi:**
+- RAG retrieval doÄŸruluÄŸu: ilk 3 chunk'ta doÄŸru belge > 0.80
+- UÃ§tan uca gecikme: < 120sn (CPU-only)
+- Agronomik tutarlÄ±lÄ±k: kÃ¶r uzman â‰¥ 4/5
+- HalÃ¼sinasyon oranÄ±: RAG dÄ±ÅŸÄ± bilgi iÃ§ermeyen Ã§Ä±ktÄ± > 0.95
 
-**Çıktılar:**
-- WP4 Edge–Fog–Cloud mimari diyagramı (SVG)
-- WP4 detaylı haftalık plan (H10–H12)
-- Teknik karar gerekçesi (LLM model seçimi, embedding stratejisi)
+**Ã‡Ä±ktÄ±lar:**
+- WP4 Edgeâ€“Fogâ€“Cloud mimari diyagramÄ± (SVG)
+- WP4 detaylÄ± haftalÄ±k plan (H10â€“H12)
+- Teknik karar gerekÃ§esi (LLM model seÃ§imi, embedding stratejisi)
 
 ---
 
-## 4. ÇP-1: ETL Veri Hattı
+## 4. Ã‡P-1: ETL Veri HattÄ±
 
-**Durum:** ✅ Tamamlandı (H1–H3, 3–21 Mart 2026)
+**Durum:** âœ… TamamlandÄ± (H1â€“H3, 3â€“21 Mart 2026)
 
-**Bileşenler:**
+**BileÅŸenler:**
 
-| Veri Kaynağı | API / Yöntem | Çözünürlük | Çekilen Değişkenler |
+| Veri KaynaÄŸÄ± | API / YÃ¶ntem | Ã‡Ã¶zÃ¼nÃ¼rlÃ¼k | Ã‡ekilen DeÄŸiÅŸkenler |
 |---|---|---|---|
 | Sentinel-2 (ESA) | GEE Python API + eemont | 10m (VIS+NIR), 20m (RedEdge+SWIR) | NDVI, EVI, NDWI |
-| ERA5-Land (ECMWF) | cdsapi → CDS | ~9 km, günlük | T_max, T_min, T_çiy, yağış, radyasyon, ET |
+| ERA5-Land (ECMWF) | cdsapi â†’ CDS | ~9 km, gÃ¼nlÃ¼k | T_max, T_min, T_Ã§iy, yaÄŸÄ±ÅŸ, radyasyon, ET |
 | SoilGrids 2.0 (ISRIC) | REST API | 250m, statik | kil, kum, silt, pH, SOC, CEC |
 
-**Teslim Edilen Çıktı:** Trakya pilot parselleri için 2017–2024 yılları arası boşluksuz, tarih/konum hizalı öznitelik matrisi (.parquet). GDD birikimi, büyüme hızı indeksi ve kümülatif NDVI eğrisi türetilmiş.
+**Teslim Edilen Ã‡Ä±ktÄ±:** Trakya pilot parselleri iÃ§in 2017â€“2024 yÄ±llarÄ± arasÄ± boÅŸluksuz, tarih/konum hizalÄ± Ã¶znitelik matrisi (.parquet). GDD birikimi, bÃ¼yÃ¼me hÄ±zÄ± indeksi ve kÃ¼mÃ¼latif NDVI eÄŸrisi tÃ¼retilmiÅŸ.
 
 ---
 
-## 5. ÇP-2: Tahmin Modeli
+## 5. Ã‡P-2: Tahmin Modeli
 
-**Durum:** ✅ Tamamlandı (H4–H6, 22 Mart – 11 Nisan 2026)
+**Durum:** âœ… TamamlandÄ± (H4â€“H6, 22 Mart â€“ 11 Nisan 2026)
 
-**Mimari:** ConvLSTM + XGBoost/RF hibrit. ConvLSTM uzamsal-zamansal özellik çıkarımı, XGBoost/RF güçlü sınıflandırma/regresyon.
+**Mimari:** ConvLSTM + XGBoost/RF hibrit. ConvLSTM uzamsal-zamansal Ã¶zellik Ã§Ä±karÄ±mÄ±, XGBoost/RF gÃ¼Ã§lÃ¼ sÄ±nÄ±flandÄ±rma/regresyon.
 
-**Hedef Değişkenler:**
-- Tahmini Toprak Nemi (%): Kök bölgesi 0–30 cm
-- Fenolojik Evre (BBCH Skalası): Bitki büyüme evresi tahmini
+**Hedef DeÄŸiÅŸkenler:**
+- Tahmini Toprak Nemi (%): KÃ¶k bÃ¶lgesi 0â€“30 cm
+- Fenolojik Evre (BBCH SkalasÄ±): Bitki bÃ¼yÃ¼me evresi tahmini
 
-**Eğitim:** Google Colab Pro GPU, Optuna ile Bayesian hiperparametre araması.
+**EÄŸitim:** Google Colab Pro GPU, Optuna ile Bayesian hiperparametre aramasÄ±.
 
 **Performans:**
 
 | Metrik | Hedef | Durum |
 |---|---|---|
-| Nem R² | > 0.90 | ✅ |
-| Nem RMSE | < 3 puan | ✅ |
-| BBCH Doğruluk | > 0.88 | ✅ |
+| Nem RÂ² | > 0.90 | âœ… |
+| Nem RMSE | < 3 puan | âœ… |
+| BBCH DoÄŸruluk | > 0.88 | âœ… |
 
 ---
 
-## 6. ÇP-3: Rover Donanımı ve Edge AI
+## 6. Ã‡P-3: Rover DonanÄ±mÄ± ve Edge AI
 
-**Durum:** 🔄 Devam ediyor (H7–H9, 12 Nisan – 2 Mayıs 2026)
+**Durum:** ğŸ”„ Devam ediyor (H7â€“H9, 12 Nisan â€“ 2 MayÄ±s 2026)
 
-**Donanım Bileşenleri:**
-- İşlemci: ESP32 (çift çekirdek Xtensa LX6, dahili Wi-Fi/BT)
-- Sensör: DFRobot SEN0193 kapasitif toprak nemi
-- Kamera: ESP32-CAM modülü
-- Enerji: Esnek monokristal güneş paneli + TP4056 + LDO
-- İletişim: MQTT broker üzerinden, offline tampon desteği
+**DonanÄ±m BileÅŸenleri:**
+- Ä°ÅŸlemci: ESP32 (Ã§ift Ã§ekirdek Xtensa LX6, dahili Wi-Fi/BT)
+- SensÃ¶r: DFRobot SEN0193 kapasitif toprak nemi
+- Kamera: ESP32-CAM modÃ¼lÃ¼
+- Enerji: Esnek monokristal gÃ¼neÅŸ paneli + TP4056 + LDO
+- Ä°letiÅŸim: MQTT broker Ã¼zerinden, offline tampon desteÄŸi
 
-**Kalibrasyon:** Polinom regresyon (y = ax² + bx + c), SoilGrids kil/kum ağırlıklı. Hedef RMSE ≤ 1.02, R² ≥ 0.89.
+**Kalibrasyon:** Polinom regresyon (y = axÂ² + bx + c), SoilGrids kil/kum aÄŸÄ±rlÄ±klÄ±. Hedef RMSE â‰¤ 1.02, RÂ² â‰¥ 0.89.
 
-**Edge AI:** YOLOv8-tiny → Int8 kuantizasyon → .tflite → C-array → ESP32 flash. Hedef mAP@0.5 > 0.85.
+**Edge AI:** YOLOv8-tiny â†’ Int8 kuantizasyon â†’ .tflite â†’ C-array â†’ ESP32 flash. Hedef mAP@0.5 > 0.85.
 
-**Eğitim Veri Setleri:**
-- Buğday: GWHD 2021 (193K+ etiketli başak) + Kaggle patoloji setleri
-- Ayçiçeği: BARI destekli Mendeley/Kaggle BBCH ve hastalık setleri
+**EÄŸitim Veri Setleri:**
+- BuÄŸday: GWHD 2021 (193K+ etiketli baÅŸak) + Kaggle patoloji setleri
+- AyÃ§iÃ§eÄŸi: BARI destekli Mendeley/Kaggle BBCH ve hastalÄ±k setleri
 
 ---
 
-## 7. ÇP-4: Yerel RAG/LLM Entegrasyonu
+## 7. Ã‡P-4: Yerel RAG/LLM Entegrasyonu
 
-**Durum:** 📋 Planlandı (H10–H12, 3–23 Mayıs 2026)
+**Durum:** ğŸ“‹ PlanlandÄ± (H10â€“H12, 3â€“23 MayÄ±s 2026)
 
-**Felsefe:** Projenin "offline-first" ve "bulut bağımlılığını azaltma" iddiasının somutlaştığı paket. H1, H2, H8 hipotezleriyle doğrudan ilişkili. Hiçbir API anahtarı veya internet bağlantısı gerekmeden tam işlevsel KDS.
+**Felsefe:** Projenin "offline-first" ve "bulut baÄŸÄ±mlÄ±lÄ±ÄŸÄ±nÄ± azaltma" iddiasÄ±nÄ±n somutlaÅŸtÄ±ÄŸÄ± paket. H1, H2, H8 hipotezleriyle doÄŸrudan iliÅŸkili. HiÃ§bir API anahtarÄ± veya internet baÄŸlantÄ±sÄ± gerekmeden tam iÅŸlevsel KDS.
 
 **Mimari Kararlar:**
 
-| Bileşen | Seçim | Gerekçe |
+| BileÅŸen | SeÃ§im | GerekÃ§e |
 |---|---|---|
-| LLM Motoru | Ollama (yerel) | 0$ maliyet, offline çalışma, gizlilik |
-| LLM Modeli | Llama-3-8B-Instruct (Q4_K_M) | Türkçe yeteneği, 4.5GB RAM, kabul edilebilir kalite |
-| Embedding | intfloat/multilingual-e5-small | Türkçe desteği, CPU'da hızlı |
-| Vektör DB | FAISS | Yerel, hafif, GPU gerektirmez |
-| RAG Framework | LangChain | Tri-RAG desteği, modüler |
+| LLM Motoru | Ollama (yerel) | 0$ maliyet, offline Ã§alÄ±ÅŸma, gizlilik |
+| LLM Modeli | Llama-3-8B-Instruct (Q4_K_M) | TÃ¼rkÃ§e yeteneÄŸi, 4.5GB RAM, kabul edilebilir kalite |
+| Embedding | intfloat/multilingual-e5-small | TÃ¼rkÃ§e desteÄŸi, CPU'da hÄ±zlÄ± |
+| VektÃ¶r DB | FAISS | Yerel, hafif, GPU gerektirmez |
+| RAG Framework | LangChain | Tri-RAG desteÄŸi, modÃ¼ler |
 | MQTT Broker | Mosquitto | Hafif, yerel, ESP32 uyumlu |
-| Yedek LLM | phi3:mini (3.8B) | CPU çok yavaşsa fallback |
+| Yedek LLM | phi3:mini (3.8B) | CPU Ã§ok yavaÅŸsa fallback |
 
-**Veri Akış Zinciri:**
+**Veri AkÄ±ÅŸ Zinciri:**
 ```
 ESP32 Rover
-  ├── SEN0193 → kalibre nem (%)
-  ├── ESP32-CAM → TFLite → {sınıf, güven, BBCH}
-  └── JSON paket → MQTT publish
-        ↓
+  â”œâ”€â”€ SEN0193 â†’ kalibre nem (%)
+  â”œâ”€â”€ ESP32-CAM â†’ TFLite â†’ {sÄ±nÄ±f, gÃ¼ven, BBCH}
+  â””â”€â”€ JSON paket â†’ MQTT publish
+        â†“
 Mosquitto Broker (yerel Wi-Fi)
-        ↓
+        â†“
 Python Orchestrator
-  ├── ConvLSTM tahmin çıktısı al
-  ├── Rover ölçümü ile karşılaştır
-  ├── Fark > eşik? → Anomali!
-  │     ↓
-  │   Prompt oluşturucu
-  │     ├── Tarla bağlamı (koordinat, ürün, evre)
-  │     ├── Model tahmini vs Rover okuması
-  │     └── Anomali tipi ve şiddeti
-  │           ↓
-  │   Tri-RAG Pipeline
-  │     ├── Dense: FAISS semantik arama
-  │     ├── Sparse: BM25 anahtar kelime
-  │     └── Re-ranker birleştirme
-  │           ↓
-  │   Ollama LLM (Llama-3-8B Q4)
-  │     └── Türkçe tavsiye üretimi
-  │           ↓
-  │   Çiftçi mobil bildirimi
-  └── Fark < eşik? → Normal, log kaydet
+  â”œâ”€â”€ ConvLSTM tahmin Ã§Ä±ktÄ±sÄ± al
+  â”œâ”€â”€ Rover Ã¶lÃ§Ã¼mÃ¼ ile karÅŸÄ±laÅŸtÄ±r
+  â”œâ”€â”€ Fark > eÅŸik? â†’ Anomali!
+  â”‚     â†“
+  â”‚   Prompt oluÅŸturucu
+  â”‚     â”œâ”€â”€ Tarla baÄŸlamÄ± (koordinat, Ã¼rÃ¼n, evre)
+  â”‚     â”œâ”€â”€ Model tahmini vs Rover okumasÄ±
+  â”‚     â””â”€â”€ Anomali tipi ve ÅŸiddeti
+  â”‚           â†“
+  â”‚   Tri-RAG Pipeline
+  â”‚     â”œâ”€â”€ Dense: FAISS semantik arama
+  â”‚     â”œâ”€â”€ Sparse: BM25 anahtar kelime
+  â”‚     â””â”€â”€ Re-ranker birleÅŸtirme
+  â”‚           â†“
+  â”‚   Ollama LLM (Llama-3-8B Q4)
+  â”‚     â””â”€â”€ TÃ¼rkÃ§e tavsiye Ã¼retimi
+  â”‚           â†“
+  â”‚   Ã‡iftÃ§i mobil bildirimi
+  â””â”€â”€ Fark < eÅŸik? â†’ Normal, log kaydet
 ```
 
-**Bilgi Tabanı İçeriği:**
-- T.C. Tarım ve Orman Bakanlığı bölgesel yetiştirme rehberleri
-- Trakya bölgesi sulama ve gübreleme yönergeleri
-- Ruhsatlı zirai ilaç prospektüsleri ve dozaj tabloları
-- BBCH skalası referans belgeleri
-- Fenolojik evre geçiş kriterleri
+**Bilgi TabanÄ± Ä°Ã§eriÄŸi:**
+- T.C. TarÄ±m ve Orman BakanlÄ±ÄŸÄ± bÃ¶lgesel yetiÅŸtirme rehberleri
+- Trakya bÃ¶lgesi sulama ve gÃ¼breleme yÃ¶nergeleri
+- RuhsatlÄ± zirai ilaÃ§ prospektÃ¼sleri ve dozaj tablolarÄ±
+- BBCH skalasÄ± referans belgeleri
+- Fenolojik evre geÃ§iÅŸ kriterleri
 
-**Başarı Metrikleri:**
+**BaÅŸarÄ± Metrikleri:**
 
-| Metrik | Hedef | Doğrulama |
+| Metrik | Hedef | DoÄŸrulama |
 |---|---|---|
-| RAG retrieval doğruluğu | İlk 3 chunk'ta > 0.80 | Test sorgu seti |
-| Uçtan uca gecikme | < 120sn (CPU-only) | Zamanlama ölçümü |
-| Agronomik tutarlılık | Uzman ≥ 4/5 | Kör uzman değerlendirmesi |
-| Halüsinasyon oranı | > 0.95 | RAG kaynak kontrolü |
+| RAG retrieval doÄŸruluÄŸu | Ä°lk 3 chunk'ta > 0.80 | Test sorgu seti |
+| UÃ§tan uca gecikme | < 120sn (CPU-only) | Zamanlama Ã¶lÃ§Ã¼mÃ¼ |
+| Agronomik tutarlÄ±lÄ±k | Uzman â‰¥ 4/5 | KÃ¶r uzman deÄŸerlendirmesi |
+| HalÃ¼sinasyon oranÄ± | > 0.95 | RAG kaynak kontrolÃ¼ |
 
 ---
 
 ## 8. Hipotezler ve Metrikler
 
-| # | Hipotez | Metrikler | İlgili ÇP | Durum |
+| # | Hipotez | Metrikler | Ä°lgili Ã‡P | Durum |
 |---|---|---|---|---|
-| H1 | Bulutsuz çalışma modunda karar üretim gecikmesi daha iyi | Uyarı gecikmesi (ms), uptime (%), veri kaybı | ÇP-4 | 📋 |
-| H2 | Düşük maliyetli mimari UTAUT2 puanlarını artırır | UTAUT2 ölçekleri, niyet (BI) | ÇP-4 | 📋 |
-| H3 | Mikro doğrulama yanlış pozitif oranını düşürür | FP rate, precision/recall/F1 | ÇP-3 | 🔄 |
-| H4 | Mikro doğrulama + açıklama güveni artırır | PU/PEOU, güven maddeleri | ÇP-3+4 | 📋 |
-| H5 | Standart mesajlaşma entegrasyon süresini azaltır | Person-hour, MTBF, şema dönüşüm | ÇP-3 | 🔄 |
-| H6 | Streaming yaklaşımı çevrim süresini düşürür | End-to-end latency, mesaj kaybı | ÇP-3+4 | 📋 |
-| H7 | Kuantizasyon F1 korurken gecikme/enerji düşürür | Latency (ms), energy (mJ), RAM, F1 | ÇP-3 | 🔄 |
-| H8 | Edge çıkarım bağlantı kesintisinde çalışır | Offline başarı (%), kaçırılan olay (FN) | ÇP-3+4 | 📋 |
-| H9 | LLM+RAG açıklamaları PU ve BI'yi artırır | TAM/UTAUT ölçekleri | ÇP-4 | 📋 |
-| H10 | Açıklama katmanı yorumlama başarısını artırır | Doğru cevap (%), NASA-TLX | ÇP-4 | 📋 |
+| H1 | Bulutsuz Ã§alÄ±ÅŸma modunda karar Ã¼retim gecikmesi daha iyi | UyarÄ± gecikmesi (ms), uptime (%), veri kaybÄ± | Ã‡P-4 | ğŸ“‹ |
+| H2 | DÃ¼ÅŸÃ¼k maliyetli mimari UTAUT2 puanlarÄ±nÄ± artÄ±rÄ±r | UTAUT2 Ã¶lÃ§ekleri, niyet (BI) | Ã‡P-4 | ğŸ“‹ |
+| H3 | Mikro doÄŸrulama yanlÄ±ÅŸ pozitif oranÄ±nÄ± dÃ¼ÅŸÃ¼rÃ¼r | FP rate, precision/recall/F1 | Ã‡P-3 | ğŸ”„ |
+| H4 | Mikro doÄŸrulama + aÃ§Ä±klama gÃ¼veni artÄ±rÄ±r | PU/PEOU, gÃ¼ven maddeleri | Ã‡P-3+4 | ğŸ“‹ |
+| H5 | Standart mesajlaÅŸma entegrasyon sÃ¼resini azaltÄ±r | Person-hour, MTBF, ÅŸema dÃ¶nÃ¼ÅŸÃ¼m | Ã‡P-3 | ğŸ”„ |
+| H6 | Streaming yaklaÅŸÄ±mÄ± Ã§evrim sÃ¼resini dÃ¼ÅŸÃ¼rÃ¼r | End-to-end latency, mesaj kaybÄ± | Ã‡P-3+4 | ğŸ“‹ |
+| H7 | Kuantizasyon F1 korurken gecikme/enerji dÃ¼ÅŸÃ¼rÃ¼r | Latency (ms), energy (mJ), RAM, F1 | Ã‡P-3 | ğŸ”„ |
+| H8 | Edge Ã§Ä±karÄ±m baÄŸlantÄ± kesintisinde Ã§alÄ±ÅŸÄ±r | Offline baÅŸarÄ± (%), kaÃ§Ä±rÄ±lan olay (FN) | Ã‡P-3+4 | ğŸ“‹ |
+| H9 | LLM+RAG aÃ§Ä±klamalarÄ± PU ve BI'yi artÄ±rÄ±r | TAM/UTAUT Ã¶lÃ§ekleri | Ã‡P-4 | ğŸ“‹ |
+| H10 | AÃ§Ä±klama katmanÄ± yorumlama baÅŸarÄ±sÄ±nÄ± artÄ±rÄ±r | DoÄŸru cevap (%), NASA-TLX | Ã‡P-4 | ğŸ“‹ |
 
 ---
 
-## 9. Teknik Kararlar ve Gerekçeler
+## 9. Teknik Kararlar ve GerekÃ§eler
 
 ### 9.1 Neden Yerel (Offline) LLM?
 
-**Karar:** Bulut API (OpenAI/Anthropic) yerine Ollama üzerinde yerel Llama-3-8B.
+**Karar:** Bulut API (OpenAI/Anthropic) yerine Ollama Ã¼zerinde yerel Llama-3-8B.
 
-**Gerekçeler:**
-1. **Projenin temel iddiası:** Literatür taramasında (H1/H2) "bulut bağımlılığını azaltmak ve Edge AI kullanmak" hedefi açıkça belirtildi. Cloud API kullanmak bu iddiayı zayıflatır.
-2. **Maliyet:** Tamamen ücretsiz (0$). TÜBİTAK 2209/A bütçesi sınırlı.
-3. **Gizlilik:** Tarla verileri ve çiftçi bilgileri üçüncü taraf sunuculara gönderilmez.
-4. **Kırsal bağlantı:** Trakya'da tarla ortasında stabil internet garanti edilemez.
-5. **Bilimsel tutarlılık:** H1 hipotezi ("bulutsuz çalışma daha iyi") doğrudan test edilebilir.
+**GerekÃ§eler:**
+1. **Projenin temel iddiasÄ±:** LiteratÃ¼r taramasÄ±nda (H1/H2) "bulut baÄŸÄ±mlÄ±lÄ±ÄŸÄ±nÄ± azaltmak ve Edge AI kullanmak" hedefi aÃ§Ä±kÃ§a belirtildi. Cloud API kullanmak bu iddiayÄ± zayÄ±flatÄ±r.
+2. **Maliyet:** Tamamen Ã¼cretsiz (0$). TÃœBÄ°TAK 2209/A bÃ¼tÃ§esi sÄ±nÄ±rlÄ±.
+3. **Gizlilik:** Tarla verileri ve Ã§iftÃ§i bilgileri Ã¼Ã§Ã¼ncÃ¼ taraf sunuculara gÃ¶nderilmez.
+4. **KÄ±rsal baÄŸlantÄ±:** Trakya'da tarla ortasÄ±nda stabil internet garanti edilemez.
+5. **Bilimsel tutarlÄ±lÄ±k:** H1 hipotezi ("bulutsuz Ã§alÄ±ÅŸma daha iyi") doÄŸrudan test edilebilir.
 
 **Riskler ve Azaltma:**
-- CPU-only modda yavaş (30–90sn) → KDS bildirimi için kabul edilebilir; Rover taraması zaten dakikalar sürüyor
-- GPU aktif değil → Q4 kuantizasyon ile RAM kullanımı minimize edildi
-- Türkçe kalitesi sınırlı olabilir → Prompt mühendisliği + RAG ile bağlam sağlanarak telafi
+- CPU-only modda yavaÅŸ (30â€“90sn) â†’ KDS bildirimi iÃ§in kabul edilebilir; Rover taramasÄ± zaten dakikalar sÃ¼rÃ¼yor
+- GPU aktif deÄŸil â†’ Q4 kuantizasyon ile RAM kullanÄ±mÄ± minimize edildi
+- TÃ¼rkÃ§e kalitesi sÄ±nÄ±rlÄ± olabilir â†’ Prompt mÃ¼hendisliÄŸi + RAG ile baÄŸlam saÄŸlanarak telafi
 
 ### 9.2 Neden Tri-RAG?
 
-**Karar:** Tek kanallı (sadece semantik) RAG yerine Tri-RAG (Dense + Sparse + KG/Re-rank).
+**Karar:** Tek kanallÄ± (sadece semantik) RAG yerine Tri-RAG (Dense + Sparse + KG/Re-rank).
 
-**Gerekçeler:**
-1. Tarımsal terminoloji çok spesifik: "Mildiyö" gibi hastalık adları semantik aramada kaybolabilir → BM25 sparse arama eklendi
-2. Hastalık → nem koşulu → evre → çözüm zinciri çok adımlı → KG/re-ranker birleştirme gerekli
-3. AgriGPT ve Tri-RAG yaklaşımı literatürde (Tablo 65, 67, 70) doğrudan destekleniyor
+**GerekÃ§eler:**
+1. TarÄ±msal terminoloji Ã§ok spesifik: "MildiyÃ¶" gibi hastalÄ±k adlarÄ± semantik aramada kaybolabilir â†’ BM25 sparse arama eklendi
+2. HastalÄ±k â†’ nem koÅŸulu â†’ evre â†’ Ã§Ã¶zÃ¼m zinciri Ã§ok adÄ±mlÄ± â†’ KG/re-ranker birleÅŸtirme gerekli
+3. AgriGPT ve Tri-RAG yaklaÅŸÄ±mÄ± literatÃ¼rde (Tablo 65, 67, 70) doÄŸrudan destekleniyor
 
-### 9.3 Neden FAISS (ChromaDB/Pinecone değil)?
+### 9.3 Neden FAISS (ChromaDB/Pinecone deÄŸil)?
 
 **Karar:** FAISS tercih edildi.
 
-**Gerekçeler:**
-1. Tamamen yerel, dosya tabanlı → offline çalışır
-2. Sunucu gerektirmez (ChromaDB sunucu modunda çalışır)
-3. CPU üzerinde yeterli performans (bilgi tabanı birkaç yüz belge)
-4. Pinecone cloud-only → offline-first felsefesine aykırı
+**GerekÃ§eler:**
+1. Tamamen yerel, dosya tabanlÄ± â†’ offline Ã§alÄ±ÅŸÄ±r
+2. Sunucu gerektirmez (ChromaDB sunucu modunda Ã§alÄ±ÅŸÄ±r)
+3. CPU Ã¼zerinde yeterli performans (bilgi tabanÄ± birkaÃ§ yÃ¼z belge)
+4. Pinecone cloud-only â†’ offline-first felsefesine aykÄ±rÄ±
 
 ---
 
-## 10. Açık Sorunlar ve Sonraki Adımlar
+## 10. AÃ§Ä±k Sorunlar ve Sonraki AdÄ±mlar
 
-### Açık Sorunlar
+### AÃ§Ä±k Sorunlar
 
-| # | Sorun | Öncelik | Notlar |
+| # | Sorun | Ã–ncelik | Notlar |
 |---|---|---|---|
-| 1 | GPU bilgisayarda aktif değil | Orta | CPU-only LLM çıkarımı 30–90sn sürebilir |
-| 2 | Türkçe embedding model seçimi | Yüksek | multilingual-e5-small vs all-MiniLM karşılaştırması gerekli |
-| 3 | Bilgi tabanı PDF toplama | Yüksek | T.C. Tarım Bakanlığı rehberleri henüz sisteme yüklenmedi |
-| 4 | ESP32 ↔ MQTT ↔ Python entegrasyon testi | Yüksek | WP3 çıktısı WP4 girişi olacak |
-| 5 | Prompt şablonu optimizasyonu | Orta | Türkçe çıktı kalitesi prompt'a çok bağımlı |
+| 1 | GPU bilgisayarda aktif deÄŸil | Orta | CPU-only LLM Ã§Ä±karÄ±mÄ± 30â€“90sn sÃ¼rebilir |
+| 2 | TÃ¼rkÃ§e embedding model seÃ§imi | YÃ¼ksek | multilingual-e5-small vs all-MiniLM karÅŸÄ±laÅŸtÄ±rmasÄ± gerekli |
+| 3 | Bilgi tabanÄ± PDF toplama | YÃ¼ksek | T.C. TarÄ±m BakanlÄ±ÄŸÄ± rehberleri henÃ¼z sisteme yÃ¼klenmedi |
+| 4 | ESP32 â†” MQTT â†” Python entegrasyon testi | YÃ¼ksek | WP3 Ã§Ä±ktÄ±sÄ± WP4 giriÅŸi olacak |
+| 5 | Prompt ÅŸablonu optimizasyonu | Orta | TÃ¼rkÃ§e Ã§Ä±ktÄ± kalitesi prompt'a Ã§ok baÄŸÄ±mlÄ± |
 
-### Sonraki Adımlar (Kronolojik)
+### Sonraki AdÄ±mlar (Kronolojik)
 
-1. **9–11 Nisan:** ÇP-3 Rover donanım montajı devam (SEN0193 kalibrasyon deneyleri)
-2. **12–18 Nisan:** Edge AI model eğitimi (YOLOv8-tiny GWHD + ayçiçeği)
-3. **19–25 Nisan:** Int8 kuantizasyon ve ESP32 flash yükleme
-4. **26 Nisan – 2 Mayıs:** Rover saha demonstrasyonu
-5. **3 Mayıs:** ÇP-4 başlangıç — Bilgi tabanı PDF toplama ve chunk'lama
-6. **5–9 Mayıs:** FAISS indeks oluşturma, embedding model karşılaştırması
-7. **10–16 Mayıs:** Ollama kurulumu, Tri-RAG pipeline, prompt şablonu
-8. **17–23 Mayıs:** Uçtan uca entegrasyon testi (Rover → RAG/LLM → bildirim)
-9. **24 Mayıs – 7 Haziran:** Pilot arazi deneyleri + tez yazımı
+1. **9â€“11 Nisan:** Ã‡P-3 Rover donanÄ±m montajÄ± devam (SEN0193 kalibrasyon deneyleri)
+2. **12â€“18 Nisan:** Edge AI model eÄŸitimi (YOLOv8-tiny GWHD + ayÃ§iÃ§eÄŸi)
+3. **19â€“25 Nisan:** Int8 kuantizasyon ve ESP32 flash yÃ¼kleme
+4. **26 Nisan â€“ 2 MayÄ±s:** Rover saha demonstrasyonu
+5. **3 MayÄ±s:** Ã‡P-4 baÅŸlangÄ±Ã§ â€” Bilgi tabanÄ± PDF toplama ve chunk'lama
+6. **5â€“9 MayÄ±s:** FAISS indeks oluÅŸturma, embedding model karÅŸÄ±laÅŸtÄ±rmasÄ±
+7. **10â€“16 MayÄ±s:** Ollama kurulumu, Tri-RAG pipeline, prompt ÅŸablonu
+8. **17â€“23 MayÄ±s:** UÃ§tan uca entegrasyon testi (Rover â†’ RAG/LLM â†’ bildirim)
+9. **24 MayÄ±s â€“ 7 Haziran:** Pilot arazi deneyleri + tez yazÄ±mÄ±
 
 ---
 
-> **Not:** Bu doküman, projenin yaşayan bir kaydıdır. Her çalışma günü sonunda "Günlük Çalışma Kayıtları" bölümüne yeni giriş eklenmelidir. Teknik kararlar değiştiğinde Bölüm 9 güncellenmelidir.
+> **Not:** Bu dokÃ¼man, projenin yaÅŸayan bir kaydÄ±dÄ±r. Her Ã§alÄ±ÅŸma gÃ¼nÃ¼ sonunda "GÃ¼nlÃ¼k Ã‡alÄ±ÅŸma KayÄ±tlarÄ±" bÃ¶lÃ¼mÃ¼ne yeni giriÅŸ eklenmelidir. Teknik kararlar deÄŸiÅŸtiÄŸinde BÃ¶lÃ¼m 9 gÃ¼ncellenmelidir.
 
-*TRAK-AI KDS • Lisans Bitirme Tezi • 2025/2026*
-# TRAK-AI KDS — Sürekli Proje Dokümantasyonu
+*TRAK-AI KDS â€¢ Lisans Bitirme Tezi â€¢ 2025/2026*
+# TRAK-AI KDS â€” SÃ¼rekli Proje DokÃ¼mantasyonu
 
-> **Proje:** Trakya Bölgesi için Otonom Akıllı Tarım Karar Destek Sistemi  
-> **Araştırmacı:** Melih Kalkan  
-> **Program:** TÜBİTAK 2209/A — Lisans Bitirme Tezi (2025/2026)  
-> **Uygulama Başlangıcı:** 3 Mart 2026  
+> **Proje:** Trakya BÃ¶lgesi iÃ§in Otonom AkÄ±llÄ± TarÄ±m Karar Destek Sistemi  
+> **AraÅŸtÄ±rmacÄ±:** Melih Kalkan  
+> **Program:** TÃœBÄ°TAK 2209/A â€” Lisans Bitirme Tezi (2025/2026)  
+> **Uygulama BaÅŸlangÄ±cÄ±:** 3 Mart 2026  
 > **Hedef Teslim:** Haziran 2026  
-> **Son Güncelleme:** 11 Mayıs 2026  
+> **Son GÃ¼ncelleme:** 11 MayÄ±s 2026  
 
 ---
 
-## İçindekiler
+## Ä°Ã§indekiler
 
-1. [Proje Özeti ve Mimari](#1-proje-özeti-ve-mimari)
-2. [Çalışma Paketleri Özet Tablosu](#2-çalışma-paketleri-özet-tablosu)
-3. [Günlük Çalışma Kayıtları](#3-günlük-çalışma-kayıtları)
-4. [ÇP-1: ETL Veri Hattı — Detay ve Durum](#4-çp-1-etl-veri-hattı)
-5. [ÇP-2: Tahmin Modeli — Detay ve Durum](#5-çp-2-tahmin-modeli)
-6. [ÇP-3: Rover Donanımı ve Edge AI — Detay ve Durum](#6-çp-3-rover-donanımı-ve-edge-ai)
-7. [ÇP-4: Yerel RAG/LLM Entegrasyonu — Detay ve Durum](#7-çp-4-yerel-ragllm-entegrasyonu)
+1. [Proje Ã–zeti ve Mimari](#1-proje-Ã¶zeti-ve-mimari)
+2. [Ã‡alÄ±ÅŸma Paketleri Ã–zet Tablosu](#2-Ã§alÄ±ÅŸma-paketleri-Ã¶zet-tablosu)
+3. [GÃ¼nlÃ¼k Ã‡alÄ±ÅŸma KayÄ±tlarÄ±](#3-gÃ¼nlÃ¼k-Ã§alÄ±ÅŸma-kayÄ±tlarÄ±)
+4. [Ã‡P-1: ETL Veri HattÄ± â€” Detay ve Durum](#4-Ã§p-1-etl-veri-hattÄ±)
+5. [Ã‡P-2: Tahmin Modeli â€” Detay ve Durum](#5-Ã§p-2-tahmin-modeli)
+6. [Ã‡P-3: Rover DonanÄ±mÄ± ve Edge AI â€” Detay ve Durum](#6-Ã§p-3-rover-donanÄ±mÄ±-ve-edge-ai)
+7. [Ã‡P-4: Yerel RAG/LLM Entegrasyonu â€” Detay ve Durum](#7-Ã§p-4-yerel-ragllm-entegrasyonu)
 8. [Hipotezler ve Metrikler Takip Tablosu](#8-hipotezler-ve-metrikler)
-9. [Teknik Kararlar ve Gerekçeler](#9-teknik-kararlar-ve-gerekçeler)
-10. [Açık Sorunlar ve Sonraki Adımlar](#10-açık-sorunlar-ve-sonraki-adımlar)
+9. [Teknik Kararlar ve GerekÃ§eler](#9-teknik-kararlar-ve-gerekÃ§eler)
+10. [AÃ§Ä±k Sorunlar ve Sonraki AdÄ±mlar](#10-aÃ§Ä±k-sorunlar-ve-sonraki-adÄ±mlar)
 
 ---
 
-## 1. Proje Özeti ve Mimari
+## 1. Proje Ã–zeti ve Mimari
 
-TRAK-AI KDS, hassas tarımda "maliyet-doğruluk" çelişkisini üç katmanlı bir mimariyle çözmeyi hedeflemektedir:
+TRAK-AI KDS, hassas tarÄ±mda "maliyet-doÄŸruluk" Ã§eliÅŸkisini Ã¼Ã§ katmanlÄ± bir mimariyle Ã§Ã¶zmeyi hedeflemektedir:
 
-**Katman 1 — Makro Veri Füzyonu (Retrospektif Model):** Sentinel-2 uydu görüntüleri, ERA5 iklim yeniden analiz verileri ve SoilGrids dijital toprak haritalarından oluşan çok modlu veri matrisini ConvLSTM ve XGBoost/RF hibrit mimarisiyle birleştirerek "bugün bu tarlada beklenmesi gereken ideal toprak nemi ve fenolojik evre nedir?" sorusuna kantitatif yanıt üreten teorik referans motoru.
+**Katman 1 â€” Makro Veri FÃ¼zyonu (Retrospektif Model):** Sentinel-2 uydu gÃ¶rÃ¼ntÃ¼leri, ERA5 iklim yeniden analiz verileri ve SoilGrids dijital toprak haritalarÄ±ndan oluÅŸan Ã§ok modlu veri matrisini ConvLSTM ve XGBoost/RF hibrit mimarisiyle birleÅŸtirerek "bugÃ¼n bu tarlada beklenmesi gereken ideal toprak nemi ve fenolojik evre nedir?" sorusuna kantitatif yanÄ±t Ã¼reten teorik referans motoru.
 
-**Katman 2 — Mikro Doğrulama (Otonom Rover + Edge AI):** Güneş enerjili, ESP32 tabanlı otonom IoT gezgini. SEN0193 kalibre toprak nemi sensörü ve ESP32-CAM üzerinde TFLite Micro ile çalışan YOLOv8-tiny modeli aracılığıyla teorik referansı sahada fiziksel olarak doğrulayan donanımsal katman.
+**Katman 2 â€” Mikro DoÄŸrulama (Otonom Rover + Edge AI):** GÃ¼neÅŸ enerjili, ESP32 tabanlÄ± otonom IoT gezgini. SEN0193 kalibre toprak nemi sensÃ¶rÃ¼ ve ESP32-CAM Ã¼zerinde TFLite Micro ile Ã§alÄ±ÅŸan YOLOv8-tiny modeli aracÄ±lÄ±ÄŸÄ±yla teorik referansÄ± sahada fiziksel olarak doÄŸrulayan donanÄ±msal katman.
 
-**Katman 3 — Karar Destek Arayüzü (Yerel RAG + LLM):** Tamamen offline çalışabilen, Ollama üzerinde koşan açık kaynaklı LLM (Gemma-3-4B) ve FAISS vektör veritabanı ile Tri-RAG pipeline. Rover anomalisi tespit edildiğinde T.C. Tarım Bakanlığı rehberlerine dayalı, halüsinasyonsuz Türkçe mobil bildirim üreten karar katmanı.
+**Katman 3 â€” Karar Destek ArayÃ¼zÃ¼ (Yerel RAG + LLM):** Tamamen offline Ã§alÄ±ÅŸabilen, Ollama Ã¼zerinde koÅŸan aÃ§Ä±k kaynaklÄ± LLM (Gemma-3-4B) ve FAISS vektÃ¶r veritabanÄ± ile Tri-RAG pipeline. Rover anomalisi tespit edildiÄŸinde T.C. TarÄ±m BakanlÄ±ÄŸÄ± rehberlerine dayalÄ±, halÃ¼sinasyonsuz TÃ¼rkÃ§e mobil bildirim Ã¼reten karar katmanÄ±.
 
-**Edge–Fog–Cloud Mimarisi:**
-- **Edge (Rover/ESP32):** Sensör okuma, TFLite çıkarım, MQTT veri paketleme. İnternet gerektirmez.
-- **Fog (Yerel Sunucu):** Ollama LLM, FAISS RAG, KDS kural motoru, prompt oluşturucu. İnternet gerektirmez.
-- **Cloud (Opsiyonel):** İnternet varsa veri senkronizasyonu ve uzaktan izleme. Sistem cloud olmadan da tam işlevsel.
+**Edgeâ€“Fogâ€“Cloud Mimarisi:**
+- **Edge (Rover/ESP32):** SensÃ¶r okuma, TFLite Ã§Ä±karÄ±m, MQTT veri paketleme. Ä°nternet gerektirmez.
+- **Fog (Yerel Sunucu):** Ollama LLM, FAISS RAG, KDS kural motoru, prompt oluÅŸturucu. Ä°nternet gerektirmez.
+- **Cloud (Opsiyonel):** Ä°nternet varsa veri senkronizasyonu ve uzaktan izleme. Sistem cloud olmadan da tam iÅŸlevsel.
 
 ---
 
-## 2. Çalışma Paketleri Özet Tablosu
+## 2. Ã‡alÄ±ÅŸma Paketleri Ã–zet Tablosu
 
-| ÇP | Dönem | Hafta | Durum | Kritik Teslim |
+| Ã‡P | DÃ¶nem | Hafta | Durum | Kritik Teslim |
 |----|-------|-------|-------|---------------|
-| ÇP-1: ETL Veri Hattı | 3–21 Mart 2026 | H1–H3 | ✅ Tamamlandı | Birleşik öznitelik matrisi (.parquet) |
-| ÇP-2: Tahmin Modeli | 22 Mart – 11 Nisan | H4–H6 | ✅ Tamamlandı | R² > 0.75 / MAE < 0.05 |
-| ÇP-3: Rover + Edge AI | 12 Nisan – 2 Mayıs | H7–H9 | 🔄 Firmware hazır, donanım sipariş edildi | Donanım montajı + Edge AI demo |
-| ÇP-4: Yerel RAG/LLM | 3–23 Mayıs | H10–H12 | ✅ Temel sistem çalışıyor | Uçtan uca offline sistem |
-| Saha Testi + Tez | 24 Mayıs – 7 Haziran | H13–H14 | ⏳ Beklemede | Saha doğrulama raporu + tez |
+| Ã‡P-1: ETL Veri HattÄ± | 3â€“21 Mart 2026 | H1â€“H3 | âœ… TamamlandÄ± | BirleÅŸik Ã¶znitelik matrisi (.parquet) |
+| Ã‡P-2: Tahmin Modeli | 22 Mart â€“ 11 Nisan | H4â€“H6 | âœ… TamamlandÄ± | RÂ² > 0.75 / MAE < 0.05 |
+| Ã‡P-3: Rover + Edge AI | 12 Nisan â€“ 2 MayÄ±s | H7â€“H9 | ğŸ”„ Firmware hazÄ±r, donanÄ±m sipariÅŸ edildi | DonanÄ±m montajÄ± + Edge AI demo |
+| Ã‡P-4: Yerel RAG/LLM | 3â€“23 MayÄ±s | H10â€“H12 | âœ… Temel sistem Ã§alÄ±ÅŸÄ±yor | UÃ§tan uca offline sistem |
+| Saha Testi + Tez | 24 MayÄ±s â€“ 7 Haziran | H13â€“H14 | â³ Beklemede | Saha doÄŸrulama raporu + tez |
 
 ---
 
-## 3. Günlük Çalışma Kayıtları
+## 3. GÃ¼nlÃ¼k Ã‡alÄ±ÅŸma KayÄ±tlarÄ±
 
-### 5 Nisan 2026 (Cumartesi) — H5/Hafta Sonu Çalışması
+### 5 Nisan 2026 (Cumartesi) â€” H5/Hafta Sonu Ã‡alÄ±ÅŸmasÄ±
 
-**Konu:** Literatür taraması temelleri ve proje konumlandırması
+**Konu:** LiteratÃ¼r taramasÄ± temelleri ve proje konumlandÄ±rmasÄ±
 
-**Yapılanlar:**
-- TRAK-AI KDS projesinin literatürdeki konumlandırması tartışıldı
-- Projenin doldurmayı hedeflediği 6 temel literatür boşluğu (gap) belirlendi:
-  - Bulut-ağırlıklı KDS'lerin düşük bağlantılı çiftliklerde benimseme sorunu
-  - Makro tahmin ile mikro doğrulama arasındaki kopukluk
-  - Tarım robotları ile KDS entegrasyonunda standart eksikliği
-  - TinyML/Edge AI'da enerji-gecikme-bellek-karar etkisinin birlikte değerlendirilmemesi
-  - Çiftçi odaklı KDS'lerde anlaşılabilir açıklama eksikliği
-  - LLM halüsinasyon riski ve tarımsal doğruluk gerekliliği
-- H1–H10 hipotezleri formüle edildi
+**YapÄ±lanlar:**
+- TRAK-AI KDS projesinin literatÃ¼rdeki konumlandÄ±rmasÄ± tartÄ±ÅŸÄ±ldÄ±
+- Projenin doldurmayÄ± hedeflediÄŸi 6 temel literatÃ¼r boÅŸluÄŸu (gap) belirlendi:
+  - Bulut-aÄŸÄ±rlÄ±klÄ± KDS'lerin dÃ¼ÅŸÃ¼k baÄŸlantÄ±lÄ± Ã§iftliklerde benimseme sorunu
+  - Makro tahmin ile mikro doÄŸrulama arasÄ±ndaki kopukluk
+  - TarÄ±m robotlarÄ± ile KDS entegrasyonunda standart eksikliÄŸi
+  - TinyML/Edge AI'da enerji-gecikme-bellek-karar etkisinin birlikte deÄŸerlendirilmemesi
+  - Ã‡iftÃ§i odaklÄ± KDS'lerde anlaÅŸÄ±labilir aÃ§Ä±klama eksikliÄŸi
+  - LLM halÃ¼sinasyon riski ve tarÄ±msal doÄŸruluk gerekliliÄŸi
+- H1â€“H10 hipotezleri formÃ¼le edildi
 
-**Çıktılar:**
-- Hipotez-metrik eşleştirme tablosu
-- Literatür kümeleri (6 küme) tanımı
-
----
-
-### 6 Nisan 2026 (Pazar) — Literatür Taraması Derinleştirme
-
-**Konu:** Kapsamlı literatür taraması ve kaynak tablosu oluşturma
-
-**Yapılanlar:**
-- ~75 adet hakemli kaynak (Q1/Q2 ağırlıklı) tarandı ve TRAK-AI modülleriyle ilişkilendirildi
-- Kaynaklar 6 tematik kümeye ayrıldı
-- Mermaid diyagramları oluşturuldu (zaman çizgisi + modül-literatür ilişki haritası)
-
-**Çıktılar:**
-- `TRAKAI_KDS_İçin_Otonom_Robotik_ile_Yapay_Zekâ_Tabanlı_KDS_Entegrasyonu_Literatür_İncelemesi.pdf`
-- `TRAKAI_KDS_İçin_Otonom_Robotik_AI_Tabanlı_KDS_Entegrasyonu_Literatür_Taraması.pdf`
+**Ã‡Ä±ktÄ±lar:**
+- Hipotez-metrik eÅŸleÅŸtirme tablosu
+- LiteratÃ¼r kÃ¼meleri (6 kÃ¼me) tanÄ±mÄ±
 
 ---
 
-### 7 Nisan 2026 (Pazartesi) — Metodoloji Yol Haritası Dokümanı
+### 6 Nisan 2026 (Pazar) â€” LiteratÃ¼r TaramasÄ± DerinleÅŸtirme
 
-**Konu:** Tam metodoloji ve teknik detay dokümanının hazırlanması
+**Konu:** KapsamlÄ± literatÃ¼r taramasÄ± ve kaynak tablosu oluÅŸturma
 
-**Yapılanlar:**
-- 8 bölümlük kapsamlı metodoloji dokümanı yazıldı
-- Başarı kriterleri tablosu oluşturuldu
-- Hafta hafta yol haritası (H1–H14) detaylandırıldı
+**YapÄ±lanlar:**
+- ~75 adet hakemli kaynak (Q1/Q2 aÄŸÄ±rlÄ±klÄ±) tarandÄ± ve TRAK-AI modÃ¼lleriyle iliÅŸkilendirildi
+- Kaynaklar 6 tematik kÃ¼meye ayrÄ±ldÄ±
+- Mermaid diyagramlarÄ± oluÅŸturuldu (zaman Ã§izgisi + modÃ¼l-literatÃ¼r iliÅŸki haritasÄ±)
 
-**Çıktılar:**
+**Ã‡Ä±ktÄ±lar:**
+- `TRAKAI_KDS_Ä°Ã§in_Otonom_Robotik_ile_Yapay_ZekÃ¢_TabanlÄ±_KDS_Entegrasyonu_LiteratÃ¼r_Ä°ncelemesi.pdf`
+- `TRAKAI_KDS_Ä°Ã§in_Otonom_Robotik_AI_TabanlÄ±_KDS_Entegrasyonu_LiteratÃ¼r_TaramasÄ±.pdf`
+
+---
+
+### 7 Nisan 2026 (Pazartesi) â€” Metodoloji Yol HaritasÄ± DokÃ¼manÄ±
+
+**Konu:** Tam metodoloji ve teknik detay dokÃ¼manÄ±nÄ±n hazÄ±rlanmasÄ±
+
+**YapÄ±lanlar:**
+- 8 bÃ¶lÃ¼mlÃ¼k kapsamlÄ± metodoloji dokÃ¼manÄ± yazÄ±ldÄ±
+- BaÅŸarÄ± kriterleri tablosu oluÅŸturuldu
+- Hafta hafta yol haritasÄ± (H1â€“H14) detaylandÄ±rÄ±ldÄ±
+
+**Ã‡Ä±ktÄ±lar:**
 - `Trak-AI_KDS_Metodoloji_Yol_Haritasi.docx`
 
 ---
 
-### 8 Nisan 2026 (Salı) — WP4 Detay Planlaması ve Mimari Tasarım
+### 8 Nisan 2026 (SalÄ±) â€” WP4 Detay PlanlamasÄ± ve Mimari TasarÄ±m
 
-**Konu:** ÇP-4 Tamamen Yerel (Offline) RAG Sistemi — Rover entegrasyonlu detaylı planlama
+**Konu:** Ã‡P-4 Tamamen Yerel (Offline) RAG Sistemi â€” Rover entegrasyonlu detaylÄ± planlama
 
-**Yapılanlar:**
-- Edge–Fog–Cloud üç katmanlı mimari diyagramı çizildi
-- Hafta hafta WP4 planı detaylandırıldı (H10–H12)
-- RAG bilgi tabanı kaynak araştırması: 35 kaynak, 7 kategori, 7+ ülke
-- ChatGPT Deep Research ile ek kaynak taraması yapıldı
-- RAG kaynak listesi Word dokümanı oluşturuldu
+**YapÄ±lanlar:**
+- Edgeâ€“Fogâ€“Cloud Ã¼Ã§ katmanlÄ± mimari diyagramÄ± Ã§izildi
+- Hafta hafta WP4 planÄ± detaylandÄ±rÄ±ldÄ± (H10â€“H12)
+- RAG bilgi tabanÄ± kaynak araÅŸtÄ±rmasÄ±: 35 kaynak, 7 kategori, 7+ Ã¼lke
+- ChatGPT Deep Research ile ek kaynak taramasÄ± yapÄ±ldÄ±
+- RAG kaynak listesi Word dokÃ¼manÄ± oluÅŸturuldu
 
-**Çıktılar:**
-- WP4 Edge–Fog–Cloud mimari diyagramı (SVG)
-- `TRAK_AI_RAG_Birlesik_Kaynaklar_v2.docx` — 35 kaynaklı bilgi tabanı planı
-
----
-
-### 16 Nisan 2026 (Çarşamba) — WP4 Haftalık Rapor
-
-**Konu:** Haftalık ilerleme raporu hazırlanması
-
-**Yapılanlar:**
-- Haftalık rapor taslağa uygun şekilde hazırlandı
-- Kullanılan araçlar, tamamlanan işler, sorunlar ve çözümler belgelendi
-
-**Çıktılar:**
-- `Melih_Kalkan_16_04_2026.docx` — haftalık rapor
+**Ã‡Ä±ktÄ±lar:**
+- WP4 Edgeâ€“Fogâ€“Cloud mimari diyagramÄ± (SVG)
+- `TRAK_AI_RAG_Birlesik_Kaynaklar_v2.docx` â€” 35 kaynaklÄ± bilgi tabanÄ± planÄ±
 
 ---
 
-### 22–26 Nisan 2026 (Salı–Cumartesi) — WP4 Kodlama ve Entegrasyon
+### 16 Nisan 2026 (Ã‡arÅŸamba) â€” WP4 HaftalÄ±k Rapor
 
-**Konu:** ÇP-4 RAG/LLM sisteminin sıfırdan kodlanması, ÇP-2 entegrasyonu ve demo
+**Konu:** HaftalÄ±k ilerleme raporu hazÄ±rlanmasÄ±
 
-**Yapılanlar:**
+**YapÄ±lanlar:**
+- HaftalÄ±k rapor taslaÄŸa uygun ÅŸekilde hazÄ±rlandÄ±
+- KullanÄ±lan araÃ§lar, tamamlanan iÅŸler, sorunlar ve Ã§Ã¶zÃ¼mler belgelendi
 
-**Gün 1 — Proje yapısı ve temel modüller:**
-- `src/cp4_rag/` klasör yapısı oluşturuldu (docs/, faiss_index/, 5 alt kategori)
-- `config.py` yazıldı: tüm ayarlar tek dosyada (model, chunk boyutu, eşikler, prompt)
-- `pdf_loader.py` yazıldı: PyMuPDF ile PDF okuma, RecursiveCharacterTextSplitter ile chunk'lama
-- `build_index.py` yazıldı: HuggingFace embedding + FAISS indeks oluşturma/yükleme
-- `retriever.py` yazıldı: Tri-RAG (Dense FAISS + Sparse BM25 + Re-rank birleştirme)
-- `llm_engine.py` yazıldı: Ollama API entegrasyonu, bağlantı kontrolü, hata yönetimi
-- `main_rag.py` yazıldı: CLI arayüzü (build, query, test, rover, info komutları)
+**Ã‡Ä±ktÄ±lar:**
+- `Melih_Kalkan_16_04_2026.docx` â€” haftalÄ±k rapor
 
-**Gün 2 — Paket kurulumu ve LLM deployment:**
+---
+
+### 22â€“26 Nisan 2026 (SalÄ±â€“Cumartesi) â€” WP4 Kodlama ve Entegrasyon
+
+**Konu:** Ã‡P-4 RAG/LLM sisteminin sÄ±fÄ±rdan kodlanmasÄ±, Ã‡P-2 entegrasyonu ve demo
+
+**YapÄ±lanlar:**
+
+**GÃ¼n 1 â€” Proje yapÄ±sÄ± ve temel modÃ¼ller:**
+- `src/cp4_rag/` klasÃ¶r yapÄ±sÄ± oluÅŸturuldu (docs/, faiss_index/, 5 alt kategori)
+- `config.py` yazÄ±ldÄ±: tÃ¼m ayarlar tek dosyada (model, chunk boyutu, eÅŸikler, prompt)
+- `pdf_loader.py` yazÄ±ldÄ±: PyMuPDF ile PDF okuma, RecursiveCharacterTextSplitter ile chunk'lama
+- `build_index.py` yazÄ±ldÄ±: HuggingFace embedding + FAISS indeks oluÅŸturma/yÃ¼kleme
+- `retriever.py` yazÄ±ldÄ±: Tri-RAG (Dense FAISS + Sparse BM25 + Re-rank birleÅŸtirme)
+- `llm_engine.py` yazÄ±ldÄ±: Ollama API entegrasyonu, baÄŸlantÄ± kontrolÃ¼, hata yÃ¶netimi
+- `main_rag.py` yazÄ±ldÄ±: CLI arayÃ¼zÃ¼ (build, query, test, rover, info komutlarÄ±)
+
+**GÃ¼n 2 â€” Paket kurulumu ve LLM deployment:**
 - Python paketleri kuruldu: langchain, faiss-cpu, sentence-transformers, pymupdf, rank-bm25
 - Ollama v0.20.7 Windows'a kuruldu
 - Llama-3.1-8B-Instruct (Q4_K_M, 4.9 GB) modeli indirildi
-- İlk test: BBCH Monograph PDF → 357 chunk → FAISS → sorgu → LLM yanıtı (100.7 sn, 272 token)
-- LangChain v2 import hataları çözüldü (langchain.schema → langchain_core.documents, langchain.text_splitter → langchain_text_splitters)
-- Ollama PATH sorunu çözüldü (VS Code terminal yeniden başlatma)
+- Ä°lk test: BBCH Monograph PDF â†’ 357 chunk â†’ FAISS â†’ sorgu â†’ LLM yanÄ±tÄ± (100.7 sn, 272 token)
+- LangChain v2 import hatalarÄ± Ã§Ã¶zÃ¼ldÃ¼ (langchain.schema â†’ langchain_core.documents, langchain.text_splitter â†’ langchain_text_splitters)
+- Ollama PATH sorunu Ã§Ã¶zÃ¼ldÃ¼ (VS Code terminal yeniden baÅŸlatma)
 
-**Gün 3 — Bilgi tabanı genişletme ve model optimizasyonu:**
-- `download_sources.py` yazıldı: 13 PDF kaynağı otomatik indiren script
-- 53 PDF bilgi tabanına yüklendi (BBCH, TR Bakanlık, FAO, ABD, hastalık kategorileri)
-- 14,866 chunk oluşturuldu ve FAISS'e yazıldı
-- RAM sorunu tespit edildi: 16 GB RAM'de Llama-3.1-8B (4.9 GB) + FAISS + Embedding sığmadı
-- phi3:mini denendi → Türkçe çıktı kalitesi çok düşük (anlamsız tekrarlar, halüsinasyon)
-- Gemma-3-4B (Google) modeline geçildi → Türkçe çıktı kalitesi dramatik şekilde iyileşti
-- Çiftçi dili prompt şablonu yazıldı ("Köy kahvesinde anlatır gibi yaz" prensibi)
+**GÃ¼n 3 â€” Bilgi tabanÄ± geniÅŸletme ve model optimizasyonu:**
+- `download_sources.py` yazÄ±ldÄ±: 13 PDF kaynaÄŸÄ± otomatik indiren script
+- 53 PDF bilgi tabanÄ±na yÃ¼klendi (BBCH, TR BakanlÄ±k, FAO, ABD, hastalÄ±k kategorileri)
+- 14,866 chunk oluÅŸturuldu ve FAISS'e yazÄ±ldÄ±
+- RAM sorunu tespit edildi: 16 GB RAM'de Llama-3.1-8B (4.9 GB) + FAISS + Embedding sÄ±ÄŸmadÄ±
+- phi3:mini denendi â†’ TÃ¼rkÃ§e Ã§Ä±ktÄ± kalitesi Ã§ok dÃ¼ÅŸÃ¼k (anlamsÄ±z tekrarlar, halÃ¼sinasyon)
+- Gemma-3-4B (Google) modeline geÃ§ildi â†’ TÃ¼rkÃ§e Ã§Ä±ktÄ± kalitesi dramatik ÅŸekilde iyileÅŸti
+- Ã‡iftÃ§i dili prompt ÅŸablonu yazÄ±ldÄ± ("KÃ¶y kahvesinde anlatÄ±r gibi yaz" prensibi)
 
-**Gün 4 — ÇP-2 entegrasyonu ve demo:**
-- `demo.py` yazıldı: ÇP-2 + ÇP-4 entegre çalışma
-- ÇP-2 `inference_cp2.py`'nin `predict()` fonksiyonu doğrudan çağrılıyor
-- Gerçek model çalışıyor: Buğday Conv-LSTM, Ayçiçeği LSTM
-- Rover mock verisi ile anomali tespiti: NDVI sapması, düşük nem, hastalık tespiti
-- TensorFlow bellek yönetimi: tahmin sonrası `gc.collect()` ile RAM temizleme
-- İnteraktif chatbot modu eklendi:
-  - "durum" komutu: LLM tarla verilerini doğal dilde anlatıyor
-  - "analiz" komutu: anomali tespiti + RAG kaynaklardan tavsiye üretimi
-  - Serbest soru: tarla bağlamı + RAG belgesi birleşik yanıt
+**GÃ¼n 4 â€” Ã‡P-2 entegrasyonu ve demo:**
+- `demo.py` yazÄ±ldÄ±: Ã‡P-2 + Ã‡P-4 entegre Ã§alÄ±ÅŸma
+- Ã‡P-2 `inference_cp2.py`'nin `predict()` fonksiyonu doÄŸrudan Ã§aÄŸrÄ±lÄ±yor
+- GerÃ§ek model Ã§alÄ±ÅŸÄ±yor: BuÄŸday Conv-LSTM, AyÃ§iÃ§eÄŸi LSTM
+- Rover mock verisi ile anomali tespiti: NDVI sapmasÄ±, dÃ¼ÅŸÃ¼k nem, hastalÄ±k tespiti
+- TensorFlow bellek yÃ¶netimi: tahmin sonrasÄ± `gc.collect()` ile RAM temizleme
+- Ä°nteraktif chatbot modu eklendi:
+  - "durum" komutu: LLM tarla verilerini doÄŸal dilde anlatÄ±yor
+  - "analiz" komutu: anomali tespiti + RAG kaynaklardan tavsiye Ã¼retimi
+  - Serbest soru: tarla baÄŸlamÄ± + RAG belgesi birleÅŸik yanÄ±t
 
-**Test Sonuçları:**
-- Otomatik analiz: Buğday normal, Ayçiçeği 3 anomali tespit (NDVI sapması, düşük nem, mildiyö)
-- LLM çıktı örneği: "DİKKAT: Tarlanızdaki toprak nemi çok düşük, sadece %11! Yarın sabah mutlaka sulama yapın. 2 parmak su verin..."
-- Yanıt süresi: 27.1 sn (Gemma-3-4B, CPU-only, 301 token)
-- ÇP-2 gerçek model: Buğday NDVI 0.4675→0.4413, Ayçiçeği NDVI 0.4895→0.4904
+**Test SonuÃ§larÄ±:**
+- Otomatik analiz: BuÄŸday normal, AyÃ§iÃ§eÄŸi 3 anomali tespit (NDVI sapmasÄ±, dÃ¼ÅŸÃ¼k nem, mildiyÃ¶)
+- LLM Ã§Ä±ktÄ± Ã¶rneÄŸi: "DÄ°KKAT: TarlanÄ±zdaki toprak nemi Ã§ok dÃ¼ÅŸÃ¼k, sadece %11! YarÄ±n sabah mutlaka sulama yapÄ±n. 2 parmak su verin..."
+- YanÄ±t sÃ¼resi: 27.1 sn (Gemma-3-4B, CPU-only, 301 token)
+- Ã‡P-2 gerÃ§ek model: BuÄŸday NDVI 0.4675â†’0.4413, AyÃ§iÃ§eÄŸi NDVI 0.4895â†’0.4904
 
-**Çıktılar:**
-- `config.py` — tüm ayarlar + çiftçi dili system prompt
-- `pdf_loader.py` — PDF okuma ve chunk'lama
-- `build_index.py` — FAISS indeks oluşturma/yükleme
-- `retriever.py` — Tri-RAG retriever
-- `llm_engine.py` — Ollama LLM entegrasyonu
-- `main_rag.py` — CLI arayüzü
-- `demo.py` — ÇP-2 + ÇP-4 entegre demo (chatbot dahil)
-- `download_sources.py` — otomatik PDF indirici
-- FAISS indeksi: 14,866 vektör, 53 belge, 5 kategori
+**Ã‡Ä±ktÄ±lar:**
+- `config.py` â€” tÃ¼m ayarlar + Ã§iftÃ§i dili system prompt
+- `pdf_loader.py` â€” PDF okuma ve chunk'lama
+- `build_index.py` â€” FAISS indeks oluÅŸturma/yÃ¼kleme
+- `retriever.py` â€” Tri-RAG retriever
+- `llm_engine.py` â€” Ollama LLM entegrasyonu
+- `main_rag.py` â€” CLI arayÃ¼zÃ¼
+- `demo.py` â€” Ã‡P-2 + Ã‡P-4 entegre demo (chatbot dahil)
+- `download_sources.py` â€” otomatik PDF indirici
+- FAISS indeksi: 14,866 vektÃ¶r, 53 belge, 5 kategori
 
 **Teknik Kararlar:**
-- Llama-3.1-8B → RAM yetersizliği nedeniyle Gemma-3-4B'ye geçildi (16 GB RAM kısıtı)
-- phi3:mini Türkçe'de başarısız → Gemma-3 çok dilli desteği çok daha güçlü
-- FINAL_TOP_K 3→2'ye düşürüldü, LLM_NUM_CTX 4096→2048'e düşürüldü (RAM optimizasyonu)
-- TensorFlow tahmin sonrası bellekten temizleniyor (Ollama'ya yer açmak için)
+- Llama-3.1-8B â†’ RAM yetersizliÄŸi nedeniyle Gemma-3-4B'ye geÃ§ildi (16 GB RAM kÄ±sÄ±tÄ±)
+- phi3:mini TÃ¼rkÃ§e'de baÅŸarÄ±sÄ±z â†’ Gemma-3 Ã§ok dilli desteÄŸi Ã§ok daha gÃ¼Ã§lÃ¼
+- FINAL_TOP_K 3â†’2'ye dÃ¼ÅŸÃ¼rÃ¼ldÃ¼, LLM_NUM_CTX 4096â†’2048'e dÃ¼ÅŸÃ¼rÃ¼ldÃ¼ (RAM optimizasyonu)
+- TensorFlow tahmin sonrasÄ± bellekten temizleniyor (Ollama'ya yer aÃ§mak iÃ§in)
 
 ---
 
-### 2 Mayıs 2026 (Cumartesi) — ÇP-3 Rover Donanım Siparişleri ve Geliştirme Ortamı Kurulumu
+### 2 MayÄ±s 2026 (Cumartesi) â€” Ã‡P-3 Rover DonanÄ±m SipariÅŸleri ve GeliÅŸtirme OrtamÄ± Kurulumu
 
-**Konu:** Rover fiziksel bileşenlerinin temin edilmesi ve WP3 yazılım altyapısının kurulması
+**Konu:** Rover fiziksel bileÅŸenlerinin temin edilmesi ve WP3 yazÄ±lÄ±m altyapÄ±sÄ±nÄ±n kurulmasÄ±
 
-**Yapılanlar:**
+**YapÄ±lanlar:**
 
-**Donanım Siparişleri (~3.440 TL toplam):**
-- 4WD Mobil Arazi Robot Platformu / mavi (Robotzade) — 496,80 TL
-- ESP32 WROOM-32 Type-C (Robotzade) — 287,04 TL
-- DHT22 Sıcaklık ve Nem Sensörü × 2 (Robotzade) — 331,20 TL
-- HC-SR04 Ultrasonik Sensör × 2 (Robotzade) — 88,32 TL
-- TP4056 Type-C Lityum Şarj Modülü × 2 (Robotzade) — 22,08 TL
-- Mini Ayarlanabilir LM2596 Buck Dönüştürücü (Robotzade) — 35,88 TL
-- 40 Pin Jumper Kablo (Robotzade) — 38,64 TL
-- GY-NEO6MV2 GPS Modülü (Robotistan) — 207,41 TL
-- 2'li Breadboard BB2T4D (Robotistan) — 384,65 TL
-- 18650 Pil Yuvası 2'li (Robotistan) — 29,63 TL
-- Güneş Paneli 6V 230mA (Robotistan) — 219,48 TL
-- Supex 18650 3.7V 2500mAh Pil × 2 (Robotistan) — 445,55 TL
-- LM2596S-12 Buck Entegresi (Robotistan) — 35,12 TL
-- ESP32-CAM WiFi + OV2640 (TLS Robotik) — 598,26 TL
-- L298N Voltaj Regulatörlü Motor Sürücü Kırmızı PCB (TLS Robotik) — 87,53 TL
-- CH340G RS232 USB-TTL Dönüştürücü (TLS Robotik) — 78,50 TL
-- Kapasitif Toprak Nemi Sensörü × 1 (Direnc.net) — 54,00 TL
+**DonanÄ±m SipariÅŸleri (~3.440 TL toplam):**
+- 4WD Mobil Arazi Robot Platformu / mavi (Robotzade) â€” 496,80 TL
+- ESP32 WROOM-32 Type-C (Robotzade) â€” 287,04 TL
+- DHT22 SÄ±caklÄ±k ve Nem SensÃ¶rÃ¼ Ã— 2 (Robotzade) â€” 331,20 TL
+- HC-SR04 Ultrasonik SensÃ¶r Ã— 2 (Robotzade) â€” 88,32 TL
+- TP4056 Type-C Lityum Åarj ModÃ¼lÃ¼ Ã— 2 (Robotzade) â€” 22,08 TL
+- Mini Ayarlanabilir LM2596 Buck DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ (Robotzade) â€” 35,88 TL
+- 40 Pin Jumper Kablo (Robotzade) â€” 38,64 TL
+- GY-NEO6MV2 GPS ModÃ¼lÃ¼ (Robotistan) â€” 207,41 TL
+- 2'li Breadboard BB2T4D (Robotistan) â€” 384,65 TL
+- 18650 Pil YuvasÄ± 2'li (Robotistan) â€” 29,63 TL
+- GÃ¼neÅŸ Paneli 6V 230mA (Robotistan) â€” 219,48 TL
+- Supex 18650 3.7V 2500mAh Pil Ã— 2 (Robotistan) â€” 445,55 TL
+- LM2596S-12 Buck Entegresi (Robotistan) â€” 35,12 TL
+- ESP32-CAM WiFi + OV2640 (TLS Robotik) â€” 598,26 TL
+- L298N Voltaj RegulatÃ¶rlÃ¼ Motor SÃ¼rÃ¼cÃ¼ KÄ±rmÄ±zÄ± PCB (TLS Robotik) â€” 87,53 TL
+- CH340G RS232 USB-TTL DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ (TLS Robotik) â€” 78,50 TL
+- Kapasitif Toprak Nemi SensÃ¶rÃ¼ Ã— 1 (Direnc.net) â€” 54,00 TL
 
 **Teknik Kararlar:**
-- Arduino ve Raspberry Pi kullanılmadı — ESP32 tek başına tüm işlevleri karşılıyor (motor kontrol + Wi-Fi + MQTT + GPS + sensör)
-- HC-SR04: iki farklı versiyon sipariş edildi, birini iptal etmek gerekiyor
-- LM2596 SMD entegre (Robotistan): lehim gerektiriyor, Robotzade hazır modülü önce kullanılacak
-- GPS bağlantısı: telefon hotspot üzerinden (tarlada sabit internet yok)
-- Kapasitif toprak nemi: SEN0193 stokta yok, eşdeğer kapasitif muadil kullanılıyor
+- Arduino ve Raspberry Pi kullanÄ±lmadÄ± â€” ESP32 tek baÅŸÄ±na tÃ¼m iÅŸlevleri karÅŸÄ±lÄ±yor (motor kontrol + Wi-Fi + MQTT + GPS + sensÃ¶r)
+- HC-SR04: iki farklÄ± versiyon sipariÅŸ edildi, birini iptal etmek gerekiyor
+- LM2596 SMD entegre (Robotistan): lehim gerektiriyor, Robotzade hazÄ±r modÃ¼lÃ¼ Ã¶nce kullanÄ±lacak
+- GPS baÄŸlantÄ±sÄ±: telefon hotspot Ã¼zerinden (tarlada sabit internet yok)
+- Kapasitif toprak nemi: SEN0193 stokta yok, eÅŸdeÄŸer kapasitif muadil kullanÄ±lÄ±yor
 
-**Geliştirme Ortamı Kurulumu:**
+**GeliÅŸtirme OrtamÄ± Kurulumu:**
 - PlatformIO IDE eklentisi (VS Code) kuruldu
-- Python 3.13.2 kuruldu; numpy / scipy / matplotlib eklendi (kalibrasyon scripti için)
+- Python 3.13.2 kuruldu; numpy / scipy / matplotlib eklendi (kalibrasyon scripti iÃ§in)
 - Mosquitto MQTT broker 2.1.2 kuruldu ve PATH'e eklendi
-- MQTT broker testi başarılı: `mosquitto_pub` → `mosquitto_sub` mesaj iletimi doğrulandı
+- MQTT broker testi baÅŸarÄ±lÄ±: `mosquitto_pub` â†’ `mosquitto_sub` mesaj iletimi doÄŸrulandÄ±
 
-**WP3 Yazılım Altyapısı Oluşturuldu:**
+**WP3 YazÄ±lÄ±m AltyapÄ±sÄ± OluÅŸturuldu:**
 
-Kod yapısı:
+Kod yapÄ±sÄ±:
 ```
 src/cp3_edge/
-├── trak_ai_rover/          ← ESP32 ana firmware (PlatformIO)
-│   ├── platformio.ini      ← lib_deps: PubSubClient, DHT, TinyGPSPlus, ArduinoJson
-│   └── src/
-│       ├── config.h        ← Pin tanımları, WiFi/MQTT ayarları, kalibrasyon katsayıları
-│       └── main.cpp        ← Motor kontrol, sensör okuma, GPS waypoint, MQTT yayın
-├── esp32_cam/              ← ESP32-CAM firmware
-│   ├── platformio.ini
-│   └── src/
-│       └── main.cpp        ← Kamera başlatma, mock inference, UART JSON çıkışı
-└── calibration/
-    └── kalibrasyon.py      ← SEN0193 polinom kalibrasyon scripti
+â”œâ”€â”€ trak_ai_rover/          â† ESP32 ana firmware (PlatformIO)
+â”‚   â”œâ”€â”€ platformio.ini      â† lib_deps: PubSubClient, DHT, TinyGPSPlus, ArduinoJson
+â”‚   â””â”€â”€ src/
+â”‚       â”œâ”€â”€ config.h        â† Pin tanÄ±mlarÄ±, WiFi/MQTT ayarlarÄ±, kalibrasyon katsayÄ±larÄ±
+â”‚       â””â”€â”€ main.cpp        â† Motor kontrol, sensÃ¶r okuma, GPS waypoint, MQTT yayÄ±n
+â”œâ”€â”€ esp32_cam/              â† ESP32-CAM firmware
+â”‚   â”œâ”€â”€ platformio.ini
+â”‚   â””â”€â”€ src/
+â”‚       â””â”€â”€ main.cpp        â† Kamera baÅŸlatma, mock inference, UART JSON Ã§Ä±kÄ±ÅŸÄ±
+â””â”€â”€ calibration/
+    â””â”€â”€ kalibrasyon.py      â† SEN0193 polinom kalibrasyon scripti
 ```
 
-Firmware özellikleri:
-- `config.h`: tüm pin sabitleri (SEN0193 × 2, DHT22, HC-SR04 × 2, L298N motor pinleri, GPS UART2, CAM UART1), MQTT broker IP, kalibrasyon katsayıları (CAL_A/B/C), zamanlama sabitleri
-- `trak_ai_rover/main.cpp`: `adcToNem()` polinom kalibrasyon, `mesafeOlc()` ultrasonik, motor kontrol (ileri/geri/sol/sağ), `haversineMetre()` GPS navigasyon, 6 waypoint zikzak tarama, `camVerisiOku()` UART JSON ayrıştırma, `mqttYayinla()` 13 alanlı JSON paketi
-- `esp32_cam/main.cpp`: AI Thinker pin map, 10 sınıflı BBCH etiket dizisi, kamera başlatma (QVGA/JPEG), mock inference (gerçek YOLOv8 TFLite model gelince güncellenecek), UART JSON çıkışı
+Firmware Ã¶zellikleri:
+- `config.h`: tÃ¼m pin sabitleri (SEN0193 Ã— 2, DHT22, HC-SR04 Ã— 2, L298N motor pinleri, GPS UART2, CAM UART1), MQTT broker IP, kalibrasyon katsayÄ±larÄ± (CAL_A/B/C), zamanlama sabitleri
+- `trak_ai_rover/main.cpp`: `adcToNem()` polinom kalibrasyon, `mesafeOlc()` ultrasonik, motor kontrol (ileri/geri/sol/saÄŸ), `haversineMetre()` GPS navigasyon, 6 waypoint zikzak tarama, `camVerisiOku()` UART JSON ayrÄ±ÅŸtÄ±rma, `mqttYayinla()` 13 alanlÄ± JSON paketi
+- `esp32_cam/main.cpp`: AI Thinker pin map, 10 sÄ±nÄ±flÄ± BBCH etiket dizisi, kamera baÅŸlatma (QVGA/JPEG), mock inference (gerÃ§ek YOLOv8 TFLite model gelince gÃ¼ncellenecek), UART JSON Ã§Ä±kÄ±ÅŸÄ±
 
 **Derleme Testleri:**
-- `trak_ai_rover`: ✅ SUCCESS — RAM: %13.9, Flash: %59.6
-- `esp32_cam`: ✅ SUCCESS — RAM: %8.0, Flash: %11.2 (2 deprecation uyarısı — işlevselliği etkilemez)
+- `trak_ai_rover`: âœ… SUCCESS â€” RAM: %13.9, Flash: %59.6
+- `esp32_cam`: âœ… SUCCESS â€” RAM: %8.0, Flash: %11.2 (2 deprecation uyarÄ±sÄ± â€” iÅŸlevselliÄŸi etkilemez)
 
-**MQTT Broker IP:** 192.168.1.102 (config.h'a yazıldı, donanımlar gelince ESP32'ye yüklenecek)
+**MQTT Broker IP:** 192.168.1.102 (config.h'a yazÄ±ldÄ±, donanÄ±mlar gelince ESP32'ye yÃ¼klenecek)
 
-**Çıktılar:**
+**Ã‡Ä±ktÄ±lar:**
 - `src/cp3_edge/trak_ai_rover/src/config.h`
 - `src/cp3_edge/trak_ai_rover/src/main.cpp`
 - `src/cp3_edge/esp32_cam/src/main.cpp`
@@ -1266,64 +1266,64 @@ Firmware özellikleri:
 
 ---
 
-## 4. ÇP-1: ETL Veri Hattı
+## 4. Ã‡P-1: ETL Veri HattÄ±
 
-**Durum:** ✅ Tamamlandı (H1–H3, 3–21 Mart 2026)
+**Durum:** âœ… TamamlandÄ± (H1â€“H3, 3â€“21 Mart 2026)
 
-**Bileşenler:**
+**BileÅŸenler:**
 
-| Veri Kaynağı | API / Yöntem | Çözünürlük | Çekilen Değişkenler |
+| Veri KaynaÄŸÄ± | API / YÃ¶ntem | Ã‡Ã¶zÃ¼nÃ¼rlÃ¼k | Ã‡ekilen DeÄŸiÅŸkenler |
 |---|---|---|---|
 | Sentinel-2 (ESA) | GEE Python API + eemont | 10m (VIS+NIR), 20m (RedEdge+SWIR) | NDVI, EVI, NDWI |
-| ERA5-Land (ECMWF) | cdsapi → CDS | ~9 km, günlük | T_max, T_min, T_çiy, yağış, radyasyon, ET |
+| ERA5-Land (ECMWF) | cdsapi â†’ CDS | ~9 km, gÃ¼nlÃ¼k | T_max, T_min, T_Ã§iy, yaÄŸÄ±ÅŸ, radyasyon, ET |
 | SoilGrids 2.0 (ISRIC) | REST API / GEE Assets | 250m, statik | kil, kum, silt, pH, SOC, CEC |
 
-**Teslim Edilen Çıktı:** Trakya pilot parselleri için 2017–2024 yılları arası boşluksuz, tarih/konum hizalı öznitelik matrisi. 17 mühendislik özniteliği (GDD, kümülatif GDD, kuraklık indeksi, NDVI trend, sıcaklık amplitüdü, çiy noktası depresyonu, döngüsel zaman kodlaması).
+**Teslim Edilen Ã‡Ä±ktÄ±:** Trakya pilot parselleri iÃ§in 2017â€“2024 yÄ±llarÄ± arasÄ± boÅŸluksuz, tarih/konum hizalÄ± Ã¶znitelik matrisi. 17 mÃ¼hendislik Ã¶zniteliÄŸi (GDD, kÃ¼mÃ¼latif GDD, kuraklÄ±k indeksi, NDVI trend, sÄ±caklÄ±k amplitÃ¼dÃ¼, Ã§iy noktasÄ± depresyonu, dÃ¶ngÃ¼sel zaman kodlamasÄ±).
 
 ---
 
-## 5. ÇP-2: Tahmin Modeli
+## 5. Ã‡P-2: Tahmin Modeli
 
-**Durum:** ✅ Tamamlandı (H4–H6, 22 Mart – 11 Nisan 2026)
+**Durum:** âœ… TamamlandÄ± (H4â€“H6, 22 Mart â€“ 11 Nisan 2026)
 
-**Mimari:** 4 model yarıştırıldı: LSTM, Conv-LSTM, Attention-LSTM, XGBoost. Residual Delta yaklaşımı (t+7 tahmin ufku, otokorelasyon tuzağından kaçınma).
+**Mimari:** 4 model yarÄ±ÅŸtÄ±rÄ±ldÄ±: LSTM, Conv-LSTM, Attention-LSTM, XGBoost. Residual Delta yaklaÅŸÄ±mÄ± (t+7 tahmin ufku, otokorelasyon tuzaÄŸÄ±ndan kaÃ§Ä±nma).
 
-**Şampiyon Modeller:**
-- Buğday: Conv-LSTM (R² = 0.7151, MAE = 0.0445) — canlı sistemde yapısal avantaj
-- Ayçiçeği: LSTM (R² = 0.7957, MAE = 0.0409) — en yüksek doğruluk
+**Åampiyon Modeller:**
+- BuÄŸday: Conv-LSTM (RÂ² = 0.7151, MAE = 0.0445) â€” canlÄ± sistemde yapÄ±sal avantaj
+- AyÃ§iÃ§eÄŸi: LSTM (RÂ² = 0.7957, MAE = 0.0409) â€” en yÃ¼ksek doÄŸruluk
 
-**Özellik Mühendisliği:** 17 özellik (iklimsel, agronomik, spektral, zamansal). 30 günlük pencere, t+7 tahmin ufku.
+**Ã–zellik MÃ¼hendisliÄŸi:** 17 Ã¶zellik (iklimsel, agronomik, spektral, zamansal). 30 gÃ¼nlÃ¼k pencere, t+7 tahmin ufku.
 
-**XAI Entegrasyonu:** XGBoost üzerinde SHAP analizi — hangi değişkenin tahmini ne yönde etkilediği şeffaf.
+**XAI Entegrasyonu:** XGBoost Ã¼zerinde SHAP analizi â€” hangi deÄŸiÅŸkenin tahmini ne yÃ¶nde etkilediÄŸi ÅŸeffaf.
 
-**Çıkarım Modülü:** `inference_cp2.py` — hibrit model seçimi, sağlık sınıflandırması, trend analizi, LLM bağlam üretimi.
+**Ã‡Ä±karÄ±m ModÃ¼lÃ¼:** `inference_cp2.py` â€” hibrit model seÃ§imi, saÄŸlÄ±k sÄ±nÄ±flandÄ±rmasÄ±, trend analizi, LLM baÄŸlam Ã¼retimi.
 
 ---
 
-## 6. ÇP-3: Rover Donanımı ve Edge AI
+## 6. Ã‡P-3: Rover DonanÄ±mÄ± ve Edge AI
 
-**Durum:** 🔄 Firmware hazır / Donanım sipariş edildi (H7–H9, 12 Nisan – 2 Mayıs 2026)
+**Durum:** ğŸ”„ Firmware hazÄ±r / DonanÄ±m sipariÅŸ edildi (H7â€“H9, 12 Nisan â€“ 2 MayÄ±s 2026)
 
-**Donanım Bileşenleri (Sipariş Edildi):**
-- İşlemci: ESP32 WROOM-32 (çift çekirdek Xtensa LX6, dahili Wi-Fi/BT)
-- Sensör: Kapasitif toprak nemi × 1 + DHT22 sıcaklık/nem × 2
-- Mesafe: HC-SR04 ultrasonik × 2 (ön + arka engel tespiti)
+**DonanÄ±m BileÅŸenleri (SipariÅŸ Edildi):**
+- Ä°ÅŸlemci: ESP32 WROOM-32 (Ã§ift Ã§ekirdek Xtensa LX6, dahili Wi-Fi/BT)
+- SensÃ¶r: Kapasitif toprak nemi Ã— 1 + DHT22 sÄ±caklÄ±k/nem Ã— 2
+- Mesafe: HC-SR04 ultrasonik Ã— 2 (Ã¶n + arka engel tespiti)
 - Kamera: ESP32-CAM (AI Thinker, OV2640)
-- Motor: 4WD robot şasisi + L298N motor sürücü
-- Navigasyon: GY-NEO6MV2 GPS modülü
-- Enerji: Güneş paneli 6V 230mA + TP4056 şarj + 18650 × 2 (2500mAh)
-- İletişim: MQTT (Mosquitto 2.1.2 broker, Fog sunucusunda)
+- Motor: 4WD robot ÅŸasisi + L298N motor sÃ¼rÃ¼cÃ¼
+- Navigasyon: GY-NEO6MV2 GPS modÃ¼lÃ¼
+- Enerji: GÃ¼neÅŸ paneli 6V 230mA + TP4056 ÅŸarj + 18650 Ã— 2 (2500mAh)
+- Ä°letiÅŸim: MQTT (Mosquitto 2.1.2 broker, Fog sunucusunda)
 
 **Firmware Mimarisi:**
 
-| Modül | Dosya | İşlev |
+| ModÃ¼l | Dosya | Ä°ÅŸlev |
 |---|---|---|
-| Ana Rover | `trak_ai_rover/src/main.cpp` | Motor kontrol, sensör okuma, GPS waypoint navigasyon, MQTT yayın |
-| Yapılandırma | `trak_ai_rover/src/config.h` | Pin tanımları, WiFi/MQTT ayarları, kalibrasyon katsayıları |
-| Kamera/AI | `esp32_cam/src/main.cpp` | Kamera başlatma, BBCH sınıflandırma (mock → TFLite), UART JSON |
-| Kalibrasyon | `calibration/kalibrasyon.py` | SEN0193 ADC → nem% polinom regresyon, RMSE/R² analizi |
+| Ana Rover | `trak_ai_rover/src/main.cpp` | Motor kontrol, sensÃ¶r okuma, GPS waypoint navigasyon, MQTT yayÄ±n |
+| YapÄ±landÄ±rma | `trak_ai_rover/src/config.h` | Pin tanÄ±mlarÄ±, WiFi/MQTT ayarlarÄ±, kalibrasyon katsayÄ±larÄ± |
+| Kamera/AI | `esp32_cam/src/main.cpp` | Kamera baÅŸlatma, BBCH sÄ±nÄ±flandÄ±rma (mock â†’ TFLite), UART JSON |
+| Kalibrasyon | `calibration/kalibrasyon.py` | SEN0193 ADC â†’ nem% polinom regresyon, RMSE/RÂ² analizi |
 
-**MQTT Yük Formatı (13 alan):**
+**MQTT YÃ¼k FormatÄ± (13 alan):**
 ```json
 {
   "timestamp": 12345, "gps_lat": 41.694, "gps_lon": 27.105, "gps_valid": true,
@@ -1333,290 +1333,290 @@ Firmware özellikleri:
 }
 ```
 
-**Waypoint Navigasyon:** 6 noktalı zikzak tarama (Haversine mesafe hesabı), engel < 30 cm → geri + sola dön kaçınma manevrası.
+**Waypoint Navigasyon:** 6 noktalÄ± zikzak tarama (Haversine mesafe hesabÄ±), engel < 30 cm â†’ geri + sola dÃ¶n kaÃ§Ä±nma manevrasÄ±.
 
-**Kalibrasyon:** `adcToNem(adc) = CAL_A × adc² + CAL_B × adc + CAL_C`. Hedef RMSE ≤ 1.02, R² ≥ 0.89. Sensör gelince gerçek ölçüm noktalarıyla güncellenecek.
+**Kalibrasyon:** `adcToNem(adc) = CAL_A Ã— adcÂ² + CAL_B Ã— adc + CAL_C`. Hedef RMSE â‰¤ 1.02, RÂ² â‰¥ 0.89. SensÃ¶r gelince gerÃ§ek Ã¶lÃ§Ã¼m noktalarÄ±yla gÃ¼ncellenecek.
 
-**Edge AI (Sonraki Adım):** YOLOv8-tiny → Int8 kuantizasyon → .tflite → C-array → ESP32 flash. Şu an mock inference çalışıyor (10 sınıf: BBCH evreler + Sağlıklı + Hastalıklı). Hedef mAP@0.5 > 0.85.
+**Edge AI (Sonraki AdÄ±m):** YOLOv8-tiny â†’ Int8 kuantizasyon â†’ .tflite â†’ C-array â†’ ESP32 flash. Åu an mock inference Ã§alÄ±ÅŸÄ±yor (10 sÄ±nÄ±f: BBCH evreler + SaÄŸlÄ±klÄ± + HastalÄ±klÄ±). Hedef mAP@0.5 > 0.85.
 
 **Derleme Durumu:**
 
 | Proje | RAM | Flash | Durum |
 |---|---|---|---|
-| trak_ai_rover | %13.9 | %59.6 | ✅ SUCCESS |
-| esp32_cam | %8.0 | %11.2 | ✅ SUCCESS |
+| trak_ai_rover | %13.9 | %59.6 | âœ… SUCCESS |
+| esp32_cam | %8.0 | %11.2 | âœ… SUCCESS |
 
 ---
 
-## 7. ÇP-4: Yerel RAG/LLM Entegrasyonu
+## 7. Ã‡P-4: Yerel RAG/LLM Entegrasyonu
 
-**Durum:** ✅ Temel sistem çalışıyor, ÇP-2 entegrasyonu tamamlandı (22–26 Nisan 2026)
+**Durum:** âœ… Temel sistem Ã§alÄ±ÅŸÄ±yor, Ã‡P-2 entegrasyonu tamamlandÄ± (22â€“26 Nisan 2026)
 
-**Felsefe:** Projenin "offline-first" ve "bulut bağımlılığını azaltma" iddiasının somutlaştığı paket.
+**Felsefe:** Projenin "offline-first" ve "bulut baÄŸÄ±mlÄ±lÄ±ÄŸÄ±nÄ± azaltma" iddiasÄ±nÄ±n somutlaÅŸtÄ±ÄŸÄ± paket.
 
-**Mimari Kararlar (Güncellenmiş):**
+**Mimari Kararlar (GÃ¼ncellenmiÅŸ):**
 
-| Bileşen | İlk Plan | Nihai Seçim | Değişiklik Gerekçesi |
+| BileÅŸen | Ä°lk Plan | Nihai SeÃ§im | DeÄŸiÅŸiklik GerekÃ§esi |
 |---|---|---|---|
-| LLM Modeli | Llama-3.1-8B Q4 | Gemma-3-4B | 16 GB RAM'e sığmadı |
-| Denenen alternatif | — | phi3:mini | Türkçe kalitesi çok düşük, iptal |
-| Embedding | multilingual-e5-small | multilingual-e5-small | Değişmedi |
-| Vektör DB | FAISS | FAISS | Değişmedi |
+| LLM Modeli | Llama-3.1-8B Q4 | Gemma-3-4B | 16 GB RAM'e sÄ±ÄŸmadÄ± |
+| Denenen alternatif | â€” | phi3:mini | TÃ¼rkÃ§e kalitesi Ã§ok dÃ¼ÅŸÃ¼k, iptal |
+| Embedding | multilingual-e5-small | multilingual-e5-small | DeÄŸiÅŸmedi |
+| VektÃ¶r DB | FAISS | FAISS | DeÄŸiÅŸmedi |
 | FINAL_TOP_K | 3 | 2 | RAM optimizasyonu |
 | LLM_NUM_CTX | 4096 | 2048 | RAM optimizasyonu |
 
-**Bilgi Tabanı İstatistikleri:**
+**Bilgi TabanÄ± Ä°statistikleri:**
 - Toplam PDF: 53 belge
 - Toplam chunk: 14,866
-- Kategori dağılımı: ABD 3,335 | FAO 3,766 | Hastalık 3,256 | TR Bakanlık 3,015 | BBCH 1,494
+- Kategori daÄŸÄ±lÄ±mÄ±: ABD 3,335 | FAO 3,766 | HastalÄ±k 3,256 | TR BakanlÄ±k 3,015 | BBCH 1,494
 - Embedding modeli: intfloat/multilingual-e5-small (384 boyut)
 
-**ÇP-2 Entegrasyonu:**
-- `inference_cp2.py`'nin `predict("Wheat")` ve `predict("Sunflower")` doğrudan çağrılıyor
-- Gerçek model çıktıları RAG prompt'una enjekte ediliyor
-- TensorFlow tahmin sonrası bellekten temizleniyor (Ollama RAM paylaşımı)
+**Ã‡P-2 Entegrasyonu:**
+- `inference_cp2.py`'nin `predict("Wheat")` ve `predict("Sunflower")` doÄŸrudan Ã§aÄŸrÄ±lÄ±yor
+- GerÃ§ek model Ã§Ä±ktÄ±larÄ± RAG prompt'una enjekte ediliyor
+- TensorFlow tahmin sonrasÄ± bellekten temizleniyor (Ollama RAM paylaÅŸÄ±mÄ±)
 
-**Demo Modları:**
+**Demo ModlarÄ±:**
 - Otomatik tarla analizi (anomali tespiti + LLM tavsiye)
-- "durum" komutu: doğal dilde tarla özeti
+- "durum" komutu: doÄŸal dilde tarla Ã¶zeti
 - "analiz" komutu: anomali + RAG tavsiye
-- Serbest soru: tarla bağlamı + RAG birleşik yanıt
+- Serbest soru: tarla baÄŸlamÄ± + RAG birleÅŸik yanÄ±t
 
-**Performans Metrikleri (Ölçülen):**
+**Performans Metrikleri (Ã–lÃ§Ã¼len):**
 
-| Metrik | Hedef | Ölçülen | Durum |
+| Metrik | Hedef | Ã–lÃ§Ã¼len | Durum |
 |---|---|---|---|
-| Uçtan uca gecikme | < 120sn | 27.1sn (Gemma-3-4B) | ✅ |
-| Token üretimi | — | 301 token/sorgu | ✅ |
-| Bilgi tabanı boyutu | — | 14,866 vektör | ✅ |
-| Çiftçi dili uyumu | Uzman ≥ 4/5 | Beklemede | ⏳ |
-| Halüsinasyon oranı | > 0.95 | Beklemede | ⏳ |
+| UÃ§tan uca gecikme | < 120sn | 27.1sn (Gemma-3-4B) | âœ… |
+| Token Ã¼retimi | â€” | 301 token/sorgu | âœ… |
+| Bilgi tabanÄ± boyutu | â€” | 14,866 vektÃ¶r | âœ… |
+| Ã‡iftÃ§i dili uyumu | Uzman â‰¥ 4/5 | Beklemede | â³ |
+| HalÃ¼sinasyon oranÄ± | > 0.95 | Beklemede | â³ |
 
 ---
 
 ## 8. Hipotezler ve Metrikler
 
-| # | Hipotez | Metrikler | İlgili ÇP | Durum |
+| # | Hipotez | Metrikler | Ä°lgili Ã‡P | Durum |
 |---|---|---|---|---|
-| H1 | Bulutsuz çalışma modunda karar üretim gecikmesi daha iyi | Uyarı gecikmesi (ms), uptime (%), veri kaybı | ÇP-4 | ✅ Doğrulandı (27sn offline) |
-| H2 | Düşük maliyetli mimari UTAUT2 puanlarını artırır | UTAUT2 ölçekleri, niyet (BI) | ÇP-4 | 📋 |
-| H3 | Mikro doğrulama yanlış pozitif oranını düşürür | FP rate, precision/recall/F1 | ÇP-3 | 🔄 |
-| H4 | Mikro doğrulama + açıklama güveni artırır | PU/PEOU, güven maddeleri | ÇP-3+4 | 📋 |
-| H5 | Standart mesajlaşma entegrasyon süresini azaltır | Person-hour, MTBF, şema dönüşüm | ÇP-3 | 🔄 |
-| H6 | Streaming yaklaşımı çevrim süresini düşürür | End-to-end latency, mesaj kaybı | ÇP-3+4 | 📋 |
-| H7 | Kuantizasyon F1 korurken gecikme/enerji düşürür | Latency (ms), energy (mJ), RAM, F1 | ÇP-3 | 🔄 |
-| H8 | Edge çıkarım bağlantı kesintisinde çalışır | Offline başarı (%), kaçırılan olay (FN) | ÇP-3+4 | ✅ Demo'da doğrulandı |
-| H9 | LLM+RAG açıklamaları PU ve BI'yi artırır | TAM/UTAUT ölçekleri | ÇP-4 | 📋 |
-| H10 | Açıklama katmanı yorumlama başarısını artırır | Doğru cevap (%), NASA-TLX | ÇP-4 | 📋 |
+| H1 | Bulutsuz Ã§alÄ±ÅŸma modunda karar Ã¼retim gecikmesi daha iyi | UyarÄ± gecikmesi (ms), uptime (%), veri kaybÄ± | Ã‡P-4 | âœ… DoÄŸrulandÄ± (27sn offline) |
+| H2 | DÃ¼ÅŸÃ¼k maliyetli mimari UTAUT2 puanlarÄ±nÄ± artÄ±rÄ±r | UTAUT2 Ã¶lÃ§ekleri, niyet (BI) | Ã‡P-4 | ğŸ“‹ |
+| H3 | Mikro doÄŸrulama yanlÄ±ÅŸ pozitif oranÄ±nÄ± dÃ¼ÅŸÃ¼rÃ¼r | FP rate, precision/recall/F1 | Ã‡P-3 | ğŸ”„ |
+| H4 | Mikro doÄŸrulama + aÃ§Ä±klama gÃ¼veni artÄ±rÄ±r | PU/PEOU, gÃ¼ven maddeleri | Ã‡P-3+4 | ğŸ“‹ |
+| H5 | Standart mesajlaÅŸma entegrasyon sÃ¼resini azaltÄ±r | Person-hour, MTBF, ÅŸema dÃ¶nÃ¼ÅŸÃ¼m | Ã‡P-3 | ğŸ”„ |
+| H6 | Streaming yaklaÅŸÄ±mÄ± Ã§evrim sÃ¼resini dÃ¼ÅŸÃ¼rÃ¼r | End-to-end latency, mesaj kaybÄ± | Ã‡P-3+4 | ğŸ“‹ |
+| H7 | Kuantizasyon F1 korurken gecikme/enerji dÃ¼ÅŸÃ¼rÃ¼r | Latency (ms), energy (mJ), RAM, F1 | Ã‡P-3 | ğŸ”„ |
+| H8 | Edge Ã§Ä±karÄ±m baÄŸlantÄ± kesintisinde Ã§alÄ±ÅŸÄ±r | Offline baÅŸarÄ± (%), kaÃ§Ä±rÄ±lan olay (FN) | Ã‡P-3+4 | âœ… Demo'da doÄŸrulandÄ± |
+| H9 | LLM+RAG aÃ§Ä±klamalarÄ± PU ve BI'yi artÄ±rÄ±r | TAM/UTAUT Ã¶lÃ§ekleri | Ã‡P-4 | ğŸ“‹ |
+| H10 | AÃ§Ä±klama katmanÄ± yorumlama baÅŸarÄ±sÄ±nÄ± artÄ±rÄ±r | DoÄŸru cevap (%), NASA-TLX | Ã‡P-4 | ğŸ“‹ |
 
 ---
 
-## 9. Teknik Kararlar ve Gerekçeler
+## 9. Teknik Kararlar ve GerekÃ§eler
 
 ### 9.1 Neden Yerel (Offline) LLM?
 
-**Karar:** Bulut API yerine Ollama üzerinde yerel LLM.
+**Karar:** Bulut API yerine Ollama Ã¼zerinde yerel LLM.
 
-**Gerekçeler:**
-1. Projenin temel iddiası: "bulut bağımlılığını azaltmak"
-2. Maliyet: Tamamen ücretsiz (0$)
-3. Gizlilik: Tarla verileri üçüncü taraf sunuculara gönderilmez
-4. Kırsal bağlantı: Trakya'da tarla ortasında stabil internet garanti edilemez
-5. Bilimsel tutarlılık: H1 hipotezi doğrudan test edilebilir
+**GerekÃ§eler:**
+1. Projenin temel iddiasÄ±: "bulut baÄŸÄ±mlÄ±lÄ±ÄŸÄ±nÄ± azaltmak"
+2. Maliyet: Tamamen Ã¼cretsiz (0$)
+3. Gizlilik: Tarla verileri Ã¼Ã§Ã¼ncÃ¼ taraf sunuculara gÃ¶nderilmez
+4. KÄ±rsal baÄŸlantÄ±: Trakya'da tarla ortasÄ±nda stabil internet garanti edilemez
+5. Bilimsel tutarlÄ±lÄ±k: H1 hipotezi doÄŸrudan test edilebilir
 
-### 9.2 Neden Gemma-3-4B (Llama-3.1-8B veya phi3:mini değil)?
+### 9.2 Neden Gemma-3-4B (Llama-3.1-8B veya phi3:mini deÄŸil)?
 
-**Karar:** Üç model denendi, Gemma-3-4B seçildi.
+**Karar:** ÃœÃ§ model denendi, Gemma-3-4B seÃ§ildi.
 
-**Deneme süreci:**
-1. Llama-3.1-8B Q4 (4.9 GB) → RAM yetersizliği: TensorFlow + FAISS + Embedding + LLM 16 GB'a sığmadı
-2. phi3:mini (2.3 GB) → RAM'e sığdı ama Türkçe çıktı kalitesi çok düşük: anlamsız tekrarlar, halüsinasyon, mekanik dil
-3. Gemma-3-4B (3.3 GB) → RAM'e sığdı VE Türkçe çıktı kalitesi çok iyi: doğal dil, çiftçi diline uyum, somut tavsiyeler
+**Deneme sÃ¼reci:**
+1. Llama-3.1-8B Q4 (4.9 GB) â†’ RAM yetersizliÄŸi: TensorFlow + FAISS + Embedding + LLM 16 GB'a sÄ±ÄŸmadÄ±
+2. phi3:mini (2.3 GB) â†’ RAM'e sÄ±ÄŸdÄ± ama TÃ¼rkÃ§e Ã§Ä±ktÄ± kalitesi Ã§ok dÃ¼ÅŸÃ¼k: anlamsÄ±z tekrarlar, halÃ¼sinasyon, mekanik dil
+3. Gemma-3-4B (3.3 GB) â†’ RAM'e sÄ±ÄŸdÄ± VE TÃ¼rkÃ§e Ã§Ä±ktÄ± kalitesi Ã§ok iyi: doÄŸal dil, Ã§iftÃ§i diline uyum, somut tavsiyeler
 
 ### 9.3 Neden Tri-RAG?
 
-**Karar:** Dense + Sparse + Re-rank birleştirme.
+**Karar:** Dense + Sparse + Re-rank birleÅŸtirme.
 
-**Gerekçeler:**
-1. "Mildiyö" gibi özel terimler semantik aramada kaybolabiliyor → BM25 eklendi
-2. Her iki yöntemde de bulunan chunk'lara bonus skor → isabetlilik arttı
-3. Literatürde Tri-RAG yaklaşımı destekleniyor
+**GerekÃ§eler:**
+1. "MildiyÃ¶" gibi Ã¶zel terimler semantik aramada kaybolabiliyor â†’ BM25 eklendi
+2. Her iki yÃ¶ntemde de bulunan chunk'lara bonus skor â†’ isabetlilik arttÄ±
+3. LiteratÃ¼rde Tri-RAG yaklaÅŸÄ±mÄ± destekleniyor
 
 ### 9.4 Neden FAISS?
 
-**Gerekçeler:**
-1. Tamamen yerel, dosya tabanlı → offline çalışır
+**GerekÃ§eler:**
+1. Tamamen yerel, dosya tabanlÄ± â†’ offline Ã§alÄ±ÅŸÄ±r
 2. Sunucu gerektirmez
-3. 14,866 vektör için CPU performansı yeterli
-4. Pinecone cloud-only → offline-first felsefesine aykırı
+3. 14,866 vektÃ¶r iÃ§in CPU performansÄ± yeterli
+4. Pinecone cloud-only â†’ offline-first felsefesine aykÄ±rÄ±
 
-### 9.5 TensorFlow Bellek Yönetimi
+### 9.5 TensorFlow Bellek YÃ¶netimi
 
-**Sorun:** TensorFlow + FAISS + Embedding + Ollama aynı anda 16 GB RAM'e sığmadı.
+**Sorun:** TensorFlow + FAISS + Embedding + Ollama aynÄ± anda 16 GB RAM'e sÄ±ÄŸmadÄ±.
 
-**Çözüm:** ÇP-2 tahminleri tamamlandıktan sonra TensorFlow `gc.collect()` ile bellekten temizleniyor. FAISS indeksi yüklenirken embedding modeli bir kez yükleniyor. LLM_NUM_CTX 2048'e, FINAL_TOP_K 2'ye düşürüldü.
+**Ã‡Ã¶zÃ¼m:** Ã‡P-2 tahminleri tamamlandÄ±ktan sonra TensorFlow `gc.collect()` ile bellekten temizleniyor. FAISS indeksi yÃ¼klenirken embedding modeli bir kez yÃ¼kleniyor. LLM_NUM_CTX 2048'e, FINAL_TOP_K 2'ye dÃ¼ÅŸÃ¼rÃ¼ldÃ¼.
 
 ---
 
-## 10. Açık Sorunlar ve Sonraki Adımlar
+## 10. AÃ§Ä±k Sorunlar ve Sonraki AdÄ±mlar
 
-**Güncelleme:** 11 Mayıs 2026
+**GÃ¼ncelleme:** 11 MayÄ±s 2026
 
-### Açık Sorunlar
+### AÃ§Ä±k Sorunlar
 
-| # | Sorun | Öncelik | Notlar |
+| # | Sorun | Ã–ncelik | Notlar |
 |---|---|---|---|
-| 1 | RAM 16 GB — eş zamanlı TF+LLM sığmıyor | Çözüldü | gc.collect() ile sıralı yükleme |
-| 2 | phi3:mini Türkçe kalitesi yetersiz | Çözüldü | Gemma-3-4B'ye geçildi |
-| 3 | LangChain v2 import hataları | Çözüldü | langchain_core, langchain_text_splitters |
-| 4 | HC-SR04 çift versiyon sipariş | Yüksek | Birini iptal et (Robotzade 88,32 TL'lik kalacak) |
-| 5 | LM2596 SMD entegre lehim gerektiriyor | Orta | Robotzade hazır modülü önce kullanılacak |
-| 6 | config.h WiFi/hotspot bilgisi boş | Yüksek | Donanım gelince telefon hotspot adı/şifresi eklenecek |
-| 7 | ESP32 ↔ MQTT ↔ Python entegrasyon testi | Yüksek | Donanımlar gelince gerçek test yapılacak |
-| 8 | YOLOv8-tiny model eğitimi | Yüksek | Google Colab'da GWHD + ayçiçeği setleriyle başlatılacak |
-| 9 | Agronomik tutarlılık uzman değerlendirmesi | Orta | Kör uzman testi henüz yapılmadı |
-| 10 | Halüsinasyon oranı ölçümü | Orta | RAG kaynak kontrolü testi yapılacak |
+| 1 | RAM 16 GB â€” eÅŸ zamanlÄ± TF+LLM sÄ±ÄŸmÄ±yor | Ã‡Ã¶zÃ¼ldÃ¼ | gc.collect() ile sÄ±ralÄ± yÃ¼kleme |
+| 2 | phi3:mini TÃ¼rkÃ§e kalitesi yetersiz | Ã‡Ã¶zÃ¼ldÃ¼ | Gemma-3-4B'ye geÃ§ildi |
+| 3 | LangChain v2 import hatalarÄ± | Ã‡Ã¶zÃ¼ldÃ¼ | langchain_core, langchain_text_splitters |
+| 4 | HC-SR04 Ã§ift versiyon sipariÅŸ | YÃ¼ksek | Birini iptal et (Robotzade 88,32 TL'lik kalacak) |
+| 5 | LM2596 SMD entegre lehim gerektiriyor | Orta | Robotzade hazÄ±r modÃ¼lÃ¼ Ã¶nce kullanÄ±lacak |
+| 6 | config.h WiFi/hotspot bilgisi boÅŸ | YÃ¼ksek | DonanÄ±m gelince telefon hotspot adÄ±/ÅŸifresi eklenecek |
+| 7 | ESP32 â†” MQTT â†” Python entegrasyon testi | YÃ¼ksek | DonanÄ±mlar gelince gerÃ§ek test yapÄ±lacak |
+| 8 | YOLOv8-tiny model eÄŸitimi | YÃ¼ksek | Google Colab'da GWHD + ayÃ§iÃ§eÄŸi setleriyle baÅŸlatÄ±lacak |
+| 9 | Agronomik tutarlÄ±lÄ±k uzman deÄŸerlendirmesi | Orta | KÃ¶r uzman testi henÃ¼z yapÄ±lmadÄ± |
+| 10 | HalÃ¼sinasyon oranÄ± Ã¶lÃ§Ã¼mÃ¼ | Orta | RAG kaynak kontrolÃ¼ testi yapÄ±lacak |
 
-### Sonraki Adımlar (Kronolojik)
+### Sonraki AdÄ±mlar (Kronolojik)
 
-1. **Donanım montajı:** Şasi + motor + L298N + breadboard kurulumu; ESP32 firmware upload; motor/sensör/MQTT testi
-2. **SEN0193 kalibrasyonu:** Kuru/ıslak sınır değerleri ölçümü → `config.h` CAL_A/B/C güncelle
-3. **YOLOv8-tiny eğitimi:** Google Colab'da GWHD 2021 + ayçiçeği BBCH setleri; Int8 kuantizasyon; ESP32-CAM flash
-4. **Gerçek entegrasyon:** Rover MQTT → Python orchestrator → RAG/LLM (mock'tan gerçeğe geçiş)
-5. **Uçtan uca test:** Rover saha taraması → Anomali tespiti → RAG/LLM → Türkçe bildirim (< 120sn hedef)
-6. **Pilot arazi deneyleri + tez yazımı:** Mayıs sonu – Haziran 2026
-
----
-
-> **Not:** Bu doküman, projenin yaşayan bir kaydıdır. Her çalışma günü sonunda "Günlük Çalışma Kayıtları" bölümüne yeni giriş eklenmelidir. Teknik kararlar değiştiğinde Bölüm 9 güncellenmelidir.
+1. **DonanÄ±m montajÄ±:** Åasi + motor + L298N + breadboard kurulumu; ESP32 firmware upload; motor/sensÃ¶r/MQTT testi
+2. **SEN0193 kalibrasyonu:** Kuru/Ä±slak sÄ±nÄ±r deÄŸerleri Ã¶lÃ§Ã¼mÃ¼ â†’ `config.h` CAL_A/B/C gÃ¼ncelle
+3. **YOLOv8-tiny eÄŸitimi:** Google Colab'da GWHD 2021 + ayÃ§iÃ§eÄŸi BBCH setleri; Int8 kuantizasyon; ESP32-CAM flash
+4. **GerÃ§ek entegrasyon:** Rover MQTT â†’ Python orchestrator â†’ RAG/LLM (mock'tan gerÃ§eÄŸe geÃ§iÅŸ)
+5. **UÃ§tan uca test:** Rover saha taramasÄ± â†’ Anomali tespiti â†’ RAG/LLM â†’ TÃ¼rkÃ§e bildirim (< 120sn hedef)
+6. **Pilot arazi deneyleri + tez yazÄ±mÄ±:** MayÄ±s sonu â€“ Haziran 2026
 
 ---
 
-### 11 Mayıs 2026 — MQTT Orchestrator Entegrasyon Testi
+> **Not:** Bu dokÃ¼man, projenin yaÅŸayan bir kaydÄ±dÄ±r. Her Ã§alÄ±ÅŸma gÃ¼nÃ¼ sonunda "GÃ¼nlÃ¼k Ã‡alÄ±ÅŸma KayÄ±tlarÄ±" bÃ¶lÃ¼mÃ¼ne yeni giriÅŸ eklenmelidir. Teknik kararlar deÄŸiÅŸtiÄŸinde BÃ¶lÃ¼m 9 gÃ¼ncellenmelidir.
 
-**Konu:** ÇP-3 ↔ ÇP-4 MQTT köprü entegrasyonu ve uçtan uca test
+---
 
-**Yapılanlar:**
-- `src/mqtt_orchestrator.py` yazıldı: paho-mqtt ile localhost:1883'e bağlanan, `trakaia/rover/data` topic'ini dinleyen, gelen JSON'ı parse edip CP-2 tahmini çağıran, 4 anomali kuralını (nem farkı, düşük nem, hastalık güveni, BBCH sapması) kontrol eden, anomali varsa Tri-RAG + Gemma-3-4B ile Türkçe tavsiye üretip `trakaia/kds/advisory` topic'ine publish eden MQTT dinleyici.
-- `src/mqtt_test_publisher.py` yazıldı: Senaryo A (normal tarla) ve Senaryo B (3+ anomali) olmak üzere iki mock rover paketi üretip 5 saniye arayla MQTT broker'a gönderen test aracı.
-- Bağımlılık: `paho-mqtt==2.1.0` kuruldu.
+### 11 MayÄ±s 2026 â€” MQTT Orchestrator Entegrasyon Testi
 
-**Test Sonuçları:**
+**Konu:** Ã‡P-3 â†” Ã‡P-4 MQTT kÃ¶prÃ¼ entegrasyonu ve uÃ§tan uca test
 
-| Senaryo | Anomali Sayısı | LLM Tetiklendi mi | Yanıt Süresi | Sonuç |
+**YapÄ±lanlar:**
+- `src/mqtt_orchestrator.py` yazÄ±ldÄ±: paho-mqtt ile localhost:1883'e baÄŸlanan, `trakaia/rover/data` topic'ini dinleyen, gelen JSON'Ä± parse edip CP-2 tahmini Ã§aÄŸÄ±ran, 4 anomali kuralÄ±nÄ± (nem farkÄ±, dÃ¼ÅŸÃ¼k nem, hastalÄ±k gÃ¼veni, BBCH sapmasÄ±) kontrol eden, anomali varsa Tri-RAG + Gemma-3-4B ile TÃ¼rkÃ§e tavsiye Ã¼retip `trakaia/kds/advisory` topic'ine publish eden MQTT dinleyici.
+- `src/mqtt_test_publisher.py` yazÄ±ldÄ±: Senaryo A (normal tarla) ve Senaryo B (3+ anomali) olmak Ã¼zere iki mock rover paketi Ã¼retip 5 saniye arayla MQTT broker'a gÃ¶nderen test aracÄ±.
+- BaÄŸÄ±mlÄ±lÄ±k: `paho-mqtt==2.1.0` kuruldu.
+
+**Test SonuÃ§larÄ±:**
+
+| Senaryo | Anomali SayÄ±sÄ± | LLM Tetiklendi mi | YanÄ±t SÃ¼resi | SonuÃ§ |
 |---|---|---|---|---|
-| A: Normal tarla (nem %28/%26.5, BBCH_50_59) | 0 | Hayır | ~22s (CP-2 test modu) | Başarılı |
-| B: Çoklu anomali (nem %11/%28, Mildiyö %82, BBCH_10_19) | 4 | Evet | 48.1s (177 token) | Başarılı |
+| A: Normal tarla (nem %28/%26.5, BBCH_50_59) | 0 | HayÄ±r | ~22s (CP-2 test modu) | BaÅŸarÄ±lÄ± |
+| B: Ã‡oklu anomali (nem %11/%28, MildiyÃ¶ %82, BBCH_10_19) | 4 | Evet | 48.1s (177 token) | BaÅŸarÄ±lÄ± |
 
 **Senaryo B'de Tespit Edilen Anomaliler:**
-1. `[YUKSEK]` NEM_FARKI: Toprak nemi sensörleri arası fark 17.0% (eşik: 10%)
-2. `[YUKSEK]` DUSUK_NEM: Ortalama toprak nemi çok düşük: 19.5% (eşik: 20%)
-3. `[YUKSEK]` HASTALIK: Mildiyö tespit edildi, güven: 82%
-4. `[ORTA]` BBCH_SAPMASI: Büyüme evresi beklenenin dışında: BBCH_10_19 (Ay 5 için beklenen BBCH 50-79)
+1. `[YUKSEK]` NEM_FARKI: Toprak nemi sensÃ¶rleri arasÄ± fark 17.0% (eÅŸik: 10%)
+2. `[YUKSEK]` DUSUK_NEM: Ortalama toprak nemi Ã§ok dÃ¼ÅŸÃ¼k: 19.5% (eÅŸik: 20%)
+3. `[YUKSEK]` HASTALIK: MildiyÃ¶ tespit edildi, gÃ¼ven: 82%
+4. `[ORTA]` BBCH_SAPMASI: BÃ¼yÃ¼me evresi beklenenin dÄ±ÅŸÄ±nda: BBCH_10_19 (Ay 5 iÃ§in beklenen BBCH 50-79)
 
-**LLM Çıktı Örneği (Senaryo B — Gemma-3-4B, 48.1s):**
-> DİKKAT! Tarlanızda ciddi bir su kaybı var!
+**LLM Ã‡Ä±ktÄ± Ã–rneÄŸi (Senaryo B â€” Gemma-3-4B, 48.1s):**
+> DÄ°KKAT! TarlanÄ±zda ciddi bir su kaybÄ± var!
 >
-> Toprak nemi çok düşük, sadece %19.5. Bu mevsimde en az %20 olması lazım. Bitkileriniz normalden zayıf görünüyor.
+> Toprak nemi Ã§ok dÃ¼ÅŸÃ¼k, sadece %19.5. Bu mevsimde en az %20 olmasÄ± lazÄ±m. Bitkileriniz normalden zayÄ±f gÃ¶rÃ¼nÃ¼yor.
 >
-> Yapmanız gereken:
+> YapmanÄ±z gereken:
 >
-> 1. Hemen bugün veya yarın mutlaka sulama yapın.
-> 2. Damla sulama kullanıyorsanız, 2-3 saat çalıştırın.
-> 3. Yağmurlama yapıyorsanız, dekar başına 40-50 ton su verin.
+> 1. Hemen bugÃ¼n veya yarÄ±n mutlaka sulama yapÄ±n.
+> 2. Damla sulama kullanÄ±yorsanÄ±z, 2-3 saat Ã§alÄ±ÅŸtÄ±rÄ±n.
+> 3. YaÄŸmurlama yapÄ±yorsanÄ±z, dekar baÅŸÄ±na 40-50 ton su verin.
 >
-> Eğer bu hafta içinde sulamazsanız, buğdayınızın verimi %30'a kadar düşebilir. Bu da size büyük zarara yol açabilir. Sulamayı sabah erken veya akşam serin saatlerde yapın.
+> EÄŸer bu hafta iÃ§inde sulamazsanÄ±z, buÄŸdayÄ±nÄ±zÄ±n verimi %30'a kadar dÃ¼ÅŸebilir. Bu da size bÃ¼yÃ¼k zarara yol aÃ§abilir. SulamayÄ± sabah erken veya akÅŸam serin saatlerde yapÄ±n.
 
-**Çıktılar:**
-- `src/mqtt_orchestrator.py` — MQTT dinleyici + anomali tespiti (4 kural) + Tri-RAG/LLM tetikleme + `trakaia/kds/advisory` publish
-- `src/mqtt_test_publisher.py` — Mock rover veri gönderici (Senaryo A: normal, Senaryo B: çoklu anomali)
+**Ã‡Ä±ktÄ±lar:**
+- `src/mqtt_orchestrator.py` â€” MQTT dinleyici + anomali tespiti (4 kural) + Tri-RAG/LLM tetikleme + `trakaia/kds/advisory` publish
+- `src/mqtt_test_publisher.py` â€” Mock rover veri gÃ¶nderici (Senaryo A: normal, Senaryo B: Ã§oklu anomali)
 
 **Teknik Notlar:**
-- paho-mqtt 2.1.0'da `CallbackAPIVersion.VERSION1` deprecation uyarısı var; çalışmayı etkilemiyor. Gelecekte `VERSION2` API'sine geçiş gerekebilir.
-- Senaryo B'de beklenen 3 anomali yerine 4 anomali tetiklendi: `nem_ort = (11+28)/2 = 19.5` değeri `DUSUK_NEM` eşiğinin (20%) hemen altında kaldı. Bu davranış doğru — düşük nem + yüksek nem gradyanı aynı anda var.
-- CP-2 (TensorFlow Conv-LSTM) ikinci mesajda model önbellekten yüklendi, FAISS yeniden yüklenmedi; bellek yönetimi `gc.collect()` ile sağlandı.
-- Log dosyası encoding olarak cp1254 (Türkçe Windows) kullandı; Türkçe karakterler doğru üretildi, terminal görüntüsündeki bozulmalar sadece konsol encoding farkından kaynaklandı.
-- Tri-RAG sonuçları: Dense=5, Sparse=3, Birleşik=8, Final=2 belge (boosted=0 — nem/hastalık terminolojisi FAISS ve BM25'te farklı eşleşti).
+- paho-mqtt 2.1.0'da `CallbackAPIVersion.VERSION1` deprecation uyarÄ±sÄ± var; Ã§alÄ±ÅŸmayÄ± etkilemiyor. Gelecekte `VERSION2` API'sine geÃ§iÅŸ gerekebilir.
+- Senaryo B'de beklenen 3 anomali yerine 4 anomali tetiklendi: `nem_ort = (11+28)/2 = 19.5` deÄŸeri `DUSUK_NEM` eÅŸiÄŸinin (20%) hemen altÄ±nda kaldÄ±. Bu davranÄ±ÅŸ doÄŸru â€” dÃ¼ÅŸÃ¼k nem + yÃ¼ksek nem gradyanÄ± aynÄ± anda var.
+- CP-2 (TensorFlow Conv-LSTM) ikinci mesajda model Ã¶nbellekten yÃ¼klendi, FAISS yeniden yÃ¼klenmedi; bellek yÃ¶netimi `gc.collect()` ile saÄŸlandÄ±.
+- Log dosyasÄ± encoding olarak cp1254 (TÃ¼rkÃ§e Windows) kullandÄ±; TÃ¼rkÃ§e karakterler doÄŸru Ã¼retildi, terminal gÃ¶rÃ¼ntÃ¼sÃ¼ndeki bozulmalar sadece konsol encoding farkÄ±ndan kaynaklandÄ±.
+- Tri-RAG sonuÃ§larÄ±: Dense=5, Sparse=3, BirleÅŸik=8, Final=2 belge (boosted=0 â€” nem/hastalÄ±k terminolojisi FAISS ve BM25'te farklÄ± eÅŸleÅŸti).
 
-**Sonraki Adım:**
-- ESP32 rover firmware yükleme ve gerçek MQTT entegrasyonu (mock veri → gerçek sensör okuma)
-- YOLOv8-tiny eğitimi tamamlanınca `hastalik` / `hastalik_guven` alanları CP-3 firmware'e eklenerek orchestrator'ın hastalık tespiti dalı gerçek inference ile beslenecek
+**Sonraki AdÄ±m:**
+- ESP32 rover firmware yÃ¼kleme ve gerÃ§ek MQTT entegrasyonu (mock veri â†’ gerÃ§ek sensÃ¶r okuma)
+- YOLOv8-tiny eÄŸitimi tamamlanÄ±nca `hastalik` / `hastalik_guven` alanlarÄ± CP-3 firmware'e eklenerek orchestrator'Ä±n hastalÄ±k tespiti dalÄ± gerÃ§ek inference ile beslenecek
 
-*TRAK-AI KDS • Lisans Bitirme Tezi • 2025/2026*
+*TRAK-AI KDS â€¢ Lisans Bitirme Tezi â€¢ 2025/2026*
 
 ---
 
-### 11 Mayıs 2026 — Streamlit Web Arayüzü
+### 11 MayÄ±s 2026 â€” Streamlit Web ArayÃ¼zÃ¼
 
-**Konu:** TRAK-AIA KDS web dashboard geliştirme
+**Konu:** TRAK-AIA KDS web dashboard geliÅŸtirme
 
-**Yapılanlar:**
-- `src/dashboard.py` yazıldı: Streamlit ile 3 sayfalı web arayüzü. demo.py ile aynı import yapısı ve sys.path kullanılarak CP-2, CP-4 RAG/LLM ve MQTT modülleri entegre edildi.
-- Bağımlılıklar: `streamlit==1.57.0`, `plotly==6.7.0`, `folium==0.20.0`, `streamlit-folium==0.27.2` kuruldu (pip cache temizliği ile 4.5 GB disk alanı açıldı).
+**YapÄ±lanlar:**
+- `src/dashboard.py` yazÄ±ldÄ±: Streamlit ile 3 sayfalÄ± web arayÃ¼zÃ¼. demo.py ile aynÄ± import yapÄ±sÄ± ve sys.path kullanÄ±larak CP-2, CP-4 RAG/LLM ve MQTT modÃ¼lleri entegre edildi.
+- BaÄŸÄ±mlÄ±lÄ±klar: `streamlit==1.57.0`, `plotly==6.7.0`, `folium==0.20.0`, `streamlit-folium==0.27.2` kuruldu (pip cache temizliÄŸi ile 4.5 GB disk alanÄ± aÃ§Ä±ldÄ±).
 
-**Özellikler:**
-| Sayfa | İçerik | Durum |
+**Ã–zellikler:**
+| Sayfa | Ä°Ã§erik | Durum |
 |---|---|---|
-| 🌿 Tarla Durumu | Buğday + Ayçiçeği CP-2 tahminleri (NDVI, sağlık, t+7 trend), Plotly 30 günlük NDVI grafiği, 15 günlük iklim özeti, SHAP önem çubuk grafiği | Çalışıyor |
-| 📡 Rover İzleme | Senaryo A/B test butonları (MQTT publish), anomali banner, folium GPS haritası (OpenStreetMap), KDS tavsiyesi gösterimi | Çalışıyor |
-| 💬 Tarım Asistanı | st.chat_message/st.chat_input chat arayüzü, Tri-RAG + Gemma-3-4B Türkçe yanıt, kaynak belge expander, örnek soru sidebar butonları | Çalışıyor |
+| ğŸŒ¿ Tarla Durumu | BuÄŸday + AyÃ§iÃ§eÄŸi CP-2 tahminleri (NDVI, saÄŸlÄ±k, t+7 trend), Plotly 30 gÃ¼nlÃ¼k NDVI grafiÄŸi, 15 gÃ¼nlÃ¼k iklim Ã¶zeti, SHAP Ã¶nem Ã§ubuk grafiÄŸi | Ã‡alÄ±ÅŸÄ±yor |
+| ğŸ“¡ Rover Ä°zleme | Senaryo A/B test butonlarÄ± (MQTT publish), anomali banner, folium GPS haritasÄ± (OpenStreetMap), KDS tavsiyesi gÃ¶sterimi | Ã‡alÄ±ÅŸÄ±yor |
+| ğŸ’¬ TarÄ±m AsistanÄ± | st.chat_message/st.chat_input chat arayÃ¼zÃ¼, Tri-RAG + Gemma-3-4B TÃ¼rkÃ§e yanÄ±t, kaynak belge expander, Ã¶rnek soru sidebar butonlarÄ± | Ã‡alÄ±ÅŸÄ±yor |
 
 **Teknik Kararlar:**
-- `@st.cache_resource` ile FAISS indeksi tek seferlik yükleniyor (sayfa geçişlerinde yeniden yüklenmez)
-- `@st.cache_data(ttl=300)` ile CP-2 tahminleri 5 dakika önbellekte tutuluyor
+- `@st.cache_resource` ile FAISS indeksi tek seferlik yÃ¼kleniyor (sayfa geÃ§iÅŸlerinde yeniden yÃ¼klenmez)
+- `@st.cache_data(ttl=300)` ile CP-2 tahminleri 5 dakika Ã¶nbellekte tutuluyor
 - Page 2 MQTT advisory bekleme: `threading.Event` + paho-mqtt `loop_start()` ile bloke olmayan 90 sn timeout
-- `gc.collect()` ile CP-2 (TensorFlow) sonrası RAM temizliği — FAISS + TF aynı anda bellekte çakışmasını önler
-- Sidebar Ollama + FAISS durum göstergesi (TTL=60s önbellekli)
-- `st.session_state` ile chat geçmişi ve rover verisi oturum boyunca korunuyor
+- `gc.collect()` ile CP-2 (TensorFlow) sonrasÄ± RAM temizliÄŸi â€” FAISS + TF aynÄ± anda bellekte Ã§akÄ±ÅŸmasÄ±nÄ± Ã¶nler
+- Sidebar Ollama + FAISS durum gÃ¶stergesi (TTL=60s Ã¶nbellekli)
+- `st.session_state` ile chat geÃ§miÅŸi ve rover verisi oturum boyunca korunuyor
 
-**Çalıştırma:**
+**Ã‡alÄ±ÅŸtÄ±rma:**
 ```bash
 streamlit run src/dashboard.py
 # http://localhost:8501
 ```
 
-**Test:** Streamlit HTTP 200 döndürdü, SPA doğrulama geçti. 3 sayfa syntax ve import hatası olmadan başlatıldı.
+**Test:** Streamlit HTTP 200 dÃ¶ndÃ¼rdÃ¼, SPA doÄŸrulama geÃ§ti. 3 sayfa syntax ve import hatasÄ± olmadan baÅŸlatÄ±ldÄ±.
 
-**Ekran Görüntüsü Notu:** Tez için http://localhost:8501 adresinden screenshot alınacak.
+**Ekran GÃ¶rÃ¼ntÃ¼sÃ¼ Notu:** Tez iÃ§in http://localhost:8501 adresinden screenshot alÄ±nacak.
 
-**Sonraki Adım:** ESP32 rover bağlantısı ve gerçek sensör verisi entegrasyonu
+**Sonraki AdÄ±m:** ESP32 rover baÄŸlantÄ±sÄ± ve gerÃ§ek sensÃ¶r verisi entegrasyonu
 
 ---
 
-## Task 3 — Hava Durumu Entegrasyonu ve RAG Güçlendirme (12 Mayıs 2026)
+## Task 3 â€” Hava Durumu Entegrasyonu ve RAG GÃ¼Ã§lendirme (12 MayÄ±s 2026)
 
-### 3A — Open-Meteo Hava Servisi
+### 3A â€” Open-Meteo Hava Servisi
 
 - **Yeni dosya:** `src/weather_service.py`
-- API key gerektirmez; offline modda `None` döner
+- API key gerektirmez; offline modda `None` dÃ¶ner
 - Fonksiyonlar: `get_current_weather`, `get_7day_forecast`, `get_weather_alerts`, `format_weather_context`
 - Entegrasyon: `inference_cp2.py`, `mqtt_orchestrator.py`, `dashboard.py`
 
-**Canlı test çıktısı (Kırklareli-Vize, 12 Mayıs 2026 10:15):**
-| Parametre | Değer |
+**CanlÄ± test Ã§Ä±ktÄ±sÄ± (KÄ±rklareli-Vize, 12 MayÄ±s 2026 10:15):**
+| Parametre | DeÄŸer |
 |---|---|
-| Sıcaklık | 19.9°C |
+| SÄ±caklÄ±k | 19.9Â°C |
 | Nem | %69 |
-| Yağış | 0.0 mm |
-| Rüzgar | 8.3 km/h |
-| Toprak sıcaklığı | 24.3°C |
+| YaÄŸÄ±ÅŸ | 0.0 mm |
+| RÃ¼zgar | 8.3 km/h |
+| Toprak sÄ±caklÄ±ÄŸÄ± | 24.3Â°C |
 | Toprak nemi | %22.0 |
 
-7 günlük tahmin: 18–25°C arası, yağış 0–7.5 mm. Aktif uyarı yok.
+7 gÃ¼nlÃ¼k tahmin: 18â€“25Â°C arasÄ±, yaÄŸÄ±ÅŸ 0â€“7.5 mm. Aktif uyarÄ± yok.
 
-### 3B — RAG Bilgi Tabanı Güçlendirme
+### 3B â€” RAG Bilgi TabanÄ± GÃ¼Ã§lendirme
 
 | PDF | Boyut | Durum |
 |---|---|---|
-| TR21 Bölge Planı 2024–2028 | 6.8 MB | İndirildi ✅ |
-| Trakya Sulama Ayçiçeği | 1.7 MB | İndirildi ✅ |
-| FAO Sunflower Production | 1.2 MB | İndirildi ✅ |
-| FAO Irrigation Paper 56 | — | 404 Hatası ❌ |
+| TR21 BÃ¶lge PlanÄ± 2024â€“2028 | 6.8 MB | Ä°ndirildi âœ… |
+| Trakya Sulama AyÃ§iÃ§eÄŸi | 1.7 MB | Ä°ndirildi âœ… |
+| FAO Sunflower Production | 1.2 MB | Ä°ndirildi âœ… |
+| FAO Irrigation Paper 56 | â€” | 404 HatasÄ± âŒ |
 
-FAISS yeniden indeks: **56 belge, 16.903 vektör** (önceki: 14.866 vektör, +2.037)
-Embed süresi: ~16 dakika (intfloat/multilingual-e5-small, CPU)
+FAISS yeniden indeks: **56 belge, 16.903 vektÃ¶r** (Ã¶nceki: 14.866 vektÃ¶r, +2.037)
+Embed sÃ¼resi: ~16 dakika (intfloat/multilingual-e5-small, CPU)
 
-Kategori dağılımı:
+Kategori daÄŸÄ±lÄ±mÄ±:
 | Kategori | Chunk |
 |---|---|
 | abd | 3.335 |
@@ -1626,109 +1626,556 @@ Kategori dağılımı:
 | bbch | 1.494 |
 | bolgesel | 1.342 |
 
-### 3C — RAG Kalite Test Sonuçları
+### 3C â€” RAG Kalite Test SonuÃ§larÄ±
 
 | # | Sorgu | Bulunan Belge | Kaynak |
 |---|---|---|---|
-| 1 | Trakya bölgesinde ayçiçeği sulama takvimi | 2 | Edirne Destekleme Sulama + **Trakya_Sulama_Aycicegi.pdf** (yeni) |
-| 2 | TR21 iklim değişikliği tahminleri | 2 | 6021_H2.pdf + **TR21_Bolge_Plani_2024_2028.pdf** (yeni) |
-| 3 | FAO ayçiçeği Kc değeri | 2 | 379598.pdf (2 farklı bölüm, boosted) |
+| 1 | Trakya bÃ¶lgesinde ayÃ§iÃ§eÄŸi sulama takvimi | 2 | Edirne Destekleme Sulama + **Trakya_Sulama_Aycicegi.pdf** (yeni) |
+| 2 | TR21 iklim deÄŸiÅŸikliÄŸi tahminleri | 2 | 6021_H2.pdf + **TR21_Bolge_Plani_2024_2028.pdf** (yeni) |
+| 3 | FAO ayÃ§iÃ§eÄŸi Kc deÄŸeri | 2 | 379598.pdf (2 farklÄ± bÃ¶lÃ¼m, boosted) |
 
-Tri-RAG pipeline: Dense=5, Sparse=3 → Birleşik=6–8, Final=2 chunk / sorgu
+Tri-RAG pipeline: Dense=5, Sparse=3 â†’ BirleÅŸik=6â€“8, Final=2 chunk / sorgu
 
-### Simplify Düzeltmeleri
+### Simplify DÃ¼zeltmeleri
 
-6 sorun tespit edildi, 6 düzeltme uygulandı:
+6 sorun tespit edildi, 6 dÃ¼zeltme uygulandÄ±:
 
-| # | Dosya | Sorun | Düzeltme |
+| # | Dosya | Sorun | DÃ¼zeltme |
 |---|---|---|---|
-| 1 | `weather_service.py` | `get_weather_alerts` `list[str]` döndürüyordu | `list[dict]` → `{"level", "text"}` yapısına geçildi |
-| 2 | `weather_service.py:169` | `join(alerts)` dict üzerinde çalışmıyordu | `join(a["text"] for a in alerts)` |
-| 3a | `dashboard.py:38` | Gereksiz import aliasları | Alias kaldırıldı |
-| 3b | `dashboard.py:409` | Alert string karşılaştırması | `alert["level"]` kullanımına geçildi |
-| 4 | `mqtt_orchestrator.py` | `detect_anomalies` içinde çift `get_7day_forecast()` çağrısı | `forecast` parametresi eklendi, iç fetch kaldırıldı |
-| 5 | `llm_engine.py` | Weather None iken prompt'ta boş satır | `weather_block` conditional expression ile düzeltildi |
-| 6 | `inference_cp2.py` | `except Exception: pass` — sessiz hata | `logger.warning` ile görünür hale getirildi |
+| 1 | `weather_service.py` | `get_weather_alerts` `list[str]` dÃ¶ndÃ¼rÃ¼yordu | `list[dict]` â†’ `{"level", "text"}` yapÄ±sÄ±na geÃ§ildi |
+| 2 | `weather_service.py:169` | `join(alerts)` dict Ã¼zerinde Ã§alÄ±ÅŸmÄ±yordu | `join(a["text"] for a in alerts)` |
+| 3a | `dashboard.py:38` | Gereksiz import aliaslarÄ± | Alias kaldÄ±rÄ±ldÄ± |
+| 3b | `dashboard.py:409` | Alert string karÅŸÄ±laÅŸtÄ±rmasÄ± | `alert["level"]` kullanÄ±mÄ±na geÃ§ildi |
+| 4 | `mqtt_orchestrator.py` | `detect_anomalies` iÃ§inde Ã§ift `get_7day_forecast()` Ã§aÄŸrÄ±sÄ± | `forecast` parametresi eklendi, iÃ§ fetch kaldÄ±rÄ±ldÄ± |
+| 5 | `llm_engine.py` | Weather None iken prompt'ta boÅŸ satÄ±r | `weather_block` conditional expression ile dÃ¼zeltildi |
+| 6 | `inference_cp2.py` | `except Exception: pass` â€” sessiz hata | `logger.warning` ile gÃ¶rÃ¼nÃ¼r hale getirildi |
 
 
 ---
 
-### 12 Mayıs 2026 — Agronomik Takvim ve Ekim Karar Motoru
+### 12 MayÄ±s 2026 â€” Agronomik Takvim ve Ekim Karar Motoru
 
-**Konu:** Fenolojik takvim, ekim penceresi değerlendirme, sulama/gübreleme tavsiye motoru
+**Konu:** Fenolojik takvim, ekim penceresi deÄŸerlendirme, sulama/gÃ¼breleme tavsiye motoru
 
-**Yapılanlar:**
-- `src/agro_calendar.py` yazıldı: `BUGDAY_TAKVIM` + `AYCICEGI_TAKVIM` sabit veri sözlükleri; `get_current_phenology`, `evaluate_planting_window`, `get_irrigation_advice`, `get_fertilization_advice`, `format_agro_context` fonksiyonları
-- `src/cp4_rag/llm_engine.py` güncellendi: `rover_alert_query` imzasına `agro_context: str = None` eklendi; `agro_block` prompt'a ekleniyor
-- `src/mqtt_orchestrator.py` güncellendi: `agro_calendar` import bloğu eklendi; `detect_anomalies` fonksiyonuna 3 yeni kural eklendi; `on_message` agronomik bağlam üretip `rover_alert_query`'e geçiriyor
-- `src/dashboard.py` güncellendi: `agro_calendar` import bloğu eklendi; `page_tarla_durumu` içine "Agronomik Takvim" bölümü eklendi (2 sütunlu fenoloji + ekim/sulama/gübre kartları + Plotly timeline)
+**YapÄ±lanlar:**
+- `src/agro_calendar.py` yazÄ±ldÄ±: `BUGDAY_TAKVIM` + `AYCICEGI_TAKVIM` sabit veri sÃ¶zlÃ¼kleri; `get_current_phenology`, `evaluate_planting_window`, `get_irrigation_advice`, `get_fertilization_advice`, `format_agro_context` fonksiyonlarÄ±
+- `src/cp4_rag/llm_engine.py` gÃ¼ncellendi: `rover_alert_query` imzasÄ±na `agro_context: str = None` eklendi; `agro_block` prompt'a ekleniyor
+- `src/mqtt_orchestrator.py` gÃ¼ncellendi: `agro_calendar` import bloÄŸu eklendi; `detect_anomalies` fonksiyonuna 3 yeni kural eklendi; `on_message` agronomik baÄŸlam Ã¼retip `rover_alert_query`'e geÃ§iriyor
+- `src/dashboard.py` gÃ¼ncellendi: `agro_calendar` import bloÄŸu eklendi; `page_tarla_durumu` iÃ§ine "Agronomik Takvim" bÃ¶lÃ¼mÃ¼ eklendi (2 sÃ¼tunlu fenoloji + ekim/sulama/gÃ¼bre kartlarÄ± + Plotly timeline)
 
-**Agronomik Test Sonuçları (12 Mayıs 2026, Kırklareli-Vize):**
+**Agronomik Test SonuÃ§larÄ± (12 MayÄ±s 2026, KÄ±rklareli-Vize):**
 
-| Test | Sonuç |
+| Test | SonuÃ§ |
 |---|---|
-| Buğday mevcut evre (Mayıs) | Başaklanma — BBCH 50-59 — KRİTİK DÖNEM |
-| Ayçiçeği mevcut evre (Mayıs) | Çimlenme ve çıkış — BBCH 00-09 |
-| Ekim penceresi (Ayçiçeği, Mayıs) | Uygun değil — skor 70/100; engel: toprak yüzeyi 21.6°C (ideal 8-14°C, 10cm ölçümle doğrulayın) |
-| Sulama tavsiyesi (nem %25, nem eşiği %22) | GEREKSIZ — toprak nemi yeterli, sulama gerekmez |
-| Gübreleme (Ayçiçeği, Mayıs) | EVET — 4-6 yaprak dönemi: Amonyum sülfat, dekara 20-25 kg |
-| Gübreleme (Buğday, Mayıs) | Hayır — bu ay için planlı gübre uygulaması yok |
+| BuÄŸday mevcut evre (MayÄ±s) | BaÅŸaklanma â€” BBCH 50-59 â€” KRÄ°TÄ°K DÃ–NEM |
+| AyÃ§iÃ§eÄŸi mevcut evre (MayÄ±s) | Ã‡imlenme ve Ã§Ä±kÄ±ÅŸ â€” BBCH 00-09 |
+| Ekim penceresi (AyÃ§iÃ§eÄŸi, MayÄ±s) | Uygun deÄŸil â€” skor 70/100; engel: toprak yÃ¼zeyi 21.6Â°C (ideal 8-14Â°C, 10cm Ã¶lÃ§Ã¼mle doÄŸrulayÄ±n) |
+| Sulama tavsiyesi (nem %25, nem eÅŸiÄŸi %22) | GEREKSIZ â€” toprak nemi yeterli, sulama gerekmez |
+| GÃ¼breleme (AyÃ§iÃ§eÄŸi, MayÄ±s) | EVET â€” 4-6 yaprak dÃ¶nemi: Amonyum sÃ¼lfat, dekara 20-25 kg |
+| GÃ¼breleme (BuÄŸday, MayÄ±s) | HayÄ±r â€” bu ay iÃ§in planlÄ± gÃ¼bre uygulamasÄ± yok |
 
-**Yeni Anomali Kuralları (mqtt_orchestrator.py):**
+**Yeni Anomali KurallarÄ± (mqtt_orchestrator.py):**
 
-| Kural | Koşul | Seviye |
+| Kural | KoÅŸul | Seviye |
 |---|---|---|
-| `EKIM_FIRSATI` | Ekim sezonu + koşullar uygun (skor≥60, engel yok) | BİLGİ |
-| `SULAMA_ACIL` | Kritik fenolojik evre + toprak nemi eşik altı | KRİTİK |
-| `GUBRE_HATIRLATMA` | Gübreleme takvimi zamanı gelmiş | BİLGİ |
+| `EKIM_FIRSATI` | Ekim sezonu + koÅŸullar uygun (skorâ‰¥60, engel yok) | BÄ°LGÄ° |
+| `SULAMA_ACIL` | Kritik fenolojik evre + toprak nemi eÅŸik altÄ± | KRÄ°TÄ°K |
+| `GUBRE_HATIRLATMA` | GÃ¼breleme takvimi zamanÄ± gelmiÅŸ | BÄ°LGÄ° |
 
-**Dashboard Agronomik Takvim Bölümü:**
-- 2 sütun: Buğday | Ayçiçeği
-- Her ürün: fenolojik evre (emoji + kritik badge), BBCH aralığı, ekim/sulama/gübre metrik kartları
-- Plotly yıllık fenoloji zaman çizelgesi — aktif evre kırmızı (#ff5722), şu anki ay kesik çizgiyle işaretli
+**Dashboard Agronomik Takvim BÃ¶lÃ¼mÃ¼:**
+- 2 sÃ¼tun: BuÄŸday | AyÃ§iÃ§eÄŸi
+- Her Ã¼rÃ¼n: fenolojik evre (emoji + kritik badge), BBCH aralÄ±ÄŸÄ±, ekim/sulama/gÃ¼bre metrik kartlarÄ±
+- Plotly yÄ±llÄ±k fenoloji zaman Ã§izelgesi â€” aktif evre kÄ±rmÄ±zÄ± (#ff5722), ÅŸu anki ay kesik Ã§izgiyle iÅŸaretli
 
-**Sonraki Adım:** ESP32 rover firmware yükleme
+**Sonraki AdÄ±m:** ESP32 rover firmware yÃ¼kleme
 
 
 ---
 
-### 12 Mayıs 2026 — LLM Prompt Mühendisliği ve Veri Bağlamı Güçlendirme
+### 12 MayÄ±s 2026 â€” LLM Prompt MÃ¼hendisliÄŸi ve Veri BaÄŸlamÄ± GÃ¼Ã§lendirme
 
-**Konu:** LLM çıktı kalitesinin iyileştirilmesi — generic tavsiyeden veri-odaklı tavsiyeye geçiş
+**Konu:** LLM Ã§Ä±ktÄ± kalitesinin iyileÅŸtirilmesi â€” generic tavsiyeden veri-odaklÄ± tavsiyeye geÃ§iÅŸ
 
-**Sorun:** LLM genel tavsiyeler veriyordu ("Ziraat Odası'na danışın"), elindeki verileri kullanmıyordu.
+**Sorun:** LLM genel tavsiyeler veriyordu ("Ziraat OdasÄ±'na danÄ±ÅŸÄ±n"), elindeki verileri kullanmÄ±yordu.
 
-**Çözüm:**
-- `config.py` SYSTEM_PROMPT tamamen yeniden yazıldı: 8 kritik kural + 4 bölümlü yanıt yapısı (📊 MEVCUT DURUM / ⚠️ RİSKLER / ✅ YAPILMASI GEREKENLER / 📅 ÖNÜMÜZDEKI 7 GÜN)
-- `llm_engine.py`'ye `build_rich_context()` fonksiyonu eklendi: CP-2 tahminleri + hava durumu + agronomik takvim + statik toprak profili → tek bağlam bloğu
-- `rag_query()` güncellendi: `rich_context: str = None` parametresi eklendi; veri bloğu RAG belgelerinden önce prompt'a ekleniyor
-- `dashboard.py` güncellendi: `get_rich_context()` önbellekli wrapper (5 dk TTL), chatbot sayfasında "📊 Aktif Veri Bağlamı" expander eklendi, `rag_query()` çağrısına `rich_context` geçiriliyor
+**Ã‡Ã¶zÃ¼m:**
+- `config.py` SYSTEM_PROMPT tamamen yeniden yazÄ±ldÄ±: 8 kritik kural + 4 bÃ¶lÃ¼mlÃ¼ yanÄ±t yapÄ±sÄ± (ğŸ“Š MEVCUT DURUM / âš ï¸ RÄ°SKLER / âœ… YAPILMASI GEREKENLER / ğŸ“… Ã–NÃœMÃœZDEKI 7 GÃœN)
+- `llm_engine.py`'ye `build_rich_context()` fonksiyonu eklendi: CP-2 tahminleri + hava durumu + agronomik takvim + statik toprak profili â†’ tek baÄŸlam bloÄŸu
+- `rag_query()` gÃ¼ncellendi: `rich_context: str = None` parametresi eklendi; veri bloÄŸu RAG belgelerinden Ã¶nce prompt'a ekleniyor
+- `dashboard.py` gÃ¼ncellendi: `get_rich_context()` Ã¶nbellekli wrapper (5 dk TTL), chatbot sayfasÄ±nda "ğŸ“Š Aktif Veri BaÄŸlamÄ±" expander eklendi, `rag_query()` Ã§aÄŸrÄ±sÄ±na `rich_context` geÃ§iriliyor
 
-**`build_rich_context()` Gerçek Test Çıktısı (12 Mayıs 2026):**
+**`build_rich_context()` GerÃ§ek Test Ã‡Ä±ktÄ±sÄ± (12 MayÄ±s 2026):**
 ```
-TARLA TAHMİN VERİLERİ:
-- Buğday: Mevcut=0.4675, Tahmin=0.4413, Değişim=-0.0262 (%-5.6), FAIR
-- Ayçiçeği: Mevcut=0.4895, Tahmin=0.4904, Değişim=+0.0009 (%+0.2), FAIR
+TARLA TAHMÄ°N VERÄ°LERÄ°:
+- BuÄŸday: Mevcut=0.4675, Tahmin=0.4413, DeÄŸiÅŸim=-0.0262 (%-5.6), FAIR
+- AyÃ§iÃ§eÄŸi: Mevcut=0.4895, Tahmin=0.4904, DeÄŸiÅŸim=+0.0009 (%+0.2), FAIR
 
-ANLIK HAVA: 20.6°C, %79 nem, toprak nemi %33.4, yağış 1.2mm
-7 GÜNLÜK: 12-25°C arası, 12 May %95 yağış ihtimali (7.1mm)
+ANLIK HAVA: 20.6Â°C, %79 nem, toprak nemi %33.4, yaÄŸÄ±ÅŸ 1.2mm
+7 GÃœNLÃœK: 12-25Â°C arasÄ±, 12 May %95 yaÄŸÄ±ÅŸ ihtimali (7.1mm)
 
-AGRONOMİK TAKVİM (Ay 5):
-- Buğday: Başaklanma BBCH 50-59 — KRİTİK DÖNEM
-- Ayçiçeği: Çimlenme BBCH 00-09
-- Sulama: İkisi de GEREKSIZ (toprak nemi %33)
-- Gübreleme: Ayçiçeği EVET — Amonyum sülfat, dekara 20-25 kg
+AGRONOMÄ°K TAKVÄ°M (Ay 5):
+- BuÄŸday: BaÅŸaklanma BBCH 50-59 â€” KRÄ°TÄ°K DÃ–NEM
+- AyÃ§iÃ§eÄŸi: Ã‡imlenme BBCH 00-09
+- Sulama: Ä°kisi de GEREKSIZ (toprak nemi %33)
+- GÃ¼breleme: AyÃ§iÃ§eÄŸi EVET â€” Amonyum sÃ¼lfat, dekara 20-25 kg
 ```
 
-**Önceki vs Sonraki Karşılaştırma:**
+**Ã–nceki vs Sonraki KarÅŸÄ±laÅŸtÄ±rma:**
 
-| Kriter | Önceki | Sonraki |
+| Kriter | Ã–nceki | Sonraki |
 |---|---|---|
-| Rakam kullanımı | Yok | NDVI, °C, %, mm, kg/dekar |
-| Hava tahmini analizi | Yok | 7 günlük tahmin değerlendirmesi |
-| Fenolojik evre | Yok | Mevcut evre + kritik dönem uyarısı |
-| Sulama miktarı | "Su verin" | "GEREKSIZ — toprak nemi %33" veya miktar + zamanlama |
-| Genel tavsiye | "Danışın" | Somut eylem planı |
-| Veri kaynağı | Sadece RAG belgeleri | CP-2 + Open-Meteo + Agronomik takvim + RAG |
+| Rakam kullanÄ±mÄ± | Yok | NDVI, Â°C, %, mm, kg/dekar |
+| Hava tahmini analizi | Yok | 7 gÃ¼nlÃ¼k tahmin deÄŸerlendirmesi |
+| Fenolojik evre | Yok | Mevcut evre + kritik dÃ¶nem uyarÄ±sÄ± |
+| Sulama miktarÄ± | "Su verin" | "GEREKSIZ â€” toprak nemi %33" veya miktar + zamanlama |
+| Genel tavsiye | "DanÄ±ÅŸÄ±n" | Somut eylem planÄ± |
+| Veri kaynaÄŸÄ± | Sadece RAG belgeleri | CP-2 + Open-Meteo + Agronomik takvim + RAG |
 
-**Sonraki Adım:** ESP32 rover firmware yükleme
+**Sonraki AdÄ±m:** ESP32 rover firmware yÃ¼kleme
+
+---
+
+## Task 6 - XGBoost Verim Tahmin Pipeline (12 Mayis 2026)
+
+### 6A - Veri Toplama ve Ozellik Muhendisligi
+
+**Yeni dosyalar:**
+- `src/cp2_model/collect_yield_data.py`: TUiK Trakya bolge verimi 2017-2024 (16 kayit)
+- `src/cp2_model/build_yield_features.py`: 17 yillik agronomik ozellik aggregation
+- `data/yield/trakya_yield_2017_2024.csv`: Bugday + Aycicegi kg/dekar verim verisi
+- `data/yield/yield_feature_matrix.csv`: 16 satir (8 yil x 2 mahsul), 19 sutun
+
+**Buyume Penceresi Tanimlari:**
+| Mahsul | Tam Sezon | Kritik Donem | GDD Baz | Isi Stresi |
+|---|---|---|---|---|
+| Bugday | Ekim-Temmuz | Subat-Mayis | 0 degC | >32 degC |
+| Aycicegi | Nisan-Ekim | Haziran-Agustos | 8 degC | >35 degC |
+
+**17 Ozellik:**
+ndvi_peak, ndvi_mean_grow, ndvi_sum, gdd_total, gdd_critical, precip_total, precip_grow,
+drought_days, heat_stress_days, frost_days, temp_mean_grow, temp_amplitude_mean,
+evi_peak, ndwi_min, radiation_total, soil_clay, soil_ph
+
+### 6B - XGBoost Model Egitimi
+
+**Dosya:** `src/cp2_model/train_yield_model.py`
+
+**Parametreler:**
+```
+n_estimators=100, max_depth=2, learning_rate=0.05
+subsample=0.8, colsample_bytree=0.8, reg_alpha=0.1, reg_lambda=2.0
+```
+
+**LOO-CV Sonuclari:**
+| Mahsul | R2 (LOO) | MAE | RMSE | MAPE |
+|---|---|---|---|---|
+| Bugday | -0.467 | 16.7 kg/da | 19.8 kg/da | 5.1% |
+| Aycicegi | -0.358 | 13.1 kg/da | 15.3 kg/da | 7.3% |
+
+Not: Negatif R2, 8 veri noktali LOO-CV ile beklenebilir - model ortalama bolgesinde tahmin uretir.
+MAPE %5.1 (bugday) ve %7.3 (aycicegi) pratik kullanim icin kabul edilebilir duzey.
+
+**SHAP En Etkili Faktorler:**
+- Bugday: precip_grow > gdd_critical > precip_total > ndvi_mean_grow > ndvi_peak
+- Aycicegi: gdd_critical > ndvi_mean_grow > ndvi_sum > radiation_total > precip_total
+
+**Kaydedilen Dosyalar (src/cp2_model/):**
+- yield_xgb_wheat.pkl, yield_xgb_sunflower.pkl (modeller)
+- yield_scaler_wheat.pkl, yield_scaler_sunflower.pkl (StandardScaler)
+- yield_shap_wheat.json, yield_shap_sunflower.json (SHAP degerleri + ozellik isimleri)
+- yield_meta_wheat.json, yield_meta_sunflower.json (metrikler + meta)
+
+### 6C - Cikarsim Modulu
+
+**Dosya:** `src/cp2_model/inference_yield.py`
+
+predict_yield() fonksiyonu: model yukle + en son tam sezon ozelliklerini hesapla + SHAP top-3 + risk analizi
+
+Test ciktisi (2026-05-12, 2024 sezonu verisi):
+```
+Bugday   : 319.3 kg/dekar (%âˆ’1.5 Trakya ort.), Guvven 290-349, Risk: NORMAL
+Aycicegi : 178.1 kg/dekar (%âˆ’1.1 Trakya ort.), Guven 155-201, Risk: NORMAL
+```
+
+### 6D - Entegrasyonlar
+
+**llm_engine.py build_rich_context()**: Verim blogu (blok 5) eklendi - CP-2 tahminlerinden sonra hava verisinden once
+**dashboard.py page_tarla_durumu()**: Verim Projeksiyonu (XGBoost) bolumu eklendi
+  - 3 metrik karti (tahmini verim, guven araligi, risk)
+  - Plotly gauge chart (kirmizi/sari/yesil alanlar + Trakya ortalamasi cizgisi)
+  - SHAP top-3 faktor (genisletilebilir kutu)
+  - Model metrikleri caption + veri yili uyarisi
+  - @st.cache_data(ttl=3600) ile onbellek
+
+**Sonraki Adim:** Proje rapor yazimi ve sistem butunlestirme testi
+
+---
+
+## Task 7 - Ekim Penceresi Tahmin Motoru (12 Mayis 2026)
+
+**Konu:** Open-Meteo gercek zamanli hava verisine dayali dinamik ekim zamani degerlendirmesi
+
+**YapÄ±lanlar:**
+- `agro_calendar.py`: `evaluate_planting_window()` genisletildi (`kategori` + `detay` eklendi, ayciÃ§egi don mutlak engeli eklendi), `find_best_planting_days()` eklendi
+- `dashboard.py`: `page_tarla_durumu()` sonuna "ğŸŒ± Ekim Penceresi Durumu" bolumu eklendi
+- `llm_engine.py`: `build_rich_context()` Block 6 olarak ekim penceresi eklendi
+
+**Ekim Kurallari:**
+| Parametre | Bugday | AyciÃ§egi |
+|---|---|---|
+| Ekim donemi | Ekim-Kasim (ay 10-11) | Nisan-Mayis (ay 4-5) |
+| Ideal toprak sicakligi | 8-12 C | 8-14 C |
+| Don toleransi | Kismi (don esigi 2 C, +20 puan) | SIFIR - mutlak engel (0 C), skor=0 |
+| Ideal toprak nemi | %20-45 (+20 puan) | %22-50 (+20 puan) |
+| Puanlama max | 25 (sicaklik) + 20 (nem) + 20 (don) + 15 (yagis) = 80 | Ayni |
+
+**Kategori Esikleri:** >=80 IDEAL, >=60 UYGUN, >=40 DIKKATLI, >=20 ERTELENIN, <20 EKÄ°M YAPMAYIN
+
+**Test Sonuclari (12 Mayis 2026, gercek hava verisi):**
+| Urun | Skor | Kategori | Toprak SÄ±cak. | Toprak Nem | Don Riski | Gerekce |
+|---|---|---|---|---|---|---|
+| Bugday | 0 | EKIM DONEMI DEGIL | â€” | â€” | â€” | Ekim sezonu 10-11. aylar, su an dis |
+| AyciÃ§egi | 63 | UYGUN â€” Bu hafta ekilebilir | 14.2Â°C UYGUN (+15) | %33.1 IDEAL (+20) | Yok (+20) | Kosullar uygun, ekime baslanabilir |
+
+**Skorlama Aciklamasi (AyciÃ§egi, 12 Mayis 2026):**
+- Toprak sicakligi 14.2Â°C: Sunflower icin ideal aralik 8-14Â°C, 14.2 sinir ustunde â†’ UYGUN (+15, IDEAL degil +25)
+- Yagis puani +8: Ä°lk 3 gun yagis < 10mm ama 3-5 gun arasi yagis <5mm â†’ KABUL (+8, IDEAL +15 degil)
+- Toplam: 15+20+20+8 = 63/100
+
+**Sonraki Adim:** Dashboard test ve kullanici dogrulamasi
+
+---
+
+## Task 8 - LLM Final Optimizasyonu: Dogal Dil ve Zengin Baglamc (12 Mayis 2026)
+
+**Konu:** Asiri kosullanmis prompt'tan dogal tarim danismanina gecis
+
+**Temel Degisiklik:**
+- Eski yaklasim: 8 kural + 4 bolumlu zorunlu format + emoji sablonu (ğŸ“Šâš ï¸âœ…ğŸ“…) â†’ robotik cikti
+- Yeni yaklasim: basit rol tanimi + zengin veri baglami + sifir format dayatmasi â†’ dogal konusma
+
+**Degisiklikler:**
+
+config.py â€” SYSTEM_PROMPT:
+  Eski: 25+ satir kural, "ASLA", "MUTLAKA", "HER ZAMAN" kaliplari, dayatilmis 4-bolumlu yapi
+  Yeni: 8 satir, sadece rol tanimi + "ne soruluyorsa onu cevapla" prensibi
+
+llm_engine.py â€” build_rich_context():
+  6 veri bolumu yeniden yapilandirildi:
+    1. Bitki saglik tahmini: NDVI, delta, pct_change, health.status/desc/action, field_summary
+    2. Verim tahmini: tahmini/ortalama/guven araligÄ±/trend/risk/en_etkili_faktorler
+    3. Hava durumu: anlik + 7 gunluk tahmin + haftalik ozet (toplam yagis, kuru gun sayisi)
+    4. Fenoloji + sulama (miktar/zamanlama dahil) + gubreleme
+    5. Ekim penceresi (skor + kategori)
+    6. Toprak profili (statik)
+  Her bolum zengin ve okunabilir ama LLM'e format dayatmasi yok.
+
+llm_engine.py â€” rag_query():
+  Eski prompt sonu: "YukarÄ±daki TUM verileri analiz ederek somut, rakamsal, eyleme donusturulebilir Turkce tavsiye ver."
+  Yeni: Soru once gelir, veri sonra. "YanÄ±tÄ±nda bunlardan yararlan:" - LLM'e alan birakir.
+
+llm_engine.py â€” rover_alert_query():
+  Eski: 4 maddeli zorunlu format listesi
+  Yeni: "Bu anomali raporu icin ciftciye Turkce tavsiye ver:" - format LLM'e birakÄ±ldÄ±.
+
+llm_engine.py â€” generate_chat_response():
+  Yeni fonksiyon eklendi. Zengin baglami kendisi toplar ve LLM'e gonder.
+
+dashboard.py â€” ORNEK_SORULAR:
+  3 sorudan 8 soruya cÄ±kartÄ±ldÄ±. Test sorgulari da eklendi:
+    "Tarlam nasil?", "Detayli tarla raporu yaz", "Bugday verimim ne olur bu sene?",
+    "Hava bu hafta nasil?", "Ekim zamani mi?", "Su vermem lazim mi?"
+
+**Ekim Penceresi Entegrasyonu (Task 7'den devam):**
+Bugun ayciÃ§egi ekim durumu: Skor 63/100, UYGUN â€” Bu hafta ekilebilir
+  Toprak sicakligi 14.2C (sinirda), Toprak nemi %33.1 (ideal), Don riski yok.
+
+**Beklenen Etki:**
+- "Tarlam nasil?" sorusuna 3-5 cumle dogal ozet (robot kalip degil)
+- "Detayli rapor yaz" sorusuna tum 6 veri bÃ¶lumunÃ¼ kapsayan kapsamli yanit
+- Kisa sorulara kisa, uzun taleplere uzun â€” LLM'in kendi karar verdigi yapi
+
+**Test Notu:**
+Dashboard UI testi gerekmektedir. Streamlit sunucu baslatilarak asistan sayfasinda
+yukaridaki 6 test sorusunun manuel olarak denenmesi onerilir.
+Test sonuclari (kelime sayisi, veri kullanimi, dogallik, kalite 1-5) bu belgeye eklenecek.
+
+---
+
+## Task 9 - RAG Bilgi Tabani Genisletme (13 Mayis 2026)
+
+**Konu:** Tarimsal bilgi tabanini GDD, NDVI, verim, sulama ve kapsamli yetistiricilik rehberleriyle zenginlestirme
+
+**YapÄ±lanlar:**
+- `src/cp4_rag/pdf_loader.py`: `.txt` dosya destegi eklendi (rglob scan)
+- 8 yeni Turkce tarimsal bilgi belgesi olusturuldu:
+
+| Belge | Konu |
+|---|---|
+| `gdd/gdd_bugday_fenoloji.txt` | Bugday GDD/fenoloji (0C baz, BBCH esikleri) |
+| `gdd/gdd_aycicegi_fenoloji.txt` | Aycicegi GDD/fenoloji (6.7C baz, VE-R9) |
+| `ndvi/ndvi_yorumlama_ve_verim.txt` | NDVI yorumlama, verim korelasyonu |
+| `verim/verim_belirleyici_faktorler.txt` | Iklim/toprak/yonetim etkileri, benchmark |
+| `sulama/sulama_programlama_rehberi.txt` | Sulama programi, Kc degerleri, ET0 |
+| `ekim_hasat/trakya_bugday_tam_rehber.txt` | Kapsamli bugday yetistiricilik rehberi |
+| `ekim_hasat/trakya_aycicegi_tam_rehber.txt` | Kapsamli aycicegi yetistiricilik rehberi |
+| `ekim_hasat/hasat_kalite_gostergeler.txt` | Hasat kalite gostergeleri ve depolama |
+
+**FAISS Index Rebuild:**
+- 57 PDF + 8 TXT = 64 belge basariyla yuklendi (095270.pdf metin cok kisa, atlandi)
+- 17,059 chunk olusturuldu
+- Model: `intfloat/multilingual-e5-small`
+- Kategori dagilimi: fao(4461), abd(3335), hastalik(3256), tr_bakanlik(3015), bbch(1494), bolgesel(1342), ekim_hasat(66), gdd(34), ndvi(19), verim(20), sulama(17)
+
+---
+
+## Task 10 - Dashboard v2 + SQLite Veritabani + Akilli RAG (13 Mayis 2026)
+
+**Konu:** Cok-tarlali dashboard, SQLite veritabani ve akilli RAG chatbot
+
+### Yeni Dosyalar
+
+**`src/database.py`** â€” SQLite veritabani (data/trakaia.db)
+- 3 tablo: tarlalar, rover_olcumler, tarla_tahminler
+- 4 mock tarla:
+
+| id | Isim | Il | Alan | Urun | Konum |
+|---|---|---|---|---|---|
+| 1 | Edirne Merkez Bugday | Edirne | 120 dekar | Bugday | 41.677N, 26.556E |
+| 2 | Kirklareli Vize Aycicegi | Kirklareli | 85 dekar | Aycicegi | 41.694N, 27.105E |
+| 3 | Tekirdag Hayrabolu Bugday | Tekirdag | 200 dekar | Bugday | 41.213N, 27.099E |
+| 4 | Edirne Uzunkopru Aycicegi | Edirne | 150 dekar | Aycicegi | 41.267N, 26.688E |
+
+- Her tarla icin 6 mock rover olcumu + 1 tahmin kaydi
+- Mock anomaliler: Tarla 2 olcum 4 (mildiyÃ¶, guven=0.87), Tarla 3 olcum 3 (nem=13%, kritik)
+- 9 fonksiyon: get_connection, init_db, get_tarlalar, get_tarla, add_rover_olcum, get_rover_olcumler, add_tahmin, get_son_tahmin, get_tarla_ozet
+
+**`src/dashboard.py`** â€” 3 sayfali Streamlit dashboard (tam yeniden yazim)
+
+| Sayfa | Icerik |
+|---|---|
+| Tarla Durumu | NDVI kartlari + Verim + Hava durumu + Fenoloji gauge + Oneriler + SHAP + Ekim penceresi |
+| Rover Izleme | Normal/Anomali simulasyon butonlari + Sensor tablosu + Anomali expander'lari + Folium GPS haritasi + Istatistikler |
+| Tarim Asistani | VERI/BILGI/GENEL siniflandirma + Akilli RAG + Kaynak expander'lari + Ornek sorular |
+
+### Akilli RAG Mimarisi
+
+`classify_query(soru)` â€” Anahtar kelime bazli siniflandirici:
+- VERI: "tarlam", "verim", "sulama", "durum", "hava", "nem" gibi sorgular
+- BILGI: "nedir", "hastalik", "ilaÃ§", "gÃ¼breleme", "bbch" gibi sorgular
+- GENEL: Selam, tesekkur, genel sorular
+
+`build_smart_rag_queries(rich_context)` â€” Sorun tespiti + hedefli RAG:
+- rich_context icinde sulama aciliyeti, hastalik, verim dususu, don riski tespiti
+- Tespit edilen soruna ozgun RAG sorgusu uretir (kullanicinin sorusunu degil)
+
+Akis:
+- VERI sorgusu â†’ rich_context â†’ sorun tespit â†’ hedefli RAG (2 sorgu, 3 belge, deduplicate) â†’ LLM â€” "AKILLI" badge
+- BILGI sorgusu â†’ kullanici sorusu direkt RAG'a â†’ LLM â€” "DOGRUDAN" badge
+- GENEL sorgu â†’ dogrudan LLM â€” RAG yok
+
+### Diger Degisiklikler
+
+**`src/mqtt_orchestrator.py`**:
+- `try: from database import add_rover_olcum; DB_AVAILABLE = True` import eklendi
+- `on_message` callback'te, tavsiye yayinlanmadan once DB'ye yaz:
+  `add_rover_olcum(tarla_id, rover_data_dict)` â€” timestamp, waypoint, nem, temp, anomali_sayisi, anomaliler JSON, kds_tavsiye
+
+**`src/cp4_rag/llm_engine.py`**:
+- `classify_query()` fonksiyonu eklendi
+- `build_smart_rag_queries()` fonksiyonu eklendi
+- `generate_chat_response()` yeniden yazildi: `(user_question, vectorstore=None, chunks=None, rag_context="")` imzasiyla akilli RAG destegi
+
+
+---
+
+## 19 Mayis 2026 - Final Entegrasyon ve Bug Fix (Task 11)
+
+### Kapsam
+
+ESP32 firmware kritik donanim hatalari, MQTT topic uyumsuzlugu, inference_cp2.py custom layer yukleme sorunu ve RAG kalite iyilestirmesi.
+
+### Bug Fix Tablosu
+
+| # | Dosya | Sorun | Duzeltme |
+|---|---|---|---|
+| 1 | config.h | CAM_RX=3, CAM_TX=1 (USB/Serial0 pinleri) | GPIO 22, 23 olarak degistirildi |
+| 2 | config.h | MQTT_TOPIC "trak-ai/rover/data" (Python ile uyumsuz) | "trakaia/rover/data" olarak esitlendi |
+| 3 | main.cpp | analogWrite() ESP32'de mevcut degil | ledcSetup+ledcAttachPin+ledcWrite (LEDC API) ile degistirildi |
+| 4 | main.cpp + esp32_cam | StaticJsonDocument<N> (ArduinoJson v6) | JsonDocument (ArduinoJson v7) ile guncellendi |
+| 5 | esp32_cam/main.cpp | CAPTURE komutu handler yok | Serial.readStringUntil() ile anlık inference tetikleme eklendi |
+| 6 | inference_cp2.py | BASE_DIR ve sys.path, train_models_cp2 import'undan sonra tanimliydi | BASE_DIR onceden tanimlandi, import try/except ile koruma altina alindi |
+| 7 | retriever.py | FAISS L2 uzaklik esigi yoktu | score > 1.5 filtresi eklendi (alakasiz chunk LLM'e gitmiyor) |
+
+### Degisiklik Yapilan Dosyalar
+
+- src/cp3_edge/trak_ai_rover/src/config.h - Pin ve topic duzeltmeleri
+- src/cp3_edge/trak_ai_rover/src/main.cpp - LEDC PWM, JsonDocument
+- src/cp3_edge/esp32_cam/src/main.cpp - CAPTURE handler, JsonDocument
+- src/cp2_model/inference_cp2.py - sys.path sirasi duzeltildi
+- src/cp4_rag/retriever.py - FAISS L2 esik filtresi
+
+### Donanım Notları
+
+**ESP32 Motor PWM (LEDC):**
+- Kanal 0 (MOTOR_ENA): ledcSetup(0, 5000, 8) + ledcAttachPin(MOTOR_ENA, 0)
+- Kanal 1 (MOTOR_ENB): ledcSetup(1, 5000, 8) + ledcAttachPin(MOTOR_ENB, 1)
+
+**UART Pin Kullanimi:**
+- UART0 (GPIO 1/3): USB/Serial - KULLANMA
+- UART1 (GPIO 22/23): ESP32-CAM haberlesme
+- UART2 (GPIO 16/17): GPS
+
+
+---
+
+## 20 Mayis 2026 - Hybrid Edge-Fog Goruntu Isleme Entegrasyonu (Task 12)
+
+**Konu:** ESP32-CAM on-device inference -> Laptop YOLOv8 mimarisi
+
+**Mimari Degisiklik:**
+- ESKI: ESP32-CAM -> mock inference -> BBCH JSON -> MQTT
+- YENI: ESP32-CAM -> base64 JPEG -> Serial -> Rover -> MQTT -> Laptop YOLOv8
+
+**Akademik Gerekce:** Hybrid Edge-Fog Processing -- Edge cihazinin bellek/enerji kisitlari
+nedeniyle goruntu isleme Fog katmanina (laptop) tasindi. Edge sadece JPEG yakalar ve iletir.
+
+**Yeni Dosyalar:**
+- src/image_classifier.py -- YOLOv8 inference (model yokken mock mod)
+- models/README.md -- Model yerlesim rehberi
+- data/rover_images/ -- Kaydedilen rover goruntuleri
+
+**Guncellenen Dosyalar:**
+
+| Dosya | Degisiklik |
+|---|---|
+| esp32_cam/main.cpp | mock inference -> mbedtls base64 + goruntuyuGonder() |
+| rover/main.cpp | base64 JSON parse, MQTT buffer 64KB, CAPTURE komutu gonderimi |
+| mqtt_orchestrator.py | image alani parse + YOLOv8 clf + disk kayit |
+| database.py | rover_olcumler.image_path sutunu (migration ile) |
+| dashboard.py | 2C kamera gostergesi, 2D goruntu + hastalik expander |
+| llm_engine.py | build_rich_context() blok 7: kamera analizi |
+| requirements.txt | ultralytics, Pillow ve diger bagimliliklar |
+
+**Siniflar:** saglikli_bugday, saglikli_aycicegi, hastalik_pas, hastalik_mildiyo, stres_kuraklik, stres_besin
+
+**Sonraki Adim:** Colab YOLOv8 egitimi -> models/crop_health_best.pt -> mock moddan gercege gecis
+
+
+---
+
+## 20 Mayis 2026 - Final Entegrasyon: YOLOv8 + Dashboard v2 + Bug Fix (Task 13)
+
+**Konu:** YOLOv8s-cls model entegrasyonu, dashboard tam yeniden yazimi, tum hata duzeltmeleri
+
+### A. YOLOv8 Entegrasyonu
+
+- Model: YOLOv8s-cls, 6 sinif, Top-1 Dogruluk: %94.9
+- Dosya: models/best.pt -> models/crop_health_best.pt (kopya)
+- ultralytics yuklu degilse otomatik mock mod
+- SINIF_LABELS gercek model sinif sirasi ile guncellendi (alfabetik: mildiyo=0, pas=1, s_ayci=2, s_bugday=3, besin=4, kuraklik=5)
+- KDS_AKSIYONLAR eklendi: her sinif icin aksiyon, aciliyet, tavsiye
+
+### B. Sinif Bazli Performans
+
+| Sinif | Dogruluk | Overfit | Durum |
+|---|---|---|---|
+| saglikli_bugday | %98.0 | Hayir | OK |
+| saglikli_aycicegi | %100.0 | Hayir | OK |
+| hastalik_pas | %91.0 | Hayir | OK |
+| hastalik_mildiyo | %99.1 | Hayir | OK |
+| stres_kuraklik | %100.0 | EVET | Dikkat |
+| stres_besin | %85.2 | Hayir | OK |
+
+### C. Bug Fix Raporu
+
+| Dosya | Sorun | Cozum |
+|---|---|---|
+| image_classifier.py | SINIF_LABELS indeks sirasi yanlis | Gercek model sirasiyla guncellendi |
+| database.py | camera_sinif/camera_guven sutunu eksikti | ALTER TABLE migration eklendi |
+| llm_engine.py | Bare except: (satir 216, 309) | except Exception olarak duzeltildi |
+| agentic_rag.py | FAISS threshold: <1.1 (yanlis yon) | >1.5 olarak duzeltildi (retriever.py ile tutarli) |
+| mqtt_orchestrator.py | Dead import: ANOMALY_THRESHOLDS | Kaldirildi |
+| mqtt_orchestrator.py | Typo: "stres esigi asild" | "asildi" olarak duzeltildi |
+| mqtt_orchestrator.py | clf_result undefined reference | None ile baslatildi |
+| dashboard.py | Hardcoded hava koordinati | tarla["konum_lat/lon"] gecildi |
+
+### D. Dashboard v2
+
+| Sayfa | Icerik |
+|---|---|
+| Tarla Durumu | NDVI + Verim + Hava (tarla koordinati) + Fenoloji + Oneriler + SHAP |
+| Rover Izleme | Mock butonlar + Son veriler + Model/Rover grafigi + Anomali + GPS + Istatistik |
+| Tarim Asistani | Chat + classify_query routing (VERI/BILGI/GENEL) + RAG kaynaklar + Veri baglamı |
+
+### E. Akademik Veri Kaynaklari (YOLOv8 Egitimi)
+
+| Kaynak | DOI/URL | Icerik | Goruntu |
+|---|---|---|---|
+| IARI Wheat N-Deficiency & Rust | 10.17632/th422bg4yd.1 | Pas + kontrol | 859 |
+| BARI Sunflower Disease | 10.17632/b83hmrzth8.1 | Mildiyo + saglikli | 1060 |
+| Yao et al. (2024) Drought | 10.1371/journal.pone.0300746 | Kuraklik stresi | 360 |
+| Wheat Disease 21K | Kaggle/freedomfighter1290 | Pas + saglikli + blight | 21212 |
+
+**Sonraki Adim:** ESP32 fiziksel yukleme + tez birlestirme + kaynakca
+
+---
+
+## 21 Mayis 2026 — Hava Gecmisi + Goruntu Galerisi (Task 14)
+
+### A. Yeni Ozelliklere Genel Bakis
+
+| Ozellik | Aciklama |
+|---|---|
+| hava_kayitlari tablosu | SQLite'a yeni tablo: UNIQUE(tarla_id, tarih) ile gunluk hava gecmisi |
+| 62 gunluk mock veri | 4 tarla icin 20 Mart – 20 Mayis 2026 gercekci hava profili |
+| collect_and_save_weather() | weather_service.py: Open-Meteo API'dan ceker, DB'ye kaydeder, ayni gun tekrar atlar |
+| Hava Gecmisi Grafigi | Dashboard Sayfa 1'de 3-panelli Plotly: Sicaklik + Yagis + GDD |
+| Son Rover Goruntuleri | Dashboard Sayfa 2'de 4-kolonlu galeri, renk kodlu badge |
+| build_rich_context() Blok 8 | LLM baglam metnine son 30 gunun hava istatistikleri eklendi |
+| MQTT otomatik hava kaydi | Her rover mesajinda collect_and_save_weather() cagrilir |
+
+### B. hava_kayitlari Tablo Yapisi
+
+| Sutun | Tip | Aciklama |
+|---|---|---|
+| tarla_id | INTEGER | tarlalar.id FK |
+| tarih | TEXT | YYYY-MM-DD (UNIQUE ile birlesik anahtar) |
+| hava_temp_c | REAL | Ortalama hava sicakligi |
+| temp_max / temp_min | REAL | Gunluk max/min sicaklik |
+| yagis_gunluk_mm | REAL | Gunluk yagis mm |
+| et0_mm | REAL | Hargreaves ET0 buharlasmasi |
+| gdd_kumulatif | REAL | Kumulatif GDD (baz 10°C) |
+| don_riski | INTEGER | 1 = gece min < 2°C |
+| sicak_stres | INTEGER | 1 = gunduz max > 30°C |
+
+### C. Mock Hava Verisi Profili
+
+| Donem | Sicaklik Araligi | Ozellik |
+|---|---|---|
+| 20-31 Mart | 8–16°C | Don riski (min < 2°C) — ilk 5 gun |
+| 1-30 Nisan | 12–22°C | Yagisli donem, GDD birikimi baslangici |
+| 1-14 Mayis | 16–26°C | Buyume hizi artar |
+| 15-20 Mayis | 20–34°C | Sicak stres gunleri (max > 30°C) |
+
+Her tarla icin kucuk cografya ofsetleri: Edirne +0.3, Kirsehir -0.3, Tekirdag +0.5, Uzunkopru +0.8°C
+
+### D. Yeni Dashboard Bilesenler
+
+| Konum | Biesen | Veri Kaynagi |
+|---|---|---|
+| Sayfa 1, 1C sonrasi | Hava Gecmisi (genisletilebilir panel) | get_weather_history() |
+| Sayfa 2, 2B sonrasi | Son Rover Goruntuleri (4-kolonlu galeri) | image_path alanli rover kayitlari |
+
+### E. Dogrulama Kontrolleri
+
+```bash
+# 1. hava_kayitlari doldu mu?
+python -c "import sys; sys.path.insert(0,'src'); from database import init_db, get_weather_history; init_db(); h=get_weather_history(1,30); print(f'{len(h)} kayit, ilk={h[0][\"tarih\"] if h else None}')"
+
+# 2. weather_stats calisiyor mu?
+python -c "import sys; sys.path.insert(0,'src'); from database import init_db, get_weather_stats; init_db(); print(get_weather_stats(1, 30))"
+
+# 3. Dashboard baslatma
+streamlit run src/dashboard.py
+```

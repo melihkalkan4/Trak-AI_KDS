@@ -22,7 +22,6 @@ CP4_DIR = os.path.join(PROJECT_ROOT, "src", "cp4_rag")
 sys.path.insert(0, CP2_DIR)
 sys.path.insert(0, CP4_DIR)
 
-from config import ANOMALY_THRESHOLDS
 from build_index import load_faiss_index
 from retriever import tri_rag_retrieve, format_context
 from llm_engine import check_ollama_connection, rover_alert_query
@@ -49,6 +48,28 @@ try:
     _AGRO_AVAILABLE = True
 except ImportError:
     _AGRO_AVAILABLE = False
+
+try:
+    from database import add_rover_olcum, add_tahmin
+    DB_AVAILABLE = True
+except ImportError:
+    DB_AVAILABLE = False
+
+try:
+    from weather_service import collect_and_save_weather as _collect_weather
+    _COLLECT_WEATHER_AVAILABLE = True
+except ImportError:
+    _COLLECT_WEATHER_AVAILABLE = False
+
+try:
+    from image_classifier import classify_rover_image
+    _IMG_CLF_AVAILABLE = True
+except ImportError:
+    _IMG_CLF_AVAILABLE = False
+
+# Rover görüntülerini kaydedecek klasör
+_IMAGE_DIR = os.path.join(PROJECT_ROOT, "data", "rover_images")
+os.makedirs(_IMAGE_DIR, exist_ok=True)
 
 # MQTT ayarlari
 MQTT_BROKER = "localhost"
@@ -155,7 +176,7 @@ def detect_anomalies(payload: dict, cp2_result: dict, weather: dict = None, fore
         if temp_c > 38:
             anomalies.append({
                 "tip": "SICAK_STRESI",
-                "aciklama": f"Hava sicakligi {temp_c:.1f}C — bitki stres esigi asild (esik: 38C)",
+                "aciklama": f"Hava sicakligi {temp_c:.1f}C — bitki stres esigi asildi (esik: 38C)",
                 "seviye": "YUKSEK",
             })
 
@@ -272,6 +293,35 @@ def on_message(client, userdata, msg):
         f"BBCH: {payload.get('bbch_sinif', '?')}"
     )
 
+    # Görüntü sınıflandırma (image alanı varsa)
+    image_path = None
+    clf_result = None
+    if _IMG_CLF_AVAILABLE and payload.get("image"):
+        try:
+            import base64 as _b64
+            clf_result = classify_rover_image(payload["image"])
+            # Sınıflandırma sonucunu detect_anomalies() ile uyumlu hale getir
+            if clf_result.get("hastalik"):
+                payload["hastalik"] = clf_result["hastalik"]
+                payload["hastalik_guven"] = clf_result["guven"]
+            elif clf_result.get("sinif") in ("stres_kuraklik", "stres_besin"):
+                payload["hastalik"] = clf_result["sinif"]
+                payload["hastalik_guven"] = clf_result["guven"]
+            # Görüntüyü diske kaydet
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            img_fname = f"rover_{payload.get('tarla_id', 1)}_{ts}.jpg"
+            img_fpath = os.path.join(_IMAGE_DIR, img_fname)
+            with open(img_fpath, "wb") as _f:
+                _f.write(_b64.b64decode(payload["image"]))
+            image_path = img_fpath
+            log(
+                f"Goruntu kaydedildi: {img_fname} | "
+                f"Sonuc: {clf_result['sinif']} ({clf_result['guven']:.2f})"
+                + (" [MOCK]" if clf_result.get("mock") else "")
+            )
+        except Exception as e:
+            log(f"Goruntu siniflandirma hatasi (devam): {e}")
+
     # CP-2 tahmini (test modu)
     cp2_result = None
     try:
@@ -367,6 +417,43 @@ def on_message(client, userdata, msg):
     payload_out = json.dumps(result, ensure_ascii=False)
     client.publish(PUBLISH_TOPIC, payload_out)
     log(f"Tavsiye yayinlandi: {PUBLISH_TOPIC} ({len(payload_out)} byte)")
+
+    if DB_AVAILABLE:
+        tarla_id = int(payload.get("tarla_id", 1))
+        rover_data = {
+            "timestamp": datetime.now().isoformat(),
+            "waypoint_id": payload.get("waypoint_id"),
+            "waypoint_label": payload.get("waypoint_label"),
+            "gps_lat": payload.get("gps_lat"),
+            "gps_lon": payload.get("gps_lon"),
+            "nem_1_pct": payload.get("nem_1_pct"),
+            "nem_2_pct": payload.get("nem_2_pct"),
+            "hava_temp_c": payload.get("hava_temp_c"),
+            "hava_nem_pct": payload.get("hava_nem_pct"),
+            "bbch_sinif": payload.get("bbch_sinif"),
+            "bbch_guven": payload.get("bbch_guven"),
+            "hastalik": payload.get("hastalik"),
+            "hastalik_guven": payload.get("hastalik_guven"),
+            "anomali_sayisi": len(anomalies),
+            "anomaliler": json.dumps([a["aciklama"] for a in anomalies], ensure_ascii=False) if anomalies else None,
+            "kds_tavsiye": advisory if anomalies else None,
+            "image_path": image_path,
+            "camera_sinif": clf_result.get("sinif") if clf_result else None,
+            "camera_guven": clf_result.get("guven") if clf_result else None,
+        }
+        try:
+            rec_id = add_rover_olcum(tarla_id, rover_data)
+            log(f"DB'ye kaydedildi: rover_olcumler.id={rec_id}, tarla_id={tarla_id}")
+        except Exception as e:
+            log(f"DB kayit hatasi (devam ediliyor): {e}")
+
+        # Hava verisi otomatik kaydet (gun basi, ayni gun varsa atlar)
+        if _COLLECT_WEATHER_AVAILABLE:
+            try:
+                _collect_weather(tarla_id)
+            except Exception:
+                pass
+
     log("-" * 50)
 
 

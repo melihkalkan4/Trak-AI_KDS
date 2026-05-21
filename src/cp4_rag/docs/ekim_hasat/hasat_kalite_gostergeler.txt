@@ -1,0 +1,231 @@
+HASAT KALİTE GÖSTERGELERİ VE HASAT SONRASI YÖNETİM REHBERİ
+Trakya Bölgesi Buğday ve Ayçiçeği — Kalite ve Depolama Standartları
+
+=========================================================
+BUĞDAY HASAT KALİTE GÖSTERGELERİ
+=========================================================
+
+1. Düşme Sayısı (Falling Number — FN):
+   Hasat kalitesinin en kritik göstergesi. Alfa-amilaz enzim aktivitesini ölçer.
+   Standart: ≥ 350 saniye → ekmeklik kalitesi
+   200–350 saniye → sınır, bazı alıcılar kabul eder (düşük fiyat)
+   < 200 saniye → çimlenme başlamış, yemlik değere düşer, ciddi fiyat kaybı
+
+   Trakya'da FN riski:
+   - Hasat döneminde (Haziran) yağış alan buğday: Her ıslak gün FN ~20–40 düşürebilir
+   - 3+ gün yağış = FN < 250 riski yüksek
+   - Sıcak ve nemli başak dönemi: Preharvest sprouting (öntaneli çimlenme) başlar
+
+   FN'yi koruma stratejileri:
+   - Hasat zamanlamayı hava tahminine göre yap (3 kuru gün bul)
+   - Geç hasat yapma: Her hafta gecikme FN'yi riske atar
+   - Hızlı kurutma ve depolama: Yüksek nemde enzim aktivitesi artmaya devam eder
+
+2. Hektolitre Ağırlığı (Test Weight / HLW):
+   Standart: ≥ 76 kg/hl → ekmeklik kalitesi (TSE ve ticaret normu)
+   72–76 kg/hl → kabul edilebilir, fiyat indirimi olabilir
+   < 72 kg/hl → 1. sınıf ekmeklik değil, yemlik/karma yem sektörü
+
+   HLW'yi düşüren faktörler:
+   - Su stresi dane dolumunda: kırışık, küçük dane
+   - Erken hasat: dane tam dolmamış
+   - Pas hastalığı (özellikle kahverengi pas): dane büzüşür
+   - Aşırı yüksek sıcaklık çiçeklenme–dane dolumunda (>30°C): ısı stres
+   - Geç don: başak veya taze dane hasarı → boş/hafif dane
+
+3. Protein Oranı (%):
+   Ekmeklik: ≥ %12.5 (kuru madde bazında)
+   İyi kalite: %13–15
+   Trakya ortalama (kuru tarım): %11–13
+   Sulu tarım: genellikle %11–12 (sulamada verim artar ama protein seyrelebilir)
+
+   Proteini etkileyen faktörler:
+   - Geç azot uygulaması (sapa kalkma + bayrak yaprak dönemi): protein artırır
+   - Yüksek dane dolumu süresi ve düşük sıcaklık: yüksek nişasta → düşük protein oranı
+   - Kuraklık stresi paradoksu: verim düşer ama protein oranı yükselir
+
+4. Dane Nemi (Hasat Nemi):
+   Birleştirici ile hasat ideali: %13–15
+   > %16: kurutma zorunlu, depolamaya girmemeli
+   < %13: ideale yakın ama aşırı kurumuşsa taneler kırılabilir (HLW'ye dikkat)
+
+   Trakya'da tipik hasat nemi: Haziran sonu %12–16 (yıla göre değişir)
+
+5. Yabancı Madde ve Kırık Dane:
+   Standart: Toplam yabancı madde ≤ %2 (birinci sınıf ekmeklik)
+   Kırık dane: ≤ %1
+   Yüksek kırık dane nedeni: Birleştirici döven açıklığı çok dar, hız yüksek
+
+=========================================================
+BUĞDAY HASAT ÖNCESİ VE SONRASI KALİTE RİSKLERİ
+=========================================================
+
+Preharvest Sprouting (Öntaneli Çimlenme):
+  Risk koşulları: FN düşüklüğünün ana nedeni
+  - Fizyolojik olumdan sonra yağmur + ılık hava (15–25°C)
+  - Başakta ıslak kalma 48 saat+
+  Trakya'da risk dönemi: Haziran 15 – Temmuz 10 (hasat beklenirken yağış)
+  Belirti: Başakta görünür embriyo gelişimi, başak rengi esmer
+  Önlem: Erken hasat (nem %16–17 olsa bile), hızlı kurutma
+
+Fusarium Başak Yanıklığı ve DON Toksin:
+  Hasat kalitesini doğrudan etkileyen patojen.
+  Koşullar: Çiçeklenme döneminde (BBCH 60–65) nemli ve sıcak hava (>15°C gece)
+  Trakya riski: Nisan–Mayıs yağışlı yıllarda yüksek
+  DON (Deoksinivalenol) toksin sınırı: ≤ 1.25 mg/kg (ekmeklik un için AB normu)
+  Belirti: Başakta beyazlama, pembe spor kitleleri, hafif taneler
+  Önlem: Çiçeklenme döneminde fungisit (karbendazim, tebukonazol)
+
+Hasat Öncesi Pas Yoğunluğu:
+  Sarı pas veya kahverengi pas %20+ yaprak alanı etkiler → HLW 2–5 kg/hl düşer
+  Bu durumda protein oranı da olumsuz etkilenir.
+
+Hasat Gecikmesi Riski:
+  Her 1 hafta gecikme (olum sonrası): %2–5 dane dökülme + kuş zararı
+  Dane kaybı = 5–15 kg/da görünmez kayıp
+  FN bozulması yağmurlu yıllarda hızlanır
+
+=========================================================
+BUĞDAY KALİTE SINIFLARI (TÜRKİYE NORMLARİ)
+=========================================================
+
+1. Sınıf Ekmeklik:
+  FN ≥ 350 sn | HLW ≥ 76 kg/hl | Protein ≥ %12 | Nem ≤ %14
+  Trakya çiftçi fiyatı: Referans fiyatın %100'ü
+
+2. Sınıf Ekmeklik:
+  FN 250–350 sn | HLW 72–76 kg/hl | Nem ≤ %14
+  Fiyat: %90–95
+
+3. Sınıf / Yemlik:
+  FN < 250 sn VEYA HLW < 72 kg/hl
+  Fiyat: %70–80 (yem sektörü)
+
+Yüksek Kalite Premium:
+  Protein ≥ %14 + FN ≥ 400: bazı alıcılar %5–10 prim öder
+  Yüksek oleik buğday çeşitleri: Sanayi pazarında fark yaratır
+
+=========================================================
+AYÇİÇEĞİ HASAT KALİTE GÖSTERGELERİ
+=========================================================
+
+1. Yağ Oranı (%):
+   Kalite standardı: ≥ %42 (ham dane bazında)
+   İdeal aralık: %44–48
+   Yüksek oleik çeşitler: Oleik asit ≥ %80 (premium fiyat, uzun raf ömrü)
+
+   Yağ oranını düşüren faktörler:
+   - Erken hasat (fizyolojik olum tamamlanmamış): yağ birikimi sürmekte
+   - R5–R7 döneminde su stresi: yağ sentezi bozulur
+   - Yüksek sıcaklık stres (>38°C) çiçeklenme döneminde: polar lipit bozunması
+   - Hasat sonrası bekleme (R9 sonrası): Her 1 hafta gecikme yağ oranı %1–2 azalır (oksidatif)
+
+2. Dane Nemi (Hasat Nemi):
+   Birleştirici ile hasat: %12–14
+   Depo için: ≤ %8 (uzun vadeli)
+   ≤ %10: kısa vadeli depo (1–3 ay)
+   > %14: kurutma zorunlu, depolama tehlikeli
+
+   Trakya'da tipik hasat nemi: Ağustos ayında %10–15 arası (tabla kuruluğuna göre)
+
+3. Dane Büyüklüğü ve Doluluk:
+   Tam olmayan tabla merkezleri (boş dane): Bor eksikliği veya polinasyon yetersizliği
+   Kırık/ezik dane: Birleştirici ayarı → döven açıklığını artır
+   1000 dane ağırlığı: 55–75 g (çeşide göre)
+
+4. Serbest Yağ Asidi (Free Fatty Acid — FFA):
+   Standart: ≤ %2 FFA (rafineriye kabul)
+   Yüksek nem + uzun depo → FFA artışı
+   Hasarlanmış taneler (böcek, küf) → FFA hızla yükselir
+
+5. Oleik Asit (Yüksek Oleik Çeşitler):
+   Standart: ≥ %75 oleik asit (HO çeşit sertifikasyonu)
+   ≥ %80: premium piyasa (margarin, sanayi yağı, fast food)
+   Trakya'da HO çeşit penetrasyonu artıyor (Clearfield+HO hibridler)
+
+=========================================================
+AYÇİÇEĞİ HASAT ZAMANLAMA VE KALİTE İLİŞKİSİ
+=========================================================
+
+Olgunluk Göstergeleri (Hasat Kararı):
+  1. Tabla arka yüzü: Tamamen sarı-kahverengi → %95 olgunluk
+  2. Tabla ön yüzü: %70–80'i sarı-kahverengi
+  3. Tabla sapı: Kurumaya başlamış, hafif sarı-kahverengi
+  4. Daneler: Thumbnailing testinde sert, kırmızı-siyah çizgili çeşide özgü renk
+  5. Yapraklar: Alt yapraklar tamamen sarı, üst yapraklar sararıyor
+
+  Erken Hasat (Tablo %60 sarı):
+  - Nem %16–18 → zorunlu kurutma
+  - Yağ oranı %38–42 (henüz tam birikmemiş)
+  - Avantaj: Kuş zararını önler, tabla kırılmasını önler
+
+  Geç Hasat (Tablo %90+ sarı, Ağustos sonu):
+  - Nem %8–10 → kurutma gerekmeyebilir
+  - Yağ oranı %44–48 (maksimum)
+  - Risk: Tabla kırılması (lodging), kuş zararı, yağ bozunması başlar
+
+  Trakya Hasat Penceresi: 15 Ağustos – 20 Eylül (25 Nisan ekiminde)
+
+Kuş Zararı Yönetimi:
+  Ağustos ortasından itibaren kargalar ve sığırcıklar tablo tüketir.
+  Yüksek baskı alanlarında: Erken hasat + hızlı kurutma
+  Kayıp tahmini: %5–15 (geciken hasatta daha fazla)
+
+=========================================================
+KURUTMA VE DEPOLAMA STANDARTLARI
+=========================================================
+
+Buğday Kurutma:
+  Hasat nemi %15–20 ise: Mekanik kurutma ile %13'e indir
+  Kurutma sıcaklığı: ≤ 40°C (yüksek sıcaklık protein ve gluten kalitesini bozar)
+  ≤ 55°C kısa süreli kabul edilir ancak FN etkilenebilir
+  Kurutma maliyeti: Yüksek nem → hem yakıt hem kalite kaybı riski
+
+  Uzun Vadeli Depo için Standartlar:
+  Nem: ≤ %12 (6 ay+)
+  Sıcaklık: ≤ 15°C (böcek üremesi ve küf aktivasyonu engellenir)
+  Nem oranı düşükse bile: Düzenli aerasyon (ısı birikimini önler)
+  İlk 2 ayda: 15 günde bir sıcaklık ölçümü; ısınma başlarsa hemen havalandır
+
+Ayçiçeği Kurutma:
+  Hasat nemi %14+ ise: Kurutma şart
+  Kurutma sıcaklığı: ≤ 35°C (yağ kalitesi etkilenmesin)
+  Yüksek oleik çeşitler daha stabil: ≤ 40°C tolere eder
+  Depo nemi hedefi: ≤ %8 (uzun vadeli)
+
+  Depo Sıcaklık Yönetimi:
+  ≤ 15°C: İdeal (yağ oksidasyonu yavaşlar)
+  Yüksek nem + sıcaklık + oksijen: FFA artışı, kokuşma riski
+  Aerasyon fanı gece çalıştırma: Depo içi sıcaklığı dış havaya eşitler
+
+=========================================================
+HASAT SONRASI TOPRAK VE TARLA YÖNETİMİ
+=========================================================
+
+Anız Yönetimi:
+  Anız yakmayın:
+  - Organik madde (azot, karbon) yakılır → toprak kalitesi düşer
+  - Biyolojik aktivite azalır
+  - Yangın riski
+  - Sclerotinia/Phoma (ayçiçeği) sporları çevreye yayılabilir
+  Doğru yöntem: Anız parçalayıcı ile toprağa karıştır
+  Fayda: Organik madde geri kazanımı, hastalık döngüsü kısalır, toprak işlenebilirliği iyileşir
+
+Rotasyon Kararları Hasat Sonrası:
+  Ayçiçeği sonrası: Zorunlu olarak 4 yıl rotasyon (Sclerotinia sklerotu toprakta kalır)
+  Buğday sonrası: 2–3 yıl aradan sonra buğday iyi, sürekli buğday pas ve septorya biriktirir
+  En iyi sonraki bitki seçimi:
+  - Ayçiçeği sonrası: Buğday, arpa (farklı hastalık spektrumu)
+  - Buğday sonrası: Ayçiçeği, mısır (dikkat: Fusarium mısır anızında kalır)
+
+Hasat Kalite Özeti — Karar Tablosu:
+
+| Gösterge | İdeal | Sınır | Risk |
+|---|---|---|---|
+| Buğday FN | ≥350 sn | 250–350 | <250 |
+| Buğday HLW | ≥76 kg/hl | 72–76 | <72 |
+| Buğday Protein | ≥12.5% | 11–12.5 | <11 |
+| Buğday Nem (hasat) | 13–15% | 15–17 | >17 |
+| Ayçiçeği Yağ | ≥44% | 40–44 | <40 |
+| Ayçiçeği Nem (hasat) | 10–13% | 13–15 | >15 |
+| Ayçiçeği FFA | ≤1.5% | 1.5–3 | >3 |

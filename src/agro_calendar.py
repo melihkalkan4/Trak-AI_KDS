@@ -112,14 +112,37 @@ def get_current_phenology(crop_type: str, month: int = None) -> dict:
     }
 
 
+def _skor_kategori(skor: int) -> str:
+    if skor >= 80:
+        return "EKİM İÇİN İDEAL — Hemen ekin!"
+    if skor >= 60:
+        return "UYGUN — Bu hafta ekilebilir"
+    if skor >= 40:
+        return "DİKKATLİ — Koşullar tam ideal değil"
+    if skor >= 20:
+        return "ERTELEYİN — Bekleyin"
+    return "EKİM YAPMAYIN"
+
+
 def evaluate_planting_window(
     crop_type: str,
-    weather_data: dict,
-    forecast: list = None,
+    weather_current: dict = None,
+    weather_forecast: list = None,
 ) -> dict:
-    """Mevcut koşullara göre ekim kararı verir (0-100 skor)."""
+    """Gerçek zamanlı hava verisine dayalı dinamik ekim kararı (0-100 skor).
+
+    Bileşenler: toprak sıcaklığı (+25), toprak nemi (+20), don riski (+20), yağış (+15) = max 80.
+    Skor ≥ 60 ve engel yok → ekim_uygun=True.
+    """
     takvim = _get_takvim(crop_type)
     month = datetime.now().month
+
+    _detay_bos = {
+        "toprak_sicaklik": {"deger": None, "durum": "VERİ YOK", "puan": 0},
+        "toprak_nem":      {"deger": None, "durum": "VERİ YOK", "puan": 0},
+        "don_riski":       {"var_mi": False, "gunler": [], "puan": 0},
+        "yagis":           {"uygun_mu": False, "aciklama": "Veri yok", "puan": 0},
+    }
 
     if not _in_ekim_sezonu(takvim, month):
         bas = takvim["ekim_ay_baslangic"]
@@ -127,79 +150,148 @@ def evaluate_planting_window(
         return {
             "ekim_uygun": False,
             "skor": 0,
+            "kategori": "EKİM DÖNEMİ DEĞİL",
             "gerekce": (
                 f"{takvim['urun']} için ekim sezonu {bas}–{bit}. aylar arasındadır. "
                 "Şu an ekim dönemi değil."
             ),
             "engeller": ["Ekim sezonu dışında"],
             "oneriler": [f"Ekim için {bas}. ayı bekleyin"],
+            "detay": _detay_bos,
+        }
+
+    if weather_current is None:
+        return {
+            "ekim_uygun": False,
+            "skor": 25,
+            "kategori": _skor_kategori(25),
+            "gerekce": (
+                f"{takvim['urun']} için ekim sezonu uygun ancak hava verisi alınamadı. "
+                "Sadece takvim bazlı değerlendirme."
+            ),
+            "engeller": [],
+            "oneriler": ["Hava verisi mevcut olduğunda daha detaylı değerlendirme yapılabilir"],
+            "detay": _detay_bos,
         }
 
     engeller = []
     oneriler = []
-    skor = 20  # Doğru ay için temel puan
+    skor = 0
+    detay = {}
 
-    # Toprak sıcaklığı kontrolü
-    soil_temp = weather_data.get("soil_temp_c") if weather_data else None
+    # 1. Toprak sıcaklığı (+25 ideal, +15 uygun, +0 kötü)
+    soil_temp = weather_current.get("soil_temp_c")
+    t_min = takvim["ideal_toprak_sicaklik_min"]
+    t_max = takvim["ideal_toprak_sicaklik_max"]
+    t_uygun_ust = 18 if crop_type == "Sunflower" else 15
     if soil_temp is not None:
-        t_min = takvim["ideal_toprak_sicaklik_min"]
-        t_max = takvim["ideal_toprak_sicaklik_max"]
         if t_min <= soil_temp <= t_max:
-            skor += 30
-        elif soil_temp < t_min:
-            engeller.append(
-                f"Toprak çok soğuk: {soil_temp:.1f}°C (ideal: {t_min}-{t_max}°C)"
-            )
+            puan_st, durum_st = 25, "İDEAL"
+        elif (t_min - 2) <= soil_temp < t_min or t_max < soil_temp <= t_uygun_ust:
+            puan_st, durum_st = 15, "UYGUN"
+            if soil_temp > t_max:
+                oneriler.append("Sabah erken saatlerde veya birkaç gün sonra ölçüm alın")
         else:
-            engeller.append(
-                f"Toprak yüzeyi sıcak: {soil_temp:.1f}°C (ideal: {t_min}-{t_max}°C) "
-                "— 10cm derinliği ölçümle doğrulayın"
-            )
-            oneriler.append("Sabah erken saatlerde veya birkaç gün sonra ölçüm alın")
+            puan_st, durum_st = 0, "KÖTÜ"
+            if soil_temp < (t_min - 2):
+                engeller.append(f"Toprak çok soğuk: {soil_temp:.1f}°C (ideal: {t_min}–{t_max}°C)")
+            else:
+                engeller.append(f"Toprak çok sıcak: {soil_temp:.1f}°C (ideal: {t_min}–{t_max}°C)")
+    else:
+        puan_st, durum_st = 0, "VERİ YOK"
+    skor += puan_st
+    detay["toprak_sicaklik"] = {"deger": soil_temp, "durum": durum_st, "puan": puan_st}
 
-    # Toprak nemi kontrolü
-    soil_nem = weather_data.get("soil_moisture") if weather_data else None
+    # 2. Toprak nemi (+20 ideal, +10 sınırda, +0 kötü)
+    soil_nem = weather_current.get("soil_moisture")
+    n_min = takvim["min_toprak_nem"]
+    n_max = takvim["max_toprak_nem"]
+    n_sinir_ust = 55 if crop_type == "Sunflower" else 50
     if soil_nem is not None:
-        n_min = takvim["min_toprak_nem"]
-        n_max = takvim["max_toprak_nem"]
         if n_min <= soil_nem <= n_max:
-            skor += 25
-        elif soil_nem < n_min:
-            engeller.append(
-                f"Toprak çok kuru: %{soil_nem:.0f} (ideal: %{n_min}-{n_max})"
-            )
-            oneriler.append("Ekim öncesi can suyu verin (15-20 mm)")
+            puan_sn, durum_sn = 20, "İDEAL"
+        elif 15 <= soil_nem < n_min or n_max < soil_nem <= n_sinir_ust:
+            puan_sn, durum_sn = 10, "SINIRDA"
+            if soil_nem < n_min:
+                oneriler.append("Ekim öncesi can suyu verin (15-20 mm)")
+            else:
+                oneriler.append("Toprak kuruyunca ekin, çamurda ekimde tohum çürür")
         else:
-            engeller.append(
-                f"Toprak çok nemli/çamurlu: %{soil_nem:.0f} (ideal: %{n_min}-{n_max})"
-            )
-            oneriler.append("Toprak kuruyunca ekin, çamurda ekimde tohum çürür")
+            puan_sn, durum_sn = 0, "KÖTÜ"
+            if soil_nem < 15:
+                engeller.append(f"Toprak çok kuru: %{soil_nem:.0f} (ideal: %{n_min}–{n_max})")
+                oneriler.append("Ekim öncesi can suyu verin (15-20 mm)")
+            else:
+                engeller.append(f"Toprak çok nemli/çamurlu: %{soil_nem:.0f} (ideal: %{n_min}–{n_max})")
+                oneriler.append("Toprak kuruyunca ekin, çamurda ekimde tohum çürür")
+    else:
+        puan_sn, durum_sn = 0, "VERİ YOK"
+    skor += puan_sn
+    detay["toprak_nem"] = {"deger": soil_nem, "durum": durum_sn, "puan": puan_sn}
 
-    # 7 günlük don ve yoğun yağış riski
-    if forecast:
+    # 3. Don riski (+20 don yok, +0 don var; ayçiçeği için mutlak engel)
+    if weather_forecast:
         don_esik = takvim["don_riski_esik"]
-        don_gunleri = [d["date"] for d in forecast if d.get("temp_min", 99) < don_esik]
-        if don_gunleri:
+        don_gunleri = [d["date"] for d in weather_forecast if d.get("temp_min", 99) < don_esik]
+        var_mi = len(don_gunleri) > 0
+        if var_mi:
+            puan_don = 0
             engeller.append(
                 f"Don riski: {', '.join(don_gunleri)} günlerinde {don_esik}°C altı bekleniyor"
             )
             oneriler.append("Don geçene kadar ekim yapmayın")
         else:
-            skor += 15
+            puan_don = 20
+        detay["don_riski"] = {"var_mi": var_mi, "gunler": don_gunleri, "puan": puan_don}
+        skor += puan_don
 
-        yogun_yagis = [d["date"] for d in forecast[:3] if d.get("precip_mm", 0) > 25]
-        if yogun_yagis:
-            engellers_text = ", ".join(yogun_yagis)
-            engeller.append(
-                f"Yoğun yağış riski ({engellers_text}) — ekim sonrası tohum çürüme tehlikesi"
-            )
-            oneriler.append("Yağış geçtikten 2-3 gün sonra ekin")
-        else:
-            skor += 10
+        if crop_type == "Sunflower" and var_mi:
+            detay["yagis"] = {
+                "uygun_mu": False,
+                "aciklama": "Don riski nedeniyle değerlendirilmedi",
+                "puan": 0,
+            }
+            return {
+                "ekim_uygun": False,
+                "skor": 0,
+                "kategori": "EKİM YAPMAYIN",
+                "gerekce": (
+                    f"Ayçiçeği dona dayanmaz. Önümüzdeki günlerde don riski var: "
+                    f"{', '.join(don_gunleri)}. Kesinlikle ekim yapmayın."
+                ),
+                "engeller": engeller,
+                "oneriler": oneriler,
+                "detay": detay,
+            }
     else:
-        skor += 15
+        detay["don_riski"] = {"var_mi": False, "gunler": [], "puan": 20}
+        skor += 20
+
+    # 4. Yağış (+15 ideal, +8 kabul edilebilir, +0 kötü)
+    if weather_forecast:
+        ilk_3_max = max((d.get("precip_mm", 0) for d in weather_forecast[:3]), default=0)
+        ilk_3_toplam = sum(d.get("precip_mm", 0) for d in weather_forecast[:3])
+        gun_3_5_toplam = sum(d.get("precip_mm", 0) for d in weather_forecast[2:5])
+
+        if ilk_3_max > 30:
+            puan_yag, uygun_mu = 0, False
+            aciklama = f"Ekim sonrası aşırı yağış riski ({ilk_3_max:.0f} mm)"
+            engeller.append("Yoğun yağış riski — ekim sonrası tohum çürüme tehlikesi")
+            oneriler.append("Yağış geçtikten 2-3 gün sonra ekin")
+        elif ilk_3_toplam < 10 and 5 <= gun_3_5_toplam <= 25:
+            puan_yag, uygun_mu = 15, True
+            aciklama = "Ekim sonrası hafif yağış bekleniyor — ideal koşul"
+        else:
+            puan_yag, uygun_mu = 8, True
+            aciklama = "Yağış koşulları kabul edilebilir"
+    else:
+        puan_yag, uygun_mu = 8, True
+        aciklama = "Tahmin verisi yok"
+    skor += puan_yag
+    detay["yagis"] = {"uygun_mu": uygun_mu, "aciklama": aciklama, "puan": puan_yag}
 
     ekim_uygun = skor >= 60 and len(engeller) == 0
+    kategori = _skor_kategori(skor)
 
     if ekim_uygun:
         gerekce = (
@@ -217,10 +309,71 @@ def evaluate_planting_window(
     return {
         "ekim_uygun": ekim_uygun,
         "skor": skor,
+        "kategori": kategori,
         "gerekce": gerekce,
         "engeller": engeller,
         "oneriler": oneriler,
+        "detay": detay,
     }
+
+
+def find_best_planting_days(crop_type: str, forecast: list) -> list:
+    """7 günlük forecast'ten her gün için ekim skoru hesaplar, en iyiden kötüye sıralar.
+
+    Toprak verisi bilinmediğinden yalnızca hava bileşenleri değerlendirilir (max ~80).
+    """
+    takvim = _get_takvim(crop_type)
+    don_esik = takvim["don_riski_esik"]
+    results = []
+
+    for i, day in enumerate(forecast):
+        skor = 50  # Toprak verisi bilinmiyor — nötr başlangıç
+        gerekce_parts = []
+
+        temp_min = day.get("temp_min", 99)
+        precip = day.get("precip_mm", 0)
+
+        # Don riski
+        if temp_min < don_esik:
+            if crop_type == "Sunflower":
+                results.append({
+                    "tarih": day.get("date", f"Gün {i + 1}"),
+                    "skor": 0,
+                    "gerekce": f"Don riski ({temp_min:.1f}°C) — ayçiçeği dona dayanmaz",
+                })
+                continue
+            else:
+                skor -= 30
+                gerekce_parts.append(f"Don riski ({temp_min:.1f}°C)")
+        else:
+            skor += 15
+            gerekce_parts.append("Don riski yok")
+
+        # Yağış
+        if precip > 30:
+            skor -= 25
+            gerekce_parts.append(f"Aşırı yağış ({precip:.0f} mm)")
+        elif precip > 10:
+            skor -= 10
+            gerekce_parts.append(f"Orta yağış ({precip:.0f} mm)")
+        else:
+            future_rain = sum(d.get("precip_mm", 0) for d in forecast[i + 1: i + 4])
+            if 5 <= future_rain <= 20:
+                skor += 15
+                gerekce_parts.append("Sonraki günlerde hafif yağış bekleniyor")
+            else:
+                skor += 5
+                gerekce_parts.append("Yağış yok/az")
+
+        skor = max(0, min(100, skor))
+        results.append({
+            "tarih": day.get("date", f"Gün {i + 1}"),
+            "skor": skor,
+            "gerekce": ", ".join(gerekce_parts),
+        })
+
+    results.sort(key=lambda x: x["skor"], reverse=True)
+    return results
 
 
 def get_irrigation_advice(

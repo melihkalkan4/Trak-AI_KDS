@@ -15,18 +15,28 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import tensorflow as tf
 
-# Hava servisi (src/ altında — isteğe bağlı)
-_SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path: cp2_model/ ve src/ her iki modülden de erişilebilsin
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))   # src/cp2_model/
+_SRC_DIR = os.path.dirname(BASE_DIR)                    # src/
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
 if _SRC_DIR not in sys.path:
     sys.path.insert(0, _SRC_DIR)
+
+# Hava servisi (src/ altında — isteğe bağlı)
 try:
     from weather_service import get_current_weather, get_7day_forecast, get_weather_alerts
     _WEATHER_AVAILABLE = True
 except ImportError:
     _WEATHER_AVAILABLE = False
 
-# Import registered custom layers so Keras can find them
-from train_models_cp2 import SelfAttention, ExtractLastNDVI, ScaleDelta, _ndvi_idx
+# Custom layer kaydı — model yüklemeden önce yapılmalı
+try:
+    from train_models_cp2 import SelfAttention, ExtractLastNDVI, ScaleDelta, _ndvi_idx
+except ImportError as _e:
+    logging.getLogger("trak-ai.inference").warning("Custom layer import failed: %s", _e)
+    def _ndvi_idx():
+        return -1
 
 logging.basicConfig(
     level=logging.INFO,
@@ -35,7 +45,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger("trak-ai.inference")
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.dirname(BASE_DIR))
 CSV_PATH = os.path.join(
     PROJECT_ROOT, "data", "processed", "master_feature_matrix_2017_2024.csv"

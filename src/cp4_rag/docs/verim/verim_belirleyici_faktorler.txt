@@ -1,0 +1,187 @@
+VERİM BELİRLEYİCİ FAKTÖRLER VE TAHMİN REHBERİ
+Trakya Bölgesi Buğday ve Ayçiçeği Üretimi
+
+=========================================================
+VERİM TAHMIN YAKLAŞIMI
+=========================================================
+
+Tarımsal verim, üç ana faktör grubunun etkileşiminin sonucudur:
+  1. İklim faktörleri: Sıcaklık, yağış, güneşlenme, don → %60-65 katkı
+  2. Toprak faktörleri: Yapı, organik madde, pH, besin maddesi → %15-20 katkı
+  3. Yönetim faktörleri: Çeşit seçimi, ekim zamanı, gübreleme, ilaçlama → %20-25 katkı
+
+Trakya için verim tahmini modeli bu faktörleri birlikte değerlendirmelidir.
+Tek faktöre (sadece NDVI veya sadece yağış) bağımlı tahmin %30-40 hata payı içerir.
+
+=========================================================
+İKLİM FAKTÖRLERİ — BUĞDAY
+=========================================================
+
+1. Minimum Gece Sıcaklığı:
+   Verimle korelasyon: R² ≈ 0.65 (Türkiye yağışlı alanlarda)
+   Risk eşiği: Nisan-Mayıs'ta min. sıcaklık sürekli >15°C → dane dolumu kısalır
+   Optimal gece sıcaklığı dane dolumu: 10-15°C
+   Her 1°C artış dane dolumu döneminde: verimde yaklaşık %1-3 azalma
+
+2. Yağış Dağılımı:
+   Toplam yağış değil, ZAMANLAMA belirleyicidir.
+   - Ekim-Kasım yağışı: Çimlenme ve erken büyüme → %15 verim etkisi
+   - Şubat-Mart yağışı: Kardeşlenme ve sapa kalkma → %20 verim etkisi
+   - Nisan-Mayıs yağışı: Başaklanma ve dane dolumu → %40 verim etkisi (en kritik)
+   - Hasat öncesi (Haziran) yağışı: Kalite kaybı riski
+
+   Trakya yağış ortalamaları (Kırklareli):
+   Yıllık toplam: ≈ 570-620 mm
+   Ekim-Şubat: ≈ 280-310 mm
+   Mart-Haziran: ≈ 200-240 mm
+   Kritik dönem (Nisan-Mayıs) yağış: ≈ 80-110 mm
+   Yeterli olmadığında supplemental sulama gerekir.
+
+3. İlkbahar Donları:
+   Trakya'da ortalama son don tarihi: 10-20 Nisan
+   Geç don riski: Mayıs başında BBCH 51-59 (başaklanma) döneminde −2°C altı = ciddi verim kaybı
+   "Pembe don" (düşük ışık + sıs koşullarında): 0°C'de bile hasar verebilir
+   Korunaklı olmayan başaklar için −2°C = %10-30 verim kaybı
+
+4. Sıcaklık Toplamı (GDD):
+   Optimal büyüme için toplam gereken (base 0°C): 1.600-2.000°C·gün
+   Az GDD yıllar (soğuk bahar): Geç hasat, düşük protein
+   Çok GDD yıllar (erken sıcak): Dane dolumu kısalır, düşük hektolitre
+
+=========================================================
+İKLİM FAKTÖRLERİ — AYÇİÇEĞİ
+=========================================================
+
+1. Çiçeklenme Dönemi Sıcaklığı:
+   R3-R5 döneminde (Temmuz):
+   - 18-30°C: Optimal polenlenme
+   - >35°C: Polen canlılığı düşer, dane tutumu azalır
+   - <15°C: Polenlenme problemi
+
+2. Su Stresi Kritik Dönemleri:
+   R1-R6 döneminde su stresi = verimde %30-50 kayıp (en kritik)
+   R7-R9 döneminde su stresi = yağ oranında %5-10 düşüş
+
+3. Güneşlenme:
+   Ayçiçeği güneş seven bitki. Gölge veya kapalı hava çiçeklenmeyi %15-25 azaltır.
+   Temmuz güneşlenme saati Trakya'da: ≈ 9-10 saat/gün → iyi koşul
+
+=========================================================
+TOPRAK FAKTÖRLERİ — TRAKYA ÖZEL
+=========================================================
+
+Kırklareli-Vize pilot tarla toprak profili (SoilGrids 2.0 verileri):
+  Kil: %30.97 | Kum: %34.99 | Silt: %34.04
+  Toprak tipi: Killi-tınlı (clay-loam)
+  pH: 7.11 (nötr-hafif alkalin)
+  Organik Karbon: %1.5-2.5 (bölge ortalaması)
+
+Killi-Tınlı Toprağın Verim Üzerindeki Etkileri:
+  Avantajlar:
+  - Yüksek su tutma kapasitesi (tarla kapasitesi: ≈ %30-35 hacimsel)
+  - İyi besin tutma, potasyum ve kalsiyum yüksek
+  - Organik madde birikimi için uygun
+
+  Dezavantajlar:
+  - Fazla yağışta su baskını riski (yetersiz drenajda)
+  - Kuru dönemde toprak çatlar → kök hasarı
+  - İşlenebilirlik penceresi dar (çok ıslak veya çok kuru iken sürme kötü)
+
+pH Yönetimi:
+  pH 7.11 buğday ve ayçiçeği için uygun (her ikisi de pH 6.0-7.5 sever)
+  Alkalin eğilim varsa: Fosfor bağlanması (demir eksikliği riski yok)
+  Çinko eksikliği pH 7+ topraklarda yaygın → yaprak sarılığı
+
+Organik Madde ve Verim:
+  Her %0.1 organik madde artışı → kullanılabilir su tutma kapasitesi +0.15 mm/cm artış
+  Uzun dönem gübreleme ve toprak işleme organik maddeyi korur
+  Anız yakma ve derin sürme organik maddeyi azaltır
+
+=========================================================
+YÖNETİM FAKTÖRLERİ
+=========================================================
+
+1. Çeşit Seçimi (En Yüksek Etki):
+   Doğru çeşit seçimi Trakya koşullarında verimde %15-20 artış sağlar.
+   Buğday için önerilen özellikler:
+   - Sarı pasa dayanıklı (Türkiye'de yaygın)
+   - Erken başaklanma (geç don riskini azaltır)
+   - İyi hektolitre ağırlığı (≥76 kg/hl)
+   - Kısa sap (tane dolumuyla yatmaz)
+
+   Ayçiçeği için önerilen özellikler:
+   - Imidazolinone toleranslı (yabancı ot kontrolü kolaylaşır)
+   - Sclerotinia ve Phoma'ya dirençli
+   - Orta-geç olgunluk (Trakya için uygun)
+
+2. Ekim Zamanı:
+   Buğday: 15 Ekim – 15 Kasım (optimal)
+   Her 1 hafta gecikme (Kasım sonrası): %3-5 verim kaybı
+   Ayçiçeği: 25 Nisan – 15 Mayıs (toprak sıcaklığı ≥8°C şartıyla)
+
+3. Ekim Derinliği ve Tohum Miktarı:
+   Buğday: 4-6 cm derinlik, 16-25 kg/da tohum
+   Ayçiçeği: 4-6 cm derinlik, 0.4-0.6 kg/da tohum (55.000-75.000 bitki/ha)
+
+4. Azot Gübreleme (En Büyük Maliyet-Etki Faktörü):
+   Buğday — kuru tarım için hedef 500 kg/da verim:
+     Saf Azot: 14 kg/da
+     Saf Fosfor: 4-5 kg/da
+   Buğday — sulu tarım için hedef 700 kg/da verim:
+     Saf Azot: 16 kg/da
+     Saf Fosfor: 4-5 kg/da
+   Uygulama zamanı: 3'e bölünmüş (ekimde + erken ilkbahar + sapa kalkma)
+
+   Ayçiçeği gübreleme:
+     Ekimde taban gübresi: DAP 20-20-0, 25-30 kg/da
+     V8-V12 döneminde üst gübre: Amonyum sülfat, 20-25 kg/da
+     Bor eksikliği riski: Çiçeklenme döneminde yapraktan bor uygulaması
+
+5. Fungisit Uygulaması:
+   Buğday için kritik pencere:
+   - BBCH 37-39 (bayrak yaprak): Septorya, pas önlemi
+   - BBCH 55-65 (başaklanma): Fusarium önlemi (çiçeklenme döneminde)
+   Zamanlama hatası → %20-40 etkisizlik
+   Her uygulama için ÖNEMLİ: Hava koşullarını kontrol et (yağmur öncesi 4 saat kuru hava şartı)
+
+=========================================================
+TRAKYA VERİM BENCHMARKLARİ VE YILLIK DEĞİŞKENLİK
+=========================================================
+
+Buğday Trakya Bölgesi Ortalama Verimleri:
+  Kuru tarım (yağışa bağımlı): 250-400 kg/dekar
+  Sulu tarım: 500-700 kg/dekar
+  İyi yönetimli yüksek girdi: 700-900 kg/dekar (mümkün, yaygın değil)
+
+Ayçiçeği Trakya Bölgesi Ortalama Verimleri:
+  Kuru tarım: 120-200 kg/dekar
+  Sulu tarım: 180-280 kg/dekar
+  Hibrit + yüksek girdi: 250-350 kg/dekar
+
+Yıllık Değişkenlik Faktörleri:
+  Trakya'da buğday verimi yıldan yıla %20-40 değişebilir.
+  Düşük verim yılları nedenleri (sıklık sırasına göre):
+  1. İlkbahar kuraklığı (Nisan-Mayıs) — en yaygın
+  2. Sarı pas epidemisi
+  3. Geç ilkbahar donu
+  4. Hasat döneminde uzun yağışlı hava (kalite kaybı)
+  5. Toprak nemine bağlı ekim gecikmesi
+
+=========================================================
+VERİM TAHMİN MODELLERİ (MAKRO GÖSTERGELERİ)
+=========================================================
+
+Erken Sezon (Şubat-Mart) Verim İşaretleri:
+  - Kardeş sayısı ≥ 3 / bitki → iyi verim potansiyeli
+  - Bitki rengi yoğun koyu yeşil → azot yeterli
+  - NDVI > 0.50 Mart'ta → ortalama üstü verim beklentisi
+
+Orta Sezon (Nisan-Mayıs) Verim İşaretleri:
+  - NDVI > 0.70 başaklanmada → yüksek verim beklentisi
+  - Başak uzunluğu ≥ 8 cm → iyi dane dolumu kapasitesi
+  - Başakta dane sayısı ≥ 30 → hedef verim mümkün
+
+Geç Sezon (Mayıs-Haziran) Verim İşaretleri:
+  - Dane dolumu süresi ≥ 30 gün → yüksek dane ağırlığı
+  - Dane dolumu döneminde sıcaklık < 28°C → iyi kalabalık
+  - Hektolitre ağırlığı > 76 kg/hl → kaliteli ürün

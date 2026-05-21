@@ -1,105 +1,86 @@
 """
-TRAK-AI KDS — Streamlit Web Arayüzü
-=====================================
-3 sayfalı web dashboard.
+TRAK-AI KDS — Dashboard v2
+===========================
+3 sayfa: Tarla Durumu, Rover Izleme, Tarim Asistani
 
-Kullanım: streamlit run src/dashboard.py
+Calistirma: streamlit run src/dashboard.py
 """
 import sys
 import os
-import gc
 import json
-import time
-import threading
-from datetime import datetime
+import logging
+from datetime import datetime, timedelta, date
+
+# ── Path Kurulumu (demo.py referansi) ────────────────────────────────────────
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+_CP2_DIR = os.path.join(PROJECT_ROOT, "src", "cp2_model")
+_CP4_DIR = os.path.join(PROJECT_ROOT, "src", "cp4_rag")
+for _p in [_SRC_DIR, _CP2_DIR, _CP4_DIR]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.graph_objects as go
-import paho.mqtt.client as mqtt
-import folium
-from streamlit_folium import st_folium
+from plotly.subplots import make_subplots
 
-# ── Path ayarları (demo.py referans alınarak) ──────────────────────────────
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-CP2_DIR = os.path.join(PROJECT_ROOT, "src", "cp2_model")
-CP4_DIR = os.path.join(PROJECT_ROOT, "src", "cp4_rag")
-sys.path.insert(0, CP2_DIR)
-sys.path.insert(0, CP4_DIR)
+# ── Veritabani ────────────────────────────────────────────────────────────────
+from database import (
+    init_db, get_tarlalar, get_tarla, add_rover_olcum,
+    get_rover_olcumler, get_rover_olcumler_asc,
+    get_son_tahmin, get_tarla_ozet,
+    get_weather_history, get_weather_stats,
+    _wheat_season, _sunflower_season,
+)
 
-from config import OLLAMA_MODEL
-from build_index import load_faiss_index
-from retriever import tri_rag_retrieve, format_context
-from llm_engine import check_ollama_connection, rag_query
-
-# Hava servisi (src/ altında — isteğe bağlı)
+# ── Opsiyonel moduller ────────────────────────────────────────────────────────
 try:
     from weather_service import (
-        get_current_weather,
-        get_7day_forecast,
-        get_weather_alerts,
+        get_current_weather, get_7day_forecast, get_weather_alerts,
     )
-    _WEATHER_AVAILABLE = True
+    _WEATHER_OK = True
 except ImportError:
-    _WEATHER_AVAILABLE = False
+    _WEATHER_OK = False
 
-# Agronomik takvim (src/ altında — isteğe bağlı)
 try:
     from agro_calendar import (
-        get_current_phenology,
-        evaluate_planting_window,
-        get_irrigation_advice,
-        get_fertilization_advice,
-        BUGDAY_TAKVIM,
-        AYCICEGI_TAKVIM,
+        get_current_phenology, evaluate_planting_window,
+        get_irrigation_advice, get_fertilization_advice,
     )
-    _AGRO_AVAILABLE = True
+    _AGRO_OK = True
 except ImportError:
-    _AGRO_AVAILABLE = False
+    _AGRO_OK = False
 
-# ── Sabitler ──────────────────────────────────────────────────────────────
-CSV_PATH = os.path.join(PROJECT_ROOT, "data", "processed",
-                        "master_feature_matrix_2017_2024.csv")
-MQTT_BROKER = "localhost"
-MQTT_PORT   = 1883
-DEFAULT_LAT = 41.6940
-DEFAULT_LON = 27.1050
+try:
+    from llm_engine import (
+        build_rich_context, classify_query,
+        generate_chat_response, check_ollama_connection,
+    )
+    _LLM_OK = True
+except ImportError:
+    _LLM_OK = False
 
-SENARYO_A = {
-    "timestamp": 0,
-    "gps_lat": DEFAULT_LAT, "gps_lon": DEFAULT_LON, "gps_valid": True,
-    "nem_1_pct": 28.0, "nem_2_pct": 26.5,
-    "hava_temp_c": 20.5, "hava_nem_pct": 62.0,
-    "engel_on_cm": 200, "engel_arka_cm": 999,
-    "bbch_sinif": "BBCH_50_59", "bbch_guven": 0.88,
-    "waypoint_id": 1, "rover_id": "trak-ai-rover-01",
-}
-SENARYO_B = {
-    "timestamp": 0,
-    "gps_lat": DEFAULT_LAT, "gps_lon": DEFAULT_LON, "gps_valid": True,
-    "nem_1_pct": 11.0, "nem_2_pct": 28.0,
-    "hava_temp_c": 28.5, "hava_nem_pct": 45.0,
-    "engel_on_cm": 120, "engel_arka_cm": 999,
-    "bbch_sinif": "BBCH_10_19", "bbch_guven": 0.71,
-    "hastalik": "Mildiyö", "hastalik_guven": 0.82,
-    "waypoint_id": 3, "rover_id": "trak-ai-rover-01",
-}
+try:
+    from build_index import load_faiss_index
+    _FAISS_DATA = load_faiss_index()
+    _vectorstore = _FAISS_DATA[0] if _FAISS_DATA else None
+    _chunks = _FAISS_DATA[1] if _FAISS_DATA and len(_FAISS_DATA) > 1 else []
+    _FAISS_OK = _vectorstore is not None
+except Exception:
+    _vectorstore = None
+    _chunks = []
+    _FAISS_OK = False
 
-FEATURE_LABELS = {
-    "NDVI_trend_7d": "NDVI Trend (7g)",
-    "drought_index_7d": "Kuraklık İndeksi",
-    "NDVI_int": "NDVI",
-    "GDD_cum": "Birikimli GDD",
-    "tp_sum": "Yağış",
-    "ssr_sum": "Güneş Radyasyonu",
-    "t2m_mean": "Ortalama Sıcaklık",
-    "EVI_int": "EVI",
-    "GDD": "GDD",
-    "dew_depression": "Çiğ Noktası Farkı",
-}
+try:
+    from image_classifier import classifier as _img_clf, KDS_AKSIYONLAR
+    _YOLO_OK = _img_clf.model is not None
+except ImportError:
+    _img_clf = None
+    _YOLO_OK = False
+    KDS_AKSIYONLAR = {}
 
-# ── Sayfa yapılandırması (ilk Streamlit çağrısı) ───────────────────────────
+# ── Uygulama Ayarlari ─────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="TRAK-AIA KDS",
     page_icon="🌾",
@@ -107,757 +88,844 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Session state başlatma ─────────────────────────────────────────────────
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
-if "rover_data" not in st.session_state:
-    st.session_state.rover_data = None
-if "advisory_data" not in st.session_state:
-    st.session_state.advisory_data = None
-if "mqtt_status" not in st.session_state:
-    st.session_state.mqtt_status = "Bağlı değil"
+# DB baslat
+init_db()
+
+# ── Yardimci Fonksiyonlar ─────────────────────────────────────────────────────
+
+def _ndvi_renk(ndvi: float) -> str:
+    if ndvi is None:
+        return "gray"
+    if ndvi >= 0.55:
+        return "green"
+    if ndvi >= 0.40:
+        return "orange"
+    return "red"
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# Önbellekli kaynak yükleyiciler
-# ══════════════════════════════════════════════════════════════════════════
-
-@st.cache_resource(show_spinner="FAISS indeksi yükleniyor (14.866 vektör)...")
-def get_faiss():
-    vs, ch = load_faiss_index()
-    return vs, ch
-
-
-@st.cache_data(ttl=300, show_spinner="CP-2 modeli tahmin yapıyor...")
-def get_cp2_prediction(crop: str):
-    from inference_cp2 import predict
-    result = predict(crop)
-    gc.collect()
-    return result
+def _saglik_badge(ndvi: float) -> str:
+    if ndvi is None:
+        return "Bilinmiyor"
+    if ndvi >= 0.60:
+        return "Mukemmel"
+    if ndvi >= 0.50:
+        return "Iyi"
+    if ndvi >= 0.40:
+        return "Orta"
+    if ndvi >= 0.30:
+        return "Zayif"
+    return "Kritik"
 
 
-@st.cache_data(show_spinner=False)
-def get_ndvi_history(n: int = 30):
-    if not os.path.exists(CSV_PATH):
-        return None
-    df = pd.read_csv(CSV_PATH)
-    return df[["date", "NDVI_int", "t2m_mean", "tp_sum", "ssr_sum"]].tail(n).reset_index(drop=True)
+def _crop_key(tarla: dict) -> str:
+    urun = tarla.get("aktif_urun", "Bugday")
+    return "Sunflower" if "aycicegi" in urun.lower() or "ayci" in urun.lower() else "Wheat"
 
 
-@st.cache_data(ttl=600, show_spinner=False)
-def get_weather():
-    if not _WEATHER_AVAILABLE:
-        return None, None
-    cur = get_current_weather()
-    fc  = get_7day_forecast()
-    return cur, fc
-
-
-@st.cache_data(ttl=60, show_spinner=False)
-def get_ollama_status():
-    try:
-        import requests
-        resp = requests.get("http://localhost:11434/api/tags", timeout=3)
-        if resp.status_code == 200:
-            models = [m["name"] for m in resp.json().get("models", [])]
-            return True, models
-    except Exception:
-        pass
-    return False, []
-
-
-@st.cache_data(ttl=300, show_spinner="Tarla verileri derleniyor...")
-def get_rich_context() -> str:
-    """CP-2 tahminleri + hava + agronomik takvim bağlamını önbellekli olarak döndürür (5 dk TTL)."""
-    from llm_engine import build_rich_context
-    return build_rich_context()
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# MQTT yardımcıları
-# ══════════════════════════════════════════════════════════════════════════
-
-def mqtt_publish(payload: dict) -> bool:
-    payload = dict(payload)
-    payload["timestamp"] = int(time.time())
-    try:
+def _model_nem(tarla: dict, scan_date: date) -> float:
+    crop_key = _crop_key(tarla)
+    clay = tarla.get("toprak_kil", 31.0) or 31.0
+    if crop_key == "Wheat":
+        prof = _wheat_season(scan_date, clay)
+    else:
         try:
-            c = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
-        except AttributeError:
-            c = mqtt.Client()
-        c.connect(MQTT_BROKER, MQTT_PORT, keepalive=10)
-        c.loop_start()
-        c.publish("trakaia/rover/data", json.dumps(payload, ensure_ascii=False))
-        time.sleep(0.3)
-        c.loop_stop()
-        c.disconnect()
-        return True
-    except Exception:
-        return False
-
-
-def mqtt_wait_advisory(timeout: int = 90) -> dict | None:
-    result = [None]
-    done = threading.Event()
-
-    def _on_connect(client, userdata, flags, rc):
-        client.subscribe("trakaia/kds/advisory")
-
-    def _on_message(client, userdata, msg):
-        try:
-            result[0] = json.loads(msg.payload.decode("utf-8"))
-            done.set()
+            ekim_date = datetime.strptime(tarla.get("ekim_tarihi", "2026-04-20"), "%Y-%m-%d").date()
         except Exception:
-            pass
-
-    try:
-        try:
-            c = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
-        except AttributeError:
-            c = mqtt.Client()
-        c.on_connect = _on_connect
-        c.on_message = _on_message
-        c.connect(MQTT_BROKER, MQTT_PORT, keepalive=60)
-        c.loop_start()
-        done.wait(timeout=timeout)
-        c.loop_stop()
-        c.disconnect()
-    except Exception:
-        pass
-    return result[0]
+            ekim_date = date(2026, 4, 20)
+        days = max(0, (scan_date - ekim_date).days)
+        prof = _sunflower_season(days, scan_date)
+    return round(prof["nem_c"], 1)
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# Sidebar
-# ══════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIDEBAR
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def render_sidebar():
     with st.sidebar:
-        st.image(
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/1px.png",
-            width=1,
-        )
-        st.markdown("## 🌾 TRAK-AIA KDS")
-        st.markdown("**TÜBİTAK 2209-A**  \nIşık Üniversitesi • 2026")
+        st.markdown("# 🌾 TRAK-AIA KDS")
+        st.caption("TUBiTAK 2209-A • Trakya Universitesi • 2026")
         st.divider()
 
+        # Tarla secici
+        tarlalar = get_tarlalar()
+        tarla_labels = {t["id"]: f"{t['isim']} ({t['aktif_urun']})" for t in tarlalar}
+        tarla_ids = list(tarla_labels.keys())
+        selected_id = st.selectbox(
+            "Tarla Sec",
+            options=tarla_ids,
+            format_func=lambda x: tarla_labels[x],
+            key="tarla_id",
+        )
+        tarla = get_tarla(selected_id)
+
+        # Mini tayla karti
+        if tarla:
+            with st.container(border=True):
+                st.markdown(f"**{tarla['isim']}**")
+                c1, c2 = st.columns(2)
+                c1.caption(f"Il: {tarla['il']}")
+                c2.caption(f"Urun: {tarla['aktif_urun']}")
+                c1.caption(f"Alan: {tarla.get('alan_dekar', '?')} da")
+                c2.caption(f"Ekim: {tarla.get('ekim_tarihi', '?')[:7]}")
+
+        st.divider()
+
+        # Sistem durumu
+        st.markdown("**Sistem Durumu**")
+        ollama_ok = _LLM_OK and check_ollama_connection() if _LLM_OK else False
+        st.markdown(
+            f"Ollama {'🟢' if ollama_ok else '🔴'}  |  "
+            f"FAISS {'✅' if _FAISS_OK else '❌'}  |  "
+            f"DB ✅  |  "
+            f"YOLOv8 {'✅' if _YOLO_OK else '⚠️ MOCK'}"
+        )
+
+        st.divider()
+
+        # Sayfa navigasyonu
         page = st.radio(
             "Sayfa",
-            ["🌿 Tarla Durumu", "📡 Rover İzleme", "💬 Tarım Asistanı"],
+            ["🌿 Tarla Durumu", "📡 Rover Izleme", "💬 Tarim Asistani"],
             label_visibility="collapsed",
         )
-        st.divider()
 
-        # Ollama durumu
-        ollama_ok, models = get_ollama_status()
-        if ollama_ok:
-            st.success(f"🟢 Ollama bağlı — {OLLAMA_MODEL}")
-        else:
-            st.error("🔴 Ollama bağlantı yok")
-
-        # FAISS durumu
-        vs, ch = get_faiss()
-        if vs is not None:
-            st.success(f"✅ FAISS — {len(ch):,} vektör yüklü")
-        else:
-            st.error("❌ FAISS yüklenmedi")
-
-        st.divider()
-        st.caption("Veri: Kırklareli-Vize pilot tarlası  \n41.694°N 27.105°E")
-
-    return page
+    return selected_id, tarla, page
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# Ortak başlık
-# ══════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# SAYFA 1: Tarla Durumu ve Oneriler
+# ═══════════════════════════════════════════════════════════════════════════════
 
-def render_header(subtitle: str):
-    st.markdown(
-        "<h2 style='margin-bottom:0'>🌾 TRAK-AIA Akıllı Tarım Karar Destek Sistemi</h2>",
-        unsafe_allow_html=True,
-    )
-    st.caption(subtitle)
-    st.divider()
+def page_tarla(tarla_id: int, tarla: dict):
+    st.header(f"🌿 Tarla Durumu — {tarla['isim']}")
+    crop_key = _crop_key(tarla)
+    urun_label = tarla.get("aktif_urun", "Bugday")
 
+    # Son tahmin ve rover verisi
+    son_tahmin = get_son_tahmin(tarla_id) or {}
+    son_rover_list = get_rover_olcumler(tarla_id, limit=1)
+    son_rover = son_rover_list[0] if son_rover_list else {}
 
-# ══════════════════════════════════════════════════════════════════════════
-# SAYFA 1 — Tarla Durumu
-# ══════════════════════════════════════════════════════════════════════════
+    # Hava (tarla koordinatiyla)
+    weather = {}
+    forecast = []
+    alerts = []
+    if _WEATHER_OK:
+        try:
+            weather = get_current_weather(tarla["konum_lat"], tarla["konum_lon"]) or {}
+            forecast = get_7day_forecast(tarla["konum_lat"], tarla["konum_lon"]) or []
+            alerts = get_weather_alerts(weather, forecast) if weather else []
+        except Exception:
+            pass
 
-def _health_color(status: str) -> str:
-    s = status.upper()
-    if s in ("CRITICAL", "LOW"):
-        return "#e53935"
-    if s in ("MODERATE",):
-        return "#fb8c00"
-    return "#43a047"
+    # Fenoloji & Sulama
+    fenoloji = {}
+    sulama = {}
+    gubre = {}
+    ekim_degerlendirme = {}
+    if _AGRO_OK:
+        try:
+            now_month = datetime.now().month
+            fenoloji = get_current_phenology(crop_key, now_month) or {}
+            nem_degeri = son_rover.get("nem_1_pct") or (weather.get("soil_moisture", 0.25) * 100)
+            sulama = get_irrigation_advice(crop_key, now_month, nem_degeri, forecast) or {}
+            gubre_sonuc = get_fertilization_advice(crop_key, now_month)
+            if isinstance(gubre_sonuc, dict):
+                gubre = gubre_sonuc
+            elif isinstance(gubre_sonuc, list) and gubre_sonuc:
+                gubre = gubre_sonuc[0]
+        except Exception:
+            pass
+        try:
+            ekim_degerlendirme = evaluate_planting_window(crop_key, weather, forecast) or {}
+        except Exception:
+            pass
 
+    # ── Uyari Banner ──────────────────────────────────────────────────────────
+    if alerts:
+        for al in alerts:
+            st.error(f"⚠️ {al}")
 
-def _health_emoji(status: str) -> str:
-    s = status.upper()
-    if s in ("CRITICAL", "LOW"):
-        return "🔴"
-    if s in ("MODERATE",):
-        return "🟡"
-    return "🟢"
+    # Son kamera tespiti varsa ust banner
+    son_kamera_bulgu = None
+    tum_rover = get_rover_olcumler(tarla_id, limit=10)
+    for r in tum_rover:
+        if r.get("camera_sinif") and r["camera_sinif"] not in ("saglikli_bugday", "saglikli_aycicegi"):
+            son_kamera_bulgu = r
+            break
 
+    if son_kamera_bulgu:
+        aksiyon = KDS_AKSIYONLAR.get(son_kamera_bulgu["camera_sinif"], {})
+        st.error(
+            f"📷 Kamera Tespiti: **{son_kamera_bulgu['camera_sinif']}** "
+            f"(%{(son_kamera_bulgu.get('camera_guven') or 0)*100:.0f} guven) — "
+            f"{aksiyon.get('tavsiye', '')}"
+        )
 
-def _trend_emoji(trend: str) -> str:
-    t = trend.upper()
-    if "DECLINING" in t:
-        return "📉"
-    if "GROWING" in t:
-        return "📈"
-    return "➡️"
+    # ── 1A: Bitki Sagligi Karti ───────────────────────────────────────────────
+    st.subheader("🌱 Bitki Sagligi")
+    ndvi_mevcut = son_tahmin.get("ndvi_mevcut")
+    ndvi_tahmin = son_tahmin.get("ndvi_tahmin_7gun")
+    ndvi_delta  = son_tahmin.get("ndvi_delta", 0) or 0
 
+    col_a, col_b, col_c = st.columns(3)
+    ndvi_display = f"{ndvi_mevcut:.3f}" if ndvi_mevcut is not None else "—"
+    delta_display = f"{ndvi_delta:+.3f}" if ndvi_delta != 0 else None
+    col_a.metric("NDVI (Mevcut)", ndvi_display, delta=delta_display)
+    col_b.metric("7 Gun Tahmini", f"{ndvi_tahmin:.3f}" if ndvi_tahmin else "—")
+    saglik = _saglik_badge(ndvi_mevcut)
+    col_c.metric("Saglik Durumu", saglik)
 
-def page_tarla_durumu():
-    render_header("Model tahminleri ve tarla sağlık analizi")
-
-    col_w, col_s = st.columns(2)
-
-    crops = [("Wheat", "🌾 Buğday", col_w), ("Sunflower", "🌻 Ayçiçeği", col_s)]
-
-    for crop_key, crop_label, col in crops:
-        with col:
-            with st.spinner(f"{crop_label} tahmin ediliyor..."):
-                try:
-                    pred = get_cp2_prediction(crop_key)
-                    ok = True
-                except Exception as e:
-                    ok = False
-                    err = str(e)
-
-            if not ok:
-                st.error(f"{crop_label}: Model yüklenemedi — {err}")
-                continue
-
-            health = pred["health"]
-            trend  = pred["trend"]
-            color  = _health_color(health["status"])
-            emoji  = _health_emoji(health["status"])
-            temoji = _trend_emoji(trend["trend"])
-
-            st.markdown(f"### {crop_label}")
-            st.markdown(
-                f"""<div style="background:{color}22;border-left:4px solid {color};
-                padding:12px;border-radius:6px;margin-bottom:8px">
-                <span style="font-size:1.4em">{emoji} <b>{health['status']}</b></span><br>
-                <span style="color:#555">{health['desc']}</span><br>
-                <b>Tavsiye:</b> {health['action']}
-                </div>""",
-                unsafe_allow_html=True,
-            )
-
-            m1, m2, m3 = st.columns(3)
-            m1.metric("Mevcut NDVI", f"{pred['current_ndvi']:.4f}")
-            m2.metric("Tahmin (t+7)", f"{pred['predicted_ndvi']:.4f}",
-                      delta=f"{trend['delta']:+.4f}")
-            m3.metric("Trend", f"{temoji} {trend['trend']}")
-
-            with st.expander("Model detayları"):
-                st.caption(
-                    f"**Model:** {pred['model_used']}  \n"
-                    f"**Mimari:** {pred['architecture']}  \n"
-                    f"**Veri kaynağı:** {pred['data_source']}"
-                )
-                st.info(trend["alert"])
-
-    st.divider()
-
-    # ── NDVI Trend Grafiği ────────────────────────────────────────────────
-    st.subheader("📊 Son 30 Günlük NDVI Trendi")
-    hist = get_ndvi_history(30)
-    if hist is not None:
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(
-            x=hist["date"], y=hist["NDVI_int"],
-            mode="lines+markers", name="NDVI (interpolated)",
-            line=dict(color="#388e3c", width=2),
+    # NDVI trend grafigi (DB'den son 30 olcum)
+    tum_asc = get_rover_olcumler_asc(tarla_id, limit=5000)
+    tahmin_rows = [r for r in tum_asc if r.get("ndvi_tahmini") is not None]
+    if len(tahmin_rows) >= 3:
+        recent = tahmin_rows[-30:]
+        df_ndvi = pd.DataFrame(recent)
+        df_ndvi["ts"] = pd.to_datetime(df_ndvi["timestamp"])
+        fig_ndvi = go.Figure()
+        fig_ndvi.add_trace(go.Scatter(
+            x=df_ndvi["ts"], y=df_ndvi["ndvi_tahmini"],
+            mode="lines+markers", name="NDVI",
+            line=dict(color="#2ca02c", width=2),
             marker=dict(size=5),
         ))
-        # Sağlık eşik çizgileri
-        for y_val, label, color in [
-            (0.15, "Kritik", "#e53935"),
-            (0.40, "Ortalama", "#fb8c00"),
-            (0.70, "İyi", "#43a047"),
-        ]:
-            fig.add_hline(y=y_val, line_dash="dot", line_color=color,
-                          annotation_text=label, annotation_position="right")
-        fig.update_layout(
-            height=300, margin=dict(t=20, b=20, l=0, r=80),
-            xaxis_title="Tarih", yaxis_title="NDVI",
-            yaxis=dict(range=[0, 1]),
-            plot_bgcolor="#fafafa",
+        fig_ndvi.update_layout(
+            height=200, margin=dict(t=10, b=20, l=40, r=20),
+            yaxis=dict(range=[0, 1], title="NDVI"),
+            xaxis_title="Tarih",
+            showlegend=False,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig_ndvi, use_container_width=True)
+
+    # ── 1B: Verim Projeksiyonu ────────────────────────────────────────────────
+    st.subheader("📊 Verim Projeksiyonu")
+    verim_kg = son_tahmin.get("verim_tahmini_kg_dekar")
+    verim_alt = son_tahmin.get("verim_guven_alt")
+    verim_ust = son_tahmin.get("verim_guven_ust")
+    verim_risk = son_tahmin.get("verim_risk", "Bilinmiyor")
+    trakya_ort = 280.0 if crop_key == "Wheat" else 220.0
+
+    col1, col2, col3 = st.columns(3)
+    if verim_kg:
+        col1.metric("Tahmini Verim", f"{verim_kg:.0f} kg/da")
+        col2.metric("Guvenlı Aralik", f"{verim_alt:.0f}–{verim_ust:.0f}" if verim_alt and verim_ust else "—")
+        col3.metric("Risk", verim_risk or "Bilinmiyor")
+
+        oran = min(1.0, verim_kg / (trakya_ort * 1.5))
+        st.caption(f"Trakya ortalamasina kiyasla: {verim_kg/trakya_ort*100:.0f}%")
+        st.progress(oran, text=f"{verim_kg:.0f} / {trakya_ort:.0f} kg/da (Trakya ort.)")
     else:
-        st.warning("Veri dosyası bulunamadı.")
+        col1.info("Verim tahmini hesaplanmadi")
 
-    st.divider()
-
-    # ── İklim Özeti ───────────────────────────────────────────────────────
-    st.subheader("🌡️ Son 15 Günlük İklim Özeti")
-    clim = get_ndvi_history(15)
-    if clim is not None:
+    # ── 1C: Hava Durumu ───────────────────────────────────────────────────────
+    st.subheader("🌤️ Hava Durumu")
+    if weather:
         c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Ort. Sıcaklık",
-                  f"{clim['t2m_mean'].mean():.1f} °C")
-        c2.metric("Toplam Yağış",
-                  f"{clim['tp_sum'].sum():.1f} mm")
-        c3.metric("Güneş Radyasyonu",
-                  f"{clim['ssr_sum'].mean()/1e6:.1f} MJ/m²")
-        c4.metric("Veri Dönemi",
-                  f"{clim['date'].iloc[0]} – {clim['date'].iloc[-1]}")
+        c1.metric("Sicaklik", f"{weather.get('temp_c', '?'):.1f}°C")
+        c2.metric("Nem", f"%{weather.get('humidity', '?'):.0f}")
+        c3.metric("Ruzgar", f"{weather.get('wind_kmh', 0):.0f} km/s")
+        c4.metric("Toprak Nemi", f"%{weather.get('soil_moisture', 0)*100:.0f}" if weather.get('soil_moisture') else "—")
 
-    st.divider()
-
-    # ── Hava Durumu (Open-Meteo) ──────────────────────────────────────────
-    st.subheader("🌤️ 7 Günlük Hava Tahmini")
-    wx_cur, wx_fc = get_weather()
-
-    if wx_cur:
-        wc1, wc2, wc3, wc4 = st.columns(4)
-        wc1.metric("🌡️ Anlık Sıcaklık", f"{wx_cur['temp_c']:.1f} °C")
-        wc2.metric("💧 Nem", f"%{wx_cur['humidity']:.0f}")
-        wc3.metric("💨 Rüzgar", f"{wx_cur['wind_kmh']:.0f} km/h")
-        wc4.metric("🌱 Toprak Sıcaklığı", f"{wx_cur['soil_temp_c']:.1f} °C")
-
-    if wx_fc:
-        alerts = get_weather_alerts(wx_fc)
-        for alert in alerts:
-            if alert["level"] == "error":
-                st.error(f"⚠️ {alert['text']}")
-            else:
-                st.warning(f"⚠️ {alert['text']}")
-
-        fc_df = pd.DataFrame(wx_fc)
-        fig_wx = go.Figure()
-        fig_wx.add_trace(go.Bar(
-            name="Yağış (mm)", x=fc_df["date"], y=fc_df["precip_mm"],
-            marker_color="#1565c0", opacity=0.7, yaxis="y2",
-        ))
-        fig_wx.add_trace(go.Scatter(
-            name="Maks °C", x=fc_df["date"], y=fc_df["temp_max"],
-            mode="lines+markers", line=dict(color="#e53935", width=2),
-        ))
-        fig_wx.add_trace(go.Scatter(
-            name="Min °C", x=fc_df["date"], y=fc_df["temp_min"],
-            mode="lines+markers", line=dict(color="#1565c0", width=2, dash="dot"),
-        ))
-        fig_wx.update_layout(
-            height=280, margin=dict(t=10, b=10, l=0, r=60),
-            plot_bgcolor="#fafafa",
-            legend=dict(orientation="h", y=1.1),
-            yaxis=dict(title="Sıcaklık (°C)"),
-            yaxis2=dict(title="Yağış (mm)", overlaying="y",
-                        side="right", showgrid=False),
-        )
-        st.plotly_chart(fig_wx, use_container_width=True)
-    elif not _WEATHER_AVAILABLE:
-        st.info("Hava servisi bulunamadı (weather_service.py eksik).")
+        if forecast and len(forecast) >= 3:
+            df_fc = pd.DataFrame(forecast[:7])
+            fig_hava = go.Figure()
+            if "date" in df_fc.columns:
+                fig_hava.add_trace(go.Bar(x=df_fc["date"], y=df_fc.get("precip_mm", [0]*7),
+                                          name="Yagis (mm)", marker_color="#aec7e8", yaxis="y2"))
+                fig_hava.add_trace(go.Scatter(x=df_fc["date"], y=df_fc.get("temp_max_c", [20]*7),
+                                              mode="lines+markers", name="Max Sicaklik",
+                                              line=dict(color="#d62728")))
+                fig_hava.add_trace(go.Scatter(x=df_fc["date"], y=df_fc.get("temp_min_c", [10]*7),
+                                              mode="lines+markers", name="Min Sicaklik",
+                                              line=dict(color="#1f77b4")))
+                fig_hava.update_layout(
+                    height=260, margin=dict(t=10, b=20, l=40, r=40),
+                    yaxis=dict(title="Sicaklik (°C)"),
+                    yaxis2=dict(title="Yagis (mm)", overlaying="y", side="right"),
+                    legend=dict(orientation="h", y=1.12),
+                )
+                st.plotly_chart(fig_hava, use_container_width=True)
     else:
-        st.warning("Open-Meteo API'ye erişilemiyor (offline mod).")
+        st.info("Hava verisi alinemiyor (internet baglantisini kontrol edin).")
 
-    st.divider()
+    # ── 1C-bis: Hava Durumu Gecmisi ───────────────────────────────────────────
+    hava_gecmis = get_weather_history(tarla_id, days=30)
+    if hava_gecmis:
+        hava_stats = get_weather_stats(tarla_id, days=30)
+        with st.expander(
+            f"📊 Hava Durumu Gecmisi (Son 30 Gun) — "
+            f"Ort. {hava_stats.get('avg_temp', '?')}°C | "
+            f"Toplam Yagis: {hava_stats.get('toplam_yagis', 0):.0f}mm | "
+            f"GDD: {hava_stats.get('son_gdd_kum', 0):.0f}",
+            expanded=False,
+        ):
+            cols_stat = st.columns(5)
+            cols_stat[0].metric("Ort. Sicaklik", f"{hava_stats.get('avg_temp', '?')}°C")
+            cols_stat[1].metric("Max Sicaklik", f"{hava_stats.get('max_temp', '?')}°C")
+            cols_stat[2].metric("Min Sicaklik", f"{hava_stats.get('min_temp', '?')}°C")
+            cols_stat[3].metric("Yagisli Gun", hava_stats.get("yagisli_gun", 0))
+            cols_stat[4].metric("GDD Kumulatif", f"{hava_stats.get('son_gdd_kum', 0):.0f}")
 
-    # ── SHAP Feature Importance (statik) ─────────────────────────────────
-    st.subheader("🔍 Özellik Önemi (SHAP — Buğday Conv-LSTM)")
-    features_ranked = [
-        ("NDVI_trend_7d", 0.31),
-        ("drought_index_7d", 0.22),
-        ("NDVI_int", 0.17),
-        ("GDD_cum", 0.11),
-        ("tp_sum", 0.08),
-        ("ssr_sum", 0.06),
-        ("t2m_mean", 0.03),
-        ("EVI_int", 0.02),
-    ]
-    feat_df = pd.DataFrame(features_ranked, columns=["Özellik", "SHAP Değeri"])
-    feat_df["Özellik"] = feat_df["Özellik"].map(
-        lambda x: FEATURE_LABELS.get(x, x)
-    )
-    fig2 = go.Figure(go.Bar(
-        x=feat_df["SHAP Değeri"], y=feat_df["Özellik"],
-        orientation="h", marker_color="#1565c0",
-    ))
-    fig2.update_layout(
-        height=280, margin=dict(t=10, b=10, l=0, r=20),
-        xaxis_title="Ortalama |SHAP| değeri",
-        plot_bgcolor="#fafafa",
-        yaxis=dict(autorange="reversed"),
-    )
-    st.plotly_chart(fig2, use_container_width=True)
+            df_hv = pd.DataFrame(hava_gecmis)
+            df_hv["tarih_dt"] = pd.to_datetime(df_hv["tarih"])
 
-    if not _AGRO_AVAILABLE:
-        return
+            fig_h = make_subplots(
+                rows=3, cols=1, shared_xaxes=True,
+                row_heights=[0.45, 0.30, 0.25],
+                vertical_spacing=0.06,
+                subplot_titles=["Sicaklik (°C)", "Gunluk Yagis (mm)", "Kumulatif GDD"],
+            )
+            fig_h.add_trace(go.Scatter(
+                x=df_hv["tarih_dt"], y=df_hv["temp_max"],
+                mode="lines", name="Max", line=dict(color="#d62728", width=1.5),
+            ), row=1, col=1)
+            fig_h.add_trace(go.Scatter(
+                x=df_hv["tarih_dt"], y=df_hv["temp_min"],
+                mode="lines", name="Min", line=dict(color="#1f77b4", width=1.5),
+                fill="tonexty", fillcolor="rgba(31,119,180,0.10)",
+            ), row=1, col=1)
+            fig_h.add_trace(go.Scatter(
+                x=df_hv["tarih_dt"], y=df_hv["hava_temp_c"],
+                mode="lines", name="Ort.", line=dict(color="#2ca02c", width=1, dash="dot"),
+            ), row=1, col=1)
+            fig_h.add_trace(go.Bar(
+                x=df_hv["tarih_dt"], y=df_hv["yagis_gunluk_mm"],
+                name="Yagis", marker_color="#aec7e8",
+            ), row=2, col=1)
+            fig_h.add_trace(go.Scatter(
+                x=df_hv["tarih_dt"], y=df_hv["gdd_kumulatif"],
+                mode="lines", name="GDD", line=dict(color="#9467bd", width=2),
+            ), row=3, col=1)
 
-    st.divider()
+            # Don ve sicak stres isaretleri
+            don_rows = df_hv[df_hv["don_riski"] == 1]
+            if not don_rows.empty:
+                fig_h.add_trace(go.Scatter(
+                    x=don_rows["tarih_dt"], y=don_rows["temp_min"],
+                    mode="markers", name="Don Riski",
+                    marker=dict(color="blue", symbol="triangle-down", size=8),
+                ), row=1, col=1)
+            sicak_rows = df_hv[df_hv["sicak_stres"] == 1]
+            if not sicak_rows.empty:
+                fig_h.add_trace(go.Scatter(
+                    x=sicak_rows["tarih_dt"], y=sicak_rows["temp_max"],
+                    mode="markers", name="Sicak Stres",
+                    marker=dict(color="orange", symbol="triangle-up", size=8),
+                ), row=1, col=1)
 
-    # ── Agronomik Takvim ──────────────────────────────────────────────────
-    st.subheader("🌱 Agronomik Takvim")
-    wx_cur2, wx_fc2 = get_weather() if _WEATHER_AVAILABLE else (None, None)
-    now_month = datetime.now().month
+            fig_h.update_layout(
+                height=500, margin=dict(t=30, b=20, l=55, r=20),
+                legend=dict(orientation="h", y=1.05),
+                hovermode="x unified",
+            )
+            st.plotly_chart(fig_h, use_container_width=True)
 
-    col_w, col_s = st.columns(2)
+            if hava_stats.get("don_gun", 0) > 0:
+                st.warning(f"❄️ {hava_stats['don_gun']} don gunu tespit edildi (grafikteki mavi ucgenler)")
+            if hava_stats.get("sicak_gun", 0) > 0:
+                st.warning(f"🌡️ {hava_stats['sicak_gun']} sicak stres gunu tespit edildi (turuncu ucgenler)")
 
-    _EVRE_EMOJI = {
-        "ekim_cimlenme": "🌱", "kardeslenme": "🌿", "sapa_kalkma": "🌾",
-        "basaklanma": "🌾", "ciceklenme": "🌸", "dane_dolumu": "🌾",
-        "olgunlasma": "🟡", "cimlenme": "🌱", "yaprak": "🍃",
-        "sap_uzamasi": "📏", "tabla_olusumu": "🌻", "dane_dolumu": "🌻",
-        "ara_donem": "💤",
-    }
+    # ── 1D: Fenoloji ──────────────────────────────────────────────────────────
+    st.subheader("🌾 Fenoloji ve Takvim")
+    col1, col2 = st.columns(2)
 
-    for col, crop, takvim in [
-        (col_w, "Wheat", BUGDAY_TAKVIM),
-        (col_s, "Sunflower", AYCICEGI_TAKVIM),
-    ]:
-        with col:
-            st.markdown(f"**{'🌾 Buğday' if crop == 'Wheat' else '🌻 Ayçiçeği'}**")
-            fen = get_current_phenology(crop, now_month)
-            emoji = _EVRE_EMOJI.get(fen["evre"], "🔵")
-            kritik_badge = " 🔴 KRİTİK" if fen["kritik_mi"] else ""
-            st.markdown(f"{emoji} **{fen['aciklama']}**{kritik_badge}")
-            st.caption(f"BBCH {fen['bbch_aralik']}")
-
-            # Ekim penceresi
-            ekim_bas = takvim["ekim_ay_baslangic"]
-            ekim_bit = takvim["ekim_ay_bitis"]
-            if ekim_bas <= ekim_bit:
-                in_ekim = ekim_bas <= now_month <= ekim_bit
-            else:
-                in_ekim = now_month >= ekim_bas or now_month <= ekim_bit
-
-            if in_ekim and wx_cur2:
-                ekim = evaluate_planting_window(crop, wx_cur2, wx_fc2)
-                ekim_color = "🟢" if ekim["ekim_uygun"] else "🔴"
-                st.metric("Ekim Penceresi", f"{ekim_color} {ekim['skor']}/100", ekim["gerekce"][:60])
-            elif in_ekim:
-                st.metric("Ekim Penceresi", "⚪ Hava verisi yok", "")
-            else:
-                st.metric("Ekim Penceresi", "⬜ Dönem değil", f"Ekim: {ekim_bas}-{ekim_bit}. ay")
-
-            # Sulama tavsiyesi
-            soil_m = wx_cur2.get("soil_moisture", 30) if wx_cur2 else 30
-            sulama = get_irrigation_advice(crop, now_month, soil_m, wx_fc2)
-            acil_color = {"ACIL": "🔴", "PLANLI": "🟡", "GEREKSIZ": "🟢"}.get(sulama["aciliyet"], "⚪")
-            st.metric(
-                "Sulama",
-                f"{acil_color} {sulama['aciliyet']}",
-                f"{sulama['miktar_ton_dekar']} ton/dekar — {sulama['zamanlama']}" if sulama["sulama_gerekli"] else sulama["gerekce"][:55],
+    with col1:
+        if fenoloji:
+            kritik = "🔴 KRiTiK DONEM" if fenoloji.get("kritik_mi") else "🟢 Normal Donem"
+            st.info(
+                f"**Evre:** {fenoloji.get('evre', '?')}\n\n"
+                f"**BBCH:** {fenoloji.get('bbch_aralik', '?')}\n\n"
+                f"**Aciklama:** {fenoloji.get('aciklama', '?')}\n\n"
+                f"{kritik}"
             )
 
-            # Gübreleme
-            gubre = get_fertilization_advice(crop, now_month)
-            if gubre["gubre_zamani"]:
-                st.info(f"🌿 **Gübreleme:** {gubre['aciklama']}")
+    with col2:
+        if ekim_degerlendirme:
+            skor = ekim_degerlendirme.get("skor", 0)
+            kategori = ekim_degerlendirme.get("kategori", "Bilinmiyor")
+            st.metric("Ekim Penceresi Skoru", f"{skor}/100", delta=kategori)
 
-    # Yıllık fenoloji takvimi (Plotly timeline)
-    st.markdown("**Yıllık Fenoloji Takvimi**")
-    month_labels = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
-
-    wheat_palette = ["#e3f2fd", "#bbdefb", "#90caf9", "#64b5f6", "#42a5f5", "#2196f3", "#1565c0"]
-    sun_palette   = ["#fff8e1", "#ffecb3", "#ffe082", "#ffd54f", "#ffca28", "#ffc107", "#e65100"]
-
-    fig_pheno = go.Figure()
-
-    for crop_label, takvim_data, palette in [
-        ("🌾 Buğday", BUGDAY_TAKVIM, wheat_palette),
-        ("🌻 Ayçiçeği", AYCICEGI_TAKVIM, sun_palette),
-    ]:
-        for i, (evre_adi, evre) in enumerate(takvim_data["fenoloji"].items()):
-            months = sorted(evre["ay"])
-            color = palette[i % len(palette)]
-
-            # Build contiguous month ranges
-            ranges = []
-            if months:
-                s, e = months[0], months[0]
-                for m in months[1:]:
-                    if m == e + 1:
-                        e = m
-                    else:
-                        ranges.append((s, e))
-                        s = e = m
-                ranges.append((s, e))
-
-            for s_m, e_m in ranges:
-                active = s_m <= now_month <= e_m
-                fig_pheno.add_trace(go.Bar(
-                    x=[e_m - s_m + 1],
-                    y=[crop_label],
-                    base=[s_m - 1],
-                    orientation="h",
-                    marker_color="#ff5722" if active else color,
-                    marker_line_width=0.5,
-                    marker_line_color="white",
-                    hovertemplate=(
-                        f"<b>{evre['aciklama']}</b><br>"
-                        f"BBCH: {evre['bbch']}<br>"
-                        f"Ay: {month_labels[s_m-1]}"
-                        + (f"–{month_labels[e_m-1]}" if s_m != e_m else "")
-                        + "<extra></extra>"
-                    ),
-                    showlegend=False,
-                ))
-
-    fig_pheno.add_vline(
-        x=now_month - 0.5,
-        line_dash="dash",
-        line_color="#d32f2f",
-        line_width=2,
-        annotation_text=f"▼ {month_labels[now_month - 1]}",
-        annotation_position="top right",
-        annotation_font_color="#d32f2f",
-    )
-    fig_pheno.update_layout(
-        barmode="overlay",
-        height=180,
-        margin=dict(t=30, b=20, l=10, r=10),
-        xaxis=dict(
-            tickmode="array",
-            tickvals=list(range(12)),
-            ticktext=month_labels,
-            range=[-0.5, 11.5],
-        ),
-        plot_bgcolor="#fafafa",
-        paper_bgcolor="white",
-        bargap=0.25,
-    )
-    st.plotly_chart(fig_pheno, use_container_width=True)
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# SAYFA 2 — Rover İzleme
-# ══════════════════════════════════════════════════════════════════════════
-
-def page_rover_izleme():
-    render_header("Otonom IoT Sensör Gezgini — ÇP-3")
-
-    # ── Test butonları ────────────────────────────────────────────────────
-    st.subheader("📤 Mock Veri Gönder")
-    b1, b2 = st.columns(2)
-
-    with b1:
-        if st.button("🟢 Senaryo A — Normal Tarla", use_container_width=True):
-            ok = mqtt_publish(SENARYO_A)
-            if ok:
-                st.session_state.rover_data = dict(SENARYO_A)
-                st.session_state.advisory_data = None
-                st.success("Senaryo A gönderildi. Orchestrator işliyor...")
-                with st.spinner("Tavsiye bekleniyor (maks. 90 sn)..."):
-                    adv = mqtt_wait_advisory(90)
-                if adv:
-                    st.session_state.advisory_data = adv
-                    st.rerun()
-            else:
-                st.error("MQTT broker'a bağlanılamadı (Mosquitto çalışıyor mu?)")
-
-    with b2:
-        if st.button("🔴 Senaryo B — Çoklu Anomali", use_container_width=True):
-            ok = mqtt_publish(SENARYO_B)
-            if ok:
-                st.session_state.rover_data = dict(SENARYO_B)
-                st.session_state.advisory_data = None
-                st.success("Senaryo B gönderildi. Orchestrator işliyor...")
-                with st.spinner("LLM tavsiye üretiyor (maks. 90 sn)..."):
-                    adv = mqtt_wait_advisory(90)
-                if adv:
-                    st.session_state.advisory_data = adv
-                    st.rerun()
-            else:
-                st.error("MQTT broker'a bağlanılamadı (Mosquitto çalışıyor mu?)")
-
-    st.divider()
-
-    # ── Son sensör verisi ─────────────────────────────────────────────────
-    rover = st.session_state.rover_data
-    adv   = st.session_state.advisory_data
-
-    st.subheader("📟 Son Rover Verisi")
-
-    if rover is None:
-        st.info("Henüz veri yok. Yukarıdaki butonlardan test verisi gönderin.")
-        lat, lon = DEFAULT_LAT, DEFAULT_LON
-    else:
-        lat = rover.get("gps_lat", DEFAULT_LAT)
-        lon = rover.get("gps_lon", DEFAULT_LON)
-
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Nem Sensör 1", f"{rover.get('nem_1_pct', '—'):.1f} %")
-        c2.metric("Nem Sensör 2", f"{rover.get('nem_2_pct', '—'):.1f} %")
-        c3.metric("Hava Sıcaklığı", f"{rover.get('hava_temp_c', '—'):.1f} °C")
-        c4.metric("BBCH Evresi", rover.get("bbch_sinif", "—"))
-
-    # Anomaliler
-    if adv and adv.get("anomaly_count", 0) > 0:
-        st.error(
-            f"⚠️ **{adv['anomaly_count']} Anomali Tespit Edildi**",
-            icon="🚨",
-        )
-        for a in adv.get("anomalies", []):
-            badge = {"KRITIK": "🔴", "YUKSEK": "🟠", "ORTA": "🟡"}.get(
-                a["seviye"], "⚪"
+    if sulama:
+        if sulama.get("sulama_gerekli"):
+            aciliyet = sulama.get("aciliyet", "ORTA")
+            ikon = "🔴" if aciliyet == "ACIL" else "🟡"
+            st.warning(
+                f"{ikon} **Sulama:** {aciliyet} | "
+                f"{sulama.get('miktar_ton_dekar', '?')} ton/da | "
+                f"{sulama.get('zamanlama', '?')}\n\n"
+                f"{sulama.get('gerekce', '')}"
             )
-            st.markdown(f"{badge} **[{a['seviye']}] {a['tip']}** — {a['aciklama']}")
-    elif adv:
-        st.success("✅ Anomali tespit edilmedi")
-
-    st.divider()
-
-    # ── GPS Haritası ──────────────────────────────────────────────────────
-    st.subheader("🗺️ GPS Konumu")
-    m = folium.Map(location=[lat, lon], zoom_start=14, tiles="OpenStreetMap")
-    folium.Marker(
-        [lat, lon],
-        popup=f"trak-ai-rover-01\n{lat:.4f}°N, {lon:.4f}°E",
-        tooltip="Rover konumu",
-        icon=folium.Icon(color="green" if (adv and adv.get("anomaly_count", 0) == 0)
-                         else "red", icon="tractor", prefix="fa"),
-    ).add_to(m)
-    folium.Circle(
-        [lat, lon], radius=50,
-        color="#1565c0", fill=True, fill_opacity=0.15,
-    ).add_to(m)
-    st_folium(m, height=350, width=None, returned_objects=[])
-
-    st.divider()
-
-    # ── Advisory göster ───────────────────────────────────────────────────
-    if adv and adv.get("advisory"):
-        st.subheader("💡 KDS Tavsiyesi")
-        if adv.get("llm_triggered"):
-            dur = adv.get("duration_sec")
-            st.caption(
-                f"Gemma-3-4B tarafından üretildi"
-                + (f" · {dur:.1f} sn" if dur else "")
-            )
-            st.info(adv["advisory"])
         else:
-            st.success(adv["advisory"])
+            st.success(f"💧 Sulama gerekmiyor: {sulama.get('gerekce', 'Nem seviyesi yeterli.')}")
+
+    if gubre and gubre.get("gubre_zamani"):
+        st.info(f"🌱 Gubreleme: {gubre.get('tip', '?')} — {gubre.get('doz', '?')}")
+
+    # ── 1E: Oneriler ─────────────────────────────────────────────────────────
+    st.subheader("💡 Aksiyon Onerileri")
+    oneriler = []
+
+    if son_kamera_bulgu:
+        aksiyon = KDS_AKSIYONLAR.get(son_kamera_bulgu["camera_sinif"], {})
+        oneriler.append({
+            "renk": "error",
+            "baslik": f"📷 Kamera: {son_kamera_bulgu['camera_sinif']}",
+            "detay": aksiyon.get("tavsiye", "Uzman ile gorusun"),
+            "aciliyet": aksiyon.get("aciliyet", "YUKSEK"),
+        })
+
+    if sulama and sulama.get("sulama_gerekli"):
+        oneriler.append({
+            "renk": "error" if sulama.get("aciliyet") == "ACIL" else "warning",
+            "baslik": f"💧 Sulama Gerekiyor ({sulama.get('aciliyet','?')})",
+            "detay": f"{sulama.get('miktar_ton_dekar','?')} ton/da — {sulama.get('zamanlama','')}",
+            "aciliyet": sulama.get("aciliyet", "ORTA"),
+        })
+
+    if alerts:
+        for al in alerts:
+            oneriler.append({"renk": "warning", "baslik": "⚠️ Hava Uyarisi", "detay": al, "aciliyet": "ORTA"})
+
+    if gubre and gubre.get("gubre_zamani"):
+        oneriler.append({
+            "renk": "info",
+            "baslik": "🌱 Gubreleme Plani",
+            "detay": f"{gubre.get('tip','')} — {gubre.get('doz','')}",
+            "aciliyet": "PLANLI",
+        })
+
+    if ndvi_mevcut and ndvi_mevcut < 0.35:
+        oneriler.append({
+            "renk": "error",
+            "baslik": "📉 Dusuk NDVI",
+            "detay": f"NDVI {ndvi_mevcut:.3f} — Bitki sagligi kritik. Gozlem ve mudahale gerekebilir.",
+            "aciliyet": "YUKSEK",
+        })
+
+    if not oneriler:
+        st.success("✅ Kritik bir sorun tespit edilmedi. Rutin izleme yeterli.")
+    else:
+        for o in oneriler:
+            fn = getattr(st, o["renk"])
+            fn(f"**{o['baslik']}**\n\n{o['detay']}")
+
+    # ── 1F: SHAP (varsa) ──────────────────────────────────────────────────────
+    shap_data = son_tahmin.get("shap_ozet") if son_tahmin else None
+    if shap_data:
+        try:
+            shap_dict = json.loads(shap_data) if isinstance(shap_data, str) else shap_data
+            if shap_dict:
+                st.subheader("🔬 Verim Faktoru Analizi (SHAP Top-5)")
+                items = sorted(shap_dict.items(), key=lambda x: abs(x[1]), reverse=True)[:5]
+                df_shap = pd.DataFrame(items, columns=["Faktor", "SHAP Degeri"])
+                colors = ["red" if v < 0 else "green" for _, v in items]
+                fig_shap = go.Figure(go.Bar(
+                    x=df_shap["SHAP Degeri"], y=df_shap["Faktor"],
+                    orientation="h", marker_color=colors,
+                ))
+                fig_shap.update_layout(height=200, margin=dict(t=10, b=20, l=10, r=20))
+                st.plotly_chart(fig_shap, use_container_width=True)
+        except Exception:
+            pass
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# SAYFA 3 — Tarım Asistanı
-# ══════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# SAYFA 2: Rover Izleme
+# ═══════════════════════════════════════════════════════════════════════════════
 
-ORNEK_SORULAR = [
-    "Ayçiçeğime ne zaman su vermeliyim?",
-    "Buğdayda mildiyö belirtileri neler?",
-    "Tarlam için gübreleme takvimi öner",
-]
+def page_rover(tarla_id: int, tarla: dict):
+    st.header(f"📡 Rover Izleme — {tarla['isim']}")
+    now_ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    crop_key = _crop_key(tarla)
+
+    # ── 2A: Mock Veri Paneli ──────────────────────────────────────────────────
+    st.subheader("🕹️ Rover Kontrol Paneli")
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("🟢 Normal Tarama Simule Et", use_container_width=True):
+            add_rover_olcum(tarla_id, {
+                "timestamp": now_ts, "waypoint_id": 99, "waypoint_label": "WP-SIM",
+                "gps_lat": round(tarla["konum_lat"] + 0.0003, 6),
+                "gps_lon": round(tarla["konum_lon"] + 0.0003, 6),
+                "nem_1_pct": 28.0, "nem_2_pct": 26.5, "hava_temp_c": 22.0,
+                "hava_nem_pct": 58.0, "bbch_sinif": "50-69", "bbch_guven": 0.88,
+                "anomali_sayisi": 0, "image_path": None,
+                "camera_sinif": "saglikli_bugday" if crop_key == "Wheat" else "saglikli_aycicegi",
+                "camera_guven": 0.92,
+            })
+            st.success("Normal tarama DB'ye kaydedildi.")
+            st.rerun()
+
+    with col2:
+        if st.button("🔴 Anomali Senaryosu", use_container_width=True):
+            add_rover_olcum(tarla_id, {
+                "timestamp": now_ts, "waypoint_id": 98, "waypoint_label": "WP-ANO",
+                "gps_lat": round(tarla["konum_lat"] - 0.0004, 6),
+                "gps_lon": round(tarla["konum_lon"] + 0.0005, 6),
+                "nem_1_pct": 11.0, "nem_2_pct": 28.0, "hava_temp_c": 31.5,
+                "hava_nem_pct": 38.0, "bbch_sinif": "50-69", "bbch_guven": 0.79,
+                "hastalik": "hastalik_mildiyo", "hastalik_guven": 0.82,
+                "anomali_sayisi": 2,
+                "anomaliler": json.dumps(
+                    ["Kritik dusuk toprak nemi: %11", "Kamera: hastalik_mildiyo (guven: %82)"],
+                    ensure_ascii=False,
+                ),
+                "kds_tavsiye": "Acil sulama ve mildiyo ilaci uygulamasi gerekli.",
+                "image_path": None,
+                "camera_sinif": "hastalik_mildiyo",
+                "camera_guven": 0.82,
+            })
+            st.error("Anomali senaryosu DB'ye kaydedildi!")
+            st.rerun()
+
+    tum_asc = get_rover_olcumler_asc(tarla_id, limit=5000)
+
+    # ── 2B: Son Rover Verileri ────────────────────────────────────────────────
+    st.subheader("📋 Son Rover Verileri")
+    olcumler_desc = list(reversed(tum_asc))[:20] if tum_asc else []
+
+    if olcumler_desc:
+        df_son = pd.DataFrame(olcumler_desc)
+        df_son["Tarih"] = pd.to_datetime(df_son["timestamp"]).dt.strftime("%d %b %H:%M")
+        df_son["Waypoint"] = df_son.get("waypoint_label", "—")
+        df_son["Nem-1"] = df_son["nem_1_pct"].apply(lambda x: f"%{x:.1f}" if x else "—")
+        df_son["Nem-2"] = df_son["nem_2_pct"].apply(lambda x: f"%{x:.1f}" if x else "—")
+        df_son["Sicaklik"] = df_son["hava_temp_c"].apply(lambda x: f"{x:.1f}°C" if x else "—")
+        df_son["BBCH"] = df_son.get("bbch_sinif", "—")
+        df_son["Kamera"] = df_son.apply(
+            lambda r: f"📷 {r['camera_sinif']}" if r.get("camera_sinif") else "—", axis=1
+        )
+        df_son["Anomali"] = df_son["anomali_sayisi"].apply(
+            lambda x: f"🔴 {int(x)}" if x and int(x) > 0 else "🟢 0"
+        )
+        display_cols = ["Tarih", "Waypoint", "Nem-1", "Nem-2", "Sicaklik", "BBCH", "Kamera", "Anomali"]
+        st.dataframe(df_son[display_cols], use_container_width=True)
+    else:
+        st.info("Henuz rover olcumu yok.")
+
+    # ── 2B-bis: Son Rover Goruntuleri ─────────────────────────────────────────
+    goruntulu = [r for r in (list(reversed(tum_asc))[:50]) if r.get("image_path")]
+    if goruntulu:
+        st.subheader("📸 Son Rover Goruntuleri")
+        cols_g = st.columns(4)
+        for idx, olc in enumerate(goruntulu[:8]):
+            img_path = olc["image_path"]
+            col = cols_g[idx % 4]
+            sinif = olc.get("camera_sinif", "")
+            guven = (olc.get("camera_guven") or 0) * 100
+            saglikli = sinif in ("saglikli_bugday", "saglikli_aycicegi")
+            badge_color = "🟢" if saglikli else "🔴"
+            label = f"{badge_color} {sinif} (%{guven:.0f})" if sinif else "—"
+            if os.path.exists(img_path):
+                col.image(img_path, caption=label, use_container_width=True)
+            else:
+                col.caption(f"📷 {label}\n_{str(olc.get('timestamp',''))[:16]}_")
+    else:
+        with st.expander("📸 Son Rover Goruntuleri", expanded=False):
+            st.info("Goruntu iceren rover olcumu bulunamadi. Kamera modulu aktiflesince goruntuler burada listelenir.")
+
+    # ── 2C: Model vs Rover ────────────────────────────────────────────────────
+    st.subheader("📈 Model vs Rover Karsilastirmasi")
+    if len(tum_asc) >= 2:
+        try:
+            ekim_date_str = tarla.get("ekim_tarihi", "2025-10-15")
+            ekim_date = datetime.strptime(ekim_date_str, "%Y-%m-%d").date()
+        except Exception:
+            ekim_date = date(2025, 10, 15)
+        clay = tarla.get("toprak_kil", 31.0) or 31.0
+
+        for r in tum_asc:
+            try:
+                ts = datetime.strptime(r["timestamp"], "%Y-%m-%d %H:%M:%S").date()
+                r["model_nem"] = _model_nem(tarla, ts)
+                r["fark"] = round((r.get("nem_1_pct") or 0) - r["model_nem"], 1)
+                r["durum_ikon"] = "🔴 SAPMA" if r["fark"] <= -5.0 else "🟢 NORMAL"
+            except Exception:
+                r["model_nem"] = 0
+                r["fark"] = 0
+                r["durum_ikon"] = "—"
+
+        df_tl = pd.DataFrame(tum_asc)
+        df_tl["ts"] = pd.to_datetime(df_tl["timestamp"])
+        df_tl = df_tl.sort_values("ts")
+
+        fig_tl = go.Figure()
+        fig_tl.add_trace(go.Scatter(
+            x=df_tl["ts"], y=df_tl["model_nem"],
+            mode="lines", name="Model Tahmini",
+            line=dict(color="#1f77b4", width=2),
+        ))
+        fig_tl.add_trace(go.Scatter(
+            x=df_tl["ts"], y=df_tl["nem_1_pct"],
+            mode="lines", line=dict(width=0),
+            fill="tonexty", fillcolor="rgba(214,39,40,0.15)",
+            showlegend=False, name="Sapma",
+        ))
+        fig_tl.add_trace(go.Scatter(
+            x=df_tl["ts"], y=df_tl["nem_1_pct"],
+            mode="markers", name="Rover Olcumu",
+            marker=dict(color="#d62728", size=5),
+        ))
+        fig_tl.update_layout(
+            height=300, margin=dict(t=10, b=30, l=55, r=30),
+            yaxis=dict(title="Toprak Nemi (%)", range=[0, 65]),
+            xaxis_title="Tarih",
+            legend=dict(orientation="h", y=1.1),
+            hovermode="x unified",
+        )
+        st.plotly_chart(fig_tl, use_container_width=True)
+        st.caption("Mavi = Model beklentisi | Kirmizi = Rover olcumu | Renkli alan = Sapma")
+
+        # Karsilastirma tablosu (son 10)
+        son10 = list(reversed(tum_asc))[:10]
+        for r in son10:
+            if "model_nem" not in r:
+                try:
+                    ts = datetime.strptime(r["timestamp"], "%Y-%m-%d %H:%M:%S").date()
+                    r["model_nem"] = _model_nem(tarla, ts)
+                    r["fark"] = round((r.get("nem_1_pct") or 0) - r["model_nem"], 1)
+                    r["durum_ikon"] = "🔴 SAPMA" if r["fark"] <= -5.0 else "🟢 NORMAL"
+                except Exception:
+                    r["model_nem"] = 0
+                    r["fark"] = 0
+                    r["durum_ikon"] = "—"
+
+        df_karsi = pd.DataFrame(son10)
+        df_karsi["Tarih"] = pd.to_datetime(df_karsi["timestamp"]).dt.strftime("%d %b")
+        df_karsi["Rover Nem"] = df_karsi["nem_1_pct"].apply(lambda x: f"%{x:.1f}" if x else "—")
+        df_karsi["Model Tahmin"] = df_karsi["model_nem"].apply(lambda x: f"%{x:.1f}" if x else "—")
+        df_karsi["Fark"] = df_karsi["fark"].apply(lambda x: f"{x:+.1f}" if x else "0")
+        df_karsi["Durum"] = df_karsi["durum_ikon"]
+        st.dataframe(
+            df_karsi[["Tarih", "Rover Nem", "Model Tahmin", "Fark", "Durum"]],
+            use_container_width=True,
+        )
+    else:
+        st.info("Grafik icin yeterli veri yok.")
+
+    # ── 2D: Anomali Gecmisi ───────────────────────────────────────────────────
+    st.subheader("⚠️ Anomali Gecmisi")
+    anomalili = [r for r in reversed(tum_asc) if r.get("anomali_sayisi", 0) > 0]
+    if anomalili:
+        for ano in anomalili:
+            with st.expander(
+                f"🔴 {ano['timestamp']} — {ano.get('waypoint_label','?')} "
+                f"({ano['anomali_sayisi']} anomali)"
+            ):
+                if ano.get("anomaliler"):
+                    try:
+                        for a in json.loads(ano["anomaliler"]):
+                            st.warning(a)
+                    except Exception:
+                        st.warning(ano["anomaliler"])
+
+                if ano.get("kds_tavsiye"):
+                    st.info(f"💡 KDS Tavsiyesi: {ano['kds_tavsiye']}")
+
+                # Kamera tespiti
+                cam_sinif = ano.get("camera_sinif") or ano.get("hastalik")
+                cam_guven = ano.get("camera_guven") or ano.get("hastalik_guven") or 0.0
+                if cam_sinif:
+                    aksiyon = KDS_AKSIYONLAR.get(cam_sinif, {})
+                    st.error(
+                        f"📷 Kamera Tespiti: **{cam_sinif}** (%{cam_guven*100:.0f} guven) — "
+                        f"{aksiyon.get('tavsiye', '')}"
+                    )
+
+                img_path = ano.get("image_path")
+                if img_path and os.path.exists(img_path):
+                    st.image(img_path, caption=f"Rover goruntusu — {ano.get('waypoint_label','?')}", width=320)
+    else:
+        st.success("Bu tarla icin kayitli anomali yok.")
+
+    # ── 2E: GPS Haritasi ──────────────────────────────────────────────────────
+    st.subheader("🗺️ Waypoint Haritasi")
+    try:
+        import folium
+        from streamlit_folium import st_folium
+        center = [tarla["konum_lat"], tarla["konum_lon"]]
+        m = folium.Map(location=center, zoom_start=14)
+        folium.Marker(center, popup=tarla["isim"],
+                      icon=folium.Icon(color="blue", icon="home")).add_to(m)
+        for olc in list(reversed(tum_asc)):
+            lat = olc.get("gps_lat") or tarla["konum_lat"]
+            lon = olc.get("gps_lon") or tarla["konum_lon"]
+            color = "red" if olc.get("anomali_sayisi", 0) > 0 else "green"
+            popup_txt = (
+                f"{olc.get('waypoint_label','?')} | {str(olc.get('timestamp','?'))[:10]}<br>"
+                f"Nem: %{olc.get('nem_1_pct','?')} | Sic: {olc.get('hava_temp_c','?')}°C"
+            )
+            if olc.get("camera_sinif"):
+                popup_txt += f"<br>Kamera: {olc['camera_sinif']}"
+            elif olc.get("hastalik"):
+                popup_txt += f"<br>Hastalik: {olc['hastalik']}"
+            folium.CircleMarker(
+                [lat, lon], radius=8, color=color, fill=True, fill_opacity=0.8,
+                popup=folium.Popup(popup_txt, max_width=200),
+            ).add_to(m)
+        st_folium(m, height=420, use_container_width=True)
+    except ImportError:
+        st.info("Harita icin: `pip install folium streamlit-folium`")
+
+    # ── 2F: istatistikler ─────────────────────────────────────────────────────
+    st.subheader("📈 Rover istatistikleri")
+    tum_desc = list(reversed(tum_asc))
+    if tum_desc:
+        toplam = len(tum_desc)
+        anomali_n = sum(1 for r in tum_desc if r.get("anomali_sayisi", 0) > 0)
+        nem_values = [r.get("nem_1_pct") or 0 for r in tum_desc]
+        ort_nem = sum(nem_values) / toplam if toplam > 0 else 0
+        son_ts = tum_desc[0].get("timestamp", "?")[:16]
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Toplam Tarama", toplam)
+        c2.metric("Anomali Orani", f"%{anomali_n/toplam*100:.0f}")
+        c3.metric("Ort. Nem", f"%{ort_nem:.1f}")
+        c4.metric("Son Tarama", son_ts)
+    else:
+        st.info("Istatistik icin veri yok.")
 
 
-def page_tarim_asistani():
-    render_header("RAG destekli Türkçe tarım danışmanı")
+# ═══════════════════════════════════════════════════════════════════════════════
+# SAYFA 3: Tarim Asistani (Chat)
+# ═══════════════════════════════════════════════════════════════════════════════
 
-    vs, ch = get_faiss()
-    ollama_ok, _ = get_ollama_status()
+def page_chat(tarla_id: int, tarla: dict):
+    st.header("💬 Tarim Asistani")
 
-    if vs is None:
-        st.error("FAISS indeksi yüklenemedi. Önce `python main_rag.py build` çalıştırın.")
+    if not _LLM_OK:
+        st.error("LLM modulu yuklenemedi. `src/cp4_rag/llm_engine.py` kontrol edin.")
         return
-    if not ollama_ok:
-        st.warning("Ollama bağlantısı yok. Yanıtlar üretilemez.")
 
-    # Örnek sorular sidebar'da
+    # Session state baslat
+    if "chat_history" not in st.session_state:
+        st.session_state["chat_history"] = []
+    if "rag_sources" not in st.session_state:
+        st.session_state["rag_sources"] = {}
+
+    # ── Sidebar: Ornek Sorular ────────────────────────────────────────────────
     with st.sidebar:
-        st.divider()
-        st.markdown("**Örnek Sorular**")
-        for soru in ORNEK_SORULAR:
-            if st.button(soru, key=f"ornek_{soru[:20]}", use_container_width=True):
-                st.session_state._pending_question = soru
+        st.markdown("**Ornek Sorular**")
+        ornek_sorular = [
+            "Tarlam nasil?",
+            "Detayli tarla raporu yaz",
+            "Bugday verimim ne olur?",
+            "Su vermem lazim mi?",
+            "Mildiyo tedavisi nedir?",
+            "Ekim zamani mi?",
+        ]
+        for soru in ornek_sorular:
+            if st.button(soru, key=f"ornek_{soru}", use_container_width=True):
+                st.session_state["pending_question"] = soru
 
-    # Aktif veri bağlamı — LLM'e beslenen güncel veriler
-    with st.expander("📊 Aktif Veri Bağlamı (LLM'e beslenen güncel veriler)", expanded=False):
-        rich_ctx = get_rich_context()
-        st.code(rich_ctx, language="text")
-        st.caption("Her 5 dakikada bir güncellenir. Tıkla → kapat.")
-
-    # Chat geçmişini göster
-    for msg in st.session_state.chat_history:
+    # ── Gecmis mesajlari goster ───────────────────────────────────────────────
+    for i, msg in enumerate(st.session_state["chat_history"]):
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
-            if msg["role"] == "assistant" and msg.get("sources"):
-                with st.expander("📚 Kaynak Belgeler"):
-                    for i, src in enumerate(msg["sources"], 1):
-                        method = src.get("method", "")
-                        boost = " ★" if src.get("boosted") else ""
-                        st.caption(
-                            f"**Kaynak {i}:** {src['metadata'].get('source','?')} "
-                            f"({method}{boost})"
-                        )
-                        st.text(src["text"][:300] + ("..." if len(src["text"]) > 300 else ""))
+            if msg["role"] == "assistant" and i in st.session_state.get("rag_sources", {}):
+                meta = st.session_state["rag_sources"][i]
+                badge_map = {"VERI": "📊 VERi", "BILGI": "📚 BiLGi", "GENEL": "💬 GENEL"}
+                qtype = meta.get("query_type", "GENEL")
+                st.caption(
+                    f"{badge_map.get(qtype, qtype)} | "
+                    f"Sure: {meta.get('elapsed', 0):.1f}s"
+                )
+                if meta.get("sources"):
+                    with st.expander(f"📚 Kaynak Belgeler ({len(meta['sources'])} chunk)"):
+                        for s in meta["sources"]:
+                            src = s.get("source", "?")
+                            txt = s.get("text", "")[:200]
+                            score = s.get("score", 0)
+                            st.markdown(f"**{src}** (skor: {score:.3f})\n\n{txt}…")
 
-    # Bekleyen örnek soru varsa input'a koy
-    pending = st.session_state.pop("_pending_question", None)
-
-    user_input = st.chat_input("Sorunuzu yazın...") or pending
+    # ── Kullanici girisi ──────────────────────────────────────────────────────
+    pending = st.session_state.pop("pending_question", None)
+    user_input = st.chat_input("Tarlaniz hakkinda bir soru sorun…") or pending
 
     if user_input:
-        # Kullanıcı mesajını ekle
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
+        st.session_state["chat_history"].append({"role": "user", "content": user_input})
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        # RAG + LLM
         with st.chat_message("assistant"):
-            with st.spinner("Bilgi tabanı taranıyor ve yanıt üretiliyor..."):
+            with st.spinner("Dusunuyor…"):
+                t0 = datetime.now()
                 try:
-                    docs = tri_rag_retrieve(user_input, vs, ch)
-                    context = format_context(docs)
-                    result = rag_query(user_input, context, get_rich_context())
-                    answer = result.get("answer", "Yanıt alınamadı.")
-                    dur = result.get("duration_sec", 0)
-                    tok = result.get("tokens", 0)
+                    result = generate_chat_response(
+                        user_question=user_input,
+                        vectorstore=_vectorstore if _FAISS_OK else None,
+                        chunks=_chunks if _FAISS_OK else [],
+                    )
+                    answer = result.get("answer") or result.get("response") or result.get("text") or "Yanit uretilmedi."
+                    elapsed = (datetime.now() - t0).total_seconds()
+                    query_type = result.get("query_type", "GENEL")
+                    sources = result.get("sources", [])
                 except Exception as e:
-                    answer = f"Hata: {e}"
-                    docs = []
-                    dur, tok = 0, 0
+                    answer = f"Hata olustu: {e}"
+                    elapsed = 0
+                    query_type = "GENEL"
+                    sources = []
 
-            st.markdown(answer)
-            if dur:
-                st.caption(f"⏱ {dur:.1f} sn · {tok} token · {OLLAMA_MODEL}")
-            if docs:
-                with st.expander("📚 Kaynak Belgeler"):
-                    for i, src in enumerate(docs, 1):
-                        method = src.get("method", "")
-                        boost = " ★" if src.get("boosted") else ""
-                        st.caption(
-                            f"**Kaynak {i}:** {src['metadata'].get('source','?')} "
-                            f"({method}{boost})"
-                        )
-                        st.text(src["text"][:300] + ("..." if len(src["text"]) > 300 else ""))
+                st.markdown(answer)
+                badge_map = {"VERI": "📊 VERi", "BILGI": "📚 BiLGi", "GENEL": "💬 GENEL"}
+                st.caption(
+                    f"{badge_map.get(query_type, query_type)} | "
+                    f"Sure: {elapsed:.1f}s"
+                )
+                if sources:
+                    with st.expander(f"📚 Kaynak Belgeler ({len(sources)} chunk)"):
+                        for s in sources:
+                            src = s.get("source", "?")
+                            txt = s.get("text", "")[:200]
+                            score = s.get("score", 0)
+                            st.markdown(f"**{src}** (skor: {score:.3f})\n\n{txt}…")
 
-        st.session_state.chat_history.append({
-            "role": "assistant",
-            "content": answer,
-            "sources": docs,
-        })
+        msg_idx = len(st.session_state["chat_history"])
+        st.session_state["chat_history"].append({"role": "assistant", "content": answer})
+        st.session_state["rag_sources"][msg_idx] = {
+            "query_type": query_type,
+            "elapsed": elapsed,
+            "sources": sources,
+        }
+        st.rerun()
+
+    # ── Aktif Veri Baglamı expander ───────────────────────────────────────────
+    with st.expander("📊 Aktif Veri Baglamı (LLM'e ne besleniyor)"):
+        if _LLM_OK:
+            try:
+                ctx = build_rich_context()
+                st.code(ctx, language="markdown")
+            except Exception as e:
+                st.warning(f"Baglam olusturulamadi: {e}")
+        else:
+            st.info("LLM modulu aktif degil.")
+
+    # Chat gecmisini temizle butonu
+    if st.session_state["chat_history"] and st.button("🗑️ Sohbeti Temizle"):
+        st.session_state["chat_history"] = []
+        st.session_state["rag_sources"] = {}
+        st.rerun()
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# Ana giriş noktası
-# ══════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# ANA GIRiS
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def main():
-    page = render_sidebar()
+    tarla_id, tarla, page = render_sidebar()
+
+    if tarla is None:
+        st.error("Tarla bulunamadi. Veritabanini kontrol edin.")
+        return
 
     if page == "🌿 Tarla Durumu":
-        page_tarla_durumu()
-    elif page == "📡 Rover İzleme":
-        page_rover_izleme()
-    else:
-        page_tarim_asistani()
-
-    st.markdown(
-        "<div style='text-align:center;color:#999;font-size:0.8em;margin-top:2em'>"
-        "TÜBİTAK 2209-A &nbsp;•&nbsp; Işık Üniversitesi &nbsp;•&nbsp; 2026"
-        "</div>",
-        unsafe_allow_html=True,
-    )
+        page_tarla(tarla_id, tarla)
+    elif page == "📡 Rover Izleme":
+        page_rover(tarla_id, tarla)
+    elif page == "💬 Tarim Asistani":
+        page_chat(tarla_id, tarla)
 
 
 if __name__ == "__main__":

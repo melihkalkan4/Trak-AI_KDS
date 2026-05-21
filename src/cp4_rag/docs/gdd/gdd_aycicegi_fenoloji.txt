@@ -1,0 +1,164 @@
+AYÇİÇEĞİ FENOLOJİSİ VE BÜYÜME GÜN DERECELERİ (GDD) REHBERİ
+Trakya Bölgesi Yazlık Ayçiçeği — Güncel Tarımsal Bilgi Kaynağı
+
+=========================================================
+AYÇİÇEĞİNDE GDD HESABI
+=========================================================
+
+Ayçiçeği için baz (alt eşik) sıcaklık: 6.7°C
+GDD hesabı: Günlük GDD = [(Maks. sıcaklık + Min. sıcaklık) / 2] − 6.7°C
+Günlük ortalama ≤ 6.7°C ise o gün için GDD = 0 (birikme yok)
+Üst eşik uygulanmaz (ayçiçeği yüksek sıcaklıklara karşı daha toleranslı)
+
+Neden 6.7°C? Ayçiçeği tohumunun çimlenmesi ve kök gelişimi için toprak sıcaklığının bu eşiğin üzerinde olması gerekir. 6.7°C altında tohumlar pasif kalır, çimlenme olmaz veya çok yavaş olur.
+
+=========================================================
+TRAKYA'DA AYÇİÇEĞİ EKİM DÖNEMİ GDD BİRİKİMİ
+=========================================================
+
+25 Nisan ekimi için aylık GDD birikimi (baz: 6.7°C):
+  Nisan 25-30 (5 gün, ort. 12.4°C): 5 × (12.4−6.7) = ≈ 29 GDD
+  Mayıs (ort. 17.5°C): 31 × (17.5−6.7) = ≈ 335 GDD
+  Haziran (ort. 22.0°C): 30 × (22.0−6.7) = ≈ 459 GDD
+  Temmuz (ort. 24.8°C): 31 × (24.8−6.7) = ≈ 561 GDD
+  Ağustos (ort. 24.6°C): 31 × (24.6−6.7) = ≈ 555 GDD
+
+Kümülatif GDD (25 Nisan'dan itibaren):
+  Nisan sonu (5 gün): ≈ 29 GDD
+  Mayıs sonu: ≈ 364 GDD
+  Haziran sonu: ≈ 823 GDD
+  Temmuz sonu: ≈ 1.384 GDD
+  Ağustos sonu: ≈ 1.939 GDD
+
+=========================================================
+BÜYÜME AŞAMALARINA GÖRE GDD EŞİKLERİ
+=========================================================
+
+VE — Çıkış (Emergence):
+  Gerekli GDD: ≈ 114°C·gün
+  Tahmini tarih (25 Nisan ekiminde): 5-10 Mayıs
+  Karar ipucu: Ekim + 2 hafta sonra çıkış görmüyorsanız toprak nemi ve sıcaklığını kontrol edin. Kuş/rodent zararı olabilir.
+
+V4 — 4. Yaprak Aşaması:
+  Gerekli GDD: ≈ 211°C·gün
+  Tahmini tarih: 15-20 Mayıs
+  Karar ipucu: V4'te bitki boyu 15-25 cm. Yabancı ot mücadelesi bu döneme kadar tamamlanmalıdır.
+
+V8 — 8. Yaprak Aşaması:
+  Gerekli GDD: ≈ 287°C·gün
+  Tahmini tarih: 25-30 Mayıs
+  Karar ipucu: V8'de bitki boyu 30-50 cm, kök sistemi derinleşiyor. Üst gübre (azot) V8-V12 döneminde verilir.
+
+V12 — 12. Yaprak Aşaması:
+  Gerekli GDD: ≈ 363°C·gün
+  Tahmini tarih: Haziran başı
+
+R1 — Tabla Oluşumu Başlangıcı (Baş görünür):
+  Gerekli GDD: ≈ 582°C·gün
+  Tahmini tarih: 15-25 Haziran
+  Karar ipucu: R1'den itibaren su ihtiyacı dramatik artar. İlk kritik sulama bu dönemdedir. Sclerotinia (beyaz çürüklük) için fungisit uygulaması R1-R3 arasında yapılmalıdır.
+
+R2 — Tabla Büyüme Başlangıcı:
+  Gerekli GDD: ≈ 660°C·gün
+  Tahmini tarih: 25 Haziran – 1 Temmuz
+
+R3 — Tabla Üzerinde Çiçek Tomurcuğu Görünür:
+  Gerekli GDD: ≈ 738°C·gün
+  Tahmini tarih: 1-8 Temmuz
+  Karar ipucu: R3-R5 arası su stresi verimi %30-50 azaltabilir. Bu dönem en kritik sulama penceresidir.
+
+R4 — Polen Dağılımı (Çiçeklenme Başlangıcı):
+  Gerekli GDD: ≈ 816°C·gün
+  Tahmini tarih: 8-15 Temmuz
+  Karar ipucu: Gündüz sıcaklığı >35°C olursa çiçek dökülmesi ve polenlenme sorunu. Yüksek sıcak dönemlerde öğlen serinletme sulaması düşünülebilir.
+
+R5.1 — %10 Çiçeklenme:
+  Gerekli GDD: ≈ 894°C·gün
+  Tahmini tarih: 12-18 Temmuz
+
+R5.5 — %50 Çiçeklenme (Tam Çiçeklenme):
+  Gerekli GDD: ≈ 972°C·gün
+  Tahmini tarih: 15-22 Temmuz
+  Karar ipucu: R5.5 tablalar güneşi takip etmeyi bırakır. Sclerotinia sporları arı ziyaretleriyle yayılır. Çiçeklenme döneminde insektisit uygulamasından kaçının (arı koruması için).
+
+R6 — Çiçeklenme Tamamlanıyor:
+  Gerekli GDD: ≈ 1.050°C·gün
+  Tahmini tarih: 20-28 Temmuz
+  Karar ipucu: Dane dolumu başlıyor. Son sulama R6'da veya biraz önce yapılmalıdır.
+
+R7 — Sütlü Olum (Dane Dolumu Başlangıcı):
+  Gerekli GDD: ≈ 1.128°C·gün
+  Tahmini tarih: 25 Temmuz – 2 Ağustos
+
+R8 — Hamur Olum:
+  Gerekli GDD: ≈ 1.206°C·gün
+  Tahmini tarih: 1-10 Ağustos
+  Karar ipucu: R8'de tabla üst kısmı sararmaya başlar. Yapraklar yeşil kalabilir. Hasat hâlâ erken.
+
+R9 — Fizyolojik Olum:
+  Gerekli GDD: ≈ 1.283°C·gün
+  Tahmini tarih: 10-20 Ağustos
+  Karar ipucu: Tabla tamamen sarı-kahverengi, daneler sert. Dane nemi %25-35. Birleştiricilerle hasat için nem %15'e düşene kadar bekleyin.
+
+HASAT (R9 sonrası):
+  Gerekli nem: %8-12
+  Tahmini tarih: Ağustos sonu – Eylül başı
+  Karar ipucu: Trakya'da genellikle 20 Ağustos – 15 Eylül arası hasat. Çok erken hasat = yağ kaybı. Geç hasat = tabla kırılması, kuş zararı.
+
+=========================================================
+EKİM ZAMANI VE GDD İLİŞKİSİ
+=========================================================
+
+Optimal ekim penceresi (Trakya):
+- Toprak sıcaklığı ≥ 8°C (tercihen ≥ 10°C) — baz sıcaklığın 1-2°C üzeri hızlı çimlenme sağlar
+- Tarih: Nisan sonu – Mayıs başı (15 Nisan – 15 Mayıs)
+- Çok erken ekim (Nisan başı): Toprak soğuk → yavaş çimlenme, damping-off riski
+- Çok geç ekim (Mayıs sonu): Çiçeklenme yüksek sıcaklığa denk gelir, R3-R5 su stresi artar
+
+Don Riski ve GDD:
+- Ekim öncesi: Son don tarihi Trakya'da genellikle Nisan 10-20'dir
+- Çıkış sonrası (VE döneminde) −2°C altı → bitki ölümü
+- Ayçiçeği çıkış sonrası hiçbir don riskine dayanamaz. Hava tahmini kesinlikle kontrol edilmeli.
+
+=========================================================
+SULAMA VE GDD İLİŞKİSİ
+=========================================================
+
+Su ihtiyacı büyüme aşamasına göre:
+  Vejetatif (ekim–R1, 0–582 GDD): Toplam su ihtiyacının %20'si
+  Çiçeklenme (R1–R6, 582–1.050 GDD): Toplam su ihtiyacının %55'i ← KRİTİK
+  Dane dolumu (R6–R9, 1.050–1.283 GDD): Toplam su ihtiyacının %25'i
+
+Kc (Bitki Katsayısı) değerleri:
+  Başlangıç (ilk 20-25 gün): 0.35
+  Gelişme (25-40 gün): 0.75
+  Orta dönem (R1-R6): 1.10-1.20 ← en yüksek su tüketimi
+  Son dönem (R6-R9): 0.75
+  Hasat öncesi: 0.40
+
+Toprak nemi yönetimi:
+  R1-R6 döneminde: Kullanılabilir toprak suyunun %45'i tükenince sulama yapın
+  Diğer dönemlerde: %50 tükenince sulama yapın
+  Çiçeklenme döneminde tarla kapasitesinin %80'i korunmalıdır
+
+=========================================================
+HASAT HAZIRLIĞI VE DON HASAR BELIRTICILERI
+=========================================================
+
+Hasat Olumu Göstergeleri:
+  - Tablada sarı-kahverengi renk oluşumu (%75-80 tablada)
+  - Arka yüz tamamen sarı-kahverengi
+  - Daneler sert ve karakteristik renklerinde
+  - Tablo sapı kahverengi ve kuru
+  - Dane nemi ölçümü: birleştirici için <12%, depo için <8%
+
+Yağ Oranı ve Kalite:
+  - Fizyolojik olum öncesi hasat → yağ oranı düşük (%35-38 yerine %42-46)
+  - İdeal yağ oranı hedefi: %42-48 (ham)
+  - Yüksek yağ için: Fizyolojik oluma (R9) kadar bekleme şarttır
+
+Pas ve Hastalık Takibi:
+  - Downy mildew (mildiyö): V4-R1 arası, serin nemli hava
+  - Alternaria yaprak lekesi: Çiçeklenme sonrası, yaşlı yapraklar
+  - Sclerotinia: R1-R5, yüksek nem + serin gece sıcaklıkları
+  - Phoma: Geç sezon, yaşlı dokuları etkiler

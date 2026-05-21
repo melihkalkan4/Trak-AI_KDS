@@ -152125,5 +152125,1409 @@
       "chunk_id": 81,
       "total_chunks": 82
     }
+  },
+  {
+    "text": "HASAT KALİTE GÖSTERGELERİ VE HASAT SONRASI YÖNETİM REHBERİ\nTrakya Bölgesi Buğday ve Ayçiçeği — Kalite ve Depolama Standartları\n\n=========================================================\nBUĞDAY HASAT KALİTE GÖSTERGELERİ\n=========================================================",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 0,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "1. Düşme Sayısı (Falling Number — FN):\n   Hasat kalitesinin en kritik göstergesi. Alfa-amilaz enzim aktivitesini ölçer.\n   Standart: ≥ 350 saniye → ekmeklik kalitesi\n   200–350 saniye → sınır, bazı alıcılar kabul eder (düşük fiyat)\n   < 200 saniye → çimlenme başlamış, yemlik değere düşer, ciddi fiyat kaybı",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 1,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Trakya'da FN riski:\n   - Hasat döneminde (Haziran) yağış alan buğday: Her ıslak gün FN ~20–40 düşürebilir\n   - 3+ gün yağış = FN < 250 riski yüksek\n   - Sıcak ve nemli başak dönemi: Preharvest sprouting (öntaneli çimlenme) başlar\n\n   FN'yi koruma stratejileri:\n   - Hasat zamanlamayı hava tahminine göre yap (3 kuru gün bul)\n   - Geç hasat yapma: Her hafta gecikme FN'yi riske atar\n   - Hızlı kurutma ve depolama: Yüksek nemde enzim aktivitesi artmaya devam eder",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 2,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "2. Hektolitre Ağırlığı (Test Weight / HLW):\n   Standart: ≥ 76 kg/hl → ekmeklik kalitesi (TSE ve ticaret normu)\n   72–76 kg/hl → kabul edilebilir, fiyat indirimi olabilir\n   < 72 kg/hl → 1. sınıf ekmeklik değil, yemlik/karma yem sektörü",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 3,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "HLW'yi düşüren faktörler:\n   - Su stresi dane dolumunda: kırışık, küçük dane\n   - Erken hasat: dane tam dolmamış\n   - Pas hastalığı (özellikle kahverengi pas): dane büzüşür\n   - Aşırı yüksek sıcaklık çiçeklenme–dane dolumunda (>30°C): ısı stres\n   - Geç don: başak veya taze dane hasarı → boş/hafif dane",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 4,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "3. Protein Oranı (%):\n   Ekmeklik: ≥ %12.5 (kuru madde bazında)\n   İyi kalite: %13–15\n   Trakya ortalama (kuru tarım): %11–13\n   Sulu tarım: genellikle %11–12 (sulamada verim artar ama protein seyrelebilir)\n\n   Proteini etkileyen faktörler:\n   - Geç azot uygulaması (sapa kalkma + bayrak yaprak dönemi): protein artırır\n   - Yüksek dane dolumu süresi ve düşük sıcaklık: yüksek nişasta → düşük protein oranı\n   - Kuraklık stresi paradoksu: verim düşer ama protein oranı yükselir",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 5,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "4. Dane Nemi (Hasat Nemi):\n   Birleştirici ile hasat ideali: %13–15\n   > %16: kurutma zorunlu, depolamaya girmemeli\n   < %13: ideale yakın ama aşırı kurumuşsa taneler kırılabilir (HLW'ye dikkat)\n\n   Trakya'da tipik hasat nemi: Haziran sonu %12–16 (yıla göre değişir)\n\n5. Yabancı Madde ve Kırık Dane:\n   Standart: Toplam yabancı madde ≤ %2 (birinci sınıf ekmeklik)\n   Kırık dane: ≤ %1\n   Yüksek kırık dane nedeni: Birleştirici döven açıklığı çok dar, hız yüksek",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 6,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "=========================================================\nBUĞDAY HASAT ÖNCESİ VE SONRASI KALİTE RİSKLERİ\n=========================================================",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 7,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Preharvest Sprouting (Öntaneli Çimlenme):\n  Risk koşulları: FN düşüklüğünün ana nedeni\n  - Fizyolojik olumdan sonra yağmur + ılık hava (15–25°C)\n  - Başakta ıslak kalma 48 saat+\n  Trakya'da risk dönemi: Haziran 15 – Temmuz 10 (hasat beklenirken yağış)\n  Belirti: Başakta görünür embriyo gelişimi, başak rengi esmer\n  Önlem: Erken hasat (nem %16–17 olsa bile), hızlı kurutma",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 8,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Fusarium Başak Yanıklığı ve DON Toksin:\n  Hasat kalitesini doğrudan etkileyen patojen.\n  Koşullar: Çiçeklenme döneminde (BBCH 60–65) nemli ve sıcak hava (>15°C gece)\n  Trakya riski: Nisan–Mayıs yağışlı yıllarda yüksek\n  DON (Deoksinivalenol) toksin sınırı: ≤ 1.25 mg/kg (ekmeklik un için AB normu)\n  Belirti: Başakta beyazlama, pembe spor kitleleri, hafif taneler\n  Önlem: Çiçeklenme döneminde fungisit (karbendazim, tebukonazol)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 9,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Hasat Öncesi Pas Yoğunluğu:\n  Sarı pas veya kahverengi pas %20+ yaprak alanı etkiler → HLW 2–5 kg/hl düşer\n  Bu durumda protein oranı da olumsuz etkilenir.\n\nHasat Gecikmesi Riski:\n  Her 1 hafta gecikme (olum sonrası): %2–5 dane dökülme + kuş zararı\n  Dane kaybı = 5–15 kg/da görünmez kayıp\n  FN bozulması yağmurlu yıllarda hızlanır\n\n=========================================================\nBUĞDAY KALİTE SINIFLARI (TÜRKİYE NORMLARİ)\n=========================================================",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 10,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "1. Sınıf Ekmeklik:\n  FN ≥ 350 sn | HLW ≥ 76 kg/hl | Protein ≥ %12 | Nem ≤ %14\n  Trakya çiftçi fiyatı: Referans fiyatın %100'ü\n\n2. Sınıf Ekmeklik:\n  FN 250–350 sn | HLW 72–76 kg/hl | Nem ≤ %14\n  Fiyat: %90–95\n\n3. Sınıf / Yemlik:\n  FN < 250 sn VEYA HLW < 72 kg/hl\n  Fiyat: %70–80 (yem sektörü)\n\nYüksek Kalite Premium:\n  Protein ≥ %14 + FN ≥ 400: bazı alıcılar %5–10 prim öder\n  Yüksek oleik buğday çeşitleri: Sanayi pazarında fark yaratır",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 11,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "=========================================================\nAYÇİÇEĞİ HASAT KALİTE GÖSTERGELERİ\n=========================================================\n\n1. Yağ Oranı (%):\n   Kalite standardı: ≥ %42 (ham dane bazında)\n   İdeal aralık: %44–48\n   Yüksek oleik çeşitler: Oleik asit ≥ %80 (premium fiyat, uzun raf ömrü)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 12,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Yağ oranını düşüren faktörler:\n   - Erken hasat (fizyolojik olum tamamlanmamış): yağ birikimi sürmekte\n   - R5–R7 döneminde su stresi: yağ sentezi bozulur\n   - Yüksek sıcaklık stres (>38°C) çiçeklenme döneminde: polar lipit bozunması\n   - Hasat sonrası bekleme (R9 sonrası): Her 1 hafta gecikme yağ oranı %1–2 azalır (oksidatif)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 13,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "2. Dane Nemi (Hasat Nemi):\n   Birleştirici ile hasat: %12–14\n   Depo için: ≤ %8 (uzun vadeli)\n   ≤ %10: kısa vadeli depo (1–3 ay)\n   > %14: kurutma zorunlu, depolama tehlikeli\n\n   Trakya'da tipik hasat nemi: Ağustos ayında %10–15 arası (tabla kuruluğuna göre)\n\n3. Dane Büyüklüğü ve Doluluk:\n   Tam olmayan tabla merkezleri (boş dane): Bor eksikliği veya polinasyon yetersizliği\n   Kırık/ezik dane: Birleştirici ayarı → döven açıklığını artır\n   1000 dane ağırlığı: 55–75 g (çeşide göre)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 14,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "4. Serbest Yağ Asidi (Free Fatty Acid — FFA):\n   Standart: ≤ %2 FFA (rafineriye kabul)\n   Yüksek nem + uzun depo → FFA artışı\n   Hasarlanmış taneler (böcek, küf) → FFA hızla yükselir\n\n5. Oleik Asit (Yüksek Oleik Çeşitler):\n   Standart: ≥ %75 oleik asit (HO çeşit sertifikasyonu)\n   ≥ %80: premium piyasa (margarin, sanayi yağı, fast food)\n   Trakya'da HO çeşit penetrasyonu artıyor (Clearfield+HO hibridler)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 15,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "=========================================================\nAYÇİÇEĞİ HASAT ZAMANLAMA VE KALİTE İLİŞKİSİ\n=========================================================",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 16,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Olgunluk Göstergeleri (Hasat Kararı):\n  1. Tabla arka yüzü: Tamamen sarı-kahverengi → %95 olgunluk\n  2. Tabla ön yüzü: %70–80'i sarı-kahverengi\n  3. Tabla sapı: Kurumaya başlamış, hafif sarı-kahverengi\n  4. Daneler: Thumbnailing testinde sert, kırmızı-siyah çizgili çeşide özgü renk\n  5. Yapraklar: Alt yapraklar tamamen sarı, üst yapraklar sararıyor",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 17,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Erken Hasat (Tablo %60 sarı):\n  - Nem %16–18 → zorunlu kurutma\n  - Yağ oranı %38–42 (henüz tam birikmemiş)\n  - Avantaj: Kuş zararını önler, tabla kırılmasını önler\n\n  Geç Hasat (Tablo %90+ sarı, Ağustos sonu):\n  - Nem %8–10 → kurutma gerekmeyebilir\n  - Yağ oranı %44–48 (maksimum)\n  - Risk: Tabla kırılması (lodging), kuş zararı, yağ bozunması başlar\n\n  Trakya Hasat Penceresi: 15 Ağustos – 20 Eylül (25 Nisan ekiminde)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 18,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Kuş Zararı Yönetimi:\n  Ağustos ortasından itibaren kargalar ve sığırcıklar tablo tüketir.\n  Yüksek baskı alanlarında: Erken hasat + hızlı kurutma\n  Kayıp tahmini: %5–15 (geciken hasatta daha fazla)\n\n=========================================================\nKURUTMA VE DEPOLAMA STANDARTLARI\n=========================================================",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 19,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Buğday Kurutma:\n  Hasat nemi %15–20 ise: Mekanik kurutma ile %13'e indir\n  Kurutma sıcaklığı: ≤ 40°C (yüksek sıcaklık protein ve gluten kalitesini bozar)\n  ≤ 55°C kısa süreli kabul edilir ancak FN etkilenebilir\n  Kurutma maliyeti: Yüksek nem → hem yakıt hem kalite kaybı riski",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 20,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Uzun Vadeli Depo için Standartlar:\n  Nem: ≤ %12 (6 ay+)\n  Sıcaklık: ≤ 15°C (böcek üremesi ve küf aktivasyonu engellenir)\n  Nem oranı düşükse bile: Düzenli aerasyon (ısı birikimini önler)\n  İlk 2 ayda: 15 günde bir sıcaklık ölçümü; ısınma başlarsa hemen havalandır\n\nAyçiçeği Kurutma:\n  Hasat nemi %14+ ise: Kurutma şart\n  Kurutma sıcaklığı: ≤ 35°C (yağ kalitesi etkilenmesin)\n  Yüksek oleik çeşitler daha stabil: ≤ 40°C tolere eder\n  Depo nemi hedefi: ≤ %8 (uzun vadeli)",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 21,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Depo Sıcaklık Yönetimi:\n  ≤ 15°C: İdeal (yağ oksidasyonu yavaşlar)\n  Yüksek nem + sıcaklık + oksijen: FFA artışı, kokuşma riski\n  Aerasyon fanı gece çalıştırma: Depo içi sıcaklığı dış havaya eşitler\n\n=========================================================\nHASAT SONRASI TOPRAK VE TARLA YÖNETİMİ\n=========================================================",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 22,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Anız Yönetimi:\n  Anız yakmayın:\n  - Organik madde (azot, karbon) yakılır → toprak kalitesi düşer\n  - Biyolojik aktivite azalır\n  - Yangın riski\n  - Sclerotinia/Phoma (ayçiçeği) sporları çevreye yayılabilir\n  Doğru yöntem: Anız parçalayıcı ile toprağa karıştır\n  Fayda: Organik madde geri kazanımı, hastalık döngüsü kısalır, toprak işlenebilirliği iyileşir",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 23,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Rotasyon Kararları Hasat Sonrası:\n  Ayçiçeği sonrası: Zorunlu olarak 4 yıl rotasyon (Sclerotinia sklerotu toprakta kalır)\n  Buğday sonrası: 2–3 yıl aradan sonra buğday iyi, sürekli buğday pas ve septorya biriktirir\n  En iyi sonraki bitki seçimi:\n  - Ayçiçeği sonrası: Buğday, arpa (farklı hastalık spektrumu)\n  - Buğday sonrası: Ayçiçeği, mısır (dikkat: Fusarium mısır anızında kalır)\n\nHasat Kalite Özeti — Karar Tablosu:",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 24,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "Hasat Kalite Özeti — Karar Tablosu:\n\n| Gösterge | İdeal | Sınır | Risk |\n|---|---|---|---|\n| Buğday FN | ≥350 sn | 250–350 | <250 |\n| Buğday HLW | ≥76 kg/hl | 72–76 | <72 |\n| Buğday Protein | ≥12.5% | 11–12.5 | <11 |\n| Buğday Nem (hasat) | 13–15% | 15–17 | >17 |\n| Ayçiçeği Yağ | ≥44% | 40–44 | <40 |\n| Ayçiçeği Nem (hasat) | 10–13% | 13–15 | >15 |\n| Ayçiçeği FFA | ≤1.5% | 1.5–3 | >3 |",
+    "metadata": {
+      "source": "hasat_kalite_gostergeler.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 25,
+      "total_chunks": 26
+    }
+  },
+  {
+    "text": "TRAKYA BÖLGESİ YAZLIK AYÇİÇEĞİ YETİŞTİRİCİLİK KAPSAMLI REHBERİ\nEdirne, Kırklareli, Tekirdağ İlleri — Tarımsal Uygulama Rehberi\n\n=========================================================\nBÖLGESEL ÖNEM VE GENEL BİLGİ\n=========================================================\n\nTrakya, Türkiye ayçiçeği üretiminin %40-50'sini karşılar.\nTürkiye, dünya ayçiçeği üretiminde önemli ülkeler arasındadır (6-8. sıra).\nTrakya'da ayçiçeği ekim alanı: ≈ 300.000-350.000 hektar",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 0,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Ayçiçeği çeşitleri:\n  Yağlık (konfeksiyonluk değil): %90 üretim, yağ oranı %42-50\n  Konfeksiyonluk (çerezlik): Büyük dane, düşük yağ (%25-35), ayrı çeşitler\n\nVerim hedefleri:\n  Kuru tarım (yağışa bağlı): 120-200 kg/dekar\n  Sulu tarım (sulama ile): 180-300 kg/dekar\n  Yüksek girdi + hibrit çeşit: 250-350 kg/dekar mümkün\n\n=========================================================\nEKİM ZAMANI VE HAZIRLIĞI\n=========================================================",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 1,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Optimal Ekim Dönemi:\n  Tarih: 20 Nisan – 15 Mayıs\n  Toprak sıcaklığı (5 cm): ≥ 8°C (tercihen ≥ 10°C)\n  Trakya'da toprak 8°C'ye ulaşma tarihi: Ortalama 10-20 Nisan\n\n  Neden bu tarih aralığı?\n  Erken ekim (Nisan başı): Toprak soğuk → yavaş çimlenme → fungal damping-off\n  Geç ekim (Mayıs sonu): Çiçeklenme Ağustos ortasına denk gelir → sıcak stres + kurak\n  İdeal: Çiçeklenme Temmuz'a, hasat Ağustos sonuna denk gelsin",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 2,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "KESIN UYARI: Son don tarihini kontrol et.\n  Trakya'da son don tarihi: Nisan 10-20 (ortalama)\n  Çıkış sonrası (VE aşaması) −2°C → fideler ölür, YENİDEN EKİM GEREKİR\n  Hava tahminine bak, don riski varsa ekimi 5-7 gün ertele.\n\nSıra Arası ve Ekim Sıklığı:\n  Sıra arası: 65-70 cm (Trakya bölgesi standardı)\n  Sıra üzeri: 25-30 cm (55.000-70.000 bitki/ha hedefi)\n  Ekim derinliği: 4-6 cm (nem olan katmana ulaşacak şekilde)\n  Tohum miktarı: 0.4-0.7 kg/da (hibrit tohumla az tohum önerilir)",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 3,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Optimum bitki sıklığı:\n  Kuru tarım: 55.000-65.000 bitki/ha\n  Sulu tarım: 65.000-75.000 bitki/ha (su yeterli olduğunda sık bitkide verim yüksek)\n\nToprak Hazırlığı:\n  Derin sürme: 25-35 cm (ayçiçeği derin kök atar, toprak hazırlığı önemli)\n  Tava oluşturmadan önce diskaro geçme\n  Pulverizatör ile ufalama son aşamada\n  Ayçiçeği sonrası: Kökleri parçala (Sclerotinia sklerotu toprakta kalabilir)",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 4,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Ekim Nöbeti:\n  Ayçiçeği için zorunlu öneri: En az 4 yılda bir dönüşüm\n  Sürekli ayçiçeği: Sclerotinia, Phoma ve Orobanche (canavarotu) birikir\n  İyi rotasyonlar: Buğday-buğday-ayçiçeği veya mısır-ayçiçeği\n  Orobanche yoğun alanlarda: Imidazolinone toleranslı çeşit + herbisit\n\n=========================================================\nGÜBRELEME PROGRAMI\n=========================================================",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 5,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Makro Besinler İhtiyacı:\n  Ayçiçeği 350 kg/da verim için:\n    Azot (N): 10-12 kg/da saf azot\n    Fosfor (P₂O₅): 6-8 kg/da\n    Potasyum (K₂O): 8-10 kg/da (killi-tınlı topraklarda genellikle yeterli)\n  Hibrit çeşitler daha yüksek besin kaldırır → analiz yapın\n\nGübreleme Zamanlaması:\n  1. UYGULAMA — Ekimle (Nisan):\n     DAP (18-46-0) veya NPK karma gübre: 25-30 kg/da\n     Fosforun büyük kısmı ve azotun 1/3'ü\n     Tohumun 5-8 cm yanına veya altına, yoksa yanma yapar.",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 6,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "2. UYGULAMA — V8-V12 dönemi (Mayıs ortası, BBCH 18-V12):\n     Amonyum Sülfat (%21 N, %24 S): 20-25 kg/da\n     Kükürt içermesi avantajlıdır (yağ kalitesini artırır)\n     VEYA Üre (%46): 10-12 kg/da\n     Bu uygulama tabla oluşumu ve yağ içeriğini doğrudan etkiler.",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 7,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Mikro Besin:\n  Bor (B) eksikliği: Ayçiçeğinde yaygın, killi-tınlı topraklarda riskli\n    Belirtisi: Çiçeklenme sorunları, tablo orta kısmında boş dane\n    Önlem: Çiçeklenme öncesi (R1-R2) yapraktan bor uygulaması\n    Doz: %0.2-0.3 boraks çözeltisi yapraktan\n  Çinko (Zn): Alkalin topraklarda sorun olabilir\n\n=========================================================\nHASTALIK VE ZARALI YÖNETİMİ\n=========================================================",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 8,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Sclerotinia (Beyaz Çürüklük — Sclerotinia sclerotiorum):\n  EN TEHLIKELI ayçiçeği hastalığı.\n  Risk koşulları: Çiçeklenme döneminde (R1-R5) serin (<20°C) ve nemli (>90% nispi nem) hava, özellikle yağmur sonrası.\n  Belirtisi: Başak sapında beyaz pamuksu miselyum, sert siyah sklerot oluşumu\n  Bulaşma yolu: Arılar çiçek poleniyle sporlary taşır\n  Korunma:\n    - Dayanıklı çeşit seçimi\n    - Kültürel önlem: 4 yıldan kısa rotasyon yapma",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 9,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "- Fungisit: Boscalid + iprodion veya dimoksistrobin; R1-R3 döneminde uygula\n  NOT: Fungisit uygularken arı girişini azalt (sabah erken veya akşam geç)",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 10,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Downy Mildew (Mildiyö — Plasmopara halstedii):\n  Risk: Serin ve nemli bahar koşulları, V4-R1 döneminde\n  Belirtisi: Yaprak alt yüzünde beyaz tüylü küf, üst yüzde sarı lekeler\n  Tohumla bulaşabilir → sertifikalı ilaçlı tohum kullanımı önemli\n  Fungisit: Metalaksil bazlı ilaç",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 11,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Alternaria Yaprak Lekesi (Alternaria helianthi, A. zinniae):\n  Risk: Çiçeklenme sonrası, yaşlı yapraklar\n  Belirtisi: Kahverengi-siyah lekeler, yaprak yanıklığı\n  Verime etkisi: Yaşlı yapraklarda olduğu için düşük, ama yoğunsa erken olum\n\nPhoma Çökerteni (Phoma macdonaldii):\n  Risk: Geç sezon, nemi seven patojen\n  Belirtisi: Tablo sapında siyah lezyonlar, erken ölüm\n  Önlem: Rotasyon, dayanıklı çeşit",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 12,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Orobanche (Canavarotu):\n  Parazit yabancı ot. Ayçiçeği köküne tutunur.\n  Risk: Tekrarlı ayçiçeği ekiminde birikir\n  Kontrol: Imidazolinone toleranslı çeşit + mesosulfuron herbisiti veya glyphosate uygulaması",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 13,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Yabancı Ot Yönetimi:\n  Çıkış öncesi herbisit: S-metolaklor veya trifluralin (ekim + toprak karıştırma)\n  Çıkış sonrası: Dar yapraklı → sethoksidim veya kletodim; geniş yapraklılar → çeşide bağlı\n  V4 öncesinde yabancı ot baskısı kritik — ilk 4-5 yaprak döneminde yabancı ot varsa verim %10-25 düşer\n\n=========================================================\nHASAT VE HASAT SONRASI\n=========================================================",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 14,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Hasat Olgunluk Kriterleri:\n  1. Tablo rengi: Sarı-kahverenginin %70-80'i\n  2. Arka yüz: Tamamen sarı-kahverengi (koyu altın)\n  3. Tablo sapı: Kurumaya başlamış\n  4. Dane nemi: %12-14 → birleştirici ile ideal\n  5. Yağ oranı: Fizyolojik olum tamamlanmamışsa yağ düşüktür\n\nHasat Zamanlaması (Trakya):\n  Genellikle: 15 Ağustos – 20 Eylül\n  Erken hasatın dezavantajı: Yağ oranı düşük, nem yüksek\n  Geç hasatın dezavantajı: Tabla kırılması, kuş zararı, tablo çürümesi",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 15,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "UYARI: Hasat öncesi tablo kırılması (bird damage) ciddi kayıp yaratabilir.\n  Yüksek kuş baskısı alanda: Erken hasat ve kurutma tercih et.\n\nBirleştirici Ayarları:\n  Tablo yüksekliğine göre kesici kafası ayarı\n  Döven açıklığı: Geniş bırakın (dane kırılması azalır)\n  Hız: Yavaş ilerleyin, tablo kaybını önleyin",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 16,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Kurutma ve Depolama:\n  Depoya girecek dane nemi: ≤ %8 (uzun süreli depo)\n  Hasat nemi >15%: Kurutma zorunlu (kurutma maliyeti hesaba katın)\n  Depo sıcaklığı: ≤ 15°C (uzun vadeli depo için)\n  Küf ve ısınmaya karşı: Düzenli kontrol, aerasyon",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 17,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Yağ Kalitesi ve Değer:\n  Yağ oranı: %42-48 (ham dane bazında) → rafineriye gidiş\n  Oleik asit oranı (yüksek oleik çeşitlerde): %80+ (premium fiyat)\n  Düşük yağ nedenler: Erken hasat, su stresi, yüksek sıcaklık stres döneminde\n  Hasatta her 1 hafta gecikme (R9 sonrası): Yağ kaybı %1-2 artar\n\n=========================================================\nÇEŞİT SEÇİMİ ÖNERİLERİ\n=========================================================",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 18,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Trakya için önemli çeşit özellikleri:\n  1. Sclerotinia direnci: EN ÖNEMLİ kriter\n  2. Downy mildew direnci: Önemli, sertifikalı tohumlukta ilaçlı olmalı\n  3. Yağ oranı: ≥ %44 tercih\n  4. Gün uzunluğuna tepki: Nötr tipler tercih (fotoperiyodizme duyarsız)\n  5. Tam olum süresi: 120-130 gün (Trakya koşullarına uygun)\n  6. Lodoze (devrilme) toleransı: Uzun boylu çeşitlerde risk, kısa saplı tercih\n\nDikkat: Her yıl yeni hibrit tohum kullanın (eski tohumla 2. yıl ekim = verim kaybı %20-30).",
+    "metadata": {
+      "source": "trakya_aycicegi_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 19,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "TRAKYA BÖLGESİ KIŞLIK BUĞDAY YETİŞTİRİCİLİK KAPSAMLI REHBERİ\nEdirne, Kırklareli, Tekirdağ İlleri — Tarımsal Uygulama Rehberi\n\n=========================================================\nBÖLGE ÖZELLİKLERİ\n=========================================================",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 0,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Trakya (Doğu Trakya), Türkiye'nin en önemli buğday üretim bölgelerinden biridir.\nToplam tarım alanı: ≈ 1.2 milyon hektar\nBuğday ekim alanı: ≈ 500.000-600.000 hektar\nBölge iklimi: Yarı-karasal, Karadeniz'in ılıtıcı etkisi\nYıllık yağış: 550-650 mm (Kırklareli-Tekirdağ arası)\n\nToprak profili (Ergene havzası ve çevresi):\n  Ağırlıklı olarak killi-tınlı (clay-loam) yapı\n  pH: 6.8-7.5 (nötr-hafif alkalin)\n  Organik madde: %1.5-3.0 (değişken)\n  Drenaj: Değişken; alüvyal ovalarda drenaj sorunu olabilir",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 1,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "=========================================================\nEKİM PLANLAMA\n=========================================================\n\nEkim Zamanı (Optimal):\n  Tarih: 15 Ekim – 15 Kasım\n  Toprak sıcaklığı (5 cm): 8–10°C optimal\n  Çok erken ekim (Eylül-Ekim başı): Kışa sağlam çıkan bitki haşere çekerek hastalığa açık olur\n  Çok geç ekim (Kasım sonu): Her 1 hafta gecikme = %3-5 verim kaybı\n\n  Son ekim tarihi: 30 Kasım (bundan sonra verim düşüşü belirginleşir)",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 2,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Neden Bu Tarih Aralığı?\n  15 Ekim – 15 Kasım ekiminde:\n  1. Tohum kışa girilmeden 3-5 yaprak + erken kardeş oluşturur\n  2. Kök sistemi donmadan derinleşir\n  3. Soğuk direnci (vernalizasyon) tamamlanır\n  4. Bahar ısınmasında hızlı büyüme başlar",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 3,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Tohum Seçimi:\n  Dekar başına tohum miktarı: 16-25 kg/da\n  1000 dane ağırlığına göre:\n    Küçük tohum (30-35 g/1000 dane): 16-18 kg/da\n    Orta tohum (35-45 g/1000 dane): 18-22 kg/da\n    İri tohum (45-55 g/1000 dane): 22-25 kg/da\n  Hedef: 400-500 bitki/m² (aşırı sık ekim verime katkı yapmaz)\n\n  Sertifikalı tohum kullanımı önerilir:\n    Hastalıklı tohumdan: Bunt, sürmece, septorya bulaşması\n    Tohumluk ilaçlaması: TMTD veya karbendazim bazlı ilaç + maneb",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 4,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Ekim Derinliği:\n  Normal koşul: 4-6 cm\n  Kuru toprak: 5-6 cm (neme yaklaşmak için derin)\n  Nemli toprak: 3-4 cm (toprak kabuğu riski varsa sığ)\n\nSıra Arası Mesafe:\n  Tahıl mibzeri ile: 15-18 cm\n  Bıçaklı ekim: 7-12 cm\n  Geniş sıra aralığı yabancı ot baskısı için dezavantaj.\n\n=========================================================\nTOPRAK HAZIRLIĞI VE ROTASYON\n=========================================================",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 5,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Toprak Hazırlığı:\n  Ön bitki hasadı sonrası: Anız parçalama (değil: anız yakma — organik madde yitirilir)\n  Derin sürme: 25-35 cm derin pulluk, 2 yılda bir (sürekli sürme toprak sıkışmasına yol açar)\n  İkincil toprak hazırlığı: Disk veya kültivatör, ekimden önce kabartma\n  Toprak pH <6.5 ise: Kireçleme önerilir (ton başına 1-2 ton kireç)",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 6,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Ekim Nöbeti Önerileri:\n  İdeal: Ayçiçeği → buğday → buğday → ayçiçeği (2 yılda bir)\n  Sürekli buğday: Pas ve septorya riski artar, verim düşer\n  Mısır–buğday: Fusarium riski (mısır anızı fomopsis ve fusarium taşır)\n  Ayçiçeği–buğday: İyi; farklı hastalık ve yabancı ot spektrumu\n\n=========================================================\nGÜBRELEME PROGRAMI (Trakya Killi-Tınlı Toprak)\n=========================================================",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 7,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Toprak Analizi Esaslı Yaklaşım:\n  Her 3-4 yılda bir toprak analizi yaptırın.\n  Azot (N): Toprak analizi genellikle N önermez (değişken ve kaybolgan)\n  Fosfor (P₂O₅): Kritik değer: <5 kg/da → uygula; 5-10 → orta; >10 → az\n  Potasyum (K₂O): Trakya killi topraklarında genellikle yeterli\n\nStandart Gübreleme (hedef 500 kg/da kuru tarım):\n  Saf Azot (N): 14 kg/da\n  Saf Fosfor (P₂O₅): 4-5 kg/da\n  Saf Potasyum (K₂O): 3-5 kg/da (analiz gerektiriyorsa)",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 8,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Gübreleme Zamanlaması — 3'e Bölünmüş N Uygulaması:\n  1. UYGULAMA — Ekimle birlikte veya ekimden önce (Ekim):\n     DAP (Diamonyum Fosfat, 18-46-0): 20-25 kg/da\n     Fosforun tamamı + azotun %20-25'i bu uygulamada verilir.\n     Tohuma değmemesi gerekir (tohum yanması riski).",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 9,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "2. UYGULAMA — Erken ilkbahar kardeşlenme sonu (Şubat ortası – Mart başı, BBCH 21-25):\n     Üre (%46 N): 8-10 kg/da → saf azot 3.7-4.6 kg/da\n     Amonyum nitrat (%33 N) alternatifi: 12-15 kg/da\n     Toprak nemli olmalı (yağmur sonrası veya yağmur öncesi). Kuru toprakta kayıp artar.\n\n  3. UYGULAMA — Sapa kalkma (Mart sonu – Nisan başı, BBCH 30-32):\n     Amonyum nitrat (%33 N): 15-20 kg/da → saf azot 5-6.6 kg/da\n     Bu dönemde azot verimi en yüksek etkiyi yapar (sürgün + başak büyüklüğü).",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 10,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "TOPLAM: 3 uygulamada = 14-15 kg/da saf azot (kuru tarım)\n\nSulu Tarım Gübreleme (hedef 700 kg/da):\n  Toplam saf azot: 16-18 kg/da\n  Fosfor: 5-6 kg/da\n  4. uygulamaya gerek yok; ancak sulama ile birlikte fertigasyon mümkünse küçük dozlarda ek N",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 11,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Mikro Besin Eksiklikleri:\n  Çinko (Zn) eksikliği: pH >7.0 topraklarda yaygın\n    Belirtisi: Yeni yapraklarda beyaz-sarı şeritler, büyüme geriliği\n    Tedavi: Çinko sülfat ZnSO4 — 2-3 kg/da topraktan veya %0.3 çözeltiden yapraktan\n  Manganez (Mn): Aşırı alkalin topraklarda sorun\n  Demir (Fe): Trakya topraklarında nadiren sorun\n\n=========================================================\nYABANCI OT YÖNETİMİ\n=========================================================",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 12,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Buğdayda Önemli Yabancı Otlar (Trakya):\n  Dar yapraklılar (Buğdaygiller): Yabani yulaf, tilki kuyruğu, çim\n  Geniş yapraklılar: Gelincik, köpekdişi, yabani hardal, çoban çantası, papatya\n\n  Ekonomik zarar eşiği:\n  Dar yapraklı: 3-5 bitki/m² → herbisit kararı\n  Geniş yapraklı: 10-15 bitki/m² → herbisit kararı",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 13,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Herbisit Uygulama Zamanları:\n  Dar yapraklı herbisitler: BBCH 21-32 (kardeşlenme-sapa kalkma başlangıcı)\n  Geniş yapraklı herbisitler: BBCH 13-32\n  Geç uygulama (BBCH 32 sonrası): Fitotoksisite riski\n\nDikkat: Sapa kalkma sonrasında herbisit uygulamaktan kaçının.\n\n=========================================================\nHASTALIK YÖNETİMİ\n=========================================================",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 14,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Sarı Pas (Puccinia striiformis) — En Yaygın:\n  Risk: Şubat-Nisan, serin-nemli hava (10-15°C + yüksek nem)\n  Belirtisi: Yapraklarda sarı çizgiler halinde toz\n  Kritik Eşik: %5 yaprak alanı etkilenmişse ilaçla\n  İlaçlama zamanı: BBCH 25-39 (erken müdahale = yüksek etkinlik)\n  Fungisit: Triazol grubu (tebukonazol, propikonazol vb.) + strobulin karışımı",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 15,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Kahverengi Pas (Puccinia triticina):\n  Risk: Nisan-Mayıs, sıcak-ılık hava (15-25°C)\n  Belirtisi: Yaprakta turuncu-kahverengi oval lekeler\n  İlaçlama: Sarı pasla aynı fungisitler, BBCH 37-59\n\nSeptorya (Mycosphaerella graminicola):\n  Risk: Sürekli ıslak/yağışlı hava\n  Belirtisi: Yapraklarda sarı sınırlı esmer lekeler, içinde küçük siyah noktalar\n  Bayrak yaprağı döneminde koruma kritik.",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 16,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Fusarium Başak Yanıklığı (Fusarium graminearum):\n  Risk: Çiçeklenme döneminde (BBCH 60-69) sıcak + nemli hava\n  Belirtisi: Başakta beyazlama, pembe spor kitlesi\n  DON toksin riski var → kaliteyi düşürür\n  Önlem: Çiçeklenme döneminde fungisit (karbendazim, tebukonazol)\n\n=========================================================\nHASAT ZAMANI VE SONRASI\n=========================================================",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 17,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Hasat Olgunluk Kriterleri:\n  1. Dane nemi: %13-15 → birleştirici ile ideal hasat\n  2. Sap ve başaklar altın-kehribar rengi\n  3. Daneler thumbnail testinde kırılıyor (ezimiyor)\n  4. Düşme sayısı (Falling Number): ≥ 350 sn hedeflenir\n\nHasat Zamanlaması (Trakya):\n  Genellikle: 20 Haziran – 10 Temmuz\n  İlk kuru günde hasata başlayın.\n  Gecikmede her 1 hafta: %2-5 dane kaybı (dökülme + kuş)",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 18,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Dane Kurutma:\n  Nemli hasat (>15%): Hemen kurut veya 48 saat içinde satışa çıkar\n  Uzun depo için: %12 altına indir\n  Yüksek nem depoda: küf, ısınma, DON toksin riski\n\nHasat Sonrası Toprak Bakımı:\n  Anız parçalama (anız yakmayın → hastalık taşınır, organik madde kaybolur)\n  Hasat sonrası sürme ile anız karıştırma → organik madde, hastalık devirimi azalır",
+    "metadata": {
+      "source": "trakya_bugday_tam_rehber.txt",
+      "category": "ekim_hasat",
+      "chunk_id": 19,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "AYÇİÇEĞİ FENOLOJİSİ VE BÜYÜME GÜN DERECELERİ (GDD) REHBERİ\nTrakya Bölgesi Yazlık Ayçiçeği — Güncel Tarımsal Bilgi Kaynağı\n\n=========================================================\nAYÇİÇEĞİNDE GDD HESABI\n=========================================================",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 0,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Ayçiçeği için baz (alt eşik) sıcaklık: 6.7°C\nGDD hesabı: Günlük GDD = [(Maks. sıcaklık + Min. sıcaklık) / 2] − 6.7°C\nGünlük ortalama ≤ 6.7°C ise o gün için GDD = 0 (birikme yok)\nÜst eşik uygulanmaz (ayçiçeği yüksek sıcaklıklara karşı daha toleranslı)\n\nNeden 6.7°C? Ayçiçeği tohumunun çimlenmesi ve kök gelişimi için toprak sıcaklığının bu eşiğin üzerinde olması gerekir. 6.7°C altında tohumlar pasif kalır, çimlenme olmaz veya çok yavaş olur.",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 1,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "=========================================================\nTRAKYA'DA AYÇİÇEĞİ EKİM DÖNEMİ GDD BİRİKİMİ\n=========================================================\n\n25 Nisan ekimi için aylık GDD birikimi (baz: 6.7°C):\n  Nisan 25-30 (5 gün, ort. 12.4°C): 5 × (12.4−6.7) = ≈ 29 GDD\n  Mayıs (ort. 17.5°C): 31 × (17.5−6.7) = ≈ 335 GDD\n  Haziran (ort. 22.0°C): 30 × (22.0−6.7) = ≈ 459 GDD\n  Temmuz (ort. 24.8°C): 31 × (24.8−6.7) = ≈ 561 GDD\n  Ağustos (ort. 24.6°C): 31 × (24.6−6.7) = ≈ 555 GDD",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 2,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Kümülatif GDD (25 Nisan'dan itibaren):\n  Nisan sonu (5 gün): ≈ 29 GDD\n  Mayıs sonu: ≈ 364 GDD\n  Haziran sonu: ≈ 823 GDD\n  Temmuz sonu: ≈ 1.384 GDD\n  Ağustos sonu: ≈ 1.939 GDD\n\n=========================================================\nBÜYÜME AŞAMALARINA GÖRE GDD EŞİKLERİ\n=========================================================",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 3,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "VE — Çıkış (Emergence):\n  Gerekli GDD: ≈ 114°C·gün\n  Tahmini tarih (25 Nisan ekiminde): 5-10 Mayıs\n  Karar ipucu: Ekim + 2 hafta sonra çıkış görmüyorsanız toprak nemi ve sıcaklığını kontrol edin. Kuş/rodent zararı olabilir.\n\nV4 — 4. Yaprak Aşaması:\n  Gerekli GDD: ≈ 211°C·gün\n  Tahmini tarih: 15-20 Mayıs\n  Karar ipucu: V4'te bitki boyu 15-25 cm. Yabancı ot mücadelesi bu döneme kadar tamamlanmalıdır.",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 4,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "V8 — 8. Yaprak Aşaması:\n  Gerekli GDD: ≈ 287°C·gün\n  Tahmini tarih: 25-30 Mayıs\n  Karar ipucu: V8'de bitki boyu 30-50 cm, kök sistemi derinleşiyor. Üst gübre (azot) V8-V12 döneminde verilir.\n\nV12 — 12. Yaprak Aşaması:\n  Gerekli GDD: ≈ 363°C·gün\n  Tahmini tarih: Haziran başı",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 5,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "R1 — Tabla Oluşumu Başlangıcı (Baş görünür):\n  Gerekli GDD: ≈ 582°C·gün\n  Tahmini tarih: 15-25 Haziran\n  Karar ipucu: R1'den itibaren su ihtiyacı dramatik artar. İlk kritik sulama bu dönemdedir. Sclerotinia (beyaz çürüklük) için fungisit uygulaması R1-R3 arasında yapılmalıdır.\n\nR2 — Tabla Büyüme Başlangıcı:\n  Gerekli GDD: ≈ 660°C·gün\n  Tahmini tarih: 25 Haziran – 1 Temmuz",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 6,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "R3 — Tabla Üzerinde Çiçek Tomurcuğu Görünür:\n  Gerekli GDD: ≈ 738°C·gün\n  Tahmini tarih: 1-8 Temmuz\n  Karar ipucu: R3-R5 arası su stresi verimi %30-50 azaltabilir. Bu dönem en kritik sulama penceresidir.\n\nR4 — Polen Dağılımı (Çiçeklenme Başlangıcı):\n  Gerekli GDD: ≈ 816°C·gün\n  Tahmini tarih: 8-15 Temmuz\n  Karar ipucu: Gündüz sıcaklığı >35°C olursa çiçek dökülmesi ve polenlenme sorunu. Yüksek sıcak dönemlerde öğlen serinletme sulaması düşünülebilir.",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 7,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "R5.1 — %10 Çiçeklenme:\n  Gerekli GDD: ≈ 894°C·gün\n  Tahmini tarih: 12-18 Temmuz\n\nR5.5 — %50 Çiçeklenme (Tam Çiçeklenme):\n  Gerekli GDD: ≈ 972°C·gün\n  Tahmini tarih: 15-22 Temmuz\n  Karar ipucu: R5.5 tablalar güneşi takip etmeyi bırakır. Sclerotinia sporları arı ziyaretleriyle yayılır. Çiçeklenme döneminde insektisit uygulamasından kaçının (arı koruması için).",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 8,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "R6 — Çiçeklenme Tamamlanıyor:\n  Gerekli GDD: ≈ 1.050°C·gün\n  Tahmini tarih: 20-28 Temmuz\n  Karar ipucu: Dane dolumu başlıyor. Son sulama R6'da veya biraz önce yapılmalıdır.\n\nR7 — Sütlü Olum (Dane Dolumu Başlangıcı):\n  Gerekli GDD: ≈ 1.128°C·gün\n  Tahmini tarih: 25 Temmuz – 2 Ağustos\n\nR8 — Hamur Olum:\n  Gerekli GDD: ≈ 1.206°C·gün\n  Tahmini tarih: 1-10 Ağustos\n  Karar ipucu: R8'de tabla üst kısmı sararmaya başlar. Yapraklar yeşil kalabilir. Hasat hâlâ erken.",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 9,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "R9 — Fizyolojik Olum:\n  Gerekli GDD: ≈ 1.283°C·gün\n  Tahmini tarih: 10-20 Ağustos\n  Karar ipucu: Tabla tamamen sarı-kahverengi, daneler sert. Dane nemi %25-35. Birleştiricilerle hasat için nem %15'e düşene kadar bekleyin.\n\nHASAT (R9 sonrası):\n  Gerekli nem: %8-12\n  Tahmini tarih: Ağustos sonu – Eylül başı\n  Karar ipucu: Trakya'da genellikle 20 Ağustos – 15 Eylül arası hasat. Çok erken hasat = yağ kaybı. Geç hasat = tabla kırılması, kuş zararı.",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 10,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "=========================================================\nEKİM ZAMANI VE GDD İLİŞKİSİ\n=========================================================\n\nOptimal ekim penceresi (Trakya):\n- Toprak sıcaklığı ≥ 8°C (tercihen ≥ 10°C) — baz sıcaklığın 1-2°C üzeri hızlı çimlenme sağlar\n- Tarih: Nisan sonu – Mayıs başı (15 Nisan – 15 Mayıs)\n- Çok erken ekim (Nisan başı): Toprak soğuk → yavaş çimlenme, damping-off riski\n- Çok geç ekim (Mayıs sonu): Çiçeklenme yüksek sıcaklığa denk gelir, R3-R5 su stresi artar",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 11,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Don Riski ve GDD:\n- Ekim öncesi: Son don tarihi Trakya'da genellikle Nisan 10-20'dir\n- Çıkış sonrası (VE döneminde) −2°C altı → bitki ölümü\n- Ayçiçeği çıkış sonrası hiçbir don riskine dayanamaz. Hava tahmini kesinlikle kontrol edilmeli.\n\n=========================================================\nSULAMA VE GDD İLİŞKİSİ\n=========================================================",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 12,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Su ihtiyacı büyüme aşamasına göre:\n  Vejetatif (ekim–R1, 0–582 GDD): Toplam su ihtiyacının %20'si\n  Çiçeklenme (R1–R6, 582–1.050 GDD): Toplam su ihtiyacının %55'i ← KRİTİK\n  Dane dolumu (R6–R9, 1.050–1.283 GDD): Toplam su ihtiyacının %25'i\n\nKc (Bitki Katsayısı) değerleri:\n  Başlangıç (ilk 20-25 gün): 0.35\n  Gelişme (25-40 gün): 0.75\n  Orta dönem (R1-R6): 1.10-1.20 ← en yüksek su tüketimi\n  Son dönem (R6-R9): 0.75\n  Hasat öncesi: 0.40",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 13,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Toprak nemi yönetimi:\n  R1-R6 döneminde: Kullanılabilir toprak suyunun %45'i tükenince sulama yapın\n  Diğer dönemlerde: %50 tükenince sulama yapın\n  Çiçeklenme döneminde tarla kapasitesinin %80'i korunmalıdır\n\n=========================================================\nHASAT HAZIRLIĞI VE DON HASAR BELIRTICILERI\n=========================================================",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 14,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Hasat Olumu Göstergeleri:\n  - Tablada sarı-kahverengi renk oluşumu (%75-80 tablada)\n  - Arka yüz tamamen sarı-kahverengi\n  - Daneler sert ve karakteristik renklerinde\n  - Tablo sapı kahverengi ve kuru\n  - Dane nemi ölçümü: birleştirici için <12%, depo için <8%\n\nYağ Oranı ve Kalite:\n  - Fizyolojik olum öncesi hasat → yağ oranı düşük (%35-38 yerine %42-46)\n  - İdeal yağ oranı hedefi: %42-48 (ham)\n  - Yüksek yağ için: Fizyolojik oluma (R9) kadar bekleme şarttır",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 15,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Pas ve Hastalık Takibi:\n  - Downy mildew (mildiyö): V4-R1 arası, serin nemli hava\n  - Alternaria yaprak lekesi: Çiçeklenme sonrası, yaşlı yapraklar\n  - Sclerotinia: R1-R5, yüksek nem + serin gece sıcaklıkları\n  - Phoma: Geç sezon, yaşlı dokuları etkiler",
+    "metadata": {
+      "source": "gdd_aycicegi_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 16,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BUĞDAY FENOLOJİSİ VE BÜYÜME GÜN DERECELERİ (GDD) REHBERİ\nTrakya Bölgesi Kışlık Buğday — Güncel Tarımsal Bilgi Kaynağı\n\n=========================================================\nGDD NEDİR VE NEDEN ÖNEMLİDİR?\n=========================================================",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 0,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Büyüme Gün Dereceleri (GDD / Growing Degree Days), bitkinin belirli bir dönemde biriktirdiği ısı enerjisini ifade eder. Takvim günleri değil, sıcaklık birikimi büyümeyi belirler. Trakya'daki yıldan yıla değişen hava koşullarında GDD, hasat zamanını ve fenolojik aşamaları takvimsiz olarak tahmin etmenin en güvenilir yöntemidir.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 1,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Buğday için baz sıcaklık (alt eşik): 0°C\nGDD hesabı: Günlük GDD = [(Maks. sıcaklık + Min. sıcaklık) / 2] − 0°C\nNegatif değerler sıfır kabul edilir (buz çözme yoksa birikme yok).\nÜst eşik: 35°C (bu değerin üzerindeki sıcaklıklar 35°C olarak alınır).\n\n=========================================================\nTRAKYA'DA AYLIK ORTALAMA SICAKLIKLAR VE GDD BİRİKİMİ\n=========================================================",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 2,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Aylık ortalama sıcaklık (Kırklareli iklim istasyonu verileri):\n  Ekim: 14.5°C → 16 günde (15 Ekim'den): ≈ 232 GDD\n  Kasım: 8.9°C → aylık: ≈ 267 GDD\n  Aralık: 4.9°C → aylık: ≈ 152 GDD\n  Ocak:   2.8°C → aylık: ≈ 87 GDD\n  Şubat:  3.8°C → aylık: ≈ 106 GDD\n  Mart:   7.3°C → aylık: ≈ 226 GDD\n  Nisan: 12.4°C → aylık: ≈ 372 GDD\n  Mayıs: 17.5°C → aylık: ≈ 543 GDD\n  Haziran: 22.0°C → aylık: ≈ 660 GDD",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 3,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Kümülatif GDD birikimi (15 Ekim ekiminden itibaren):\n  Kasım sonu: ≈ 499 GDD\n  Aralık sonu: ≈ 651 GDD\n  Ocak sonu: ≈ 738 GDD\n  Şubat sonu: ≈ 844 GDD\n  Mart sonu: ≈ 1.070 GDD\n  Nisan sonu: ≈ 1.442 GDD\n  Mayıs sonu: ≈ 1.985 GDD\n  Haziran sonu: ≈ 2.645 GDD\n\n=========================================================\nBBCH AŞAMALARINA GÖRE GDD EŞİKLERİ\n=========================================================",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 4,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Aşağıdaki eşikler Trakya kışlık buğday çeşitleri için yaklaşık değerlerdir.\nGDD birikimi 15 Ekim ekiminden itibaren hesaplanır.\n\nBBCH 00-09 — Çimlenme ve Çıkış:\n  Gerekli GDD: 80–120°C·gün\n  Tahmini tarih: Ekim sonu – Kasım başı\n  Karar ipucu: Çıkış gecikmesi GDD <80 ise soğuk/kuru toprak, >150 ise yeniden ekim değerlendirin.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 5,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BBCH 10-19 — Fide Gelişimi (1-9 yaprak):\n  Gerekli GDD: 150–350°C·gün\n  Tahmini tarih: Kasım\n  Karar ipucu: Her yaprak için ≈ 80 GDD gerekir. Kasım sonunda 4-5 yapraklı bitki normaldir.\n\nBBCH 20-29 — Kardeşlenme:\n  Gerekli GDD: 350–600°C·gün\n  Tahmini tarih: Kasım sonu – Aralık\n  Karar ipucu: Kış girmeden 3-5 kardeşlenme idealdir. Toprak donunca GDD birikimi yavaşlar.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 6,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BBCH 30-39 — Sapa Kalkma (Gövde uzaması):\n  Gerekli GDD: 700–900°C·gün\n  Tahmini tarih: Şubat sonu – Mart\n  Karar ipucu: Bu dönem azot uygulaması için kritik penceredir. 2. azot gübrelemesi BBCH 30-31'de yapılmalıdır (üre veya amonyum nitrat).",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 7,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BBCH 37-39 — Bayrak Yaprak – Başak kabara:\n  Gerekli GDD: 850–1.050°C·gün\n  Tahmini tarih: Mart sonu – Nisan başı\n  Karar ipucu: Bayrak yaprağı çıkış dönemi fungisit uygulaması için en etkili zamandır (septorya, sarı pas, kahverengi pas önlemi). Bu pencereyi kaçırmayın.\n\nBBCH 51-59 — Başaklanma:\n  Gerekli GDD: 1.050–1.200°C·gün\n  Tahmini tarih: Nisan ortası – Mayıs başı\n  Karar ipucu: Başaklanma tamamlandıktan sonra fungisit etkisi düşer. Fusarium başak yanıklığı için başaklanma dönemi riskli.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 8,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BBCH 60-69 — Çiçeklenme (Tozlanma):\n  Gerekli GDD: 1.100–1.300°C·gün\n  Tahmini tarih: Mayıs başı – Mayıs ortası\n  Karar ipucu: Çiçeklenme döneminde yüksek nem (>85%) ve sıcaklık (>15°C) fusarium riskini artırır. Yağmurlu hava = fungisit uygulaması düşünün.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 9,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BBCH 70-79 — Dane Dolumu (Sütlü olum):\n  Gerekli GDD: 1.300–1.600°C·gün\n  Tahmini tarih: Mayıs sonu – Haziran başı\n  Karar ipucu: Su stresi bu dönemde dane ağırlığını %20-40 düşürür. Sulama imkânı varsa destekleyin. Yaprak biti (aphid) takibi önemli.\n\nBBCH 87-89 — Fizyolojik Olum:\n  Gerekli GDD: 1.600–1.800°C·gün\n  Tahmini tarih: Haziran ortası – Haziran sonu\n  Karar ipucu: Fizyolojik olumda dane nemi %30-35. Hasat için dane nemi %13-15'e düşene kadar bekleyin.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 10,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "BBCH 99 — Hasat Olumu:\n  Gerekli GDD: 1.800–2.000°C·gün\n  Tahmini tarih: Haziran sonu – Temmuz başı\n  Karar ipucu: Trakya'da hasat genellikle 20 Haziran – 10 Temmuz arası. İlk kuru günde hasata başlayın.\n\n=========================================================\nGDD BAZLI KARAR ÖNERİLERİ\n=========================================================",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 11,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Erken Uyarı Sistemi için GDD Eşikleri:\n- GDD < 100 ve çıkış yok → toprak sıcaklığı ve nemi kontrol et, tohum çürümesi riski\n- GDD 300-400 ve kardeşlenme yok → azot eksikliği veya hastalık araştır\n- GDD 1.050-1.200 ve başak çıkmıyor → verim kaybı riski, ziraat mühendisine danış\n- GDD 1.600 sonrası yeşil yaprak kalıntısı → hastalık (pas, almaç) kontrolü",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 12,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Azot Gübreleme Zamanlaması:\n  1. Ekim gübresi (BBCH 00): DAP 20-20-0, dekar başına 20-25 kg\n  2. İlkbahar I (BBCH 21-25, GDD ~400): Üre %46, dekar başına 8-10 kg\n  3. İlkbahar II (BBCH 30-31, GDD ~750): Amonyum nitrat %33, dekar başına 15-20 kg\n\nSulama Zamanlaması (GDD ile):\n  - GDD 1.100-1.300 (dane dolumu): Can suyu kritik. Toprak nemi %60 tarla kapasitesinin altındaysa sulayın.\n  - Tek sulama yapılacaksa: Dane dolumunun başlangıcında (BBCH 71, GDD 1.300) verin.",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 13,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "=========================================================\nHASAT ZAMANI VE KALİTE GÖSTERGELERİ\n=========================================================\n\nFiziksel İşaretler:\n- Başak ve sap altın-kehribar rengi almış\n- Daneler thumbnail testi geçiyor (basınca ezilmiyor, kırılıyor)\n- Saplar kırılgan ve kuru\n- Tarlada yeşil bitki kalmamış (sararmış)",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 14,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Nem Kriterleri:\n- İdeal hasat nemi: %13-15\n- Kabul edilir: %15-18 (kurutma gerektirir)\n- Yüksek nem (%20+) hasat riskleri: toksin (DON), fırın değeri kaybı, storajda küf\n\nKalite Göstergeleri:\n- Düşme sayısı (Falling Number) ≥ 350 saniye: iyi kalite\n- Düşme sayısı 200-350 saniye: uyarı, yağmurda çimlenme riski\n- Düşme sayısı < 200 saniye: kötü kalite, değer düşüklüğü\n- Hektolitre ağırlığı hedefi: ≥ 76 kg/hl\n- Protein oranı hedefi (ekmeklik): %11-13",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 15,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Hasat Gecikmesinin Maliyeti:\n- Her 1 hafta gecikme: %2-5 verim kaybı (dane dökülmesi, kuş zararı)\n- Yağmurlu gecikme: Düşme sayısı hızla düşer, DON miktarı artar",
+    "metadata": {
+      "source": "gdd_bugday_fenoloji.txt",
+      "category": "gdd",
+      "chunk_id": 16,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "NDVI (Normalize Edilmiş Fark Bitki Örtüsü İndeksi) YORUMLAMA REHBERİ\nTrakya Bölgesi Buğday ve Ayçiçeği — Uzaktan Algılama Tabanlı Tarla İzleme\n\n=========================================================\nNDVI NEDİR?\n=========================================================\n\nNDVI (Normalized Difference Vegetation Index), bitki sağlığını ve yoğunluğunu uzaktan ölçen bir indekstir.\nFormül: NDVI = (NIR − RED) / (NIR + RED)\n  NIR: Yakın kızılötesi yansıma\n  RED: Kırmızı ışık yansıması",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 0,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Değer aralığı: −1.0 ile +1.0 arası\n  Su, yapay yüzeyler: −1.0 ile 0.0\n  Çıplak toprak, taş: 0.0 ile 0.25\n  Seyrek bitki örtüsü: 0.25 ile 0.45\n  Orta yoğunlukta bitki: 0.45 ile 0.65\n  Yoğun, sağlıklı bitki: 0.65 ile 0.90\n  Maksimum (tropikal orman): 0.90 ile 1.0\n\n=========================================================\nBUĞDAY İÇİN NDVI YORUMLAMA EŞİKLERİ\n=========================================================",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 1,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "NDVI < 0.25 — KRİTİK DURUM:\n  Bitki örtüsü yok veya büyük ölçüde tahrip olmuş.\n  Olası nedenler: Kışa zarar (don), şiddetli hastalık (pas, fusarium), su baskını, yeniden ekim gerekebilir.\n  Eylem: Acil tarla kontrolü. Ziraat mühendisi çağır.",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 2,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "NDVI 0.25–0.40 — ZAYIF / STRESLI:\n  Bitki örtüsü var ama sağlıksız, stres altında veya seyrek.\n  Olası nedenler: Azot eksikliği, kuraklık stresi, toprak problemi, erken gelişme dönemi.\n  Eylem: Tarla gezisi yapın. Sararmış yaprak → azot; solgun yaprak → su stresi; lekeli yaprak → hastalık.\n\nNDVI 0.40–0.55 — ORTA:\n  Ortalama gelişme. Verim tahmini belirsiz.\n  Yoğun izleme önerilir. Bitki iyi olmakla birlikte optimal değil.\n  Eylem: Azot durumunu kontrol edin, sulama takvimini gözden geçirin.",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 3,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "NDVI 0.55–0.70 — İYİ:\n  Sağlıklı ve yoğun bitki örtüsü. Gelişme normal seyrinde.\n  Trakya ortalaması için bu aralık başaklanma döneminde hedef değerdir.\n  Eylem: İzlemeye devam, müdahale genellikle gerekmiyor.\n\nNDVI > 0.70 — MÜKEMMEL:\n  Çok yoğun, aktif büyüyen bitki örtüsü. Yüksek verim potansiyeli.\n  Buğday için Nisan-Mayıs döneminde ulaşılabilir.\n  Eylem: Koruyucu izleme, verim beklentisi yüksek.",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 4,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "=========================================================\nMEVSİMSEL NDVI PATERNİ — TRAKYA KIŞLIK BUĞDAY\n=========================================================\n\nKışlık buğday 15 Ekim ekiminde tipik NDVI seyri:",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 5,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Kasım (çimlenme/fide): NDVI ≈ 0.15–0.30\n    Tarlaya henüz kapanmamış, toprak görünüyor\n  Aralık-Ocak (kardeşlenme/kış):  NDVI ≈ 0.25–0.40\n    Kış yavaşlaması, sıcaklık düşük\n  Şubat (erken sapa kalkma): NDVI ≈ 0.35–0.50\n    Isınma ile büyüme başlar\n  Mart-Nisan (sapa kalkma/bayrak yaprak): NDVI ≈ 0.55–0.75\n    En hızlı büyüme dönemi, NDVI hızla yükselir\n  Nisan-Mayıs (başaklanma/çiçeklenme): NDVI ≈ 0.70–0.85\n    Maksimum yeşil alan, en yüksek NDVI",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 6,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Maksimum yeşil alan, en yüksek NDVI\n  Mayıs-Haziran (dane dolumu): NDVI ≈ 0.55–0.75\n    Yavaş düşüş başlar\n  Haziran (olgunlaşma): NDVI ≈ 0.30–0.50\n    Sararma ile hızlı düşüş\n  Hasat öncesi: NDVI ≈ 0.15–0.25\n    Tarlada altın-sarı renk",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 7,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Anomali Tespiti:\n  Eğer NDVI beklenen bu eğriden belirgin sapma gösteriyorsa (örneğin Nisan'da 0.55 yerine 0.35):\n  → Stres analizi yapın: kuraklık mı? hastalık mı? besin eksikliği mi?\n\n=========================================================\nMEVSİMSEL NDVI PATERNİ — TRAKYA YAZLIK AYÇİÇEĞİ\n=========================================================\n\nAyçiçeği 25 Nisan ekiminde tipik NDVI seyri:",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 8,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Mayıs başı (çimlenme/V2): NDVI ≈ 0.10–0.25\n    Yeni çıkış, toprak hâlâ görünüyor\n  Mayıs ortası-sonu (V4-V8): NDVI ≈ 0.25–0.45\n    Hızlı büyüme, yaprak alanı artıyor\n  Haziran (V12-R1): NDVI ≈ 0.50–0.70\n    Tabla oluşumu öncesi vejetatif zirve\n  Haziran sonu – Temmuz (R1-R5, çiçeklenme): NDVI ≈ 0.65–0.85\n    Maksimum yeşil alan, çiçeklenme dönemi\n  Ağustos (R6-R9, dane dolumu-olum): NDVI ≈ 0.40–0.65\n    Yapraklar sararmaya başlar, NDVI düşer\n  Ağustos sonu – Eylül (hasat): NDVI ≈ 0.20–0.35",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 9,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Ağustos sonu – Eylül (hasat): NDVI ≈ 0.20–0.35\n    Tabla ve yapraklar tamamen sarı-kahverengi",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 10,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Kritik İzleme Noktası:\n  NDVI'nın Temmuz çiçeklenme zirvesinde beklenen 0.70+ değerin altında kalması\n  (örneğin 0.50-0.55) ciddi uyarıdır. Olası neden: su stresi, sclerotinia, azot yetersizliği.\n\n=========================================================\nNDVI VE VERİM TAHMİNİ\n=========================================================\n\nNDVI-Verim Korelasyonu:\n  Buğday için R² değeri: 0.65–0.82 (dane dolumu döneminde)\n  Ayçiçeği için R²: 0.55–0.75 (çiçeklenme döneminde)",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 11,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Bu değerler NDVI'nın tek başına verim tahmin etmede güçlü ama tam olmayan bir gösterge olduğunu gösterir. Hava durumu ve toprak nemi ile birlikte değerlendirildiğinde doğruluk %90'a çıkabilir.\n\nKritik NDVI Gözlem Dönemleri için Trakya Referans Değerleri:\n\n  Buğday — Başaklanma (Nisan-Mayıs):\n    Mükemmel verim beklentisi: NDVI ≥ 0.72\n    İyi verim beklentisi: NDVI 0.60–0.72\n    Orta verim: NDVI 0.50–0.60\n    Düşük verim riski: NDVI < 0.50",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 12,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Ayçiçeği — Tam çiçeklenme (Temmuz):\n    Mükemmel verim beklentisi: NDVI ≥ 0.70\n    İyi verim beklentisi: NDVI 0.58–0.70\n    Orta verim: NDVI 0.45–0.58\n    Düşük verim riski: NDVI < 0.45\n\nTrakya Referans Verim Değerleri:\n  Buğday kuru tarım: Dekar başına 250–400 kg\n  Buğday sulu tarım: Dekar başına 500–700 kg\n  Ayçiçeği: Dekar başına 150–280 kg",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 13,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "=========================================================\nNDVI ANOMALİ TESPİTİ VE ERKEN UYARI\n=========================================================\n\nAni NDVI Düşüşü (haftalar içinde >0.10 düşüş):\n  Olası nedenler:\n  - Su stresi (toprak nemi düştü, sulama yok)\n  - Sarı pas (Puccinia striiformis) — buğdayda\n  - Kahverengi pas (Puccinia triticina) — buğdayda\n  - Mildiyö (Sclerospora) — ayçiçeğinde\n  - Yaprak biti salgını\n  - Dolu/fırtına hasarı",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 14,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Eylem: 48 saat içinde tarla kontrolü. Stres kaynağını belirlemeden ilaçlama yapma.\n\nBeklenen Değerin Altında Sürekli Düşük NDVI:\n  Tarla bazında düşük NDVI (komşu tarlalara göre):\n  - Toprak sorunu (tuzluluk, pH, drenaj)\n  - Yetersiz gübreleme (özellikle azot)\n  - Tohumluk sorunu (çıkış oranı düşük)\n  - Geçen yıldan kalan hastalık/yabancı ot baskısı",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 15,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Parçalı NDVI Haritası (tarla içinde düzensiz dağılım):\n  - Nem dağılımı eşitsiz → sulama sistemi kontrolü\n  - Kompaksiyon bölgeleri (makinenin geçtiği alanlar)\n  - Gizli drenaj sorunları\n  - Hastalık odakları (başlangıç noktası belirle)\n\n=========================================================\nNDVI İZLEME FREKANSI VE ARAÇLAR\n=========================================================",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 16,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "Önerilen izleme sıklığı:\n  - Vejetatif dönem: 7-10 günde bir\n  - Kritik dönemler (başaklanma, çiçeklenme): 3-5 günde bir\n  - Hasat öncesi: Günlük veya gün aşırı takip\n\nTrakya'da kullanılabilir araçlar:\n  - Sentinel-2 uydu görüntüsü: 5 günde bir, 10m çözünürlük, ücretsiz\n  - NDVI değeri 0.20'nin altında bulut kaplı → veri güvenilmez, bulut filtreleme şart\n  - Yerden okuma için SPAD klorofil metre veya taşınabilir NDVI sensörü",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 17,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "NDVI Okumalarında Dikkat Edilecekler:\n  - Sulama sonrası yansıma değişir → sulama hemen öncesi veya 24 saat sonra oku\n  - Yağmur/bulut → uydu okumalarını bozar, alternatif tarih seç\n  - Gün içi saat: Sabah 10 – öğleden sonra 14 arası en doğru okuma",
+    "metadata": {
+      "source": "ndvi_yorumlama_ve_verim.txt",
+      "category": "ndvi",
+      "chunk_id": 18,
+      "total_chunks": 19
+    }
+  },
+  {
+    "text": "SULAMA PROGRAMLAMA VE SU YÖNETİMİ REHBERİ\nTrakya Bölgesi Buğday ve Ayçiçeği — Bilimsel Kaynaklar\n\n=========================================================\nTRAKYA'DA SULAMA GEREKSİNİMİ\n=========================================================\n\nTrakya iklimi: Yarı-karasal, yıllık yağış 570-620 mm\nYaz ayları (Temmuz-Ağustos) yağış: 30-60 mm/ay (kurak)\nBu dönem ayçiçeği kritik su ihtiyacı dönemidir → sulama şart.",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 0,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Buğday için: Yağış genellikle yeterlidir ama kritik dönemde supplemental sulama verimi %20-30 artırır.\nAyçiçeği için: Yaz kuraklığında 3-4 sulama uygulaması zorunlu.\n\n=========================================================\nBUĞDAY SULAMA REHBERİ\n=========================================================",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 1,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Su İhtiyacı Aşamaya Göre (ET₀ bazlı):\n  Çimlenme-fide (BBCH 00-29): Kc = 0.30-0.50, günlük ET ≈ 1-2 mm\n  Sapa kalkma (BBCH 30-49): Kc = 0.70-0.90, günlük ET ≈ 2-4 mm\n  Başaklanma-çiçeklenme (BBCH 51-69): Kc = 1.0-1.15, günlük ET ≈ 4-7 mm ← ZİRVE\n  Dane dolumu (BBCH 71-89): Kc = 0.80-0.90, günlük ET ≈ 3-5 mm\n  Olgunlaşma: Kc = 0.25-0.40, günlük ET ≈ 1-2 mm",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 2,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Kritik Sulama Dönemleri:\n  1. Sapa kalkma (Mart-Nisan, BBCH 30-35): Yetersiz toprak neminde verim %10-15 düşer\n  2. Çiçeklenme (Mayıs, BBCH 60-69): Su stresi verimde %30 azalma yapar — EN KRİTİK\n  3. Dane dolumu başlangıcı (Mayıs sonu, BBCH 71-75): Hektolitre ağırlığını etkiler",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 3,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Sulama Zamanlaması (Toprak Nemi Bazlı):\n  Sulamayı BAŞLAT: Kullanılabilir toprak suyunun %50'si tükenince\n  Sulamayı BİTİR: Tarla kapasitesine ulaşınca\n  Killi-tınlı toprak için sulama miktarı: 40-60 mm (4-6 cm su derinliği = 4-6 ton/da)",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 4,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Trakya'da Tipik Buğday Sulama Planı:\n  Yağışlı Yıl: Genellikle ek sulama gerekmez (yağış yeterli)\n  Ortalama Yıl: 1-2 sulama (Nisan sulama + Mayıs sulama)\n    1. Sulama: Nisan ortası, BBCH 32-37 döneminde, 40-50 mm\n    2. Sulama: Mayıs başı, BBCH 60-71 döneminde, 40-60 mm\n  Kuru Yıl: 3 sulama (yukarıdakilere Mart sulaması ekle)\n\nSulama Etkisi:\n  2 sulama → verim artışı: +80-150 kg/da (kuru tarıma göre)\n  Tek sulama (sadece çiçeklenme): +50-100 kg/da",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 5,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "=========================================================\nAYÇİÇEĞİ SULAMA REHBERİ\n=========================================================\n\nToplam Su İhtiyacı: 600-1.000 mm/sezon\n  (Yağış + sulama toplamı olarak)\n  Trakya'da yağış katkısı: 200-350 mm (Nisan-Ağustos)\n  Sulama ihtiyacı: 250-600 mm (yıla göre değişir)",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 6,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Kc Değerleri (FAO/Penman-Monteith):\n  Başlangıç (ilk 20-25 gün): Kc = 0.35\n  Gelişme dönemi (25-40 gün): Kc = 0.70-0.80\n  Orta dönem (R1-R6, çiçeklenme): Kc = 1.10-1.20 ← EN YÜKSEK\n  Son dönem (R6-R9): Kc = 0.70\n  Olum/hasat öncesi: Kc = 0.40\n\nSu Dağılımı Büyüme Aşamalarına Göre:\n  Vejetatif (ekim-R1): Toplam su ihtiyacının %20'si\n  Çiçeklenme (R1-R6): Toplam su ihtiyacının %55'i — EN KRİTİK\n  Dane dolumu ve olum (R6-R9): Toplam su ihtiyacının %25'i",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 7,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Toprak Nemi Eşikleri:\n  R1-R6 döneminde (kritik): Kullanılabilir su %45 tükenince sulama başlat\n  Diğer dönemlerde: %50 tükenince sulama başlat\n  R1-R6 döneminde tarla kapasitesinin %80'ini koru (hedef minimum nem)",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 8,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Trakya'da Tipik Ayçiçeği Sulama Programı (25 Nisan ekimi):\n  1. Sulama: Haziran 15-25 (R1, tabla görünümü başlangıcı)\n     Miktar: 50-70 mm | Zamanlama: Sabah erken veya akşam\n  2. Sulama: Temmuz 5-15 (R3-R4, tabla büyüme + çiçeklenme başlangıcı)\n     Miktar: 60-80 mm | En kritik sulama\n  3. Sulama: Temmuz 20-30 (R5, tam çiçeklenme)\n     Miktar: 50-70 mm\n  4. Sulama: Ağustos 1-10 (R6-R7, dane dolumu)\n     Miktar: 40-60 mm | Son sulama",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 9,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Toplam 4 sulama = ≈ 200-280 mm sulama suyu\n  Olgunlaşma döneminde (Ağustos ortası sonrası) sulama DUR → tabla/sap kurumayı bekle\n\nKuru Yıl (Haziran yağışı çok azsa):\n  5. sulama eklenebilir: Haziran başı (V12, R1 öncesi kuru ise)\n  Bu sulamanın faydası özellikle: Tabla büyüklüğünü artırır",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 10,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Sulama Yöntemi Önerileri:\n  Damla sulama → %30-40 su tasarrufu, kök bölgesine direkt\n  Yağmurlama → uniform dağılım, ancak çiçeklenme döneminde tablayı ıslatmaktan kaçın\n  Karık/salma sulama → geleneksel ama %40-50 su kaybı (Trakya yaygın)\n  Optimum: Damla sulama kurulumu için yatırım uzun vadede karlı\n\n=========================================================\nTOPRAK NEM TAKİBİ\n=========================================================",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 11,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Killi-Tınlı Toprak Su Tutma Özellikleri (Trakya):\n  Doygunluk noktası: ≈ %45-50 (hacimsel su içeriği)\n  Tarla kapasitesi (FC): ≈ %30-35\n  Solma noktası (PWP): ≈ %18-22\n  Kullanılabilir su (FC - PWP): ≈ %12-15 (yaklaşık 120-150 mm/m)\n\nSensör Okumalarının Yorumlanması:\n  Toprak nemi %30-35 (tarla kapasitesinde): Sulama gerekmez\n  Toprak nemi %22-28: İzle, yakında sulama gerekebilir\n  Toprak nemi %18-22: Sulama zamanı (eşik geçildi)\n  Toprak nemi <18 (solma noktasına yakın): ACİL SULAMA",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 12,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Sulama Sonrası Bekleme:\n  Buğday: 3-5 gün (killi-tınlı toprak yavaş drene olur)\n  Ayçiçeği: 2-3 gün\n  Bir sonraki sulamaya kadar toprak yeterince drene olsun\n\n=========================================================\nEVAPOTRANSPIRASYON (ET) HESABI\n=========================================================\n\nReferans ET₀ Trakya (Penman-Monteith):\n  Nisan: ≈ 3.5 mm/gün\n  Mayıs: ≈ 5.0 mm/gün\n  Haziran: ≈ 6.5 mm/gün\n  Temmuz: ≈ 7.0 mm/gün ← ZIRVE\n  Ağustos: ≈ 6.5 mm/gün\n\nBitki ET (ETc) = ET₀ × Kc",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 13,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "Bitki ET (ETc) = ET₀ × Kc\n\nAyçiçeği Temmuz çiçeklenme döneminde:\n  ETc = 7.0 × 1.15 = ≈ 8 mm/gün\n  Haftada ≈ 56 mm sulama ihtiyacı\n  Eğer yağış yoksa ve sulama yok ise: 7-10 günde su stresi başlar\n\nSulama Hesabı Örneği:\n  Toprak derinliği: 60 cm (kök bölgesi)\n  Kullanılabilir su: 12% × 60 cm = 72 mm\n  50% tüketim eşiği: 36 mm tüketince sulama başlat\n  Temmuz'da ETc 8 mm/gün → 36/8 = 4.5 gün sonra sulama (hiç yağış yoksa)",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 14,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "=========================================================\nSULAMA HATALARI VE ÇÖZÜMLERI\n=========================================================\n\nSık Yapılan Hatalar:\n  1. Çok az sulama — toprak yüzeyi ıslandı ama derine inmedi → Kök bölgesine ulaşmıyor, bitki streste\n  Çözüm: Tek seferde 50-80 mm ver, sık sık 15-20 mm verme\n\n  2. Çok sık sulama — toprak sürekli ıslak → Kökler sığ kalır, anaerobik ortam\n  Çözüm: Sulama arası toprak nemine bak, tükenme eşiğini bekle",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 15,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "3. Yanlış zamanlama — öğle sıcaklığında sulama → Buharlaşma kaybı %30-40 artar\n  Çözüm: Sabah 5-9 veya akşam 18-21 arası sulama\n\n  4. Hastalık döneminde yaprak ıslak kalma — sabaha kadar yaprak ıslak\n  Çözüm: Akşam yerine sabah sulama tercih et (gün içinde kurur)\n\n  5. Hasat öncesi sulama — geç sulama tane olumunu geciktirir\n  Çözüm: Fizyolojik olumdan sonra sulama kesinlikle dur",
+    "metadata": {
+      "source": "sulama_programlama_rehberi.txt",
+      "category": "sulama",
+      "chunk_id": 16,
+      "total_chunks": 17
+    }
+  },
+  {
+    "text": "VERİM BELİRLEYİCİ FAKTÖRLER VE TAHMİN REHBERİ\nTrakya Bölgesi Buğday ve Ayçiçeği Üretimi\n\n=========================================================\nVERİM TAHMIN YAKLAŞIMI\n=========================================================",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 0,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Tarımsal verim, üç ana faktör grubunun etkileşiminin sonucudur:\n  1. İklim faktörleri: Sıcaklık, yağış, güneşlenme, don → %60-65 katkı\n  2. Toprak faktörleri: Yapı, organik madde, pH, besin maddesi → %15-20 katkı\n  3. Yönetim faktörleri: Çeşit seçimi, ekim zamanı, gübreleme, ilaçlama → %20-25 katkı\n\nTrakya için verim tahmini modeli bu faktörleri birlikte değerlendirmelidir.\nTek faktöre (sadece NDVI veya sadece yağış) bağımlı tahmin %30-40 hata payı içerir.",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 1,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "=========================================================\nİKLİM FAKTÖRLERİ — BUĞDAY\n=========================================================\n\n1. Minimum Gece Sıcaklığı:\n   Verimle korelasyon: R² ≈ 0.65 (Türkiye yağışlı alanlarda)\n   Risk eşiği: Nisan-Mayıs'ta min. sıcaklık sürekli >15°C → dane dolumu kısalır\n   Optimal gece sıcaklığı dane dolumu: 10-15°C\n   Her 1°C artış dane dolumu döneminde: verimde yaklaşık %1-3 azalma",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 2,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "2. Yağış Dağılımı:\n   Toplam yağış değil, ZAMANLAMA belirleyicidir.\n   - Ekim-Kasım yağışı: Çimlenme ve erken büyüme → %15 verim etkisi\n   - Şubat-Mart yağışı: Kardeşlenme ve sapa kalkma → %20 verim etkisi\n   - Nisan-Mayıs yağışı: Başaklanma ve dane dolumu → %40 verim etkisi (en kritik)\n   - Hasat öncesi (Haziran) yağışı: Kalite kaybı riski",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 3,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Trakya yağış ortalamaları (Kırklareli):\n   Yıllık toplam: ≈ 570-620 mm\n   Ekim-Şubat: ≈ 280-310 mm\n   Mart-Haziran: ≈ 200-240 mm\n   Kritik dönem (Nisan-Mayıs) yağış: ≈ 80-110 mm\n   Yeterli olmadığında supplemental sulama gerekir.",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 4,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "3. İlkbahar Donları:\n   Trakya'da ortalama son don tarihi: 10-20 Nisan\n   Geç don riski: Mayıs başında BBCH 51-59 (başaklanma) döneminde −2°C altı = ciddi verim kaybı\n   \"Pembe don\" (düşük ışık + sıs koşullarında): 0°C'de bile hasar verebilir\n   Korunaklı olmayan başaklar için −2°C = %10-30 verim kaybı",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 5,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "4. Sıcaklık Toplamı (GDD):\n   Optimal büyüme için toplam gereken (base 0°C): 1.600-2.000°C·gün\n   Az GDD yıllar (soğuk bahar): Geç hasat, düşük protein\n   Çok GDD yıllar (erken sıcak): Dane dolumu kısalır, düşük hektolitre\n\n=========================================================\nİKLİM FAKTÖRLERİ — AYÇİÇEĞİ\n=========================================================",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 6,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "1. Çiçeklenme Dönemi Sıcaklığı:\n   R3-R5 döneminde (Temmuz):\n   - 18-30°C: Optimal polenlenme\n   - >35°C: Polen canlılığı düşer, dane tutumu azalır\n   - <15°C: Polenlenme problemi\n\n2. Su Stresi Kritik Dönemleri:\n   R1-R6 döneminde su stresi = verimde %30-50 kayıp (en kritik)\n   R7-R9 döneminde su stresi = yağ oranında %5-10 düşüş\n\n3. Güneşlenme:\n   Ayçiçeği güneş seven bitki. Gölge veya kapalı hava çiçeklenmeyi %15-25 azaltır.\n   Temmuz güneşlenme saati Trakya'da: ≈ 9-10 saat/gün → iyi koşul",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 7,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "=========================================================\nTOPRAK FAKTÖRLERİ — TRAKYA ÖZEL\n=========================================================\n\nKırklareli-Vize pilot tarla toprak profili (SoilGrids 2.0 verileri):\n  Kil: %30.97 | Kum: %34.99 | Silt: %34.04\n  Toprak tipi: Killi-tınlı (clay-loam)\n  pH: 7.11 (nötr-hafif alkalin)\n  Organik Karbon: %1.5-2.5 (bölge ortalaması)",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 8,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Killi-Tınlı Toprağın Verim Üzerindeki Etkileri:\n  Avantajlar:\n  - Yüksek su tutma kapasitesi (tarla kapasitesi: ≈ %30-35 hacimsel)\n  - İyi besin tutma, potasyum ve kalsiyum yüksek\n  - Organik madde birikimi için uygun\n\n  Dezavantajlar:\n  - Fazla yağışta su baskını riski (yetersiz drenajda)\n  - Kuru dönemde toprak çatlar → kök hasarı\n  - İşlenebilirlik penceresi dar (çok ıslak veya çok kuru iken sürme kötü)",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 9,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "pH Yönetimi:\n  pH 7.11 buğday ve ayçiçeği için uygun (her ikisi de pH 6.0-7.5 sever)\n  Alkalin eğilim varsa: Fosfor bağlanması (demir eksikliği riski yok)\n  Çinko eksikliği pH 7+ topraklarda yaygın → yaprak sarılığı\n\nOrganik Madde ve Verim:\n  Her %0.1 organik madde artışı → kullanılabilir su tutma kapasitesi +0.15 mm/cm artış\n  Uzun dönem gübreleme ve toprak işleme organik maddeyi korur\n  Anız yakma ve derin sürme organik maddeyi azaltır",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 10,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "=========================================================\nYÖNETİM FAKTÖRLERİ\n=========================================================\n\n1. Çeşit Seçimi (En Yüksek Etki):\n   Doğru çeşit seçimi Trakya koşullarında verimde %15-20 artış sağlar.\n   Buğday için önerilen özellikler:\n   - Sarı pasa dayanıklı (Türkiye'de yaygın)\n   - Erken başaklanma (geç don riskini azaltır)\n   - İyi hektolitre ağırlığı (≥76 kg/hl)\n   - Kısa sap (tane dolumuyla yatmaz)",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 11,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Ayçiçeği için önerilen özellikler:\n   - Imidazolinone toleranslı (yabancı ot kontrolü kolaylaşır)\n   - Sclerotinia ve Phoma'ya dirençli\n   - Orta-geç olgunluk (Trakya için uygun)\n\n2. Ekim Zamanı:\n   Buğday: 15 Ekim – 15 Kasım (optimal)\n   Her 1 hafta gecikme (Kasım sonrası): %3-5 verim kaybı\n   Ayçiçeği: 25 Nisan – 15 Mayıs (toprak sıcaklığı ≥8°C şartıyla)",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 12,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "3. Ekim Derinliği ve Tohum Miktarı:\n   Buğday: 4-6 cm derinlik, 16-25 kg/da tohum\n   Ayçiçeği: 4-6 cm derinlik, 0.4-0.6 kg/da tohum (55.000-75.000 bitki/ha)\n\n4. Azot Gübreleme (En Büyük Maliyet-Etki Faktörü):\n   Buğday — kuru tarım için hedef 500 kg/da verim:\n     Saf Azot: 14 kg/da\n     Saf Fosfor: 4-5 kg/da\n   Buğday — sulu tarım için hedef 700 kg/da verim:\n     Saf Azot: 16 kg/da\n     Saf Fosfor: 4-5 kg/da\n   Uygulama zamanı: 3'e bölünmüş (ekimde + erken ilkbahar + sapa kalkma)",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 13,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Ayçiçeği gübreleme:\n     Ekimde taban gübresi: DAP 20-20-0, 25-30 kg/da\n     V8-V12 döneminde üst gübre: Amonyum sülfat, 20-25 kg/da\n     Bor eksikliği riski: Çiçeklenme döneminde yapraktan bor uygulaması",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 14,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "5. Fungisit Uygulaması:\n   Buğday için kritik pencere:\n   - BBCH 37-39 (bayrak yaprak): Septorya, pas önlemi\n   - BBCH 55-65 (başaklanma): Fusarium önlemi (çiçeklenme döneminde)\n   Zamanlama hatası → %20-40 etkisizlik\n   Her uygulama için ÖNEMLİ: Hava koşullarını kontrol et (yağmur öncesi 4 saat kuru hava şartı)\n\n=========================================================\nTRAKYA VERİM BENCHMARKLARİ VE YILLIK DEĞİŞKENLİK\n=========================================================",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 15,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Buğday Trakya Bölgesi Ortalama Verimleri:\n  Kuru tarım (yağışa bağımlı): 250-400 kg/dekar\n  Sulu tarım: 500-700 kg/dekar\n  İyi yönetimli yüksek girdi: 700-900 kg/dekar (mümkün, yaygın değil)\n\nAyçiçeği Trakya Bölgesi Ortalama Verimleri:\n  Kuru tarım: 120-200 kg/dekar\n  Sulu tarım: 180-280 kg/dekar\n  Hibrit + yüksek girdi: 250-350 kg/dekar",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 16,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Yıllık Değişkenlik Faktörleri:\n  Trakya'da buğday verimi yıldan yıla %20-40 değişebilir.\n  Düşük verim yılları nedenleri (sıklık sırasına göre):\n  1. İlkbahar kuraklığı (Nisan-Mayıs) — en yaygın\n  2. Sarı pas epidemisi\n  3. Geç ilkbahar donu\n  4. Hasat döneminde uzun yağışlı hava (kalite kaybı)\n  5. Toprak nemine bağlı ekim gecikmesi\n\n=========================================================\nVERİM TAHMİN MODELLERİ (MAKRO GÖSTERGELERİ)\n=========================================================",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 17,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Erken Sezon (Şubat-Mart) Verim İşaretleri:\n  - Kardeş sayısı ≥ 3 / bitki → iyi verim potansiyeli\n  - Bitki rengi yoğun koyu yeşil → azot yeterli\n  - NDVI > 0.50 Mart'ta → ortalama üstü verim beklentisi\n\nOrta Sezon (Nisan-Mayıs) Verim İşaretleri:\n  - NDVI > 0.70 başaklanmada → yüksek verim beklentisi\n  - Başak uzunluğu ≥ 8 cm → iyi dane dolumu kapasitesi\n  - Başakta dane sayısı ≥ 30 → hedef verim mümkün",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 18,
+      "total_chunks": 20
+    }
+  },
+  {
+    "text": "Geç Sezon (Mayıs-Haziran) Verim İşaretleri:\n  - Dane dolumu süresi ≥ 30 gün → yüksek dane ağırlığı\n  - Dane dolumu döneminde sıcaklık < 28°C → iyi kalabalık\n  - Hektolitre ağırlığı > 76 kg/hl → kaliteli ürün",
+    "metadata": {
+      "source": "verim_belirleyici_faktorler.txt",
+      "category": "verim",
+      "chunk_id": 19,
+      "total_chunks": 20
+    }
   }
 ]

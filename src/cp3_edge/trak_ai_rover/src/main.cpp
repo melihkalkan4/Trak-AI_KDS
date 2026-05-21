@@ -20,18 +20,19 @@ unsigned long lastMqttTime   = 0;
 
 // Veri yapısı
 struct SensorData {
-  float nem1_pct   = 0;
-  float nem2_pct   = 0;
-  float hava_temp  = 0;
-  float hava_nem   = 0;
-  long  engel_on   = 999;
-  long  engel_arka = 999;
-  float gps_lat    = 0;
-  float gps_lon    = 0;
-  bool  gps_valid  = false;
+  float nem1_pct    = 0;
+  float nem2_pct    = 0;
+  float hava_temp   = 0;
+  float hava_nem    = 0;
+  long  engel_on    = 999;
+  long  engel_arka  = 999;
+  float gps_lat     = 0;
+  float gps_lon     = 0;
+  bool  gps_valid   = false;
   String bbch_sinif = "BILINMIYOR";
   float bbch_guven  = 0;
   int   waypoint_id = 0;
+  String image_b64  = "";  // base64 JPEG ("" = görüntü yok)
 };
 SensorData veri;
 
@@ -68,32 +69,36 @@ long mesafeOlc(int trigPin, int echoPin) {
 }
 
 // ── Motor Kontrol ─────────────────────────────────────────────────
+// ESP32'de analogWrite() yok — LEDC kanalları (setup'ta tanımlanır)
+#define LEDC_ENA 0
+#define LEDC_ENB 1
+
 void motorDur() {
   digitalWrite(MOTOR_IN1, LOW); digitalWrite(MOTOR_IN2, LOW);
   digitalWrite(MOTOR_IN3, LOW); digitalWrite(MOTOR_IN4, LOW);
-  analogWrite(MOTOR_ENA, 0);   analogWrite(MOTOR_ENB, 0);
+  ledcWrite(LEDC_ENA, 0);       ledcWrite(LEDC_ENB, 0);
 }
 
 void motorIleri(int hiz = MOTOR_SPEED_NORMAL) {
-  analogWrite(MOTOR_ENA, hiz); analogWrite(MOTOR_ENB, hiz);
+  ledcWrite(LEDC_ENA, hiz);     ledcWrite(LEDC_ENB, hiz);
   digitalWrite(MOTOR_IN1, HIGH); digitalWrite(MOTOR_IN2, LOW);
   digitalWrite(MOTOR_IN3, HIGH); digitalWrite(MOTOR_IN4, LOW);
 }
 
 void motorGeri(int hiz = MOTOR_SPEED_NORMAL) {
-  analogWrite(MOTOR_ENA, hiz); analogWrite(MOTOR_ENB, hiz);
+  ledcWrite(LEDC_ENA, hiz);     ledcWrite(LEDC_ENB, hiz);
   digitalWrite(MOTOR_IN1, LOW);  digitalWrite(MOTOR_IN2, HIGH);
   digitalWrite(MOTOR_IN3, LOW);  digitalWrite(MOTOR_IN4, HIGH);
 }
 
 void motorSolaDon(int hiz = MOTOR_SPEED_SLOW) {
-  analogWrite(MOTOR_ENA, hiz); analogWrite(MOTOR_ENB, hiz);
+  ledcWrite(LEDC_ENA, hiz);     ledcWrite(LEDC_ENB, hiz);
   digitalWrite(MOTOR_IN1, LOW);  digitalWrite(MOTOR_IN2, HIGH);
   digitalWrite(MOTOR_IN3, HIGH); digitalWrite(MOTOR_IN4, LOW);
 }
 
 void motorSagaDon(int hiz = MOTOR_SPEED_SLOW) {
-  analogWrite(MOTOR_ENA, hiz); analogWrite(MOTOR_ENB, hiz);
+  ledcWrite(LEDC_ENA, hiz);     ledcWrite(LEDC_ENB, hiz);
   digitalWrite(MOTOR_IN1, HIGH); digitalWrite(MOTOR_IN2, LOW);
   digitalWrite(MOTOR_IN3, LOW);  digitalWrite(MOTOR_IN4, HIGH);
 }
@@ -131,6 +136,10 @@ void waypointNavigasyon() {
     motorDur();
     veri.waypoint_id = currentWP;
     delay(3000);
+    // Waypoint'te duruldu — kameraya anlık görüntü al komutu gönder
+    camSerial.println("CAPTURE");
+    Serial.println("[CAM] CAPTURE komutu gonderildi");
+    delay(2000);  // CAM'in encode + gönderme süresi için bekle
     currentWP++;
     return;
   }
@@ -142,10 +151,19 @@ void camVerisiOku() {
   if (camSerial.available()) {
     String json = camSerial.readStringUntil('\n');
     json.trim();
-    StaticJsonDocument<128> doc;
-    if (!deserializeJson(doc, json)) {
-      veri.bbch_sinif = doc["bbch"].as<String>();
-      veri.bbch_guven = doc["guven"] | 0.0f;
+    JsonDocument doc;
+    DeserializationError err = deserializeJson(doc, json);
+    if (!err) {
+      if (doc["type"] == "image") {
+        // Yeni format: base64 JPEG görüntü
+        veri.image_b64 = doc["data"].as<String>();
+        Serial.printf("[CAM] Goruntu alindi: %d karakter base64\n",
+                      veri.image_b64.length());
+      } else if (doc.containsKey("bbch")) {
+        // Geriye uyumlu: eski BBCH JSON formatı
+        veri.bbch_sinif = doc["bbch"].as<String>();
+        veri.bbch_guven = doc["guven"] | 0.0f;
+      }
     }
   }
 }
@@ -173,7 +191,7 @@ void sensorOlc() {
 // ── MQTT Yayın ───────────────────────────────────────────────────
 void mqttYayinla() {
   if (!mqtt.connected()) return;
-  StaticJsonDocument<512> doc;
+  JsonDocument doc;
   doc["timestamp"]     = millis();
   doc["gps_lat"]       = veri.gps_lat;
   doc["gps_lon"]       = veri.gps_lon;
@@ -188,10 +206,15 @@ void mqttYayinla() {
   doc["bbch_guven"]    = veri.bbch_guven;
   doc["waypoint_id"]   = veri.waypoint_id;
   doc["rover_id"]      = MQTT_CLIENT;
-  char payload[512];
-  serializeJson(doc, payload);
-  mqtt.publish(MQTT_TOPIC, payload);
-  Serial.println("[MQTT] Paket gönderildi.");
+  if (veri.image_b64.length() > 0) {
+    doc["image"] = veri.image_b64;
+  }
+  // Büyük payload için dinamik String — char[512] yeterli değil
+  String payload_str;
+  serializeJson(doc, payload_str);
+  mqtt.publish(MQTT_TOPIC, (const uint8_t*)payload_str.c_str(), payload_str.length());
+  Serial.printf("[MQTT] Paket gonderildi (%d byte).\n", payload_str.length());
+  veri.image_b64 = "";  // Belleği serbest bırak
 }
 
 // ── Bağlantı ─────────────────────────────────────────────────────
@@ -217,11 +240,17 @@ void mqttBaglan() {
 // ── Setup ────────────────────────────────────────────────────────
 void setup() {
   Serial.begin(115200);
-  Serial.println("=== TRAK-AI ROVER BAŞLIYOR ===");
+  Serial.println("=== TRAK-AI ROVER BASLIYOR ===");
+
+  // MQTT büyük payload için buffer büyüt (64KB — base64 görüntü)
+  mqtt.setBufferSize(65536);
 
   pinMode(MOTOR_IN1, OUTPUT); pinMode(MOTOR_IN2, OUTPUT);
   pinMode(MOTOR_IN3, OUTPUT); pinMode(MOTOR_IN4, OUTPUT);
-  pinMode(MOTOR_ENA, OUTPUT); pinMode(MOTOR_ENB, OUTPUT);
+  ledcSetup(LEDC_ENA, 5000, 8);
+  ledcSetup(LEDC_ENB, 5000, 8);
+  ledcAttachPin(MOTOR_ENA, LEDC_ENA);
+  ledcAttachPin(MOTOR_ENB, LEDC_ENB);
   motorDur();
 
   pinMode(HCSR04_F_TRIG, OUTPUT); pinMode(HCSR04_F_ECHO, INPUT);
