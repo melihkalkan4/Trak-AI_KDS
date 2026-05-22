@@ -1,0 +1,51 @@
+"""Weather → 🔮 7-Gün Tahmin (Open-Meteo daily)."""
+from __future__ import annotations
+
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
+
+from ..shared.session import get_active_site
+from .data_sources.openmeteo_client import fetch_forecast
+
+
+def render() -> None:
+    site = get_active_site()
+    if site.lat is None or site.lon is None:
+        st.warning("Aktif sahanin koordinati yok.")
+        return
+
+    data = fetch_forecast(site.lat, site.lon, days=7)
+    if not data or "daily" not in data:
+        st.error("Open-Meteo daily yaniti yok.")
+        return
+
+    daily = data["daily"]
+    df = pd.DataFrame({
+        "date":          pd.to_datetime(daily.get("time", [])),
+        "temp_max":      daily.get("temperature_2m_max", []),
+        "temp_min":      daily.get("temperature_2m_min", []),
+        "precipitation": daily.get("precipitation_sum", []),
+        "wind":          daily.get("wind_speed_10m_max", []),
+        "uv":            daily.get("uv_index_max", []),
+    })
+    if df.empty:
+        st.info("Daily veri bos.")
+        return
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=df["date"], y=df["precipitation"], name="Yagis (mm)",
+                         marker_color="#aec7e8", yaxis="y2"))
+    fig.add_trace(go.Scatter(x=df["date"], y=df["temp_max"], mode="lines+markers",
+                             name="T max", line=dict(color="#d62728")))
+    fig.add_trace(go.Scatter(x=df["date"], y=df["temp_min"], mode="lines+markers",
+                             name="T min", line=dict(color="#1f77b4")))
+    fig.update_layout(
+        height=380,
+        yaxis=dict(title="Sicaklik (°C)"),
+        yaxis2=dict(title="Yagis (mm)", overlaying="y", side="right"),
+        legend=dict(orientation="h", y=1.12),
+        margin=dict(l=10, r=10, t=10, b=10),
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.dataframe(df, use_container_width=True, hide_index=True)

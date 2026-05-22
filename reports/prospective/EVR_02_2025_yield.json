@@ -1,0 +1,75 @@
+{
+  "site_id": "EVR_02",
+  "season_year": 2025,
+  "crop": "wheat",
+  "model_crop_label": "Wheat",
+  "model_path": "src/cp2_model/yield_xgb_wheat.pkl",
+  "model_sha256": "1fc4ca612e4bd6d6ab1a1023028a3ede11560f1687328a30e8eb2855f7648247",
+  "model_sha256_short": "1fc4ca612e4bd6d6",
+  "predicted_yield_kg_da": 303.7,
+  "predicted_yield_t_ha": 3.037,
+  "confidence_interval_kg_da": {
+    "low": 274.0,
+    "high": 333.4
+  },
+  "yuzde_karsilastirma": -6.3,
+  "risk": "NORMAL",
+  "top_factors": [
+    {
+      "ozellik": "precip_grow",
+      "etki": 8.0415,
+      "yon": "pozitif"
+    },
+    {
+      "ozellik": "gdd_critical",
+      "etki": 2.578,
+      "yon": "negatif"
+    },
+    {
+      "ozellik": "precip_total",
+      "etki": 1.6022,
+      "yon": "negatif"
+    }
+  ],
+  "veri_yili": 2026,
+  "features": {
+    "ndvi_peak": 0.7996460756489429,
+    "ndvi_mean_grow": 0.4787912151957484,
+    "ndvi_sum": 101.50373762149866,
+    "gdd_total": 3083.4904,
+    "gdd_critical": 1280.3772000000001,
+    "precip_total": 255.2,
+    "precip_grow": 185.2,
+    "drought_days": 28,
+    "heat_stress_days": 24,
+    "frost_days": 23,
+    "temp_mean_grow": 14.51711603773585,
+    "temp_amplitude_mean": 10.233150471698112,
+    "evi_peak": 0.4527577188735457,
+    "ndwi_min": -0.6504436139231472,
+    "radiation_total": 0.0036,
+    "soil_clay": 31.0,
+    "soil_ph": 6.8
+  },
+  "features_model_input": {
+    "ndvi_peak": 0.7996460756489429,
+    "ndvi_mean_grow": 0.4787912151957484,
+    "ndvi_sum": 101.50373762149866,
+    "gdd_total": 3083.4904,
+    "gdd_critical": 1280.3772000000001,
+    "precip_total": 3189.5127999999995,
+    "precip_grow": 2314.7633,
+    "drought_days": 28,
+    "heat_stress_days": 24,
+    "frost_days": 23,
+    "temp_mean_grow": 14.51711603773585,
+    "temp_amplitude_mean": 10.233150471698112,
+    "evi_peak": 0.4527577188735457,
+    "ndwi_min": -0.6504436139231472,
+    "radiation_total": 0.045357724547,
+    "soil_clay": 31.0,
+    "soil_ph": 6.8
+  },
+  "era5_tp_scale_note": "ERA5-Land hourly tp accumulated-since-midnight summed in legacy ETL -> ~12.5x over-count. Fixed at source in cp1_etl/mod_era5_cds.py (sum -> max). Model still consumes raw scale for training-time contract; `features` here shows realistic mm.",
+  "parquet": "data/prospective/2025/EVR_02_unified_features.parquet"
+}

@@ -1,0 +1,186 @@
+"""Cached data loaders for dashboard pages.
+
+Every loader uses `@st.cache_data` with an explicit TTL so the dashboard
+remains responsive even under repeated rerun() while the underlying parquet/
+JSONL files are refreshed asynchronously by the cron worker.
+
+Resource-style singletons (vectorstore, YOLOv8) live in `_legacy_pages.py`
+behind `@st.cache_resource` so they survive across rerun().
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+from pathlib import Path
+from typing import Optional
+
+import pandas as pd
+import streamlit as st
+
+
+logger = logging.getLogger("trakai.dashboard.loaders")
+
+
+# ---------------------------------------------------------------------------
+# FLOV artefacts
+# ---------------------------------------------------------------------------
+def _flov_config():
+    from prospective_validation import config as _flov  # type: ignore
+    return _flov
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def load_flov_predictions(site_id: str, year: int) -> pd.DataFrame:
+    cfg = _flov_config()
+    p = cfg.REPORTS_DIR / f"{site_id}_{year}_predictions.parquet"
+    if not p.exists():
+        return pd.DataFrame()
+    df = pd.read_parquet(p)
+    df["prediction_date"] = pd.to_datetime(df["prediction_date"])
+    df["target_date"] = pd.to_datetime(df["target_date"])
+    return df
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def load_flov_unified(site_id: str, year: int) -> pd.DataFrame:
+    cfg = _flov_config()
+    p = cfg.PROSPECTIVE_DIR / str(year) / f"{site_id}_unified_features.parquet"
+    if not p.exists():
+        return pd.DataFrame()
+    df = pd.read_parquet(p)
+    df["date"] = pd.to_datetime(df["date"])
+    return df
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def load_flov_validation(site_id: str, year: int) -> tuple[pd.DataFrame, Optional[dict], pd.DataFrame]:
+    cfg = _flov_config()
+    matched_csv = cfg.REPORTS_DIR / f"{site_id}_{year}_validation.csv"
+    per_stage_csv = cfg.REPORTS_DIR / f"{site_id}_{year}_validation_per_stage.csv"
+    summary_json = cfg.REPORTS_DIR / f"{site_id}_{year}_validation_summary.json"
+    matched = (pd.read_csv(matched_csv, parse_dates=["target_date", "actual_date"])
+               if matched_csv.exists() else pd.DataFrame())
+    per_stage = pd.read_csv(per_stage_csv) if per_stage_csv.exists() else pd.DataFrame()
+    summary = (json.loads(summary_json.read_text(encoding="utf-8"))
+               if summary_json.exists() else None)
+    return matched, summary, per_stage
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def load_climatology() -> pd.DataFrame:
+    cfg = _flov_config()
+    p = cfg.HISTORICAL_CLIMATOLOGY_DIR / "sunflower_doy_climatology.parquet"
+    if not p.exists():
+        return pd.DataFrame()
+    return pd.read_parquet(p)
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def load_flov_alerts_jsonl(site_id: Optional[str] = None, n: int = 500) -> pd.DataFrame:
+    cfg = _flov_config()
+    p = cfg.LOGS_DIR / "alerts.jsonl"
+    return _read_jsonl_tail(p, n=n, site_id=site_id)
+
+
+# ---------------------------------------------------------------------------
+# Visual-validation artefacts
+# ---------------------------------------------------------------------------
+def _vv_config():
+    from visual_validation import config as _vv  # type: ignore
+    return _vv
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def load_consensus_jsonl(site_id: Optional[str] = None, n: int = 500) -> pd.DataFrame:
+    cfg = _vv_config()
+    return _read_jsonl_tail(cfg.CONSENSUS_LOG, n=n, site_id=site_id)
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def load_consensus_alerts_jsonl(site_id: Optional[str] = None, n: int = 500) -> pd.DataFrame:
+    cfg = _vv_config()
+    return _read_jsonl_tail(cfg.LOGS_DIR / "visual_consensus_alerts.jsonl",
+                            n=n, site_id=site_id)
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def load_yolov8_audit_jsonl(site_id: Optional[str] = None, n: int = 500) -> pd.DataFrame:
+    cfg = _vv_config()
+    return _read_jsonl_tail(cfg.LOGS_DIR / "visual_field_yolov8.jsonl",
+                            n=n, site_id=site_id)
+
+
+@st.cache_data(ttl=120, show_spinner=False)
+def list_consensus_snapshots(site_id: Optional[str] = None) -> list[Path]:
+    cfg = _vv_config()
+    if not cfg.CONSENSUS_PREDICTIONS_DIR.exists():
+        return []
+    files = sorted(cfg.CONSENSUS_PREDICTIONS_DIR.glob("*.json"))
+    if site_id:
+        files = [p for p in files if p.stem.startswith(site_id + "_")]
+    return files
+
+
+# ---------------------------------------------------------------------------
+# Model integrity
+# ---------------------------------------------------------------------------
+@st.cache_data(ttl=60, show_spinner=False)
+def load_integrity_ledger(n: int = 200) -> pd.DataFrame:
+    try:
+        cfg = _flov_config()
+        p = cfg.LOGS_DIR / "model_integrity.jsonl"
+    except Exception:                                           # noqa: BLE001
+        p = Path("logs/model_integrity.jsonl")
+    return _read_jsonl_tail(p, n=n)
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def load_api_audit(n: int = 200) -> pd.DataFrame:
+    try:
+        cfg = _flov_config()
+        p = cfg.LOGS_DIR / "api_audit.jsonl"
+    except Exception:                                           # noqa: BLE001
+        p = Path("logs/api_audit.jsonl")
+    return _read_jsonl_tail(p, n=n)
+
+
+# ---------------------------------------------------------------------------
+# ERA5 cached features
+# ---------------------------------------------------------------------------
+@st.cache_data(ttl=300, show_spinner=False)
+def load_unified_features_with_era5(site_id: str, year: int) -> pd.DataFrame:
+    """Reuse the FLOV unified parquet — it already merges ERA5 columns."""
+    df = load_flov_unified(site_id, year)
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Internal helper
+# ---------------------------------------------------------------------------
+def _read_jsonl_tail(path: Path, n: int = 500, site_id: Optional[str] = None) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    rows: list[dict] = []
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines()[-max(n, 1):]:
+            try:
+                rows.append(json.loads(line))
+            except Exception:                                   # noqa: BLE001
+                continue
+    except Exception:                                           # noqa: BLE001
+        return pd.DataFrame()
+    df = pd.DataFrame(rows)
+    if site_id and not df.empty and "site_id" in df.columns:
+        df = df[df["site_id"] == site_id].reset_index(drop=True)
+    return df
+
+
+__all__ = [
+    "load_flov_predictions", "load_flov_unified", "load_flov_validation",
+    "load_climatology", "load_flov_alerts_jsonl",
+    "load_consensus_jsonl", "load_consensus_alerts_jsonl",
+    "load_yolov8_audit_jsonl", "list_consensus_snapshots",
+    "load_integrity_ledger", "load_api_audit",
+    "load_unified_features_with_era5",
+]

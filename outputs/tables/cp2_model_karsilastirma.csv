@@ -1,0 +1,9 @@
+Ürün,Model,R²,MAE,RMSE,Şampiyon
+Buğday,LSTM,0.752,0.0451,0.0569,✓
+Buğday,Conv-LSTM,0.7151,0.0445,0.0547,
+Buğday,Att-LSTM,0.7015,0.046,0.058,
+Buğday,XGBoost,0.701,0.0455,0.0575,
+Ayçiçeği,LSTM,0.7957,0.0409,0.0505,✓
+Ayçiçeği,XGBoost,0.7909,0.0401,0.0498,
+Ayçiçeği,Att-LSTM,0.7896,0.0421,0.052,
+Ayçiçeği,Conv-LSTM,0.7773,0.0417,0.0515,

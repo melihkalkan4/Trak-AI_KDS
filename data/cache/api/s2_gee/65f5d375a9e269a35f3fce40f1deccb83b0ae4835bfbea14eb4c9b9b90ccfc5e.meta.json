@@ -1,0 +1,49 @@
+{
+  "source": "s2_gee",
+  "params": {
+    "cloud_threshold_pct": 70,
+    "collection": "COPERNICUS/S2_SR_HARMONIZED",
+    "end": "2026-05-22",
+    "indices": [
+      "NDVI",
+      "EVI",
+      "NDWI"
+    ],
+    "lat": 41.045,
+    "lon": 27.205,
+    "polygon": [
+      "EVR_01",
+      25.9017,
+      30.0,
+      [
+        [
+          27.204691,
+          41.044767
+        ],
+        [
+          27.205309,
+          41.044767
+        ],
+        [
+          27.205309,
+          41.045233
+        ],
+        [
+          27.204691,
+          41.045233
+        ],
+        [
+          27.204691,
+          41.044767
+        ]
+      ]
+    ],
+    "scale_m": 10,
+    "site_id": "EVR_01",
+    "start": "2025-01-01"
+  },
+  "content_type": "application/python-pickle",
+  "size_bytes": 3301,
+  "sha256": "08c5c619b2264221fc6c20d605584f76f1f28febf36cf162067b82f093a299a1",
+  "created_utc": "2026-05-22T08:54:43.905821+00:00"
+}

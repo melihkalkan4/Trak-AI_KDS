@@ -1,0 +1,17 @@
+# TRAK-AI KDS — Streamlit configuration
+# Default base is "light"; users can toggle dark mode from the sidebar
+# or via the hamburger menu (Settings → Theme).
+
+[theme]
+base = "light"
+primaryColor          = "#2E7D32"
+backgroundColor       = "#FFFFFF"
+secondaryBackgroundColor = "#F5F7F4"
+textColor             = "#1F2A24"
+font                  = "sans serif"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = false

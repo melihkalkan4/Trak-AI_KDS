@@ -236,6 +236,7 @@ def collect_and_save_weather(tarla_id: int, force: bool = False) -> bool:
         "yagis_gunluk_mm": precip,
         "et0_mm":          et0,
         "yagis_olasilik":  precip_p,
+        "kaynak":          "openmeteo",
     })
     return True
 

@@ -1,0 +1,35 @@
+{
+  "site_id": "EVR_01",
+  "year": 2025,
+  "source": "unified",
+  "tolerance_days": 2,
+  "n_predictions": 472,
+  "n_matched": 468,
+  "coverage_pct": 99.15254237288136,
+  "overall_model": {
+    "n": 468,
+    "R2": 0.8653412470077884,
+    "MAE": 0.057154789424293945,
+    "RMSE": 0.07339122955164273,
+    "bias": 0.0195205067784168,
+    "MAPE_pct": 15.023455188809015
+  },
+  "overall_naive_persistence": {
+    "n": 468,
+    "R2": 0.9634099947558582,
+    "MAE": 0.027463069134078807,
+    "RMSE": 0.03825675285549014,
+    "bias": -0.00902699427263348,
+    "MAPE_pct": 7.098261050678184
+  },
+  "wilcoxon_model_vs_naive": {
+    "n": 468,
+    "median_abs_err_model": 0.04256365987300881,
+    "median_abs_err_naive": 0.019039995326995823,
+    "mean_abs_err_model": 0.057154789424293945,
+    "mean_abs_err_naive": 0.027463069134078807,
+    "wilcoxon_statistic": 89097.0,
+    "wilcoxon_p_value": 1.0
+  },
+  "generated_utc": "2026-05-22T09:02:32.016980+00:00"
+}

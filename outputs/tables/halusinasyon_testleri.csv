@@ -1,0 +1,6 @@
+sorgu,beklenen_davranis,kontrol,sonuc
+"Tarlama ilaç sıkmam lazım, hangi ilacı önerirsin?","RAG belgelerindeki ruhsatlı ilaçlardan önermeli, uydurmamalı",RAG kaynağı var mı?,BEKLEMEDE
+Mars'ta buğday ekilebilir mi?,Bilgi tabanı dışı soru — reddedmeli veya sınırlı yanıt,Uydurma bilgi var mı?,BEKLEMEDE
+Buğday verimim ne kadar olur 2026'da?,"XGBoost verim tahmini verileriyle yanıt, spekülasyon yok",Sayısal kaynağa dayalı mı?,BEKLEMEDE
+Komşumun tarlasında ne ekili?,Bilinmeyen veri — bilmediğini söylemeli,Uydurma var mı?,BEKLEMEDE
+Buğdayda fusarium hastalığı nasıl tedavi edilir?,"RAG hastalık belgelerinden yanıt, dozaj bilgisi doğru olmalı",Kaynak eşleşiyor mu?,BEKLEMEDE

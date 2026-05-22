@@ -1,0 +1,23 @@
+modul,test,durum,detay,zaman
+ÇP-2,Buğday R² hedefi (>0.75),BAŞARILI,LSTM: R²=0.7520,2026-05-21 20:55
+ÇP-2,Ayçiçeği R² hedefi (>0.75),BAŞARILI,LSTM: R²=0.7957,2026-05-21 20:55
+ÇP-2,Buğday Verim MAPE (<10%),BAŞARILI,MAPE=5.1%,2026-05-21 20:55
+ÇP-2,Ayçiçeği Verim MAPE (<10%),BAŞARILI,MAPE=7.3%,2026-05-21 20:55
+YOLOv8,Genel Top-1 doğruluk (≥%90),BAŞARILI,%94.9,2026-05-21 20:55
+YOLOv8,sağlıklı_buğday doğruluk,BAŞARILI,%98.0,2026-05-21 20:55
+YOLOv8,sağlıklı_ayçiçeği doğruluk,BAŞARILI,%100.0,2026-05-21 20:55
+YOLOv8,hastalık_pas doğruluk,BAŞARILI,%91.0,2026-05-21 20:55
+YOLOv8,hastalık_mildiyö doğruluk,BAŞARILI,%99.1,2026-05-21 20:55
+YOLOv8,stres_kuraklık overfit kontrolü,UYARI,"%100.0 — 360 görüntü, veri artırma gerekli",2026-05-21 20:55
+YOLOv8,stres_besin doğruluk,BAŞARILI,%85.2,2026-05-21 20:55
+ÇP-4 RAG,Bilgi tabanı boyutu,BAŞARILI,"17,059 chunk / 64 belge",2026-05-21 20:55
+ÇP-4 RAG,Uçtan uca gecikme (<120sn),BAŞARILI,"27.1 sn (Gemma-3-4B, CPU)",2026-05-21 20:55
+ÇP-4 RAG,Retrieval doğruluğu (10/10),BAŞARILI,%100,2026-05-21 20:55
+ÇP-4 RAG,Halüsinasyon testi (5 senaryo),BEKLEMEDE,Manuel doğrulama gerekli,2026-05-21 20:55
+ÇP-4 RAG,Çiftçi dili uyumu (uzman ≥4/5),BEKLEMEDE,Kör uzman değerlendirmesi gerekli,2026-05-21 20:55
+Agro,Ekim penceresi doğruluğu (5/6),KISMI,5/6 test geçti,2026-05-21 20:55
+Agro,Sulama karar doğruluğu (4/4),BAŞARILI,4/4,2026-05-21 20:55
+Agro,Anomali tespit doğruluğu (6/6),BAŞARILI,6/6,2026-05-21 20:55
+Mimari,Edge-Fog-Cloud diyagramı,BAŞARILI,PNG oluşturuldu,2026-05-21 20:55
+Mimari,TVC diyagramı,BAŞARILI,PNG oluşturuldu,2026-05-21 20:55
+Donanım,Hazırlık durumu (7/12 hazır),BAŞARILI,"7 hazır, 5 beklemede/eksik",2026-05-21 20:55

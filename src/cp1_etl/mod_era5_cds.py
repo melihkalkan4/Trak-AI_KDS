@@ -186,14 +186,19 @@ def process_netcdf_to_daily(ds, lat, lon):
         if 'd2m' in df_hourly.columns:
             agg_dict['d2m'] = ['mean']
         
+        # ERA5-Land hourly tp/ssr/e are *accumulated since 00 UTC* (reset
+        # each day). The daily total is the LAST hour's value (== max),
+        # NOT the sum of accumulated hourlies (which over-counts ~12.5x).
+        # Column name stays `tp_sum`/`ssr_sum`/`e_sum` for downstream contract;
+        # the value is now the correct daily total in native units.
         if 'tp' in df_hourly.columns:
-            agg_dict['tp'] = ['sum']
-        
+            agg_dict['tp'] = ['max']
+
         if 'ssr' in df_hourly.columns:
-            agg_dict['ssr'] = ['sum']
-        
+            agg_dict['ssr'] = ['max']
+
         if 'e' in df_hourly.columns:
-            agg_dict['e'] = ['sum']
+            agg_dict['e'] = ['max']
         
         print(f"      Agregasyon kuralları: {list(agg_dict.keys())}")
         
@@ -209,10 +214,19 @@ def process_netcdf_to_daily(ds, lat, lon):
                 new_cols.append(col)
         
         df_daily.columns = new_cols
-        
+
+        # Rename _max → _sum for accumulated fields so downstream consumers
+        # (feature_builder, inference_yield, dashboard) keep working unchanged.
+        # Value is the correct daily total either way.
+        df_daily = df_daily.rename(columns={
+            "tp_max":  "tp_sum",
+            "ssr_max": "ssr_sum",
+            "e_max":   "e_sum",
+        })
+
         print(f"   ✅ İşlendi: {len(df_daily)} gün")
         print(f"      Sütunlar: {list(df_daily.columns)}")
-        
+
         return df_daily
         
     except Exception as e:

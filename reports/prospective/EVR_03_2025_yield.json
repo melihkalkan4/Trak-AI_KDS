@@ -1,0 +1,75 @@
+{
+  "site_id": "EVR_03",
+  "season_year": 2025,
+  "crop": "sunflower",
+  "model_crop_label": "Sunflower",
+  "model_path": "src/cp2_model/yield_xgb_sunflower.pkl",
+  "model_sha256": "1b8f2a14404f87adeb0bad67dc6307228e4959e4405f16cd9400e197d273ee1b",
+  "model_sha256_short": "1b8f2a14404f87ad",
+  "predicted_yield_kg_da": 183.1,
+  "predicted_yield_t_ha": 1.831,
+  "confidence_interval_kg_da": {
+    "low": 160.1,
+    "high": 206.1
+  },
+  "yuzde_karsilastirma": 1.7,
+  "risk": "NORMAL",
+  "top_factors": [
+    {
+      "ozellik": "gdd_critical",
+      "etki": 5.2945,
+      "yon": "pozitif"
+    },
+    {
+      "ozellik": "ndvi_mean_grow",
+      "etki": 3.1821,
+      "yon": "negatif"
+    },
+    {
+      "ozellik": "ndvi_sum",
+      "etki": 0.9398,
+      "yon": "negatif"
+    }
+  ],
+  "veri_yili": 2026,
+  "features": {
+    "ndvi_peak": 0.8714667950381367,
+    "ndvi_mean_grow": 0.4753785037148115,
+    "ndvi_sum": 101.73099979496966,
+    "gdd_total": 2608.6881999999996,
+    "gdd_critical": 1577.7480000000003,
+    "precip_total": 255.8,
+    "precip_grow": 15.4,
+    "drought_days": 30,
+    "heat_stress_days": 9,
+    "frost_days": 3,
+    "temp_mean_grow": 20.126977570093455,
+    "temp_amplitude_mean": 10.57230093457944,
+    "evi_peak": 0.4846790195134838,
+    "ndwi_min": -0.6945900421962657,
+    "radiation_total": 0.0042,
+    "soil_clay": 31.0,
+    "soil_ph": 6.8
+  },
+  "features_model_input": {
+    "ndvi_peak": 0.8714667950381367,
+    "ndvi_mean_grow": 0.4753785037148115,
+    "ndvi_sum": 101.73099979496966,
+    "gdd_total": 2608.6881999999996,
+    "gdd_critical": 1577.7480000000003,
+    "precip_total": 3196.9889999999996,
+    "precip_grow": 192.9111,
+    "drought_days": 30,
+    "heat_stress_days": 9,
+    "frost_days": 3,
+    "temp_mean_grow": 20.126977570093455,
+    "temp_amplitude_mean": 10.57230093457944,
+    "evi_peak": 0.4846790195134838,
+    "ndwi_min": -0.6945900421962657,
+    "radiation_total": 0.052191771236,
+    "soil_clay": 31.0,
+    "soil_ph": 6.8
+  },
+  "era5_tp_scale_note": "ERA5-Land hourly tp accumulated-since-midnight summed in legacy ETL -> ~12.5x over-count. Fixed at source in cp1_etl/mod_era5_cds.py (sum -> max). Model still consumes raw scale for training-time contract; `features` here shows realistic mm.",
+  "parquet": "data/prospective/2025/EVR_03_unified_features.parquet"
+}

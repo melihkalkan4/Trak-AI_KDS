@@ -24,9 +24,9 @@ def get_filtered_context(query: str, vector_db, distance_threshold: float = 1.5)
         for doc, score in results:
             if float(score) > distance_threshold:  # L2 > 1.5 = semantik benzerlik yok
                 continue
-                source = doc.metadata.get("source", "Bilinmeyen Kaynak")
-                filtered_docs.append(f"[Kaynak: {source} (Mesafe: {score:.3f})]\n{doc.page_content}")
-                
+            source = doc.metadata.get("source", "Bilinmeyen Kaynak")
+            filtered_docs.append(f"[Kaynak: {source} (Mesafe: {score:.3f})]\n{doc.page_content}")
+
         if not filtered_docs:
             return ""
             
