@@ -82,7 +82,7 @@ def render() -> None:
                 tmp = Path("logs/_xmod_tmp_upload.jpg")
                 tmp.parent.mkdir(parents=True, exist_ok=True)
                 tmp.write_bytes(img_bytes)
-                result = clf.classify(str(tmp))
+                result = clf.classify_file(str(tmp))
                 cls = result.get("sinif") or result.get("class") or "?"
                 conf = (result.get("guven") or result.get("confidence") or 0)
                 conf = float(conf) * (100 if conf <= 1 else 1)

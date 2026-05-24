@@ -475,3 +475,25 @@
 2026-05-23 01:35:38.597 | INFO     | prospective_validation.model_loader:load_frozen_champion:180 | Loading frozen LSTM champion: model_lstm_sunflower.keras
 2026-05-23 01:35:38.823 | INFO     | prospective_validation.model_loader:load_frozen_champion:217 | Frozen champion loaded. LSTM sha256=43ef61b5a70f16cd (truncated)
 2026-05-23 02:13:46.749 | INFO     | prospective_validation.alerts:evaluate:211 | [alerts] EVR_01: generated 364 alerts (110 critical, 174 warn, 80 info)
+2026-05-23 19:40:33.647 | DEBUG    | prospective_validation.logging_setup:configure_logging:56 | Loguru configured: file=C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\logs\flov.log, rotation=100 MB
+2026-05-23 19:40:33.710 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] lstm_champion_sunflower unchanged (43ef61b5a70f)
+2026-05-23 19:40:33.745 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_yield_sunflower unchanged (9cc638a6a951)
+2026-05-23 19:40:33.765 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] scaler_sunflower unchanged (1212fc508136)
+2026-05-23 19:40:33.776 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] feature_names unchanged (8d1948d9824f)
+2026-05-23 19:40:33.810 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_xgb_sunflower unchanged (1b8f2a14404f)
+2026-05-23 19:40:33.833 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_scaler_sunflower unchanged (53e405f78848)
+2026-05-23 19:40:33.855 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_feature_names_sunf unchanged (62724be6ab8f)
+2026-05-23 19:40:33.855 | INFO     | prospective_validation.model_loader:load_frozen_champion:176 | Registering CP2 custom layers (SelfAttention, ExtractLastNDVI, ScaleDelta) …
+2026-05-23 19:40:33.856 | INFO     | prospective_validation.model_loader:load_frozen_champion:180 | Loading frozen LSTM champion: model_lstm_sunflower.keras
+2026-05-23 19:40:34.397 | INFO     | prospective_validation.model_loader:load_frozen_champion:217 | Frozen champion loaded. LSTM sha256=43ef61b5a70f16cd (truncated)
+2026-05-23 19:40:49.332 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] lstm_champion_sunflower unchanged (43ef61b5a70f)
+2026-05-23 19:40:49.349 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_yield_sunflower unchanged (9cc638a6a951)
+2026-05-23 19:40:49.371 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] scaler_sunflower unchanged (1212fc508136)
+2026-05-23 19:40:49.387 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] feature_names unchanged (8d1948d9824f)
+2026-05-23 19:40:49.403 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_xgb_sunflower unchanged (1b8f2a14404f)
+2026-05-23 19:40:49.419 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_scaler_sunflower unchanged (53e405f78848)
+2026-05-23 19:40:49.436 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_feature_names_sunf unchanged (62724be6ab8f)
+2026-05-23 19:40:49.437 | INFO     | prospective_validation.model_loader:load_frozen_champion:176 | Registering CP2 custom layers (SelfAttention, ExtractLastNDVI, ScaleDelta) …
+2026-05-23 19:40:49.438 | INFO     | prospective_validation.model_loader:load_frozen_champion:180 | Loading frozen LSTM champion: model_lstm_sunflower.keras
+2026-05-23 19:40:49.642 | INFO     | prospective_validation.model_loader:load_frozen_champion:217 | Frozen champion loaded. LSTM sha256=43ef61b5a70f16cd (truncated)
+2026-05-23 19:41:35.579 | INFO     | prospective_validation.alerts:evaluate:211 | [alerts] EVR_01: generated 364 alerts (110 critical, 174 warn, 80 info)

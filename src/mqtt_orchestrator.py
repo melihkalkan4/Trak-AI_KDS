@@ -162,6 +162,44 @@ def detect_anomalies(payload: dict, cp2_result: dict, weather: dict = None, fore
                     "seviye": "ORTA",
                 })
 
+    # ── Kural 4B: ÇP-2.5 Yield-based Anomaly (v2 ilçe-bazlı) ────────────
+    # ÇP-2.5 v2 verim tahmini 22-yıl yerel ortalamadan belirgin sapmışsa
+    # ya da güven aralığı çok dağılmışsa anomali olarak işaretle.
+    try:
+        yield_pred  = cp2_result.get("yield_kg_da")
+        yield_22yr  = cp2_result.get("lokal_22yil_ortalama")
+        yield_pi_lo = cp2_result.get("yield_pi_lower") or cp2_result.get("yield_kg_da_lower")
+        yield_pi_up = cp2_result.get("yield_pi_upper") or cp2_result.get("yield_kg_da_upper")
+
+        if yield_pred and yield_22yr:
+            sapma = (yield_pred - yield_22yr) / yield_22yr * 100.0
+            if sapma < -25.0:
+                seviye = "KRITIK" if sapma < -40.0 else "YUKSEK"
+                anomalies.append({
+                    "tip": "VERIM_DUSUS",
+                    "aciklama": (
+                        f"Verim tahmini 22-yil yerel ortalamadan %{abs(sapma):.0f} dusuk "
+                        f"(tahmin: {yield_pred:.0f}, ort: {yield_22yr:.0f} kg/da)"
+                    ),
+                    "seviye": seviye,
+                })
+
+        # Belirsizlik bandı çok genişse uyarı
+        if yield_22yr and yield_pi_lo and yield_pi_up:
+            sharpness = float(yield_pi_up) - float(yield_pi_lo)
+            if sharpness > yield_22yr * 0.8:  # PI %95 22-yıl ort %80'inden geniş
+                anomalies.append({
+                    "tip": "VERIM_BELIRSIZ",
+                    "aciklama": (
+                        f"Verim tahmin araligi cok genis: "
+                        f"{yield_pi_lo:.0f}-{yield_pi_up:.0f} kg/da "
+                        f"(genislik: {sharpness:.0f}, 22-yil ort: {yield_22yr:.0f})"
+                    ),
+                    "seviye": "ORTA",
+                })
+    except Exception:
+        pass
+
     # ── Kural 5-7: Hava bazlı kurallar (Open-Meteo) ──────────────────────
     if weather:
         temp_c = weather.get("temp_c", 99)

@@ -1,0 +1,46 @@
+{
+  "paket": "TUIK_ILCE_v2",
+  "olusturulma_tarihi": "2026-05-23T08:29:23.383443",
+  "kaynak": "TÜİK Bitkisel Üretim İstatistikleri",
+  "kapsam": {
+    "cografi": "29 Trakya ilçesi + 5 İstanbul ilçesi (kontrol)",
+    "temporal": "2004-2025",
+    "urunler_ana": [
+      "bugday",
+      "aycicegi_yaglik"
+    ]
+  },
+  "ornek_boyutlari": {
+    "tum_donem_bugday": 589,
+    "tum_donem_aycicegi": 576,
+    "2017_2024_bugday": 220,
+    "2017_2024_aycicegi": 216
+  },
+  "dosyalar": {
+    "tuik_ilce_yields_clean.csv": "ANA DOSYA — Trakya ana ürünler (1165 satır)",
+    "tuik_ilce_yields_full_referans.csv": "Tüm iller/ürünler referans",
+    "ilce_coords.csv": "34 ilçe merkez koordinatı (ERA5/GEE çekimi için)",
+    "ilce_yield_stats.csv": "İstatistik özet (ilçe × ürün)",
+    "ilce_yield_trends.csv": "Linear regression trend + anlamlılık",
+    "ilce_anomaly_years.csv": "Anomali yılları (|z|>1.5)",
+    "ilce_pilot_baseline.csv": "TÜBİTAK %20-30 hedef baseline",
+    "rag_chunks_ilce.json": "57 RAG chunk",
+    "ilce_yield_map.png": "Coğrafi verim haritası",
+    "ilce_yield_heatmap.png": "İlçe × Yıl ısı haritası"
+  },
+  "kullanim": {
+    "ana_join_dosyasi": "tuik_ilce_yields_clean.csv",
+    "join_anahtari": "ilce_id + year (veya il + year, master_feature_matrix yapısına göre)"
+  },
+  "eski_dosya_uyumlulugu": {
+    "yerine_gectigi_il_bazli_dosyalar": [
+      "tuik_trakya_yields_clean.csv (n=132)",
+      "yield_stats_summary.csv",
+      "yield_trends.csv",
+      "anomaly_years.csv",
+      "pilot_basari_baseline.csv",
+      "rag_chunks_yield.json"
+    ],
+    "arsivlenmeli": true
+  }
+}

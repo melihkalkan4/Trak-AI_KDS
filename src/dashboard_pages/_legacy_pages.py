@@ -396,25 +396,69 @@ def page_tarla(tarla_id: int, tarla: dict):
         )
         st.plotly_chart(fig_ndvi, use_container_width=True)
 
-    # ── 1B: Verim Projeksiyonu ────────────────────────────────────────────────
-    st.subheader("📊 Verim Projeksiyonu")
-    verim_kg = son_tahmin.get("verim_tahmini_kg_dekar")
-    verim_alt = son_tahmin.get("verim_guven_alt")
-    verim_ust = son_tahmin.get("verim_guven_ust")
-    verim_risk = son_tahmin.get("verim_risk", "Bilinmiyor")
-    trakya_ort = _trakya_median(crop_key)
+    # ── 1B: Verim Projeksiyonu (ÇP-2.5 v2 ilçe-bazlı canlı inference) ────────
+    st.subheader("📊 Verim Projeksiyonu — ÇP-2.5 v2")
+    try:
+        import sys as _sys
+        _cp2_dir = os.path.join(_SRC_DIR, "cp2_model")
+        if _cp2_dir not in _sys.path:
+            _sys.path.insert(0, _cp2_dir)
+        from inference_cp2 import predict_yield_kg_da    # type: ignore
 
-    col1, col2, col3 = st.columns(3)
-    if verim_kg:
-        col1.metric("Tahmini Verim", f"{verim_kg:.0f} kg/da")
-        col2.metric("Guvenlı Aralik", f"{verim_alt:.0f}–{verim_ust:.0f}" if verim_alt and verim_ust else "—")
-        col3.metric("Risk", verim_risk or "Bilinmiyor")
+        il_disp = tarla.get("il") or "Kırklareli"
+        crop_ct = "Wheat" if crop_key == "bugday" else "Sunflower"
+        ndvi_t7 = (son_tahmin.get("ndvi_predicted")
+                   or son_tahmin.get("predicted_ndvi") or 0.55)
+        y = predict_yield_kg_da(
+            crop_type=crop_ct,
+            ndvi_predicted=float(ndvi_t7),
+            il=il_disp,
+            ilce_id=tarla.get("ilce_id"),
+        )
 
-        oran = min(1.0, verim_kg / (trakya_ort * 1.5))
-        st.caption(f"Trakya ortalamasina kiyasla: {verim_kg/trakya_ort*100:.0f}%")
-        st.progress(oran, text=f"{verim_kg:.0f} / {trakya_ort:.0f} kg/da (Trakya ort.)")
-    else:
-        col1.info("Verim tahmini hesaplanmadi")
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Tahmini Verim", f"{y['yield_kg_da']:.0f} kg/da",
+                  delta=(f"%{y['sapma_pct']:+.1f}"
+                         if y['sapma_pct'] is not None else None),
+                  delta_color="normal")
+        c2.metric("%95 Güven Aralığı",
+                  f"{y['yield_kg_da_lower']:.0f}–{y['yield_kg_da_upper']:.0f}")
+        c3.metric("22-yıl Lokal Ort.",
+                  (f"{y['lokal_22yil_ortalama']:.0f} kg/da"
+                   if y['lokal_22yil_ortalama'] else "—"))
+        c4.metric("Model", f"L{y['layer']} · {y['champion_model'][:10]}")
+
+        trakya_ort = _trakya_median(crop_key)
+        if trakya_ort and y['yield_kg_da']:
+            oran = min(1.0, y['yield_kg_da'] / (trakya_ort * 1.5))
+            st.progress(oran,
+                        text=f"{y['yield_kg_da']:.0f} / {trakya_ort:.0f} kg/da (Trakya ort.)")
+
+        st.caption(f"**{y['sapma_yorum']}** · model: `{y['model_version']}`")
+
+        if y.get('top_3_features'):
+            try:
+                feat_df = pd.DataFrame(y['top_3_features'],
+                                        columns=["Özellik", "Etki"])
+                feat_df["Etki"] = feat_df["Etki"].astype(float).abs()
+                st.markdown("**🔬 Top-3 Etkili Faktör (SHAP/Permutation):**")
+                st.bar_chart(feat_df.set_index("Özellik")["Etki"],
+                             horizontal=True, height=120)
+            except Exception:
+                pass
+    except Exception as _exc_cp25:
+        verim_kg = son_tahmin.get("verim_tahmini_kg_dekar")
+        if verim_kg:
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Tahmini Verim (eski v1)", f"{verim_kg:.0f} kg/da")
+            col2.metric("Guvenli Aralik",
+                        f"{son_tahmin.get('verim_guven_alt', 0):.0f}–"
+                        f"{son_tahmin.get('verim_guven_ust', 0):.0f}"
+                        if son_tahmin.get('verim_guven_alt') else "—")
+            col3.metric("Risk", son_tahmin.get("verim_risk", "Bilinmiyor"))
+        else:
+            st.info("Verim tahmini hesaplanmadı")
+        st.caption(f"ÇP-2.5 v2 inference yüklenemedi: {_exc_cp25}")
 
     # ── 1C: Hava Durumu ───────────────────────────────────────────────────────
     st.subheader("🌤️ Hava Durumu")

@@ -282,4 +282,194 @@ if __name__ == "__main__":
 
     print(f"\n{'=' * 60}")
     print("  Inference complete. Ready for RAG-LLM (WP4).")
-    print(f"{'=' * 60}\n")
+
+
+# ─────────────────────────────────────────────────────────────────────
+# ÇP-2.5 v2 — Verim Tahmin Köprüsü (NDVI → kg/da)
+# ─────────────────────────────────────────────────────────────────────
+"""Mevcut ``predict()`` ile yan yana koşar, dokunmaz.
+
+Public API:
+    predict_yield_kg_da(crop_type, ndvi_predicted=None, il=None,
+                        ilce_id=None, feature_context=None,
+                        current_date=None) -> dict
+
+Bundle önceliği:  champion_{crop}.pkl → layer_c → layer_b → layer_a
+"""
+import pickle as _pickle
+
+_CP25_MODELS_DIR = os.path.join(PROJECT_ROOT, "models", "cp25")
+_CP25_BUNDLE_CACHE: dict = {}
+
+
+def _load_cp25_champion(crop_short: str):
+    if crop_short in _CP25_BUNDLE_CACHE:
+        return _CP25_BUNDLE_CACHE[crop_short]
+    for fname in (f"champion_{crop_short}.pkl",
+                  f"layer_c_{crop_short}.pkl",
+                  f"layer_b_{crop_short}.pkl",
+                  f"layer_a_{crop_short}.pkl"):
+        p = os.path.join(_CP25_MODELS_DIR, fname)
+        if os.path.exists(p):
+            with open(p, "rb") as fh:
+                bundle = _pickle.load(fh)
+            _CP25_BUNDLE_CACHE[crop_short] = bundle
+            logger.info("[cp25] loaded %s for %s", fname, crop_short)
+            return bundle
+    raise FileNotFoundError(
+        f"ÇP-2.5 v2 bundle yok ({crop_short}). "
+        "`python src/cp25/12_final_synthesis.py` çalıştırın.")
+
+
+def _cp25_lookup_22yr_mean(il, crop_short, ilce_id=None):
+    """22-yıl TÜİK ortalaması: ilçe varsa exact, yoksa il ortalaması."""
+    try:
+        crop_full = "bugday" if crop_short == "bugday" else "aycicegi_yaglik"
+        il_df = pd.read_csv(os.path.join(PROJECT_ROOT, "data", "external",
+                                          "tuik", "ilce_yield_stats.csv"))
+        # Önce ilçe spesifik
+        if ilce_id is not None:
+            row = il_df[(il_df["ilce_id"] == int(ilce_id)) &
+                         (il_df["crop"] == crop_full)]
+            if not row.empty:
+                return float(row["mean_kg_da"].iloc[0])
+        # Sonra il-genel
+        if il:
+            row = il_df[(il_df["il"] == il) & (il_df["crop"] == crop_full)]
+            if not row.empty:
+                return float(row["mean_kg_da"].mean())
+        # Fallback: tüm Trakya ortalaması
+        crop_all = il_df[il_df["crop"] == crop_full]
+        return float(crop_all["mean_kg_da"].mean()) if not crop_all.empty else None
+    except Exception:
+        return None
+
+
+def _cp25_interpret_sapma(d):
+    if d > 15:  return "Beklenenin üstünde verim — verimli sezon"
+    if d > 5:   return "Hafifçe ortalamanın üstünde"
+    if d > -5:  return "Ortalama yakınında"
+    if d > -15: return "Hafif düşüş — risk izlenmeli"
+    if d > -25: return "Belirgin düşüş — sulama/girdi gözden geçirilmeli"
+    return "Kritik düşüş — kuraklık veya stres sinyali"
+
+
+def _cp25_fallback_perm_imp(crop_short):
+    try:
+        for layer in ("C", "B", "A"):
+            p = os.path.join(PROJECT_ROOT, "reports", "cp25",
+                              f"08_perm_importance_{layer}_{crop_short}.csv")
+            if os.path.exists(p):
+                df = pd.read_csv(p)
+                return [(str(r["feature"]), float(r["imp_mean"]))
+                        for _, r in df.head(3).iterrows()]
+    except Exception:
+        pass
+    return []
+
+
+def _cp25_build_default_context(crop, ndvi):
+    """Eksik feature'lar için varsayılan değerler (climatology proxy)."""
+    return {
+        # Climate
+        "gdd_cum_season": 1800, "gdd_flowering": 350,
+        "vernalization_days": 60 if crop == "bugday" else 0,
+        "tp_season_sum": 350, "tp_winter_sum": 200 if crop == "bugday" else 0,
+        "tp_flowering": 30, "tp_grain_fill": 25,
+        "aridity_index": 0.5, "heat_stress_days": 10,
+        "t2m_flowering_mean": 18, "t2m_flowering_max": 25, "tdiff_mean": 12,
+        "ssr_flowering_sum": 5500, "ssr_season_sum": 35000,
+        # NDVI
+        "ndvi_max": float(ndvi) if ndvi else 0.6,
+        "ndvi_mean_season": float(ndvi) * 0.7 if ndvi else 0.4,
+        "ndvi_integral": float(ndvi) * 80 if ndvi else 40,
+        "ndvi_flowering": float(ndvi) if ndvi else 0.55,
+        "ndvi_grain_fill": float(ndvi) * 0.8 if ndvi else 0.45,
+        "ndvi_spring_slope": 0.005, "greenness_days": 80,
+        # Soil (Trakya ortalaması)
+        "clay_0-5cm": 30.0, "sand_0-5cm": 31.6, "silt_0-5cm": 38.4,
+        "phh2o_0-5cm": 6.92, "soc_0-5cm": 4.28, "awc_0-5cm": 0.215,
+    }
+
+
+def predict_yield_kg_da(crop_type: str,
+                         ndvi_predicted: float = None,
+                         il: str = None,
+                         ilce_id: int = None,
+                         feature_context=None,
+                         current_date=None) -> dict:
+    """ÇP-2 NDVI t+7 → ÇP-2.5 v2 verim tahmini (kg/dekar + PI + sapma).
+
+    Args:
+        crop_type: 'Wheat'/'Sunflower' (ÇP-2 contract) ya da 'bugday'/'aycicegi_yaglik'.
+        ndvi_predicted: ÇP-2 ``predict()`` çıktısından NDVI t+7.
+        il: 'Edirne'/'Kırklareli'/'Tekirdağ'.
+        ilce_id: TÜİK ilçe id (per-ilçe bias correction için).
+        feature_context: dict — sezonluk climate+NDVI+soil features.
+            None ise climatology proxy ile doldurulur.
+        current_date: Tahmin anı (sezon ilerleme % hesabı).
+
+    Returns:
+        {yield_kg_da, yield_kg_da_lower, yield_kg_da_upper,
+         lokal_22yil_ortalama, sapma_pct, sapma_yorum,
+         top_3_features, champion_model, layer, model_version}
+    """
+    ct = crop_type.lower()
+    crop_short = "bugday" if ct.startswith(("w", "b")) else "aycicegi"
+    bundle = _load_cp25_champion(crop_short)
+
+    if feature_context is None or isinstance(feature_context, dict) and not feature_context:
+        feature_context = _cp25_build_default_context(crop_short, ndvi_predicted)
+    elif hasattr(feature_context, "iloc"):
+        feature_context = feature_context.iloc[0].to_dict()
+
+    if ndvi_predicted is not None:
+        feature_context.setdefault("ndvi_max", float(ndvi_predicted))
+
+    feats = bundle["feature_cols"]
+    X_row = {f: float(feature_context.get(f, 0.0)) for f in feats}
+    X_df = pd.DataFrame([X_row], columns=feats)
+    if bundle.get("scaler") is not None:
+        X_use = bundle["scaler"].transform(X_df)
+    else:
+        X_use = X_df.values
+
+    try:
+        yhat = float(bundle["model"].predict(X_use)[0])
+    except Exception as exc:
+        # Model array shape mismatch fallback — flatten + retry
+        logger.warning("[cp25] predict fallback: %s", exc)
+        yhat = float(bundle["model"].predict(X_df.values)[0])
+
+    bias = bundle.get("per_il_bias_correction_kg_da", {}).get(il, 0.0)
+    yhat_corr = yhat + float(bias)
+
+    rmse = float(bundle["metrics_loyo"]["rmse_kg_da"])
+    half = 1.96 * rmse
+    pi_lower, pi_upper = yhat_corr - half, yhat_corr + half
+
+    stats_mean = _cp25_lookup_22yr_mean(il, crop_short, ilce_id=ilce_id)
+    sapma_pct = (((yhat_corr - stats_mean) / stats_mean) * 100
+                 if stats_mean else None)
+    yorum = _cp25_interpret_sapma(sapma_pct or 0)
+
+    shap_imp = bundle.get("feature_importance_shap")
+    top3 = ([(k, float(v)) for k, v in list(shap_imp.items())[:3]]
+            if shap_imp else _cp25_fallback_perm_imp(crop_short))
+
+    return {
+        "yield_kg_da":           round(yhat_corr, 1),
+        "yield_kg_da_lower":     round(pi_lower, 1),
+        "yield_kg_da_upper":     round(pi_upper, 1),
+        "lokal_22yil_ortalama":  stats_mean,
+        "sapma_pct":             round(sapma_pct, 1) if sapma_pct is not None else None,
+        "sapma_yorum":           yorum,
+        "top_3_features":        top3,
+        "champion_model":        bundle["champion_name"],
+        "layer":                 bundle["model_version"].split("layer")[-1].upper()
+                                  if "layer" in bundle["model_version"] else "?",
+        "model_version":         bundle["model_version"],
+    }
+
+
+__all__ = ["predict", "get_field_summary", "predict_yield_kg_da"]

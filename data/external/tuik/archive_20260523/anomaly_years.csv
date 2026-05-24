@@ -1,0 +1,25 @@
+il,year,urun_tr,verim_kg_da,mean_il_crop,z_score,anomaly_yon
+Edirne,2010,Ayçiçeği (Yağlık),289.0,216.2,1.58,YÜKSEK
+Edirne,2014,Ayçiçeği (Yağlık),290.0,216.2,1.61,YÜKSEK
+Edirne,2024,Ayçiçeği (Yağlık),137.0,216.2,-1.72,DÜŞÜK
+Edirne,2025,Ayçiçeği (Yağlık),140.0,216.2,-1.66,DÜŞÜK
+Kırklareli,2019,Ayçiçeği (Yağlık),285.0,212.8,1.58,YÜKSEK
+Kırklareli,2020,Ayçiçeği (Yağlık),291.0,212.8,1.71,YÜKSEK
+Kırklareli,2025,Ayçiçeği (Yağlık),113.0,212.8,-2.18,DÜŞÜK
+Tekirdağ,2007,Ayçiçeği (Yağlık),121.0,197.0,-1.97,DÜŞÜK
+Tekirdağ,2019,Ayçiçeği (Yağlık),251.0,197.0,1.4,YÜKSEK
+Tekirdağ,2020,Ayçiçeği (Yağlık),248.0,197.0,1.32,YÜKSEK
+Tekirdağ,2023,Ayçiçeği (Yağlık),115.0,197.0,-2.12,DÜŞÜK
+Tekirdağ,2025,Ayçiçeği (Yağlık),130.0,197.0,-1.73,DÜŞÜK
+Edirne,2011,Buğday,303.0,383.7,-1.46,DÜŞÜK
+Edirne,2021,Buğday,474.0,383.7,1.64,YÜKSEK
+Edirne,2023,Buğday,536.0,383.7,2.76,YÜKSEK
+Kırklareli,2006,Buğday,306.0,368.8,-1.36,DÜŞÜK
+Kırklareli,2009,Buğday,308.0,368.8,-1.32,DÜŞÜK
+Kırklareli,2010,Buğday,283.0,368.8,-1.86,DÜŞÜK
+Kırklareli,2017,Buğday,437.0,368.8,1.48,YÜKSEK
+Kırklareli,2021,Buğday,460.0,368.8,1.98,YÜKSEK
+Kırklareli,2025,Buğday,303.0,368.8,-1.43,DÜŞÜK
+Tekirdağ,2010,Buğday,322.0,407.7,-1.59,DÜŞÜK
+Tekirdağ,2012,Buğday,489.0,407.7,1.5,YÜKSEK
+Tekirdağ,2021,Buğday,534.0,407.7,2.33,YÜKSEK

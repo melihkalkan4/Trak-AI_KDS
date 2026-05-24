@@ -1,0 +1,60 @@
+{
+  "version": "cp25-v2.0",
+  "generated_utc": "2026-05-23T16:01:34.236266+00:00",
+  "champions": {
+    "bugday": {
+      "layer": "B0",
+      "model": "Climatology",
+      "crop": "bugday",
+      "n": 589,
+      "r2_loyo": 0.213,
+      "rmse_loyo": 61.743,
+      "ss_loyo": 0.0
+    },
+    "aycicegi": {
+      "layer": "C",
+      "model": "gpr",
+      "crop": "aycicegi",
+      "n": 209,
+      "r2_loyo": 0.386,
+      "rmse_loyo": 42.273,
+      "ss_loyo": 0.225
+    }
+  },
+  "hypotheses": {
+    "H1": {
+      "claim": "İlçe-bazlı (n=1165) il-bazlıyı (n=132) outperform eder",
+      "delta_r2_loyo_bugday": "v2=-0.092 vs v1=-0.085 → ΔR²=-0.007",
+      "delta_r2_loyo_aycicegi": "v2=+0.051 vs v1=+0.646 → ΔR²=-0.595",
+      "verdict_loyo": "LOYO için RED, LOILO için PASS"
+    },
+    "H2": {
+      "claim": "NDVI ekleme climate-only baseline'ı outperform eder",
+      "delta_r2_loyo_bugday": "-0.092 → -0.536  ΔR²=-0.444",
+      "delta_r2_loyo_aycicegi": "+0.051 → +0.237  ΔR²=+0.186",
+      "verdict": "bugday: FAIL (Δ=-0.444); aycicegi: PASS (Δ=+0.186)"
+    },
+    "H3": {
+      "claim": "Multimodal füzyon (Layer C) Layer B'yi outperform eder",
+      "delta_r2_loyo_bugday": "-0.536 → -0.311  ΔR²=+0.225",
+      "delta_r2_loyo_aycicegi": "+0.237 → +0.386  ΔR²=+0.149",
+      "verdict": "bugday: PASS (Δ=+0.225); aycicegi: PASS (Δ=+0.149)"
+    },
+    "H4": {
+      "claim": "Anomali yıllarda SS > 0.30",
+      "verdict": "Görev 9 raporlarından oku"
+    },
+    "H5": {
+      "claim": "|LOILO - LOYO| < 0.15",
+      "delta_loyo_loilo_bugday": "LOYO=-0.092, LOILO=+0.441, Δ=+0.533",
+      "delta_loyo_loilo_aycicegi": "LOYO=+0.051, LOILO=+0.504, Δ=+0.453",
+      "verdict": "Layer A için reddedildi (fark 0.5+)"
+    }
+  },
+  "source_data": {
+    "yields": "TÜİK ilçe-bazlı (data/external/tuik/tuik_ilce_yields_clean.csv)",
+    "climate": "NASA POWER MERRA-2 (data/processed/openmeteo_ilce/)",
+    "ndvi": "Sentinel-2 (data/processed/ndvi_ilce/)",
+    "soil": "ISRIC SoilGrids (data/processed/soil_ilce.csv)"
+  }
+}

@@ -1,0 +1,9 @@
+crop,model,n,r2,rmse_kg_da,mae_kg_da,mape_pct,bias_kg_da,skill_score_vs_B0
+aycicegi_yaglik,B0_Climatology,576,0.033,50.002,40.41,22.851,-0.0,0.0
+aycicegi_yaglik,B1_YearTrend,576,0.001,50.838,39.528,22.695,1.401,-0.017
+aycicegi_yaglik,B2_Persistence,576,0.21,45.209,33.393,18.836,3.689,0.096
+aycicegi_yaglik,B3_ClimateProxy,576,0.087,48.582,37.389,21.113,1.595,0.028
+bugday,B0_Climatology,589,0.213,61.743,48.656,13.446,-0.0,0.0
+bugday,B1_YearTrend,589,0.208,61.921,48.972,13.423,0.433,-0.003
+bugday,B2_Persistence,589,-0.269,78.398,62.615,16.706,2.212,-0.27
+bugday,B3_ClimateProxy,589,0.126,65.064,49.973,13.653,-0.314,-0.054

@@ -1,0 +1,7 @@
+il,crop,kg_da_per_year_slope,pct_change_per_year,r2,p_value,trend_yorum
+Edirne,aycicegi_yaglik,1.29,0.6,0.033,0.4169,İstatistiksel olarak düz
+Edirne,bugday,2.8,0.73,0.108,0.135,İstatistiksel olarak düz
+Kırklareli,aycicegi_yaglik,2.36,1.11,0.113,0.1267,İstatistiksel olarak düz
+Kırklareli,bugday,3.14,0.85,0.196,0.0393,Anlamlı artış
+Tekirdağ,aycicegi_yaglik,0.16,0.08,0.001,0.903,İstatistiksel olarak düz
+Tekirdağ,bugday,0.38,0.09,0.002,0.8386,İstatistiksel olarak düz

@@ -79,6 +79,38 @@ def get_cp2_prediction():
                 "llm_context": sunflower_result["llm_context"],
             },
         }
+
+        # ─── ÇP-2.5 v2 Verim Tahmini Köprüsü ────────────────────────
+        try:
+            from inference_cp2 import predict_yield_kg_da
+            for crop_key, crop_name, il_default, ilce_default in [
+                ("bugday",   "Wheat",     "Kırklareli", 1505),  # Lüleburgaz
+                ("aycicegi", "Sunflower", "Tekirdağ",   1258),  # Çorlu
+            ]:
+                try:
+                    y = predict_yield_kg_da(
+                        crop_type=crop_name,
+                        ndvi_predicted=cp2[crop_key]["ndvi_predicted_t7"],
+                        il=il_default, ilce_id=ilce_default,
+                    )
+                    cp2[crop_key]["yield_kg_da"]    = y["yield_kg_da"]
+                    cp2[crop_key]["yield_pi_lower"] = y["yield_kg_da_lower"]
+                    cp2[crop_key]["yield_pi_upper"] = y["yield_kg_da_upper"]
+                    cp2[crop_key]["lokal_22yil_ortalama"] = y["lokal_22yil_ortalama"]
+                    cp2[crop_key]["sapma_pct"]     = y["sapma_pct"]
+                    cp2[crop_key]["sapma_yorum"]   = y["sapma_yorum"]
+                    cp2[crop_key]["top_3_features"]= y["top_3_features"]
+                    cp2[crop_key]["cp25_model"]    = y["champion_model"]
+                    cp2[crop_key]["cp25_layer"]    = y["layer"]
+                    print(f"[CP-2.5] {crop_name:9s} → {y['yield_kg_da']:.0f} kg/da  "
+                          f"(PI95: {y['yield_kg_da_lower']:.0f}-{y['yield_kg_da_upper']:.0f})  "
+                          f"sapma %{y['sapma_pct']:+.1f}  ({y['sapma_yorum']})  "
+                          f"[Layer {y['layer']}/{y['champion_model']}]")
+                except Exception as _exc:
+                    print(f"[CP-2.5] {crop_name} verim tahmini hatasi: {_exc}")
+        except ImportError:
+            print("[CP-2.5] predict_yield_kg_da modulu yok — verim tahmini atlandi")
+
         return cp2, True
 
     except Exception as e:

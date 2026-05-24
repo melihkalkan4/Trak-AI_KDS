@@ -1,6 +1,7 @@
 # TRAK-AI KDS — Streamlit configuration
-# Default base is "light"; users can toggle dark mode from the sidebar
-# or via the hamburger menu (Settings → Theme).
+# Light base; styling.py CSS hem light hem dark mode'u handle eder.
+# Kullanıcı sidebar'dan ☀️ Aydınlık / 🌙 Karanlık / 🖥️ Sistem seçebilir.
+# Streamlit hamburger menü ayarları kontrast iyileştirmesi için tweak edildi.
 
 [theme]
 base = "light"
@@ -8,6 +9,7 @@ primaryColor          = "#2E7D32"
 backgroundColor       = "#FFFFFF"
 secondaryBackgroundColor = "#F5F7F4"
 textColor             = "#1F2A24"
+linkColor             = "#1976D2"
 font                  = "sans serif"
 
 [browser]

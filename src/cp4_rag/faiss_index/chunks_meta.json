@@ -153529,5 +153529,83 @@
       "chunk_id": 19,
       "total_chunks": 20
     }
+  },
+  {
+    "text": "[KAYNAK: TÜİK Bitkisel Üretim İstatistikleri | Edirne ili | Ayçiçeği (Yağlık)]\n\nEdirne ilinde ayçiçeği (yağlık) verimi 2004–2025 döneminde yıllık ortalama 216 kg/dekar olarak gerçekleşmiştir. 22 yıllık seride en yüksek verim 2014 yılında 290 kg/dekar, en düşük verim ise 2024 yılında 137 kg/dekar olarak ölçülmüştür. Uzun dönem trendi i̇statistiksel olarak düz olup, yıllık değişim hızı +1.3 kg/dekar/yıl (ortalamaya göre %+0.60/yıl) düzeyindedir. Son sezonda (2025) ölçülen verim 140 kg/dekar, 22 yıllık ortalamadan %-35.2 sapma göstermiştir. Son 5 yıllık verim seyri (kg/dekar): 2021: 266, 2022: 259, 2023: 199, 2024: 137, 2025: 140.",
+    "metadata": {
+      "source": "TUIK_Edirne_Ayçiçeği (Yağlık)",
+      "category": "yield_statistics",
+      "language": "tr",
+      "chunk_id_external": "tuik_edirne_aycicegi_yaglik",
+      "il": "Edirne",
+      "urun": "Ayçiçeği (Yağlık)",
+      "kaynak": "TÜİK",
+      "metric_type": "verim_yillik_il"
+    }
+  },
+  {
+    "text": "[KAYNAK: TÜİK Bitkisel Üretim İstatistikleri | Edirne ili | Buğday]\n\nEdirne ilinde buğday verimi 2004–2025 döneminde yıllık ortalama 384 kg/dekar olarak gerçekleşmiştir. 22 yıllık seride en yüksek verim 2023 yılında 536 kg/dekar, en düşük verim ise 2011 yılında 303 kg/dekar olarak ölçülmüştür. Uzun dönem trendi i̇statistiksel olarak düz olup, yıllık değişim hızı +2.8 kg/dekar/yıl (ortalamaya göre %+0.73/yıl) düzeyindedir. Son sezonda (2025) ölçülen verim 342 kg/dekar, 22 yıllık ortalamadan %-10.9 sapma göstermiştir. Son 5 yıllık verim seyri (kg/dekar): 2021: 474, 2022: 407, 2023: 536, 2024: 388, 2025: 342.",
+    "metadata": {
+      "source": "TUIK_Edirne_Buğday",
+      "category": "yield_statistics",
+      "language": "tr",
+      "chunk_id_external": "tuik_edirne_bugday",
+      "il": "Edirne",
+      "urun": "Buğday",
+      "kaynak": "TÜİK",
+      "metric_type": "verim_yillik_il"
+    }
+  },
+  {
+    "text": "[KAYNAK: TÜİK Bitkisel Üretim İstatistikleri | Kırklareli ili | Ayçiçeği (Yağlık)]\n\nKırklareli ilinde ayçiçeği (yağlık) verimi 2004–2025 döneminde yıllık ortalama 213 kg/dekar olarak gerçekleşmiştir. 22 yıllık seride en yüksek verim 2020 yılında 291 kg/dekar, en düşük verim ise 2025 yılında 113 kg/dekar olarak ölçülmüştür. Uzun dönem trendi i̇statistiksel olarak düz olup, yıllık değişim hızı +2.4 kg/dekar/yıl (ortalamaya göre %+1.11/yıl) düzeyindedir. Son sezonda (2025) ölçülen verim 113 kg/dekar, 22 yıllık ortalamadan %-46.9 sapma göstermiştir. Son 5 yıllık verim seyri (kg/dekar): 2021: 248, 2022: 235, 2023: 195, 2024: 194, 2025: 113.",
+    "metadata": {
+      "source": "TUIK_Kırklareli_Ayçiçeği (Yağlık)",
+      "category": "yield_statistics",
+      "language": "tr",
+      "chunk_id_external": "tuik_kirklareli_aycicegi_yaglik",
+      "il": "Kırklareli",
+      "urun": "Ayçiçeği (Yağlık)",
+      "kaynak": "TÜİK",
+      "metric_type": "verim_yillik_il"
+    }
+  },
+  {
+    "text": "[KAYNAK: TÜİK Bitkisel Üretim İstatistikleri | Kırklareli ili | Buğday]\n\nKırklareli ilinde buğday verimi 2004–2025 döneminde yıllık ortalama 369 kg/dekar olarak gerçekleşmiştir. 22 yıllık seride en yüksek verim 2021 yılında 460 kg/dekar, en düşük verim ise 2010 yılında 283 kg/dekar olarak ölçülmüştür. Uzun dönem trendi anlamlı artış olup, yıllık değişim hızı +3.1 kg/dekar/yıl (ortalamaya göre %+0.85/yıl) düzeyindedir. Son sezonda (2025) ölçülen verim 303 kg/dekar, 22 yıllık ortalamadan %-17.8 sapma göstermiştir. Son 5 yıllık verim seyri (kg/dekar): 2021: 460, 2022: 400, 2023: 378, 2024: 395, 2025: 303.",
+    "metadata": {
+      "source": "TUIK_Kırklareli_Buğday",
+      "category": "yield_statistics",
+      "language": "tr",
+      "chunk_id_external": "tuik_kirklareli_bugday",
+      "il": "Kırklareli",
+      "urun": "Buğday",
+      "kaynak": "TÜİK",
+      "metric_type": "verim_yillik_il"
+    }
+  },
+  {
+    "text": "[KAYNAK: TÜİK Bitkisel Üretim İstatistikleri | Tekirdağ ili | Ayçiçeği (Yağlık)]\n\nTekirdağ ilinde ayçiçeği (yağlık) verimi 2004–2025 döneminde yıllık ortalama 197 kg/dekar olarak gerçekleşmiştir. 22 yıllık seride en yüksek verim 2019 yılında 251 kg/dekar, en düşük verim ise 2023 yılında 115 kg/dekar olarak ölçülmüştür. Uzun dönem trendi i̇statistiksel olarak düz olup, yıllık değişim hızı +0.2 kg/dekar/yıl (ortalamaya göre %+0.08/yıl) düzeyindedir. Son sezonda (2025) ölçülen verim 130 kg/dekar, 22 yıllık ortalamadan %-34.0 sapma göstermiştir. Son 5 yıllık verim seyri (kg/dekar): 2021: 240, 2022: 196, 2023: 115, 2024: 172, 2025: 130.",
+    "metadata": {
+      "source": "TUIK_Tekirdağ_Ayçiçeği (Yağlık)",
+      "category": "yield_statistics",
+      "language": "tr",
+      "chunk_id_external": "tuik_tekirdag_aycicegi_yaglik",
+      "il": "Tekirdağ",
+      "urun": "Ayçiçeği (Yağlık)",
+      "kaynak": "TÜİK",
+      "metric_type": "verim_yillik_il"
+    }
+  },
+  {
+    "text": "[KAYNAK: TÜİK Bitkisel Üretim İstatistikleri | Tekirdağ ili | Buğday]\n\nTekirdağ ilinde buğday verimi 2004–2025 döneminde yıllık ortalama 408 kg/dekar olarak gerçekleşmiştir. 22 yıllık seride en yüksek verim 2021 yılında 534 kg/dekar, en düşük verim ise 2010 yılında 322 kg/dekar olarak ölçülmüştür. Uzun dönem trendi i̇statistiksel olarak düz olup, yıllık değişim hızı +0.4 kg/dekar/yıl (ortalamaya göre %+0.09/yıl) düzeyindedir. Son sezonda (2025) ölçülen verim 347 kg/dekar, 22 yıllık ortalamadan %-14.9 sapma göstermiştir. Son 5 yıllık verim seyri (kg/dekar): 2021: 534, 2022: 421, 2023: 351, 2024: 419, 2025: 347.",
+    "metadata": {
+      "source": "TUIK_Tekirdağ_Buğday",
+      "category": "yield_statistics",
+      "language": "tr",
+      "chunk_id_external": "tuik_tekirdag_bugday",
+      "il": "Tekirdağ",
+      "urun": "Buğday",
+      "kaynak": "TÜİK",
+      "metric_type": "verim_yillik_il"
+    }
   }
 ]

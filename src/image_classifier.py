@@ -164,6 +164,9 @@ class CropHealthClassifier:
         except Exception as e:
             return self._error_result(str(e))
 
+    def classify(self, *args, **kwargs) -> dict:
+        return self.classify_file(*args, **kwargs)
+
     def _mock_result(self) -> dict:
         # Ağırlıklı: sağlıklı %70, hastalık %20, stres %10
         weights = [10, 10, 35, 35, 5, 5]  # model sınıf sırası: mildiyo, pas, s_ayci, s_bugday, besin, kuraklik

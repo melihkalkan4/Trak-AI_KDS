@@ -1,0 +1,16 @@
+{
+  "bugday": {
+    "crop": "bugday",
+    "champion": "Ridge(alpha=100.0)",
+    "n_anom_in_train": 4,
+    "mae_anom_kg_da": 113.71953269632536,
+    "mape_anom_pct": 22.311701594528273
+  },
+  "aycicegi": {
+    "crop": "aycicegi",
+    "champion": "Ridge(alpha=1.0)",
+    "n_anom_in_train": 6,
+    "mae_anom_kg_da": 33.226697057521704,
+    "mape_anom_pct": 21.293091941939355
+  }
+}

@@ -845,3 +845,444 @@ DB fonksiyon doğrulaması:
 ---
 
 *EK C kayıt tarihi: 2026-05-23. Oturum kapsamı: backend audit + 21 mock/bug bulgusu üzerinden 13-adımlık prioritized fix + akademik tutarlılık (Option B) + X-Modal tamamı + dokümantasyon.*
+
+---
+
+# EK D — ÇP-2.5: NDVI → Verim Kalibrasyon Katmanı (2026-05-23)
+
+## D.1 Amaç ve Konum
+
+ÇP-2.5, ÇP-1 ETL çıktısı (`master_feature_matrix_2017_2024.csv`) ve TÜİK Bitkisel Üretim İstatistikleri (22 yıllık il-bazlı kg/dekar verim, 2004-2025) arasındaki köprüdür. Mevcut ÇP-2 NDVI tahmin pipeline'ına dokunmadan, çiftçinin anlayacağı somut **kg/dekar verim** çıktısı + 22 yıllık karşılaştırma + Türkçe yorum üretir.
+
+Dosya konumu: `src/cp25_calibration/`
+- `build_calibration_set.py` — sezonluk feature engineering
+- `train_calibration.py` — Ridge/GBR/RF + LOOCV + SHAP
+- `anomaly_validation.py` — anomali yıl out-of-sample testi
+- `inference.py` — `predict_yield_kg_da()` public API
+- `rag_ingest.py` — TÜİK chunk'larını FAISS'e ekler
+- `tests/test_cp25_end_to_end.py` — uçtan uca smoke
+
+## D.2 Veri Akışı
+
+```
+TÜİK 22 yıl × 3 il × 2 ürün                  Master Feature Matrix
+(verim hedefi, kg/dekar)                  (2017-2024, Vize centroid)
+        │                                         │
+        ▼                                         ▼
+    [yields.csv]                       [MFM günlük, 23 kolon]
+        │                                         │
+        └────────┬────────────────────────────────┘
+                 ▼
+   build_calibration_set.py  (sezonluk pencereler)
+                 │
+                 ▼
+   calibration_train_set_{bugday,aycicegi}.csv
+   calibration_holdout_{bugday,aycicegi}.csv   ← 2025 hold-out
+                 │
+                 ▼
+   train_calibration.py  (Ridge α-grid + GBR + RF, LOOCV)
+                 │
+                 ▼
+   models/cp25_calibration_{bugday,aycicegi}.pkl   (champion bundle)
+   reports/cp25_calibration_metrics.json
+   reports/cp25_loocv_predictions_{crop}.csv
+                 │
+                 ▼
+   inference.py → predict_yield_kg_da(...)  ← dashboard + RAG çağırır
+```
+
+## D.3 Sezonluk Feature Engineering
+
+**Fenolojik pencereler** (FAO + Trakya iklim referansı):
+
+| Ürün | Sezon başı | Sezon sonu | Çiçeklenme | Tane dolum |
+|---|---|---|---|---|
+| Buğday (kışlık) | 1 Ekim (t-1) | 15 Temmuz | Mayıs | Haziran |
+| Ayçiçeği (yağlık) | 1 Nisan | 30 Eylül | Temmuz | Ağustos |
+
+**10 feature per (il, year, crop)**:
+
+| Feature | Tanım | Akademik gerekçe |
+|---|---|---|
+| `ndvi_max` | Sezon peak NDVI | Maksimum biyokütle (Tucker 1979) |
+| `ndvi_mean` | Sezon ortalama NDVI | Genel kanopi sağlığı |
+| `ndvi_integral` | NDVI günlük toplamı | Toplam fotosentez proxy'si (Kogan 1990) |
+| `ndvi_flowering` | Çiçeklenme ort. NDVI | **En kritik dönem** (Doraiswamy 2003) |
+| `ndvi_grain_fill` | Tane dolum ort. NDVI | Verim oluşum dönemi |
+| `greenness_days` | NDVI > 0.6 gün sayısı | Sezon uzunluğu (Kogan VCI) |
+| `gdd_cum_season` | Kümülatif GDD (base 0 buğday, 8 ayçiçeği) | Termal birikim (McMaster 1997) |
+| `tp_season_sum` | Toplam yağış (mm) | Su mevcudiyeti |
+| `ndwi_min_flowering` | Çiçeklenmede min NDWI | Su stresi göstergesi (Gao 1996) |
+| `t2m_max_flowering_mean` | Çiçeklenmede ort. T_max | Isı stresi proxy'si |
+
+NDVI değerleri **`NDVI_int`** (interpolated, %0 missing) kullanır; raw NDVI (Sentinel-2 ~5 günde bir, %87.7 gap) doğrudan kullanılmaz.
+
+## D.4 Veri Kapsamı Kararları (Akademik Justification)
+
+**İl boyutu**: MFM tek bir centroid noktası için (Vize, 41.045 N / 27.205 E — Kırklareli ilçesi). 3 il (Edirne, Kırklareli, Tekirdağ) hepsi aynı MFM feature'larını paylaşır → `il` kategorik feature olarak **one-hot encoded** modele girer. Bu yapı:
+- İl-içi varyansı yapay olarak sıfırlar (sınırlama — tezde raporlanır)
+- İl-arası **sistematik ofset**i `il_X` dummy'leri üzerinden öğrenir
+- Per-il **bias correction** train residuals'ından hesaplanır (`per_il_bias_correction_kg_da`)
+
+**Yıl boyutu**: TÜİK 2004-2025 → MFM 2017-2024 kesişim.
+- Buğday: 2018-2024 (n=21 = 7 yıl × 3 il). **2017 dışlandı** (kışlık ekim Ekim 2016'da başlar; MFM 2017-01'den)
+- Ayçiçeği: 2017-2024 (n=24 = 8 yıl × 3 il)
+- **2025**: hold-out (true forecast test, 3 il)
+- **2004-2016**: dışlandı (MFM kapsamı yok) — `yield_stats_summary.csv`'de narrative-only
+
+## D.5 Model Yarışı ve LOOCV Sonuçları
+
+Her ürün için 3 model yarıştırıldı, **Leave-One-Out CV** ile out-of-sample tahminler toplandı:
+
+### Buğday (n=21)
+
+| Model | R² | MAE | RMSE | MAPE |
+|---|---|---|---|---|
+| **Ridge(α=100)** ⭐ | **-0.085** | 40.7 | 55.2 | 9.7% |
+| GBR(200,3,0.05) | -1.050 | 51.1 | 75.9 | 12.3% |
+| RF(300,5) | -0.228 | 39.6 | 58.7 | 9.5% |
+
+**Verdict**: ❌ **FAIL** (R²<0.45 kriteri). Model intercept + per-il dummy'leri öğreniyor, NDVI/iklim gradient'i istatistiksel olarak anlamlı bir sinyal vermiyor. Tahmin esasen il-ortalamasıdır. **Bu, veri kısıtının doğal sonucu**: 3 ilin features'ları aynı (Vize proxy), bugday'da il-arası varyans büyük (Tekirdağ μ=408 vs Kırklareli μ=369), il-içi NDVI varyansı küçük → ayırt edici sinyal düşük.
+
+### Ayçiçeği (n=24)
+
+| Model | R² | MAE | RMSE | MAPE |
+|---|---|---|---|---|
+| **Ridge(α=1.0)** ⭐ | **+0.646** | 19.7 | 25.4 | 10.6% |
+| GBR(200,3,0.05) | +0.268 | 24.7 | 36.6 | 13.7% |
+| RF(300,5) | +0.556 | 19.6 | 28.5 | 10.8% |
+
+**Verdict**: ✅ **PASS** (R²≥0.45 ✓, MAE≤35 ✓). Kern et al. (2018) bandında (R²=0.55–0.75); ayçiçeği daha yüksek CV (%21 vs buğday %13) ve NDVI duyarlılığı sayesinde sinyal yakalanıyor.
+
+## D.6 Anomaly Year Validation
+
+`anomaly_years.csv` (|z|>1.5) yılları train'den ÇIKARILIP test edildi:
+
+| Ürün | n_anom_in_train | MAE_anomaly | MAPE_anomaly | LOOCV_MAE (referans) |
+|---|---|---|---|---|
+| Buğday | 4 | 113.7 kg/da | 22.3% | 40.7 |
+| Ayçiçeği | 6 | 33.2 kg/da | 21.3% | 19.7 |
+
+**Buğday**: Anomali MAE'si LOOCV'in 2.8 katı — model 2021/2023'ün yüksek-verim anomalisini kaçırıyor. **Beklenen**, çünkü model intercept dominant.
+
+**Ayçiçeği**: Anomali MAE'si LOOCV'in 1.7 katı.
+- Yüksek-verim anomalileri (2019, 2020 Kırklareli/Tekirdağ): MAE 7-31 kg/da → **iyi yakalama**
+- Düşük-verim anomalileri (2023 Tekirdağ z=-2.12, 2024 Edirne z=-1.72): **60+ kg/da underestimation** — model kuraklığı kısmen yakalıyor ama tam değil
+
+**H3 hipotezi (yanlış pozitif düşürme) için kanıt**: Ayçiçeğinde anomali MAE'si LOOCV MAE'sinin 1.7 katı kalıyor → alert sistemi için kullanılabilir, ama düşük-verim uç olayları için ek margin gerekiyor.
+
+## D.7 Per-İl Bias Correction
+
+Train set residuals'ından hesaplanan ortalama sapmalar (LOOCV tahmininin gerçeğe göre):
+
+| Crop | Edirne | Kırklareli | Tekirdağ |
+|---|---|---|---|
+| Buğday | +3.9 kg/da | -7.5 kg/da | +5.2 kg/da |
+| Ayçiçeği | +6.4 kg/da | -10.7 kg/da | +4.3 kg/da |
+
+`inference.predict_yield_kg_da()` bu correction'ı otomatik uygular: `yhat_corrected = yhat_raw + bias[il]`.
+
+## D.8 Public API — `predict_yield_kg_da(...)`
+
+Lokasyon: `src/cp25_calibration/inference.py`
+
+```python
+def predict_yield_kg_da(
+    predicted_ndvi_series: pd.DataFrame | None,
+    feature_context: pd.DataFrame,
+    il: Literal['Edirne','Kırklareli','Tekirdağ'],
+    crop: Literal['bugday','aycicegi_yaglik'],
+    current_date: pd.Timestamp,
+) -> dict
+```
+
+**Return**: 20-anahtarlı sözlük — `yield_kg_da` (corrected), `yield_kg_da_{lower,upper}` (%95 CI = ±1.96×RMSE_LOOCV), `lokal_22yil_{ortalama,std,min,max}`, `sapma_pct`, `sapma_yorum` (Türkçe), `confidence` (0–1, kalite × sezon tamamlanma çarpımı), `features_used` (şeffaflık), `sezon_tamamlanma_pct`, `model_version`, `champion_model`, `metrics_loocv`, `limitations`.
+
+**LLM context için doğrudan eklenebilir** (RAG katmanı bu sözlüğü Türkçe yoruma çevirir).
+
+## D.9 Uçtan Uca Test Sonuçları
+
+`tests/test_cp25_end_to_end.py` çıktısı (3/3 PASS):
+
+| Senaryo | Gerçek | Tahmin | MAE | Yorum |
+|---|---|---|---|---|
+| Tekirdağ 2023 ayçiçeği (kuraklık z=-2.12) | 115 | 154 | 39 | "Belirgin düşüş — sulama/girdi gözden geçirilmeli" |
+| Edirne 2021 buğday (z=+1.64) | 474 | 387 | 87 | "Hafifçe ortalamanın üstünde" |
+| Kırklareli 2022 buğday (normal) | 400 | 397 | 3 | "Hafifçe ortalamanın üstünde" |
+
+## D.10 RAG Entegrasyonu
+
+6 adet TÜİK chunk'ı FAISS index'ine eklendi (`intfloat/multilingual-e5-small` embedding):
+
+```
+Önce  : 17059 vektör
+Sonra : 17065 vektör (+6)
+Idempotent: aynı chunk_id varsa atlar
+```
+
+Eklenen chunk_id'ler: `tuik_{edirne,kirklareli,tekirdag}_{aycicegi_yaglik,bugday}`. Metadata schema mevcutla uyumlu: `{source, category="yield_statistics", language="tr", chunk_id_external, il, urun, kaynak, metric_type}`.
+
+## D.11 Akademik Sınırlamalar (Tez İçin)
+
+1. **Centroid proxy**: Features tek bir noktadan (Vize) türetiliyor. Per-il feature varyansı yapay olarak sıfır — `il` one-hot ile sistematik ofset absorbe ediliyor ama il-içi feature dinamiği kayıp. Düzeltme yolu: 3 il centroid'ı için ETL'yi yeniden koşmak (`cp1_etl` script'leri Edirne ve Tekirdağ koordinatlarıyla; ~6-8 saat).
+
+2. **Örneklem küçüklüğü**: n=21 (buğday) / n=24 (ayçiçeği) — LOOCV ile maksimum istatistiksel verim, ancak sonuçlar 1-2 outlier'a hassas. Tez yorumunda **CI bantları** her tahmin için raporlanmalı.
+
+3. **Buğday model başarısızlığı (R²=-0.085)**: Modelin intercept-only davranışı dürüstçe raporlanmıştır. Düzeltme önerileri:
+   - 3 il ayrı ETL (#1) ile gerçek il-içi varyans yakalanır
+   - Sonbahar-kış pre-emergence ETL kapsama (Oct-Mar) bugday için kritik
+   - Multi-year lagged features (geçen sezon EVI peak vs.)
+
+4. **2025 hold-out kullanılmadı**: MFM 2025 yok → 2025 holdout dosyası (`calibration_holdout_*.csv`) yer tutucu olarak yazıldı; gerçek forecast test için 2025 ETL backfill gerek.
+
+5. **Bias correction agresif değildir**: Per-il correction ±10 kg/da civarı, anomali yıllarda korunmasız. Production'da `sapma_yorum` + `confidence` alanı kullanıcıya belirsizliği gösteriyor.
+
+6. **TÜİK kaynağı manuel**: `tuik_trakya_yields_clean.csv` 132 satır manuel TÜİK tablo extraction'ından geldi (resmi API yok). Her TÜİK rapor güncellemesinde manuel revize gerek.
+
+## D.12 Üretilen Artefaktlar (Bu Oturum)
+
+```
+src/cp25_calibration/
+├── __init__.py
+├── build_calibration_set.py        (220 LOC)
+├── train_calibration.py            (305 LOC)
+├── anomaly_validation.py           (175 LOC)
+├── inference.py                    (200 LOC)
+└── rag_ingest.py                   (115 LOC)
+
+data/processed/
+├── calibration_train_set_bugday.csv     (n=21)
+├── calibration_train_set_aycicegi.csv   (n=24)
+├── calibration_holdout_bugday.csv       (n=3,  2025 hold-out)
+└── calibration_holdout_aycicegi.csv     (n=3,  2025 hold-out)
+
+models/
+├── cp25_calibration_bugday.pkl     (Ridge α=100 bundle)
+└── cp25_calibration_aycicegi.pkl   (Ridge α=1.0 bundle)
+
+reports/
+├── cp25_calibration_metrics.json       (full LOOCV table)
+├── cp25_loocv_predictions_bugday.csv   (truth vs pred)
+├── cp25_loocv_predictions_aycicegi.csv
+├── cp25_anomaly_validation.md          (markdown report)
+├── cp25_anomaly_predictions.csv
+└── cp25_anomaly_summary.json
+
+tests/
+└── test_cp25_end_to_end.py             (3 senaryo, 3/3 PASS)
+
+src/cp4_rag/faiss_index/
+├── chunks_meta.json                    (17059 → 17065 entries, +6 TÜİK)
+├── index.faiss                         (updated)
+└── index.pkl                           (updated)
+```
+
+## D.13 Reproducibility
+
+```bash
+# 0) Ön koşul: data/external/tuik/ dosyaları mevcut, MFM mevcut
+python src/cp25_calibration/build_calibration_set.py
+python src/cp25_calibration/train_calibration.py
+python src/cp25_calibration/anomaly_validation.py
+python src/cp25_calibration/rag_ingest.py        # idempotent
+python tests/test_cp25_end_to_end.py             # 3/3 PASS bekleniyor
+```
+
+**Çevre**: scikit-learn ≥1.3, shap 0.51, langchain-huggingface, faiss-cpu (AVX2), numpy, pandas, matplotlib (Agg backend).
+
+**Determinism**: GBR/RF `random_state=42`. LOOCV deterministic. Ridge analytical. Tüm bundle'lar `train_date_utc` taşıyor.
+
+---
+
+*EK D kayıt tarihi: 2026-05-23. Oturum kapsamı: ÇP-2.5 NDVI→Verim kalibrasyon katmanı end-to-end (8 görev), 2 ürün × 3 model × LOOCV × SHAP × anomaly validation × RAG ingest × inference API × E2E test.*
+
+---
+
+# EK E — ÇP-2.5 v2 (İlçe-Bazlı, n=1165) Akademik Sürüm (2026-05-23)
+
+## E.1 v1 → v2 Geçiş Gerekçesi
+
+EK D'deki v1 sürümü (n=21/24, il-bazlı Vize-centroid proxy) **akademik
+defansta yetersiz** olduğu kullanıcı feedback'i ile tespit edildi.  v2
+sürümü TÜİK 1165 satırlık ilçe-bazlı dataset üzerine kuruldu (29 Trakya
+ilçesi + 5 İstanbul kontrol × 22 yıl × 2 ürün).
+
+## E.2 Veri Çekme Sistemi Pivot — NASA POWER MERRA-2
+
+Open-Meteo Archive sandbox network'ünden erişilemediği için **NASA POWER
+(MERRA-2 reanalysis)** kaynağına geçildi:
+
+| Boyut | Open-Meteo | NASA POWER |
+|---|---|---|
+| Source data | ERA5-Land redistr. | MERRA-2 reanalysis |
+| Sandbox erişim | ❌ TIMEOUT | ✅ 0.6s/istek |
+| 29 ilçe × 22 yıl süre | hesaplı 15 dk (erişilseydi) | **gerçek 5 dk** |
+| Değişkenler | 9 günlük | 9 günlük (eşdeğer) |
+| Akademik referans | Zippenfenig 2023 | Reichle 2017, FAO AquaCrop |
+
+**Defansta savunma**: MERRA-2 ↔ ERA5-Land eşdeğer kalite reanalysis
+(Reichle 2017, ECMWF Newsletter 159).  FAO AquaCrop + USDA-ARS standart
+kullanım NASA POWER.
+
+## E.3 Veri Akışı v2
+
+```
+TÜİK ilçe-bazlı verim                NASA POWER günlük
+(1165 satır, 22 yıl)                 (233 044 satır, 29 ilçe)
+        │                                     │
+        ▼                                     ▼
+   yields.csv                          climate.csv per ilçe
+        │                                     │
+        └────────────┬────────────────────────┘
+                     ▼
+        Layer A features (1165 satır × 14 climate)
+                     │
+        + Sentinel-2 NDVI (GEE 30m, cropland mask, 16-gün composite)
+                     ▼
+        Layer B features (n=464 hedef, NDVI ETL ilerledikçe)
+                     │
+        + ISRIC SoilGrids (clay, sand, silt, pH, SOC, AWC × 3 derinlik)
+                     ▼
+        Layer C features (full multimodal)
+```
+
+## E.4 Görev Çıktıları (v2 Pipeline)
+
+| # | Görev | Çıktı |
+|---|---|---|
+| 1 | Veri Keşfi | `reports/cp25/01_data_exploration.{md,json}` + 4 figür |
+| 2 | Baselines | LOYO B0/B1/B2/B3, ayç R²=0.21, buğ R²=0.21 |
+| 3 | Climate ETL | 29 ilçe × 22 yıl, NASA POWER (5 dk) |
+| 3b | NDVI ETL | 29 ilçe × 8 yıl, GEE (2.5 saat, ~178 composite/ilçe) |
+| 3c | SoilGrids | 29 ilçe × 23 kolon (clay, sand, silt, pH, SOC, AWC × 3 depth) |
+| 4 | Seasonal Features | Layer A/B/C calibration sets |
+| 5 | Layer A modeller | 5 model × 3 CV = 15 ev/crop, LOYO FAIL, LOILO PASS |
+| 8 | XAI Layer A | SHAP global + PDP + permutation |
+| 9 | Anomaly Validation Layer A | ayç SS=0.27, buğ SS=0.13 |
+| 10 | Belirsizlik Layer A | Bootstrap PICP=0.38 (underestimated, B/C beklenir) |
+| 11 | Spatial Diagnostics | Moran's I buğ +0.257 p=0.013 (anlamlı) |
+
+## E.5 Akademik Bulgular
+
+### Layer A LOYO Şampiyonları
+
+| Crop | Model | R² | RMSE (kg/da) | Skill Score |
+|---|---|---|---|---|
+| Buğday | ElasticNet | -0.092 | 72.7 | -0.178 |
+| Ayçiçeği | Random Forest | +0.051 | 49.5 | +0.009 |
+
+**Kabul kriteri (R²≥0.35/0.40) FAIL** — climate-only LOYO için yetersiz.
+
+### LOILO vs LOYO — H5 Reddedildi
+
+| Crop | LOILO R² | LOYO R² | Δ |
+|---|---|---|---|
+| Ayçiçeği (XGBoost) | 0.504 | -0.076 | **0.580** |
+| Buğday (GPR) | 0.441 | -0.198 | **0.639** |
+
+H5 (|LOILO-LOYO|<0.15) **reddedildi**.  Moran's I = +0.257 (buğday,
+p=0.013) ile teyit edildi.  Bu Tao et al. 2023'ün "yerel model üstünlüğü"
+literatürünü destekleyen önemli akademik bulgudur.
+
+### Hipotez Durumu (Layer A sonrası)
+
+| H | Sonuç | Durum |
+|---|---|---|
+| H1 ΔR²≥0.15 (n=1165 vs n=132) | LOYO ❌, LOILO ✅ | Kısmi |
+| H2 NDVI marjinal ≥0.10 | Layer B bekliyor | Bekleniyor |
+| H3 multimodal ≥0.05 | Layer C bekliyor | Bekleniyor |
+| H4 anomali SS>0.30 | Ayç Layer A=0.27, Buğ=0.13 | Layer B/C ile yükselmesi beklenir |
+| **H5** \|LOILO-LOYO\|<0.15 | **❌ Reddedildi** (Δ=0.58) | Akademik bulgu |
+
+## E.6 SHAP Top Özellikler (Layer A XGBoost)
+
+| Sıra | Buğday | Ayçiçeği |
+|---|---|---|
+| 1 | gdd_cum_season (17.4) | tp_season_sum (10.9) |
+| 2 | vernalization_days (9.7) | gdd_cum_season (10.0) |
+| 3 | tp_flowering (7.5) | gdd_flowering (5.7) |
+| 4 | tp_season_sum (6.7) | tp_flowering (5.2) |
+| 5 | tp_winter_sum (6.7) | aridity_index (5.2) |
+
+**Fizyolojik doğrulama**: Buğday kışlık → vernalizasyon + kış rezervi
+baskın.  Ayçiçeği yazlık → mevsim yağışı + termal birikim baskın.
+
+## E.7 Üretilen Artefakt Sayım (v2)
+
+```
+src/cp25/
+├── __init__.py
+├── 01_data_exploration.py        (310 LOC)
+├── 02_baselines.py               (235 LOC)
+├── 03_fetch_ilce_climate.py      (245 LOC, NASA POWER)
+├── 03b_fetch_ilce_ndvi.py        (255 LOC, GEE client-loop)
+├── 03c_fetch_ilce_soil.py        (140 LOC)
+├── 04_seasonal_features.py       (270 LOC)
+├── 05_layer_a_climate_only.py    (320 LOC)
+├── 08_xai_analysis.py            (190 LOC)
+├── 09_anomaly_validation.py      (175 LOC)
+├── 10_uncertainty.py             (180 LOC)
+└── 11_spatial_diagnostics.py     (115 LOC)
+                                  ──────────
+TOPLAM                            ~2435 LOC
+
+data/processed/
+├── openmeteo_ilce/*.csv  × 29     (233 044 satır)
+├── ndvi_ilce/*.csv       × 14+    (devam ediyor)
+├── soil_ilce.csv         × 1
+├── calibration_features_layerA.csv (1165 × 20)
+├── calibration_features_layerB.csv (genişleyecek)
+└── calibration_features_layerC.csv (genişleyecek)
+
+models/cp25/
+├── baselines.pkl
+├── layer_a_bugday.pkl
+└── layer_a_aycicegi.pkl
+
+reports/cp25/
+├── 01_data_exploration.{md,json}
+├── 02_baselines.{md,csv}
+├── 03_climate_fetch_log.{md,csv}
+├── 04_features_qa.md
+├── 05_layer_a_results.{md,csv}
+├── 05_loocv_predictions_{bugday,aycicegi}.csv
+├── 08_xai_A.md + perm_importance_*.csv
+├── 09_anomaly_validation_A.{md,csv}
+├── 10_uncertainty_A.{md} + predictions_*.csv
+├── 11_spatial_diagnostics.md
+└── fig_*.png × 12
+
+thesis/
+├── bolum_4_veri.md
+├── bolum_5_yontem.md
+├── bolum_6_sonuclar.md
+├── bolum_7_tartisma.md
+└── bibliography.bib    (17 referans)
+```
+
+## E.8 Reproducibility
+
+```bash
+# 0) Ön koşul: TÜİK ilçe-bazlı CSV mevcut
+python src/cp25/01_data_exploration.py
+python src/cp25/02_baselines.py
+python src/cp25/03_fetch_ilce_climate.py --all     # ~5 dk
+python src/cp25/03b_fetch_ilce_ndvi.py --all       # ~2.5 saat GEE
+python src/cp25/03c_fetch_ilce_soil.py             # ~90 sn GEE
+python src/cp25/04_seasonal_features.py
+python src/cp25/05_layer_a_climate_only.py         # ~10 dk
+python src/cp25/08_xai_analysis.py --layer A
+python src/cp25/09_anomaly_validation.py --layer A
+python src/cp25/10_uncertainty.py --layer A --n-boot 100
+python src/cp25/11_spatial_diagnostics.py
+```
+
+**Determinism**: numpy seed=42, sklearn random_state=42, XGBoost
+random_state=42, KMeans n_init=10.
+
+---
+
+*EK E kayıt tarihi: 2026-05-23. Oturum kapsamı: ÇP-2.5 v2 akademik
+sürüm — NASA POWER pivot, ilçe-bazlı n=1165, 3 katmanlı + 3 CV mimarisi,
+Layer A tam pipeline (6 görev), Moran's I, SHAP/XAI, anomaly validation,
+belirsizlik kantifikasyonu, tez Bölüm 4-7 batch yazımı.*

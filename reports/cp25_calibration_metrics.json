@@ -1,0 +1,110 @@
+{
+  "bugday": {
+    "crop": "bugday",
+    "champion": "Ridge(alpha=100.0)",
+    "metrics": {
+      "r2": -0.08462764427918867,
+      "mae_kg_da": 40.65533269462775,
+      "rmse_kg_da": 55.20517948092778,
+      "mape_pct": 9.705497344863954,
+      "n_samples": 21,
+      "mean_y": 409.7142857142857,
+      "std_y": 54.316795613459064,
+      "alpha": 100.0
+    },
+    "all_candidates": [
+      {
+        "name": "Ridge(alpha=100.0)",
+        "r2": -0.08462764427918867,
+        "mae_kg_da": 40.65533269462775,
+        "rmse_kg_da": 55.20517948092778,
+        "mape_pct": 9.705497344863954,
+        "n_samples": 21,
+        "mean_y": 409.7142857142857,
+        "std_y": 54.316795613459064,
+        "alpha": 100.0
+      },
+      {
+        "name": "GradientBoostingRegressor",
+        "r2": -1.0503951881261382,
+        "mae_kg_da": 51.141144664320315,
+        "rmse_kg_da": 75.90288415932042,
+        "mape_pct": 12.2585657802391,
+        "n_samples": 21,
+        "mean_y": 409.7142857142857,
+        "std_y": 54.316795613459064
+      },
+      {
+        "name": "RandomForestRegressor",
+        "r2": -0.2275285425241096,
+        "mae_kg_da": 39.58345162509448,
+        "rmse_kg_da": 58.729363103994864,
+        "mape_pct": 9.490925143502247,
+        "n_samples": 21,
+        "mean_y": 409.7142857142857,
+        "std_y": 54.316795613459064
+      }
+    ],
+    "success": false,
+    "bias_correction": {
+      "Edirne": 3.9451011229575266,
+      "Kırklareli": -7.548316151647628,
+      "Tekirdağ": 5.226312010155043
+    },
+    "feature_importance_shap": null
+  },
+  "aycicegi": {
+    "crop": "aycicegi",
+    "champion": "Ridge(alpha=1.0)",
+    "metrics": {
+      "r2": 0.6457212929078519,
+      "mae_kg_da": 19.685431199976524,
+      "rmse_kg_da": 25.447235901882642,
+      "mape_pct": 10.586650083518075,
+      "n_samples": 24,
+      "mean_y": 230.20833333333334,
+      "std_y": 43.67267493790464,
+      "alpha": 1.0
+    },
+    "all_candidates": [
+      {
+        "name": "Ridge(alpha=1.0)",
+        "r2": 0.6457212929078519,
+        "mae_kg_da": 19.685431199976524,
+        "rmse_kg_da": 25.447235901882642,
+        "mape_pct": 10.586650083518075,
+        "n_samples": 24,
+        "mean_y": 230.20833333333334,
+        "std_y": 43.67267493790464,
+        "alpha": 1.0
+      },
+      {
+        "name": "GradientBoostingRegressor",
+        "r2": 0.2679024710723734,
+        "mae_kg_da": 24.684173964454846,
+        "rmse_kg_da": 36.58074624200859,
+        "mape_pct": 13.653776731513153,
+        "n_samples": 24,
+        "mean_y": 230.20833333333334,
+        "std_y": 43.67267493790464
+      },
+      {
+        "name": "RandomForestRegressor",
+        "r2": 0.5556926764792576,
+        "mae_kg_da": 19.58148743386243,
+        "rmse_kg_da": 28.497701044267572,
+        "mape_pct": 10.806564889962445,
+        "n_samples": 24,
+        "mean_y": 230.20833333333334,
+        "std_y": 43.67267493790464
+      }
+    ],
+    "success": true,
+    "bias_correction": {
+      "Edirne": -0.2844542979087983,
+      "Kırklareli": 0.590879688068096,
+      "Tekirdağ": -0.5844037972226346
+    },
+    "feature_importance_shap": null
+  }
+}

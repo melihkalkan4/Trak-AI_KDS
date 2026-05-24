@@ -1,0 +1,407 @@
+{
+  "schemas": {
+    "master_feature_matrix": {
+      "name": "MFM",
+      "shape": [
+        2922,
+        23
+      ],
+      "columns": [
+        {
+          "name": "date",
+          "dtype": "datetime64[us]",
+          "missing_pct": 0.0,
+          "n_unique": 2922,
+          "sample": "2017-01-01 00:00:00"
+        },
+        {
+          "name": "t2m_mean",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2901,
+          "sample": "-2.3486"
+        },
+        {
+          "name": "t2m_min",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2906,
+          "sample": "-5.9452"
+        },
+        {
+          "name": "t2m_max",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2905,
+          "sample": "2.0752"
+        },
+        {
+          "name": "d2m_mean",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2904,
+          "sample": "-5.2419"
+        },
+        {
+          "name": "tp_sum",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2613,
+          "sample": "18.0898"
+        },
+        {
+          "name": "ssr_sum",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2922,
+          "sample": "34352010.0"
+        },
+        {
+          "name": "e_sum",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 622,
+          "sample": "-0.0031"
+        },
+        {
+          "name": "clay_0-5cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "28.9"
+        },
+        {
+          "name": "clay_5-15cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "29.98"
+        },
+        {
+          "name": "clay_15-30cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "35.66"
+        },
+        {
+          "name": "sand_0-5cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "30.73"
+        },
+        {
+          "name": "sand_5-15cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "29.95"
+        },
+        {
+          "name": "sand_15-30cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "26.71"
+        },
+        {
+          "name": "phh2o_0-5cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "6.92"
+        },
+        {
+          "name": "phh2o_5-15cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "6.98"
+        },
+        {
+          "name": "phh2o_15-30cm",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1,
+          "sample": "6.98"
+        },
+        {
+          "name": "NDVI",
+          "dtype": "float64",
+          "missing_pct": 87.75,
+          "n_unique": 355,
+          "sample": "0.3527"
+        },
+        {
+          "name": "EVI",
+          "dtype": "float64",
+          "missing_pct": 87.75,
+          "n_unique": 344,
+          "sample": "0.1951"
+        },
+        {
+          "name": "NDWI",
+          "dtype": "float64",
+          "missing_pct": 87.75,
+          "n_unique": 354,
+          "sample": "-0.4541"
+        },
+        {
+          "name": "NDVI_int",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2809,
+          "sample": "0.3527"
+        },
+        {
+          "name": "EVI_int",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2776,
+          "sample": "0.1951"
+        },
+        {
+          "name": "NDWI_int",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 2787,
+          "sample": "-0.4541"
+        }
+      ]
+    },
+    "tuik_ilce_yields": {
+      "name": "TUIK_ilce",
+      "shape": [
+        1165,
+        10
+      ],
+      "columns": [
+        {
+          "name": "ilce_id",
+          "dtype": "int64",
+          "missing_pct": 0.0,
+          "n_unique": 29,
+          "sample": "1307"
+        },
+        {
+          "name": "ilce",
+          "dtype": "str",
+          "missing_pct": 0.0,
+          "n_unique": 27,
+          "sample": "Enez"
+        },
+        {
+          "name": "il",
+          "dtype": "str",
+          "missing_pct": 0.0,
+          "n_unique": 3,
+          "sample": "Edirne"
+        },
+        {
+          "name": "year",
+          "dtype": "int64",
+          "missing_pct": 0.0,
+          "n_unique": 22,
+          "sample": "2004"
+        },
+        {
+          "name": "crop",
+          "dtype": "str",
+          "missing_pct": 0.0,
+          "n_unique": 2,
+          "sample": "aycicegi_yaglik"
+        },
+        {
+          "name": "urun_tr",
+          "dtype": "str",
+          "missing_pct": 0.0,
+          "n_unique": 2,
+          "sample": "Ayçiçeği (Yağlık)"
+        },
+        {
+          "name": "ekilen_alan_da",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1122,
+          "sample": "37810.0"
+        },
+        {
+          "name": "hasat_alan_da",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1123,
+          "sample": "37810.0"
+        },
+        {
+          "name": "verim_kg_da",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 345,
+          "sample": "171.0"
+        },
+        {
+          "name": "uretim_ton",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 1155,
+          "sample": "6457.0"
+        }
+      ]
+    },
+    "ilce_coords": {
+      "name": "ilce_coords",
+      "shape": [
+        34,
+        6
+      ],
+      "columns": [
+        {
+          "name": "ilce_id",
+          "dtype": "int64",
+          "missing_pct": 0.0,
+          "n_unique": 34,
+          "sample": "1307"
+        },
+        {
+          "name": "ilce",
+          "dtype": "str",
+          "missing_pct": 0.0,
+          "n_unique": 32,
+          "sample": "Enez"
+        },
+        {
+          "name": "il",
+          "dtype": "str",
+          "missing_pct": 0.0,
+          "n_unique": 4,
+          "sample": "Edirne"
+        },
+        {
+          "name": "lat",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 33,
+          "sample": "40.7242"
+        },
+        {
+          "name": "lon",
+          "dtype": "float64",
+          "missing_pct": 0.0,
+          "n_unique": 33,
+          "sample": "26.09"
+        },
+        {
+          "name": "is_trakya",
+          "dtype": "bool",
+          "missing_pct": 0.0,
+          "n_unique": 2,
+          "sample": "True"
+        }
+      ]
+    }
+  },
+  "spatial_granularity": {
+    "il": false,
+    "ilce": false,
+    "parsel": false,
+    "lat_lon": false,
+    "single_pt": true,
+    "_soil_uniques": {
+      "clay_0-5cm": 1,
+      "clay_5-15cm": 1,
+      "clay_15-30cm": 1,
+      "sand_0-5cm": 1,
+      "sand_5-15cm": 1,
+      "sand_15-30cm": 1,
+      "phh2o_0-5cm": 1,
+      "phh2o_5-15cm": 1,
+      "phh2o_15-30cm": 1
+    }
+  },
+  "coverage": {
+    "yields": {
+      "n_rows": 1165,
+      "n_ilce": 29,
+      "n_il": 3,
+      "year_range": [
+        2004,
+        2025
+      ],
+      "crops": [
+        "aycicegi_yaglik",
+        "bugday"
+      ],
+      "rows_per_crop": {
+        "aycicegi_yaglik": 576,
+        "bugday": 589
+      }
+    },
+    "coords": {
+      "n_ilce": 34,
+      "lat_range": [
+        40.6131,
+        41.9633
+      ],
+      "lon_range": [
+        26.09,
+        28.9337
+      ]
+    },
+    "mfm": {
+      "year_range": [
+        2017,
+        2024
+      ],
+      "n_days": 2922,
+      "n_unique_dates": 2922
+    }
+  },
+  "join_feasibility": {
+    "join_ilce_year": "skipped (key missing)",
+    "join_il_year": "skipped (key missing)",
+    "join_year_only_centroid_proxy": {
+      "n_rows": 436,
+      "note": "Vize centroid features replicated to every (ilçe, year) label."
+    }
+  },
+  "top5_correlations": {
+    "aycicegi_yaglik": {
+      "n": 216,
+      "top5": {
+        "year": -0.53,
+        "e_sum": -0.484,
+        "t2m_max": -0.447,
+        "t2m_mean": -0.419,
+        "NDWI_int": 0.395
+      }
+    },
+    "bugday": {
+      "n": 220,
+      "top5": {
+        "NDVI": -0.456,
+        "uretim_ton": 0.368,
+        "NDWI": 0.364,
+        "NDVI_int": -0.271,
+        "phh2o_0-5cm": 0.223
+      }
+    }
+  },
+  "anomaly_summary": {
+    "n_anomaly_rows": 147,
+    "z_lt_minus_1p5": 76,
+    "z_gt_plus_1p5": 69,
+    "per_crop_count": {
+      "Ayçiçeği (Yağlık)": 75,
+      "Buğday": 72
+    }
+  },
+  "data_quality": {
+    "yields_duplicates": 0,
+    "coords_missing_ilce": [],
+    "yield_lt_50_kg_da": 0,
+    "yield_gt_700_kg_da": 0,
+    "mfm_ndvi_int_missing_pct": 0.0,
+    "mfm_NDVI_raw_missing_pct": 87.75
+  }
+}

@@ -110,8 +110,15 @@ def get_active_site() -> ActiveSite:
 
 
 def navigate_to(page: str, context: Optional[dict] = None) -> None:
-    """Programmatic cross-tab navigation. Sidebar radio observes `nav_target`."""
+    """Programmatic cross-tab navigation. Sidebar radio observes `nav_target`.
+
+    NB: Streamlit prefers a widget's persisted ``key`` value over a fresh
+    ``index=`` argument on re-render — so writing only ``nav_target`` is not
+    enough.  We also force-set ``active_page`` (the sidebar radio's key) so
+    the new page wins on the next rerun.
+    """
     st.session_state["nav_target"] = page
+    st.session_state["active_page"] = page
     if context:
         st.session_state["scrag_context"] = context
     st.rerun()

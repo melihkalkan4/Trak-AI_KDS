@@ -1,0 +1,7 @@
+il,crop,n_years,yıl_min,yıl_max,mean_kg_da,std_kg_da,cv_pct,min_kg_da,min_yil,max_kg_da,max_yil
+Edirne,aycicegi_yaglik,22,2004,2025,216.2,46.0,21.3,137.0,2024,290.0,2014
+Edirne,bugday,22,2004,2025,383.7,55.2,14.4,303.0,2011,536.0,2023
+Kırklareli,aycicegi_yaglik,22,2004,2025,212.8,45.7,21.5,113.0,2025,291.0,2020
+Kırklareli,bugday,22,2004,2025,368.8,46.1,12.5,283.0,2010,460.0,2021
+Tekirdağ,aycicegi_yaglik,22,2004,2025,197.0,38.7,19.6,115.0,2023,251.0,2019
+Tekirdağ,bugday,22,2004,2025,407.7,54.1,13.3,322.0,2010,534.0,2021
