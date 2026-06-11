@@ -1,0 +1,490 @@
+[17:40:50] db/pending BEKLEYEN KAYIT
+[17:41:17] rover/data Nem=33.81818 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:41:21] kds/advisory ADVISORY
+[17:41:21] db/pending BEKLEYEN KAYIT
+[17:41:47] rover/data Nem=38.72727 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:41:51] kds/advisory ADVISORY
+[17:41:51] db/pending BEKLEYEN KAYIT
+[17:42:17] rover/data Nem=39.63636 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:42:22] kds/advisory ADVISORY
+[17:42:22] db/pending BEKLEYEN KAYIT
+[17:42:48] rover/data Nem=39.45454 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:42:52] kds/advisory ADVISORY
+[17:42:52] db/pending BEKLEYEN KAYIT
+[17:43:18] rover/data Nem=   42 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:43:22] kds/advisory ADVISORY
+[17:43:22] db/pending BEKLEYEN KAYIT
+[17:43:49] rover/data Nem=42.90909 Temp= 27.6 Engel=  14cm BBCH=BILINMIYOR
+[17:43:53] kds/advisory ADVISORY
+[17:43:53] db/pending BEKLEYEN KAYIT
+[17:44:19] rover/data Nem=   38 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:44:23] kds/advisory ADVISORY
+[17:44:23] db/pending BEKLEYEN KAYIT
+[17:44:50] rover/data Nem=41.63636 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:44:54] kds/advisory ADVISORY
+[17:44:54] db/pending BEKLEYEN KAYIT
+[17:45:20] rover/data Nem=42.54546 Temp= 27.6 Engel=  14cm BBCH=BILINMIYOR
+[17:45:24] kds/advisory ADVISORY
+[17:45:24] db/pending BEKLEYEN KAYIT
+[17:45:50] rover/data Nem=42.36364 Temp= 27.6 Engel=  14cm BBCH=BILINMIYOR
+[17:45:54] kds/advisory ADVISORY
+[17:45:54] db/pending BEKLEYEN KAYIT
+[17:46:21] rover/data Nem=42.18182 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:46:25] kds/advisory ADVISORY
+[17:46:25] db/pending BEKLEYEN KAYIT
+[17:46:51] rover/data Nem=42.72727 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:46:55] kds/advisory ADVISORY
+[17:46:55] db/pending BEKLEYEN KAYIT
+[17:47:22] rover/data Nem=42.72727 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:47:52] rover/data Nem=39.27273 Temp= 27.6 Engel=  13cm BBCH=BILINMIYOR
+[17:47:58] kds/advisory ADVISORY
+[17:47:58] db/pending BEKLEYEN KAYIT
+[17:48:02] kds/advisory ADVISORY
+[17:48:02] db/pending BEKLEYEN KAYIT
+[17:48:22] rover/data Nem=40.90909 Temp= 27.5 Engel=  14cm BBCH=BILINMIYOR
+[17:48:27] kds/advisory ADVISORY
+[17:48:27] db/pending BEKLEYEN KAYIT
+[17:48:53] rover/data Nem=41.81818 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:48:57] kds/advisory ADVISORY
+[17:48:57] db/pending BEKLEYEN KAYIT
+[17:49:23] rover/data Nem=40.90909 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:49:27] kds/advisory ADVISORY
+[17:49:27] db/pending BEKLEYEN KAYIT
+[17:49:54] rover/data Nem=40.54546 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:49:58] kds/advisory ADVISORY
+[17:49:58] db/pending BEKLEYEN KAYIT
+[17:50:24] rover/data Nem=41.27273 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:50:29] kds/advisory ADVISORY
+[17:50:29] db/pending BEKLEYEN KAYIT
+[17:50:55] rover/data Nem=40.36364 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:50:59] kds/advisory ADVISORY
+[17:50:59] db/pending BEKLEYEN KAYIT
+[17:51:25] rover/data Nem=41.81818 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:51:29] kds/advisory ADVISORY
+[17:51:29] db/pending BEKLEYEN KAYIT
+[17:51:55] rover/data Nem=42.18182 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:52:00] kds/advisory ADVISORY
+[17:52:00] db/pending BEKLEYEN KAYIT
+[17:52:26] rover/data Nem=42.18182 Temp= 27.5 Engel=  14cm BBCH=BILINMIYOR
+[17:52:30] kds/advisory ADVISORY
+[17:52:30] db/pending BEKLEYEN KAYIT
+[17:52:56] rover/data Nem=42.54546 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:53:00] kds/advisory ADVISORY
+[17:53:00] db/pending BEKLEYEN KAYIT
+[17:53:27] rover/data Nem=42.18182 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:53:31] kds/advisory ADVISORY
+[17:53:31] db/pending BEKLEYEN KAYIT
+[17:54:02] rover/data Nem=44.54546 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:54:06] kds/advisory ADVISORY
+[17:54:06] db/pending BEKLEYEN KAYIT
+[17:54:28] rover/data Nem=44.18182 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:54:31] kds/advisory ADVISORY
+[17:54:31] db/pending BEKLEYEN KAYIT
+[17:54:58] rover/data Nem=44.36364 Temp= 27.5 Engel=  13cm BBCH=BILINMIYOR
+[17:55:02] kds/advisory ADVISORY
+[17:55:02] db/pending BEKLEYEN KAYIT
+[17:55:28] rover/data Nem=44.36364 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:55:32] kds/advisory ADVISORY
+[17:55:32] db/pending BEKLEYEN KAYIT
+[17:55:59] rover/data Nem=44.18182 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:56:03] kds/advisory ADVISORY
+[17:56:03] db/pending BEKLEYEN KAYIT
+[17:56:29] rover/data Nem=41.45454 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:56:33] kds/advisory ADVISORY
+[17:56:33] db/pending BEKLEYEN KAYIT
+[17:57:00] rover/data Nem=42.18182 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:57:04] kds/advisory ADVISORY
+[17:57:04] db/pending BEKLEYEN KAYIT
+[17:57:30] rover/data Nem=44.18182 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:58:01] rover/data Nem=43.09091 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:58:10] kds/advisory ADVISORY
+[17:58:10] db/pending BEKLEYEN KAYIT
+[17:58:14] kds/advisory ADVISORY
+[17:58:14] db/pending BEKLEYEN KAYIT
+[17:58:31] rover/data Nem=42.18182 Temp= 27.4 Engel=  14cm BBCH=BILINMIYOR
+[17:58:35] kds/advisory ADVISORY
+[17:58:35] db/pending BEKLEYEN KAYIT
+[17:59:01] rover/data Nem=43.09091 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[17:59:06] kds/advisory ADVISORY
+[17:59:06] db/pending BEKLEYEN KAYIT
+[17:59:32] rover/data Nem=42.90909 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[17:59:36] kds/advisory ADVISORY
+[17:59:36] db/pending BEKLEYEN KAYIT
+[18:00:02] rover/data Nem=43.27273 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:00:19] kds/advisory ADVISORY
+[18:00:19] db/pending BEKLEYEN KAYIT
+[18:00:33] rover/data Nem=42.18182 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:00:49] kds/advisory ADVISORY
+[18:00:49] db/pending BEKLEYEN KAYIT
+[18:01:03] rover/data Nem=42.18182 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:01:14] kds/advisory ADVISORY
+[18:01:15] db/pending BEKLEYEN KAYIT
+[18:01:33] rover/data Nem=42.90909 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:01:42] kds/advisory ADVISORY
+[18:01:42] db/pending BEKLEYEN KAYIT
+[18:02:04] rover/data Nem=43.09091 Temp= 27.4 Engel=  13cm BBCH=BILINMIYOR
+[18:02:12] kds/advisory ADVISORY
+[18:02:12] db/pending BEKLEYEN KAYIT
+[18:02:34] rover/data Nem=43.09091 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:02:39] kds/advisory ADVISORY
+[18:02:39] db/pending BEKLEYEN KAYIT
+[18:03:05] rover/data Nem=44.90909 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:03:09] kds/advisory ADVISORY
+[18:03:09] db/pending BEKLEYEN KAYIT
+[18:03:35] rover/data Nem=43.27273 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:03:39] kds/advisory ADVISORY
+[18:03:39] db/pending BEKLEYEN KAYIT
+[18:04:06] rover/data Nem=44.72727 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:04:09] kds/advisory ADVISORY
+[18:04:09] db/pending BEKLEYEN KAYIT
+[18:04:36] rover/data Nem=42.36364 Temp= 27.3 Engel=  14cm BBCH=BILINMIYOR
+[18:04:48] kds/advisory ADVISORY
+[18:04:48] db/pending BEKLEYEN KAYIT
+[18:05:06] rover/data Nem=45.09091 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:05:11] kds/advisory ADVISORY
+[18:05:11] db/pending BEKLEYEN KAYIT
+[18:05:37] rover/data Nem=45.09091 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:05:41] kds/advisory ADVISORY
+[18:05:41] db/pending BEKLEYEN KAYIT
+[18:06:07] rover/data Nem=45.09091 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:06:11] kds/advisory ADVISORY
+[18:06:11] db/pending BEKLEYEN KAYIT
+[18:06:38] rover/data Nem=45.45454 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:06:42] kds/advisory ADVISORY
+[18:06:42] db/pending BEKLEYEN KAYIT
+[18:07:08] rover/data Nem=46.90909 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:07:12] kds/advisory ADVISORY
+[18:07:12] db/pending BEKLEYEN KAYIT
+[18:07:39] rover/data Nem=45.63636 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:08:09] rover/data Nem=   46 Temp= 27.3 Engel=  14cm BBCH=BILINMIYOR
+[18:08:39] rover/data Nem=45.81818 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:09:10] rover/data Nem=   46 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:09:35] kds/advisory ADVISORY
+[18:09:35] db/pending BEKLEYEN KAYIT
+[18:09:40] rover/data Nem=45.27273 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:09:48] kds/advisory ADVISORY
+[18:09:48] db/pending BEKLEYEN KAYIT
+[18:09:48] kds/advisory ADVISORY
+[18:09:48] db/pending BEKLEYEN KAYIT
+[18:09:48] kds/advisory ADVISORY
+[18:09:48] db/pending BEKLEYEN KAYIT
+[18:09:52] kds/advisory ADVISORY
+[18:09:52] db/pending BEKLEYEN KAYIT
+[18:10:11] rover/data Nem=46.36364 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:10:24] kds/advisory ADVISORY
+[18:10:24] db/pending BEKLEYEN KAYIT
+[18:10:41] rover/data Nem=   46 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:10:45] kds/advisory ADVISORY
+[18:10:45] db/pending BEKLEYEN KAYIT
+[18:11:12] rover/data Nem=34.18182 Temp= 27.3 Engel=  13cm BBCH=BILINMIYOR
+[18:11:16] kds/advisory ADVISORY
+[18:11:16] db/pending BEKLEYEN KAYIT
+[18:11:42] rover/data Nem=31.63636 Temp= 27.2 Engel=  14cm BBCH=BILINMIYOR
+[18:11:46] kds/advisory ADVISORY
+[18:11:46] db/pending BEKLEYEN KAYIT
+[18:12:12] rover/data Nem=30.36364 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:12:17] kds/advisory ADVISORY
+[18:12:17] db/pending BEKLEYEN KAYIT
+[18:12:43] rover/data Nem=32.18182 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:12:47] kds/advisory ADVISORY
+[18:12:47] db/pending BEKLEYEN KAYIT
+[18:13:13] rover/data Nem=30.72727 Temp= 27.2 Engel=  14cm BBCH=BILINMIYOR
+[18:13:17] kds/advisory ADVISORY
+[18:13:17] db/pending BEKLEYEN KAYIT
+[18:13:44] rover/data Nem=31.27273 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:13:48] kds/advisory ADVISORY
+[18:13:48] db/pending BEKLEYEN KAYIT
+[18:14:14] rover/data Nem=29.81818 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:14:18] kds/advisory ADVISORY
+[18:14:18] db/pending BEKLEYEN KAYIT
+[18:14:45] rover/data Nem=33.27273 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:14:48] kds/advisory ADVISORY
+[18:14:48] db/pending BEKLEYEN KAYIT
+[18:15:15] rover/data Nem=33.63636 Temp= 27.2 Engel=  14cm BBCH=BILINMIYOR
+[18:15:19] kds/advisory ADVISORY
+[18:15:19] db/pending BEKLEYEN KAYIT
+[18:15:45] rover/data Nem=   34 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:15:49] kds/advisory ADVISORY
+[18:15:49] db/pending BEKLEYEN KAYIT
+[18:16:16] rover/data Nem=32.36364 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:16:20] kds/advisory ADVISORY
+[18:16:20] db/pending BEKLEYEN KAYIT
+[18:16:46] rover/data Nem=33.81818 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:16:50] kds/advisory ADVISORY
+[18:16:50] db/pending BEKLEYEN KAYIT
+[18:17:17] rover/data Nem=35.45454 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:17:20] kds/advisory ADVISORY
+[18:17:20] db/pending BEKLEYEN KAYIT
+[18:17:47] rover/data Nem=33.81818 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:18:18] rover/data Nem=34.90909 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:18:27] kds/advisory ADVISORY
+[18:18:27] db/pending BEKLEYEN KAYIT
+[18:18:27] kds/advisory ADVISORY
+[18:18:27] db/pending BEKLEYEN KAYIT
+[18:18:48] rover/data Nem=33.27273 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:18:52] kds/advisory ADVISORY
+[18:18:52] db/pending BEKLEYEN KAYIT
+[18:19:18] rover/data Nem=35.09091 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:19:22] kds/advisory ADVISORY
+[18:19:22] db/pending BEKLEYEN KAYIT
+[18:19:49] rover/data Nem=32.54546 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:19:53] kds/advisory ADVISORY
+[18:19:53] db/pending BEKLEYEN KAYIT
+[18:20:19] rover/data Nem=33.45454 Temp= 27.2 Engel=  13cm BBCH=BILINMIYOR
+[18:20:27] kds/advisory ADVISORY
+[18:20:27] db/pending BEKLEYEN KAYIT
+[18:20:50] rover/data Nem=33.09091 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:20:54] kds/advisory ADVISORY
+[18:20:54] db/pending BEKLEYEN KAYIT
+[18:21:20] rover/data Nem=34.36364 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:21:24] kds/advisory ADVISORY
+[18:21:24] db/pending BEKLEYEN KAYIT
+[18:21:50] rover/data Nem=31.81818 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:21:55] kds/advisory ADVISORY
+[18:21:55] db/pending BEKLEYEN KAYIT
+[18:22:21] rover/data Nem=32.18182 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:22:25] kds/advisory ADVISORY
+[18:22:25] db/pending BEKLEYEN KAYIT
+[18:22:51] rover/data Nem=33.27273 Temp= 27.1 Engel=  14cm BBCH=BILINMIYOR
+[18:22:55] kds/advisory ADVISORY
+[18:22:55] db/pending BEKLEYEN KAYIT
+[18:23:22] rover/data Nem=31.81818 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:23:26] kds/advisory ADVISORY
+[18:23:26] db/pending BEKLEYEN KAYIT
+[18:23:52] rover/data Nem=32.72727 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:23:56] kds/advisory ADVISORY
+[18:23:56] db/pending BEKLEYEN KAYIT
+[18:24:23] rover/data Nem=31.45455 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:24:27] kds/advisory ADVISORY
+[18:24:27] db/pending BEKLEYEN KAYIT
+[18:24:53] rover/data Nem=32.72727 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:24:57] kds/advisory ADVISORY
+[18:24:57] db/pending BEKLEYEN KAYIT
+[18:25:23] rover/data Nem=32.18182 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:25:27] kds/advisory ADVISORY
+[18:25:27] db/pending BEKLEYEN KAYIT
+[18:25:54] rover/data Nem=30.18182 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:25:58] kds/advisory ADVISORY
+[18:25:58] db/pending BEKLEYEN KAYIT
+[18:26:24] rover/data Nem=30.54545 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:26:28] kds/advisory ADVISORY
+[18:26:28] db/pending BEKLEYEN KAYIT
+[18:26:55] rover/data Nem=33.63636 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:27:06] kds/advisory ADVISORY
+[18:27:06] db/pending BEKLEYEN KAYIT
+[18:27:25] rover/data Nem=30.72727 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:27:29] kds/advisory ADVISORY
+[18:27:29] db/pending BEKLEYEN KAYIT
+[18:27:56] rover/data Nem=31.09091 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:28:26] rover/data Nem=30.54545 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:28:36] kds/advisory ADVISORY
+[18:28:36] db/pending BEKLEYEN KAYIT
+[18:28:36] kds/advisory ADVISORY
+[18:28:36] db/pending BEKLEYEN KAYIT
+[18:28:56] rover/data Nem=32.36364 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:29:01] kds/advisory ADVISORY
+[18:29:01] db/pending BEKLEYEN KAYIT
+[18:29:27] rover/data Nem=32.72727 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:29:31] kds/advisory ADVISORY
+[18:29:31] db/pending BEKLEYEN KAYIT
+[18:29:57] rover/data Nem=   34 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:30:17] kds/advisory ADVISORY
+[18:30:17] db/pending BEKLEYEN KAYIT
+[18:30:28] rover/data Nem=32.90909 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:30:38] kds/advisory ADVISORY
+[18:30:38] db/pending BEKLEYEN KAYIT
+[18:30:58] rover/data Nem=33.09091 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:31:02] kds/advisory ADVISORY
+[18:31:02] db/pending BEKLEYEN KAYIT
+[18:31:28] rover/data Nem=31.81818 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:31:33] kds/advisory ADVISORY
+[18:31:33] db/pending BEKLEYEN KAYIT
+[18:31:59] rover/data Nem=33.81818 Temp=   27 Engel=  14cm BBCH=BILINMIYOR
+[18:32:03] kds/advisory ADVISORY
+[18:32:03] db/pending BEKLEYEN KAYIT
+[18:32:29] rover/data Nem=32.72727 Temp=   27 Engel=  14cm BBCH=BILINMIYOR
+[18:32:33] kds/advisory ADVISORY
+[18:32:33] db/pending BEKLEYEN KAYIT
+[18:33:00] rover/data Nem=30.72727 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:33:04] kds/advisory ADVISORY
+[18:33:04] db/pending BEKLEYEN KAYIT
+[18:33:30] rover/data Nem=32.90909 Temp=   27 Engel=  14cm BBCH=BILINMIYOR
+[18:33:34] kds/advisory ADVISORY
+[18:33:34] db/pending BEKLEYEN KAYIT
+[18:34:01] rover/data Nem=34.36364 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:34:04] kds/advisory ADVISORY
+[18:34:04] db/pending BEKLEYEN KAYIT
+[18:34:31] rover/data Nem=30.36364 Temp= 27.1 Engel=  13cm BBCH=BILINMIYOR
+[18:34:35] kds/advisory ADVISORY
+[18:34:35] db/pending BEKLEYEN KAYIT
+[18:35:01] rover/data Nem=26.72727 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:35:06] kds/advisory ADVISORY
+[18:35:06] db/pending BEKLEYEN KAYIT
+[18:35:32] rover/data Nem=27.81818 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:35:36] kds/advisory ADVISORY
+[18:35:36] db/pending BEKLEYEN KAYIT
+[18:36:02] rover/data Nem=28.54545 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:36:06] kds/advisory ADVISORY
+[18:36:06] db/pending BEKLEYEN KAYIT
+[18:36:33] rover/data Nem=27.63636 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:36:37] kds/advisory ADVISORY
+[18:36:37] db/pending BEKLEYEN KAYIT
+[18:37:03] rover/data Nem=27.63636 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:37:07] kds/advisory ADVISORY
+[18:37:07] db/pending BEKLEYEN KAYIT
+[18:37:34] rover/data Nem=30.36364 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:37:37] kds/advisory ADVISORY
+[18:37:37] db/pending BEKLEYEN KAYIT
+[18:38:04] rover/data Nem=28.18182 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:38:34] rover/data Nem=26.72727 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:38:45] kds/advisory ADVISORY
+[18:38:45] db/pending BEKLEYEN KAYIT
+[18:38:45] kds/advisory ADVISORY
+[18:38:45] db/pending BEKLEYEN KAYIT
+[18:39:05] rover/data Nem=28.54545 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:39:09] kds/advisory ADVISORY
+[18:39:09] db/pending BEKLEYEN KAYIT
+[18:39:35] rover/data Nem=   30 Temp= 26.9 Engel=  14cm BBCH=BILINMIYOR
+[18:39:40] kds/advisory ADVISORY
+[18:39:40] db/pending BEKLEYEN KAYIT
+[18:40:10] rover/data Nem=27.63636 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:40:24] kds/advisory ADVISORY
+[18:40:24] db/pending BEKLEYEN KAYIT
+[18:40:36] rover/data Nem=28.18182 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:40:40] kds/advisory ADVISORY
+[18:40:40] db/pending BEKLEYEN KAYIT
+[18:41:07] rover/data Nem=28.54545 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:41:10] kds/advisory ADVISORY
+[18:41:10] db/pending BEKLEYEN KAYIT
+[18:41:37] rover/data Nem=29.27273 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:41:41] kds/advisory ADVISORY
+[18:41:41] db/pending BEKLEYEN KAYIT
+[18:42:07] rover/data Nem=30.36364 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:42:11] kds/advisory ADVISORY
+[18:42:11] db/pending BEKLEYEN KAYIT
+[18:42:38] rover/data Nem=29.81818 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:42:42] kds/advisory ADVISORY
+[18:42:42] db/pending BEKLEYEN KAYIT
+[18:43:08] rover/data Nem=28.90909 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:43:12] kds/advisory ADVISORY
+[18:43:12] db/pending BEKLEYEN KAYIT
+[18:43:39] rover/data Nem=28.36364 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:43:43] kds/advisory ADVISORY
+[18:43:43] db/pending BEKLEYEN KAYIT
+[18:44:09] rover/data Nem=30.36364 Temp=   27 Engel=  13cm BBCH=BILINMIYOR
+[18:44:13] kds/advisory ADVISORY
+[18:44:13] db/pending BEKLEYEN KAYIT
+[18:44:40] rover/data Nem=30.72727 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:44:43] kds/advisory ADVISORY
+[18:44:43] db/pending BEKLEYEN KAYIT
+[18:45:10] rover/data Nem=30.18182 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:45:14] kds/advisory ADVISORY
+[18:45:14] db/pending BEKLEYEN KAYIT
+[18:45:40] rover/data Nem=27.81818 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:45:44] kds/advisory ADVISORY
+[18:45:44] db/pending BEKLEYEN KAYIT
+[18:46:11] rover/data Nem=   30 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:46:15] kds/advisory ADVISORY
+[18:46:15] db/pending BEKLEYEN KAYIT
+[18:46:41] rover/data Nem=27.63636 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:46:45] kds/advisory ADVISORY
+[18:46:45] db/pending BEKLEYEN KAYIT
+[18:47:12] rover/data Nem=29.81818 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:47:15] kds/advisory ADVISORY
+[18:47:15] db/pending BEKLEYEN KAYIT
+[18:47:43] rover/data Nem=30.18182 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:47:47] kds/advisory ADVISORY
+[18:47:47] db/pending BEKLEYEN KAYIT
+[18:48:12] rover/data Nem=28.36364 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:48:43] rover/data Nem=29.09091 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:48:53] kds/advisory ADVISORY
+[18:48:53] db/pending BEKLEYEN KAYIT
+[18:48:53] kds/advisory ADVISORY
+[18:48:53] db/pending BEKLEYEN KAYIT
+[18:49:13] rover/data Nem=30.54545 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:49:18] kds/advisory ADVISORY
+[18:49:18] db/pending BEKLEYEN KAYIT
+[18:49:44] rover/data Nem=   28 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:49:48] kds/advisory ADVISORY
+[18:49:48] db/pending BEKLEYEN KAYIT
+[18:50:14] rover/data Nem=29.63636 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:50:25] kds/advisory ADVISORY
+[18:50:25] db/pending BEKLEYEN KAYIT
+[18:50:45] rover/data Nem=28.54545 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:50:49] kds/advisory ADVISORY
+[18:50:49] db/pending BEKLEYEN KAYIT
+[18:51:15] rover/data Nem=30.54545 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:51:19] kds/advisory ADVISORY
+[18:51:19] db/pending BEKLEYEN KAYIT
+[18:51:45] rover/data Nem=29.81818 Temp= 26.9 Engel=  14cm BBCH=BILINMIYOR
+[18:51:50] kds/advisory ADVISORY
+[18:51:50] db/pending BEKLEYEN KAYIT
+[18:52:16] rover/data Nem=28.90909 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:52:20] kds/advisory ADVISORY
+[18:52:20] db/pending BEKLEYEN KAYIT
+[18:52:46] rover/data Nem=28.90909 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:52:50] kds/advisory ADVISORY
+[18:52:50] db/pending BEKLEYEN KAYIT
+[18:53:17] rover/data Nem=28.72727 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:53:21] kds/advisory ADVISORY
+[18:53:21] db/pending BEKLEYEN KAYIT
+[18:53:47] rover/data Nem=29.81818 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:53:51] kds/advisory ADVISORY
+[18:53:51] db/pending BEKLEYEN KAYIT
+[18:54:18] rover/data Nem=29.81818 Temp= 26.9 Engel=  14cm BBCH=BILINMIYOR
+[18:54:22] kds/advisory ADVISORY
+[18:54:22] db/pending BEKLEYEN KAYIT
+[18:54:48] rover/data Nem=28.90909 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:54:52] kds/advisory ADVISORY
+[18:54:52] db/pending BEKLEYEN KAYIT
+[18:55:18] rover/data Nem=27.81818 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:55:22] kds/advisory ADVISORY
+[18:55:22] db/pending BEKLEYEN KAYIT
+[18:55:53] rover/data Nem=28.18182 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:55:57] kds/advisory ADVISORY
+[18:55:57] db/pending BEKLEYEN KAYIT
+[18:56:19] rover/data Nem=28.72727 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:56:23] kds/advisory ADVISORY
+[18:56:23] db/pending BEKLEYEN KAYIT
+[18:56:50] rover/data Nem=29.09091 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:56:54] kds/advisory ADVISORY
+[18:56:54] db/pending BEKLEYEN KAYIT
+[18:57:20] rover/data Nem=27.81818 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:57:24] kds/advisory ADVISORY
+[18:57:24] db/pending BEKLEYEN KAYIT
+[18:57:53] rover/data Nem=28.18182 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:57:57] kds/advisory ADVISORY
+[18:57:57] db/pending BEKLEYEN KAYIT
+[18:58:22] rover/data Nem=27.45455 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:58:51] rover/data Nem=28.54545 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[18:59:06] kds/advisory ADVISORY
+[18:59:06] db/pending BEKLEYEN KAYIT
+[18:59:06] kds/advisory ADVISORY
+[18:59:06] db/pending BEKLEYEN KAYIT
+[18:59:22] rover/data Nem=27.45455 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[18:59:26] kds/advisory ADVISORY
+[18:59:26] db/pending BEKLEYEN KAYIT
+[18:59:52] rover/data Nem=   28 Temp= 26.8 Engel=  14cm BBCH=BILINMIYOR
+[18:59:56] kds/advisory ADVISORY
+[18:59:56] db/pending BEKLEYEN KAYIT
+[19:00:35] rover/data Nem=28.90909 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[19:00:50] kds/advisory ADVISORY
+[19:00:50] db/pending BEKLEYEN KAYIT
+[19:00:53] rover/data Nem=28.18182 Temp= 26.8 Engel=  14cm BBCH=BILINMIYOR
+[19:01:05] kds/advisory ADVISORY
+[19:01:05] db/pending BEKLEYEN KAYIT
+[19:01:24] rover/data Nem=27.63636 Temp= 26.8 Engel=  13cm BBCH=BILINMIYOR
+[19:01:32] kds/advisory ADVISORY
+[19:01:32] db/pending BEKLEYEN KAYIT
+[19:01:54] rover/data Nem=27.09091 Temp= 26.8 Engel=  14cm BBCH=BILINMIYOR
+[19:02:00] kds/advisory ADVISORY
+[19:02:00] db/pending BEKLEYEN KAYIT
+[19:02:24] rover/data Nem=   30 Temp= 26.9 Engel=  14cm BBCH=BILINMIYOR
+[19:02:29] kds/advisory ADVISORY
+[19:02:29] db/pending BEKLEYEN KAYIT
+[19:02:55] rover/data Nem=28.72727 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[19:02:59] kds/advisory ADVISORY
+[19:02:59] db/pending BEKLEYEN KAYIT
+[19:03:25] rover/data Nem=26.72727 Temp= 26.9 Engel=  13cm BBCH=BILINMIYOR
+[19:03:29] kds/advisory ADVISORY
+[19:03:29] db/pending BEKLEYEN KAYIT

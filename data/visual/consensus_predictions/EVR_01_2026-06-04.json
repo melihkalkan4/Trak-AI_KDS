@@ -1,0 +1,56 @@
+{
+  "site_id": "EVR_01",
+  "target_date": "2026-06-04",
+  "consensus": {
+    "site_id": "EVR_01",
+    "target_date": "2026-06-04",
+    "modalities": {
+      "features": {
+        "class": "healthy",
+        "confidence": 0.0,
+        "source": "lstm+xgb (FLOV champion)"
+      }
+    },
+    "consensus_class": "healthy",
+    "confidence_bucket": "LOW",
+    "agreement_type": "SINGLE",
+    "flag": "PARTIAL_AGREEMENT",
+    "weighted_scores": {},
+    "narrative": "Only the features modality reported (healthy @ conf=0.00). Treat the decision as provisional.",
+    "n_modalities": 1,
+    "generated_utc": "2026-06-09T15:11:23.800257+00:00"
+  },
+  "alert": {
+    "site_id": "EVR_01",
+    "target_date": "2026-06-04",
+    "flag": "PARTIAL_AGREEMENT",
+    "severity": "INFO",
+    "consensus_class": "healthy",
+    "confidence_bucket": "LOW",
+    "agreement_type": "SINGLE",
+    "phenology_stage": "vegetative",
+    "message_en": "Modalities partially agree; treat with care.",
+    "message_tr": "Modaliteler kısmen uzlaştı; dikkatle değerlendirin.",
+    "actions": [
+      "Treat consensus as provisional; await next observation cycle.",
+      "Flag for dashboard review at next stand-up."
+    ],
+    "modalities": {
+      "features": {
+        "class": "healthy",
+        "confidence": 0.0,
+        "source": "lstm+xgb (FLOV champion)"
+      }
+    },
+    "weighted_scores": {},
+    "generated_utc": "2026-06-09T15:11:23.801493+00:00"
+  },
+  "available_modalities": [
+    "features"
+  ],
+  "skipped_modalities": [
+    "satellite",
+    "field"
+  ],
+  "generated_utc": "2026-06-09T15:11:23.802784+00:00"
+}

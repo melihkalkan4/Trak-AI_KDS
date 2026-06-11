@@ -46,6 +46,10 @@ INITIAL_TARLALAR = [
 
 
 SCHEMA_SQL = """
+-- Migration: eski schema'da rover_olcumler bir VIEW idi (read-only).
+-- VIEW'i drop'la ki aşağıdaki CREATE TABLE rover_olcumler çalışsın.
+DROP VIEW IF EXISTS rover_olcumler;
+
 CREATE TABLE IF NOT EXISTS tarla (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     name        TEXT    NOT NULL,
@@ -78,6 +82,43 @@ CREATE TABLE IF NOT EXISTS sensor_reading (
 
 CREATE INDEX IF NOT EXISTS idx_sensor_tarla_time
     ON sensor_reading(tarla_id, timestamp);
+
+-- Rover ölçümleri (real table — eskiden sensor_reading üstünde view'di,
+-- INSERT yapamadığı için kritik bug oluşturuyordu).
+-- Mock + gerçek rover kayıtları rover_id ile ayrılır.
+CREATE TABLE IF NOT EXISTS rover_olcumler (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    tarla_id        INTEGER REFERENCES tarla(id),
+    rover_id        TEXT,                              -- 'MOCK_ROVER_01' veya 'trak-ai-rover-01'
+    timestamp       TEXT NOT NULL,
+    waypoint_id     INTEGER,
+    waypoint_label  TEXT,
+    gps_lat         REAL,
+    gps_lon         REAL,
+    nem_1_pct       REAL,
+    nem_2_pct       REAL,
+    hava_temp_c     REAL,
+    hava_nem_pct    REAL,
+    bbch_sinif      TEXT,
+    bbch_guven      REAL,
+    hastalik        TEXT,
+    hastalik_guven  REAL,
+    engel_on_cm     INTEGER,
+    engel_arka_cm   INTEGER,
+    ndvi_tahmini    REAL,
+    verim_tahmini   REAL,
+    anomali_sayisi  INTEGER DEFAULT 0,
+    anomaliler      TEXT,
+    kds_tavsiye     TEXT,
+    image_path      TEXT,
+    camera_sinif    TEXT,
+    camera_guven    REAL,
+    created_at      DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_rover_olcumler_tarla_time
+    ON rover_olcumler(tarla_id, timestamp);
+CREATE INDEX IF NOT EXISTS idx_rover_olcumler_rover_id
+    ON rover_olcumler(rover_id);
 
 CREATE TABLE IF NOT EXISTS ndvi_prediction (
     id                      INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -203,48 +244,10 @@ SELECT
     created_at
 FROM tarla;
 
+-- NOT: rover_olcumler artık VIEW değil — gerçek TABLE (SCHEMA_SQL'de
+-- tanımlandı). INSERT'lerin sessizce fail olduğu bug bu sayede düzeldi.
+-- Eski view drop'lanır ki yeni table kalsın.
 DROP VIEW IF EXISTS rover_olcumler;
-CREATE VIEW rover_olcumler AS
-SELECT
-    id,
-    tarla_id,
-    timestamp,
-    -- physical names (so dashboard direct readers work)
-    temperature,
-    humidity,
-    soil_moisture,
-    ndvi,
-    precipitation,
-    -- legacy aliases (kept for backward-compat with older dashboard code)
-    temperature   AS hava_temp_c,
-    humidity      AS hava_nem_pct,
-    soil_moisture AS nem_1_pct,
-    soil_moisture AS nem_2_pct,
-    ndvi          AS ndvi_tahmini,
-    evi,
-    ndwi,
-    precipitation AS yagis_mm,
-    gdd,
-    drought_index,
-    data_source   AS kaynak,
-    created_at,
-    NULL          AS waypoint_label,
-    NULL          AS waypoint_id,
-    NULL          AS gps_lat,
-    NULL          AS gps_lon,
-    NULL          AS bbch_sinif,
-    NULL          AS bbch_guven,
-    NULL          AS hastalik,
-    NULL          AS hastalik_guven,
-    NULL          AS engel_on_cm,
-    NULL          AS verim_tahmini,
-    0             AS anomali_sayisi,
-    NULL          AS anomaliler,
-    NULL          AS kds_tavsiye,
-    NULL          AS image_path,
-    NULL          AS camera_sinif,
-    NULL          AS camera_guven
-FROM sensor_reading;
 
 -- tarla_tahminler is intentionally a REAL TABLE (not a view) so the
 -- live predictor's add_tahmin() can INSERT into it. ndvi_prediction

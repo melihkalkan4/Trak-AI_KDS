@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS tarlalar (
 _CREATE_ROVER = """
 CREATE TABLE IF NOT EXISTS rover_olcumler (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    tarla_id         INTEGER REFERENCES tarlalar(id),
+    tarla_id         INTEGER REFERENCES tarla(id),
+    rover_id         TEXT,                              -- 'MOCK_ROVER_01' veya 'trak-ai-rover-01'
     timestamp        TEXT NOT NULL,
     waypoint_id      INTEGER,
     waypoint_label   TEXT,
@@ -78,6 +79,7 @@ CREATE TABLE IF NOT EXISTS rover_olcumler (
     hastalik         TEXT,
     hastalik_guven   REAL,
     engel_on_cm      INTEGER,
+    engel_arka_cm    INTEGER,
     ndvi_tahmini     REAL,
     verim_tahmini    REAL,
     anomali_sayisi   INTEGER DEFAULT 0,
@@ -85,8 +87,13 @@ CREATE TABLE IF NOT EXISTS rover_olcumler (
     kds_tavsiye      TEXT,
     image_path       TEXT,
     camera_sinif     TEXT,
-    camera_guven     REAL
-)
+    camera_guven     REAL,
+    created_at       DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_rover_olcumler_tarla_time
+    ON rover_olcumler(tarla_id, timestamp);
+CREATE INDEX IF NOT EXISTS idx_rover_olcumler_rover_id
+    ON rover_olcumler(rover_id);
 """
 
 _CREATE_TAHMINLER = """
@@ -309,6 +316,77 @@ def _seed_research_sites(conn: sqlite3.Connection) -> int:
     return n_added
 
 
+def _ensure_saha_raporlari_table() -> None:
+    """Saha çıkış verisi LLM tavsiye sonuçlarını saklar.
+    Bir saha çıkışı için sınıf bazında ve genel tavsiyeler birlikte.
+    """
+    with get_connection() as conn:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS saha_raporlari (
+                id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                tarla_id        INTEGER REFERENCES tarla(id),
+                kaynak          TEXT NOT NULL,         -- 'gercek_saha_27may2026' vb.
+                rapor_tipi      TEXT NOT NULL,         -- 'sinif_bazli' veya 'genel'
+                bbch_sinif      TEXT,                  -- sınıf bazlı tavsiye için
+                olcum_sayisi    INTEGER,
+                ortalama_nem    REAL,
+                ortalama_temp   REAL,
+                ortalama_guven  REAL,
+                anomali_aciklama TEXT,
+                llm_tavsiye     TEXT,
+                llm_sure_sec    REAL,
+                llm_model       TEXT,
+                created_at      DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_saha_kaynak ON saha_raporlari(kaynak)")
+        conn.commit()
+
+
+def _migrate_rover_olcumler_to_table() -> None:
+    """Eski DB'lerde rover_olcumler bir VIEW → INSERT yapılamaz, sessiz bug.
+    Bu fonksiyon view'i drop'lar ve gerçek TABLE oluşturur (rover_id dahil).
+    Idempotent: zaten table ise kolonları kontrol eder, eksik varsa ALTER TABLE.
+    """
+    with get_connection() as conn:
+        row = conn.execute(
+            "SELECT type FROM sqlite_master WHERE name='rover_olcumler'"
+        ).fetchone()
+        if row is None:
+            # Yok, init_database.py SCHEMA_SQL zaten oluşturur — bir şey yapma
+            return
+        if row["type"] == "view":
+            # KRITIK MIGRATION: view'i drop, table'a cevir
+            print("[DB] Migration: rover_olcumler VIEW -> TABLE (rover_id eklendi)")
+            conn.execute("DROP VIEW IF EXISTS rover_olcumler")
+            conn.executescript(_CREATE_ROVER)
+            conn.commit()
+            return
+        # Zaten table — eksik kolon var mı kontrol et
+        cur = conn.execute("PRAGMA table_info(rover_olcumler)")
+        existing_cols = {r["name"] for r in cur.fetchall()}
+        added = []
+        if "rover_id" not in existing_cols:
+            conn.execute("ALTER TABLE rover_olcumler ADD COLUMN rover_id TEXT")
+            added.append("rover_id")
+        if "engel_arka_cm" not in existing_cols:
+            conn.execute("ALTER TABLE rover_olcumler ADD COLUMN engel_arka_cm INTEGER")
+            added.append("engel_arka_cm")
+        # Saha import + image classify pipeline icin yeni kolonlar
+        if "kaynak" not in existing_cols:
+            conn.execute("ALTER TABLE rover_olcumler ADD COLUMN kaynak TEXT")
+            added.append("kaynak")
+        if "goruntu_yolu" not in existing_cols:
+            conn.execute("ALTER TABLE rover_olcumler ADD COLUMN goruntu_yolu TEXT")
+            added.append("goruntu_yolu")
+        if "goruntu_guven" not in existing_cols:
+            conn.execute("ALTER TABLE rover_olcumler ADD COLUMN goruntu_guven REAL")
+            added.append("goruntu_guven")
+        if added:
+            conn.commit()
+            print(f"[DB] Migration: rover_olcumler tablosuna kolon eklendi: {', '.join(added)}")
+
+
 def init_db() -> None:
     """Ensure the production schema exists at DB_PATH (data/trakai.db).
 
@@ -356,6 +434,18 @@ def init_db() -> None:
         else:
             print(f"[DB] HATA: scripts/init_database.py bulunamadı — boş DB.")
             return
+
+    # Eski DB'lerde rover_olcumler VIEW idi → TABLE'a çevir (idempotent)
+    try:
+        _migrate_rover_olcumler_to_table()
+    except Exception as e:
+        print(f"[DB] rover_olcumler migration hatası (devam): {e}")
+
+    # saha_raporlari tablosu (LLM tavsiye kaydı)
+    try:
+        _ensure_saha_raporlari_table()
+    except Exception as e:
+        print(f"[DB] saha_raporlari setup hatası (devam): {e}")
 
     print(f"[DB] Hazır: {DB_PATH}")
 
@@ -423,11 +513,16 @@ def upsert_tarla(data: dict) -> int:
 # ─────────────────────────────────────────────────────────────────────────────
 
 _ROVER_COLS = {
-    "tarla_id", "timestamp", "waypoint_id", "waypoint_label",
+    "tarla_id", "rover_id", "timestamp", "waypoint_id", "waypoint_label",
     "gps_lat", "gps_lon", "nem_1_pct", "nem_2_pct", "hava_temp_c",
     "hava_nem_pct", "bbch_sinif", "bbch_guven", "hastalik", "hastalik_guven",
-    "engel_on_cm", "ndvi_tahmini", "verim_tahmini", "anomali_sayisi",
-    "anomaliler", "kds_tavsiye", "image_path", "camera_sinif", "camera_guven",
+    "engel_on_cm", "engel_arka_cm", "ndvi_tahmini", "verim_tahmini",
+    "anomali_sayisi", "anomaliler", "kds_tavsiye", "image_path",
+    "camera_sinif", "camera_guven",
+    # Saha import + classify pipeline icin eklendi (2026-05-27)
+    "kaynak",           # 'gercek_saha_27may2026' vb. veri kaynağı etiketi
+    "goruntu_yolu",     # classified/{id}_{bbch}_{guven}.jpg
+    "goruntu_guven",    # YOLOv8 classify confidence (0-1)
 }
 
 
@@ -445,6 +540,32 @@ def add_rover_olcum(tarla_id: int, data: dict) -> int:
         return int(cur.lastrowid)
 
 
+def _add_legacy_aliases(d: dict) -> dict:
+    """Eski VIEW schema'sıyla geriye dönük uyumluluk.
+    Legacy dashboard kodu `humidity` / `temperature` / `soil_moisture`
+    kolonlarını bekliyor (eski view alias'ları). Yeni TABLE schema'sında
+    bu isimler yok — rover'a özgü `hava_nem_pct` / `hava_temp_c` / `nem_1_pct`
+    kullanılıyor. Bu helper her satıra eski isim eşleştirmelerini ekler.
+    """
+    d.setdefault("humidity",      d.get("hava_nem_pct"))
+    d.setdefault("temperature",   d.get("hava_temp_c"))
+    d.setdefault("soil_moisture", d.get("nem_1_pct"))
+    # NDVI/yagis için eski isimler (varsa)
+    d.setdefault("ndvi",          d.get("ndvi_tahmini"))
+    d.setdefault("yagis_mm",      d.get("yagis_mm"))
+    # YENI: YOLO çıktısı camera_sinif/image_path/camera_guven olarak da göster.
+    # Legacy dashboard bu isimleri bekliyor; bizim üretim goruntu_*'de.
+    # NOT: setdefault yerine None override — DB'de camera_sinif kolonu zaten var
+    # ama NULL. Eğer goruntu_sinif doluysa camera_sinif'i onunla doldur.
+    if not d.get("camera_sinif") and d.get("goruntu_sinif"):
+        d["camera_sinif"] = d["goruntu_sinif"]
+    if not d.get("camera_guven") and d.get("goruntu_guven") is not None:
+        d["camera_guven"] = d["goruntu_guven"]
+    if not d.get("image_path") and d.get("goruntu_yolu"):
+        d["image_path"] = d["goruntu_yolu"]
+    return d
+
+
 def get_rover_olcumler(tarla_id: int, limit: int = 50) -> list[dict]:
     with get_connection() as conn:
         rows = conn.execute(
@@ -452,7 +573,7 @@ def get_rover_olcumler(tarla_id: int, limit: int = 50) -> list[dict]:
             "ORDER BY timestamp DESC LIMIT ?",
             (tarla_id, limit),
         ).fetchall()
-        return [dict(r) for r in rows]
+        return [_add_legacy_aliases(dict(r)) for r in rows]
 
 
 def get_rover_olcumler_asc(tarla_id: int, limit: int = 5000) -> list[dict]:
@@ -462,7 +583,7 @@ def get_rover_olcumler_asc(tarla_id: int, limit: int = 5000) -> list[dict]:
             "ORDER BY timestamp ASC LIMIT ?",
             (tarla_id, limit),
         ).fetchall()
-        return [dict(r) for r in rows]
+        return [_add_legacy_aliases(dict(r)) for r in rows]
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -1,0 +1,26 @@
+{
+  "generated_utc": "2026-05-29T12:39:05.282679+00:00",
+  "crop": "bugday",
+  "cv": "LOILO",
+  "model": "xgboost",
+  "layer": "C",
+  "target_mape_pct": 10.0,
+  "ci_alpha": 0.05,
+  "results": {
+    "point_mape_pct": 10.561090842478748,
+    "boot_mean_mape": 10.572252216400942,
+    "boot_median_mape": 10.560840677866047,
+    "ci95_lower": 9.138250874071202,
+    "ci95_upper": 12.099013383653928,
+    "boot_std": 0.7834904383619408,
+    "n_obs": 213,
+    "n_bootstraps": 1000,
+    "p_below_target": 0.243
+  },
+  "decisions": {
+    "point_mape_within_target": false,
+    "ci95_upper_within_target": false,
+    "distance_to_target_pct": -0.5610908424787482,
+    "share_resamples_below_target": 0.243
+  }
+}

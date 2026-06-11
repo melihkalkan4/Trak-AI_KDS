@@ -77,10 +77,20 @@ MQTT_PORT = 1883
 SUBSCRIBE_TOPIC = "trakaia/rover/data"
 PUBLISH_TOPIC = "trakaia/kds/advisory"
 
+# DB Onay Modu
+# True  : islenmis rover_data DB'ye yazilmaz, 'trakaia/db/pending' topic'ine
+#         yayinlanir. Dashboard kullanicisi Onayla butonuna basinca DB'ye yazilir.
+# False : eski davranis — islenmis veri otomatik DB'ye yazilir.
+# Veri kalite kontrolu insan elinden geciyor → False positive anomaliler
+# DB'yi kirletmesin diye True kullaniyoruz.
+DASHBOARD_APPROVAL_MODE = True
+DB_PENDING_TOPIC = "trakaia/db/pending"
+
 # Anomali esikleri
 NEM_FARK_MIN = 10        # iki sensor arasi nem farki %
-NEM_DUSUK_ESIK = 20     # mutlak dusuk nem esigi %
-HASTALIK_GUVEN_MIN = 0.70
+NEM_DUSUK_ESIK = 20             # mutlak dusuk nem esigi %
+HASTALIK_GUVEN_MIN = 0.80       # yukseltildi: 0.70 -> 0.80 (false positive azalt)
+DUSUK_NEM_ARDISIK_OLCUM = 3     # n ardışık ölçüm üst üste düşük olmalı
 
 # Bugday icin ay bazli beklenen BBCH araligi (Trakya, Turkiye)
 WHEAT_BBCH_BY_MONTH = {
@@ -107,36 +117,108 @@ def parse_bbch_low(bbch_sinif: str) -> int:
         return -1
 
 
+def _has_valid_nem2(payload: dict) -> bool:
+    """soil2 sensörü gerçekten var mı? None / 'yok' / 0 / eksik → False döner.
+    Sistem tek sensörlü ise soil2 alanı hiç dikkate alınmamalı."""
+    if "nem_2_pct" not in payload:
+        return False
+    val = payload.get("nem_2_pct")
+    if val is None:
+        return False
+    if isinstance(val, str) and val.strip().lower() in ("yok", "none", "", "null"):
+        return False
+    try:
+        return float(val) > 0
+    except (TypeError, ValueError):
+        return False
+
+
+# ── Anomali throttling — ayni tip 10 dakika icinde tekrar tetiklenemez ──
+ANOMALY_THROTTLE_SEC = 600
+_last_anomaly_fire: dict[str, float] = {}
+
+def _should_fire_anomaly(tip: str) -> bool:
+    now = time.time()
+    last = _last_anomaly_fire.get(tip, 0.0)
+    if now - last < ANOMALY_THROTTLE_SEC:
+        return False
+    _last_anomaly_fire[tip] = now
+    return True
+
+
+# Tek sensorlu sistem icin DUSUK_NEM esigi — eski 25, simdi 20 (false positive azalt)
+NEM_DUSUK_TEK_SENSOR = 20
+
+# Son N olcumun nem degerlerini takip et (DUSUK_NEM kuralina ardisik sart)
+_nem_history: list[tuple[float, float]] = []   # (timestamp, nem_1_pct)
+_NEM_HISTORY_MAX = 10
+
+
 def detect_anomalies(payload: dict, cp2_result: dict, weather: dict = None, forecast: list = None) -> list:
     anomalies = []
     month = datetime.now().month
 
-    # ── Kural 1: Nem farkı ──────────────────────────────────────────────
+    # ── Kural 1: Nem farkı (sadece iki sensör de varsa) ───────────────
     nem_1 = float(payload.get("nem_1_pct", 0))
-    nem_2 = float(payload.get("nem_2_pct", 0))
-    nem_fark = abs(nem_1 - nem_2)
-    nem_ort = (nem_1 + nem_2) / 2
+    has_nem_2 = _has_valid_nem2(payload)
 
-    if nem_fark > NEM_FARK_MIN:
-        seviye = "YUKSEK" if nem_fark > 15 else "ORTA"
-        anomalies.append({
-            "tip": "NEM_FARKI",
-            "aciklama": f"Toprak nemi sensorleri arasi fark {nem_fark:.1f}% (esik: {NEM_FARK_MIN}%)",
-            "seviye": seviye,
-        })
+    if has_nem_2:
+        nem_2 = float(payload["nem_2_pct"])
+        nem_fark = abs(nem_1 - nem_2)
+        nem_ort = (nem_1 + nem_2) / 2
+        if nem_fark > NEM_FARK_MIN:
+            seviye = "YUKSEK" if nem_fark > 15 else "ORTA"
+            anomalies.append({
+                "tip": "NEM_FARKI",
+                "aciklama": f"Toprak nemi sensorleri arasi fark {nem_fark:.1f}% (esik: {NEM_FARK_MIN}%)",
+                "seviye": seviye,
+            })
+    else:
+        # Tek sensör — NEM_FARKI kontrolü TAMAMEN ATLANIR.
+        # soil2 verisi yok, 0 olarak yorumlanmamalı. nem_ort = sadece nem_1.
+        nem_ort = nem_1
 
-    # ── Kural 2: Düşük nem ──────────────────────────────────────────────
-    if nem_ort < NEM_DUSUK_ESIK:
-        seviye = "KRITIK" if nem_ort < 15 else "YUKSEK"
-        anomalies.append({
-            "tip": "DUSUK_NEM",
-            "aciklama": f"Ortalama toprak nemi cok dusuk: {nem_ort:.1f}% (esik: {NEM_DUSUK_ESIK}%)",
-            "seviye": seviye,
-        })
+    # ── Kural 2: Düşük nem — ardışık 3 ölçüm kontrolü ──────────────────
+    # Tek sensorlu sistemde sadece soil1 kullanilir, esik 20%
+    # Yenilik: ardışık DUSUK_NEM_ARDISIK_OLCUM kez düşük olmalı (false positive azalt)
+    dusuk_esik = NEM_DUSUK_TEK_SENSOR if not has_nem_2 else NEM_DUSUK_ESIK
 
-    # ── Kural 3: Hastalık güveni ─────────────────────────────────────────
+    # Nem history'ye ekle (sliding window)
+    _nem_history.append((time.time(), nem_ort))
+    if len(_nem_history) > _NEM_HISTORY_MAX:
+        _nem_history.pop(0)
+
+    # Son N olcum dusuk mu kontrol
+    if nem_ort < dusuk_esik and len(_nem_history) >= DUSUK_NEM_ARDISIK_OLCUM:
+        ardisik_dusuk = all(
+            n < dusuk_esik
+            for _, n in _nem_history[-DUSUK_NEM_ARDISIK_OLCUM:]
+        )
+        if ardisik_dusuk:
+            seviye = "KRITIK" if nem_ort < 15 else "YUKSEK"
+            kaynak = f"soil1={nem_1:.1f}%" if not has_nem_2 else f"ortalama={nem_ort:.1f}%"
+            anomalies.append({
+                "tip": "DUSUK_NEM",
+                "aciklama": (f"Toprak nemi cok dusuk: {kaynak} "
+                             f"(esik: {dusuk_esik}%, {DUSUK_NEM_ARDISIK_OLCUM} ardisik olcum)"),
+                "seviye": seviye,
+            })
+
+    # ── Kural 3: Hastalık güveni — text alani VEYA goruntu_sinif kontrolü ─
+    # Eskiden sadece payload['hastalik'] text alanini kontrol ediyordu.
+    # Yenilik: YOLO sinif adi (goruntu_sinif) 'hastalik_*' ise de tetiklensin.
     hastalik = payload.get("hastalik")
     hastalik_guven = float(payload.get("hastalik_guven", 0))
+
+    # YOLO görüntü sınıfından hastalık türü çıkar (varsa)
+    goruntu_sinif = payload.get("goruntu_sinif") or ""
+    goruntu_guven = float(payload.get("goruntu_guven", 0))
+    if goruntu_sinif.startswith("hastalik_") and goruntu_guven > HASTALIK_GUVEN_MIN:
+        # YOLO bir hastalık tespit etti — text alanını override et
+        hastalik_tip = goruntu_sinif.replace("hastalik_", "")
+        hastalik = hastalik or hastalik_tip
+        hastalik_guven = max(hastalik_guven, goruntu_guven)
+
     if hastalik and hastalik_guven > HASTALIK_GUVEN_MIN:
         seviye = "KRITIK" if hastalik_guven > 0.85 else "YUKSEK"
         anomalies.append({
@@ -234,7 +316,11 @@ def detect_anomalies(payload: dict, cp2_result: dict, weather: dict = None, fore
 
     # ── Kural 8-10: Agronomik takvim kuralları ──────────────────────────────
     if _AGRO_AVAILABLE:
-        nem_ort = (float(payload.get("nem_1_pct", 0)) + float(payload.get("nem_2_pct", 0))) / 2
+        # Tek sensorlu sistemde soil2 hesaba katilmaz, nem_ort = nem_1
+        if has_nem_2:
+            nem_ort = (float(payload.get("nem_1_pct", 0)) + float(payload["nem_2_pct"])) / 2
+        else:
+            nem_ort = float(payload.get("nem_1_pct", 0))
         weather_for_agro = weather if weather else {}
 
         for crop in ("Wheat", "Sunflower"):
@@ -277,17 +363,50 @@ def detect_anomalies(payload: dict, cp2_result: dict, weather: dict = None, fore
             except Exception:
                 pass
 
-    return anomalies
+    # ── Anomali throttling — ayni tip 10 dakika icinde tekrar tetiklenmesin ──
+    # GUBRE_HATIRLATMA gibi gunluk sabit tipler 5 dakikada bir mock rover
+    # mesajlariyla LLM'i meşgul etmesin → tekrar atilir.
+    filtered = [a for a in anomalies if _should_fire_anomaly(a["tip"])]
+    if len(filtered) != len(anomalies):
+        atilan = [a["tip"] for a in anomalies if a not in filtered]
+        log(f"Throttled (10dk icinde tekrar): {', '.join(atilan)}")
+    return filtered
 
 
 def build_anomaly_context(payload: dict, anomalies: list, cp2_result: dict) -> str:
-    lines = [
+    nem_1 = float(payload.get("nem_1_pct", 0))
+    has_nem_2 = _has_valid_nem2(payload)
+
+    lines = []
+
+    # KRİTİK PROMPT PREFIX — LLM tek sensörlü sistemi anlayabilsin
+    if not has_nem_2:
+        lines.append(
+            "ÖNEMLİ NOT (sisteme özel): Bu rover TEK toprak nemi sensörüne sahiptir. "
+            f"soil2 verisi YOKTUR — 0 veya düşük nem olarak yorumlama. "
+            f"Sadece soil1_pct = {nem_1:.1f}% değerini kullan."
+        )
+        lines.append("")
+
+    lines.extend([
         f"Rover ID: {payload.get('rover_id', 'bilinmiyor')}",
         f"GPS: {payload.get('gps_lat', 0):.4f}N, {payload.get('gps_lon', 0):.4f}E",
-        f"Toprak nemi: sensor1={payload.get('nem_1_pct', 0):.1f}%, sensor2={payload.get('nem_2_pct', 0):.1f}%",
+    ])
+
+    # Toprak nemi satırı — tek sensör vs çift sensör ayrımı
+    if has_nem_2:
+        lines.append(
+            f"Toprak nemi: sensor1={nem_1:.1f}%, sensor2={float(payload['nem_2_pct']):.1f}%"
+        )
+    else:
+        lines.append(
+            f"Toprak nemi sensor1={nem_1:.1f}% | Toprak Nem 2: sensör yok (tek sensör sistemi)"
+        )
+
+    lines.extend([
         f"Hava: {payload.get('hava_temp_c', 0):.1f}C, nem %{payload.get('hava_nem_pct', 0):.0f}",
         f"BBCH: {payload.get('bbch_sinif', 'bilinmiyor')} (guven: {payload.get('bbch_guven', 0):.0%})",
-    ]
+    ])
     if payload.get("hastalik"):
         lines.append(
             f"Hastalik: {payload['hastalik']} (guven: {float(payload.get('hastalik_guven', 0)):.0%})"
@@ -324,10 +443,15 @@ def on_message(client, userdata, msg):
         log(f"JSON parse hatasi: {e}")
         return
 
+    # Log'ta soil2 sadece varsa gosterilir, yoksa "tek sensor" yazilir
+    if _has_valid_nem2(payload):
+        nem_str = f"{payload.get('nem_1_pct', 0):.1f}%/{float(payload['nem_2_pct']):.1f}%"
+    else:
+        nem_str = f"{payload.get('nem_1_pct', 0):.1f}% (tek sensor)"
     log(
         f"Rover: {payload.get('rover_id', '?')} | "
         f"GPS: ({payload.get('gps_lat', 0):.4f}, {payload.get('gps_lon', 0):.4f}) | "
-        f"Nem: {payload.get('nem_1_pct', 0):.1f}%/{payload.get('nem_2_pct', 0):.1f}% | "
+        f"Nem: {nem_str} | "
         f"BBCH: {payload.get('bbch_sinif', '?')}"
     )
 
@@ -459,6 +583,8 @@ def on_message(client, userdata, msg):
     if DB_AVAILABLE:
         tarla_id = int(payload.get("tarla_id", 1))
         rover_data = {
+            "tarla_id": tarla_id,           # dashboard'a tarla bilgisini de yolla
+            "rover_id": payload.get("rover_id", "?"),
             "timestamp": datetime.now().isoformat(),
             "waypoint_id": payload.get("waypoint_id"),
             "waypoint_label": payload.get("waypoint_label"),
@@ -479,11 +605,37 @@ def on_message(client, userdata, msg):
             "camera_sinif": clf_result.get("sinif") if clf_result else None,
             "camera_guven": clf_result.get("guven") if clf_result else None,
         }
-        try:
-            rec_id = add_rover_olcum(tarla_id, rover_data)
-            log(f"DB'ye kaydedildi: rover_olcumler.id={rec_id}, tarla_id={tarla_id}")
-        except Exception as e:
-            log(f"DB kayit hatasi (devam ediliyor): {e}")
+
+        if DASHBOARD_APPROVAL_MODE:
+            # DB'ye dogrudan yazma — dashboard kullanicisi onaylasin.
+            # MQTT broker'a yayinla, dashboard 'Bekleyen Kayitlar' tab'inde gosterir.
+            # LLM uzun surdugu icin baglantı dusmus olabilir → reconnect dene + retry.
+            try:
+                pending_payload = json.dumps(rover_data, ensure_ascii=False)
+                if not client.is_connected():
+                    log("MQTT baglantisi dusmus — reconnect deniyor...")
+                    try:
+                        client.reconnect()
+                        # Loop'un baglantıyi kurması icin kisa bekleme
+                        time.sleep(0.5)
+                    except Exception as re:
+                        log(f"Reconnect hatasi: {re}")
+                result = client.publish(DB_PENDING_TOPIC, pending_payload, qos=1)
+                # QoS=1 + rc kontrolu → message kaybolmaz, broker ACK bekler
+                if result.rc == mqtt.MQTT_ERR_SUCCESS:
+                    log(f"DB onay icin dashboard'a yollandi: {DB_PENDING_TOPIC} ({len(pending_payload)} byte) [QoS=1]")
+                else:
+                    log(f"DB pending publish hatasi: rc={result.rc} — broker mesaji kabul etmedi")
+            except Exception as e:
+                log(f"DB pending yayin hatasi: {e}")
+        else:
+            try:
+                # tarla_id alani add_rover_olcum'a ayri parametre olarak gidiyor
+                _rover_data_no_tarla = {k: v for k, v in rover_data.items() if k != "tarla_id"}
+                rec_id = add_rover_olcum(tarla_id, _rover_data_no_tarla)
+                log(f"DB'ye kaydedildi: rover_olcumler.id={rec_id}, tarla_id={tarla_id}")
+            except Exception as e:
+                log(f"DB kayit hatasi (devam ediliyor): {e}")
 
         # Hava verisi otomatik kaydet (gun basi, ayni gun varsa atlar)
         if _COLLECT_WEATHER_AVAILABLE:
@@ -523,7 +675,10 @@ def main():
 
     log(f"MQTT broker'a baglaniliyor: {MQTT_BROKER}:{MQTT_PORT}")
     try:
-        mqtt_client.connect(MQTT_BROKER, MQTT_PORT, keepalive=60)
+        # KEEPALIVE: LLM çağrısı 30-90 sn surebilir, bu surede on_message blocking olur
+        # ve PINGREQ paketi gonderilemez. Broker 1.5*keepalive sonra disconnect eder.
+        # 60sn keepalive yetersiz → 600sn (10dk) buffer ile guvenli marj birak.
+        mqtt_client.connect(MQTT_BROKER, MQTT_PORT, keepalive=600)
     except ConnectionRefusedError:
         log("HATA: MQTT broker'a baglanamadi. Mosquitto calisiyor mu? 'mosquitto' ile baslatin.")
         return

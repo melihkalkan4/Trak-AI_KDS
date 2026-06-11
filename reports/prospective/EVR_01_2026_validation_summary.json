@@ -1,0 +1,35 @@
+{
+  "site_id": "EVR_01",
+  "year": 2026,
+  "source": "unified",
+  "tolerance_days": 2,
+  "n_predictions": 107,
+  "n_matched": 103,
+  "coverage_pct": 96.26168224299066,
+  "overall_model": {
+    "n": 103,
+    "R2": 0.7025725547919419,
+    "MAE": 0.030266763680397414,
+    "RMSE": 0.03888758047906851,
+    "bias": 0.015509924626003783,
+    "MAPE_pct": 12.586491110940523
+  },
+  "overall_naive_persistence": {
+    "n": 103,
+    "R2": 0.7487083435204596,
+    "MAE": 0.029111918410385376,
+    "RMSE": 0.03574451733946737,
+    "bias": -0.01677499056741976,
+    "MAPE_pct": 10.56108199230497
+  },
+  "wilcoxon_model_vs_naive": {
+    "n": 103,
+    "median_abs_err_model": 0.025980120933605466,
+    "median_abs_err_naive": 0.02558337519540052,
+    "mean_abs_err_model": 0.030266763680397414,
+    "mean_abs_err_naive": 0.029111918410385376,
+    "wilcoxon_statistic": 2603.0,
+    "wilcoxon_p_value": 0.4025532137002372
+  },
+  "generated_utc": "2026-06-09T15:10:10.912934+00:00"
+}

@@ -1,19 +1,23 @@
-# TRAK-AI KDS — Streamlit configuration
-# Light base; styling.py CSS hem light hem dark mode'u handle eder.
-# Kullanıcı sidebar'dan ☀️ Aydınlık / 🌙 Karanlık / 🖥️ Sistem seçebilir.
-# Streamlit hamburger menü ayarları kontrast iyileştirmesi için tweak edildi.
+# TRAK-AI KDS — Streamlit Configuration
+# Theme: Precision Agriculture (Dark Default)
+# Override via sidebar toggle (☀️ Light / 🌙 Dark / 🖥️ System)
+# Alternative light-base reference: see config_light.toml
 
 [theme]
-base = "light"
-primaryColor          = "#2E7D32"
-backgroundColor       = "#FFFFFF"
-secondaryBackgroundColor = "#F5F7F4"
-textColor             = "#1F2A24"
-linkColor             = "#1976D2"
-font                  = "sans serif"
+base = "dark"
+primaryColor              = "#66BB6A"   # Vivid green (dark-readable)
+backgroundColor           = "#0A1A0A"   # Deep forest
+secondaryBackgroundColor  = "#162616"   # Card surface
+textColor                 = "#E8F5E9"   # Near-white green tint
+linkColor                 = "#FFD54F"   # Golden yellow (accent)
+font                      = "sans serif"
 
 [browser]
 gatherUsageStats = false
 
 [server]
 headless = false
+
+[client]
+showErrorDetails = true
+toolbarMode      = "minimal"

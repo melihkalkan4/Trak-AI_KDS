@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job xmlns="http://www.ibm.com/software/analytics/spss/xml/production"
+     syntaxFormat="interactive"
+     syntaxErrorHandling="stop"
+     print="false"
+     unicode="true">
+  <output outputPath="C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\outputs\spss_moderation\spss_regresyon_output.spv"
+          outputFormat="viewer"/>
+  <syntax syntaxPath="C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\outputs\spss_moderation\spss_hiyerarsik_regresyon_from_sav.sps"/>
+</job>

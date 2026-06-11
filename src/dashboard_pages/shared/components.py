@@ -19,18 +19,45 @@ logger = logging.getLogger("trakai.dashboard.components")
 def kpi_card(label: str,
              value: str,
              delta: Optional[str] = None,
-             delta_color: str = "normal") -> None:
+             delta_color: str = "normal",
+             icon: Optional[str] = None,
+             size: str = "medium") -> None:
+    """Tema duyarlı KPI card — Precision Agriculture stili.
+
+    Args:
+        label: Üst label (UPPERCASE küçük yazı).
+        value: Ana sayı / değer.
+        delta: Opsiyonel delta etiketi (ör. "+12 dün").
+        delta_color: ``positive`` | ``negative`` | ``warning`` | ``normal``.
+        icon: Opsiyonel emoji ikonu (ör. ``🌾``).
+        size: ``small`` | ``medium`` (default) | ``large``.
+    """
     color_map = {
-        "normal":   "#666",
-        "positive": "#388E3C",
-        "negative": "#C62828",
-        "warning":  "#F57C00",
+        "normal":   "var(--text-muted)",
+        "positive": "var(--success-text)",
+        "negative": "var(--critical-text)",
+        "warning":  "var(--warning-text)",
     }
-    color = color_map.get(delta_color, "#666")
-    delta_html = f'<div class="kpi-delta" style="color:{color}">{delta}</div>' if delta else ""
+    arrow_map = {
+        "positive": "▲",
+        "negative": "▼",
+        "warning":  "⚠",
+        "normal":   "→",
+    }
+    color = color_map.get(delta_color, color_map["normal"])
+    arrow = arrow_map.get(delta_color, arrow_map["normal"])
+    delta_html = (
+        f'<div class="kpi-delta" style="color:{color}">{arrow} {delta}</div>'
+        if delta else ""
+    )
+    icon_html = (
+        f'<span class="kpi-icon">{icon}</span>' if icon else ""
+    )
+    size_class = f" kpi-{size}" if size in ("small", "large") else ""
     st.markdown(
-        f'<div class="kpi-card">'
-        f'<div class="kpi-label">{label}</div>'
+        f'<div class="kpi-card{size_class}">'
+        f'<div class="kpi-header">{icon_html}'
+        f'<div class="kpi-label">{label}</div></div>'
         f'<div class="kpi-value">{value}</div>'
         f'{delta_html}'
         f'</div>',
@@ -182,9 +209,11 @@ def demo_mode_badge(reason: str = "", *, inline: bool = False) -> None:
     text = "🧪 Demo Modu"
     if reason:
         text += f" — {reason}"
+    # Tema duyarlı: CSS değişkenlerini kullan → hem light hem dark'ta okunabilir
     style = (
-        "display:inline-block;padding:2px 10px;border-radius:8px;"
-        "background:#FFF3E0;color:#E65100;border:1px solid #FFB74D;"
+        "display:inline-block;padding:3px 12px;border-radius:8px;"
+        "background:var(--warning-bg);color:var(--warning-text);"
+        "border:1px solid var(--accent-yellow);"
         "font-size:0.78rem;font-weight:600;letter-spacing:0.2px;"
     )
     if inline:

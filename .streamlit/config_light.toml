@@ -1,0 +1,24 @@
+# TRAK-AI KDS — Light Theme Alternative
+# Bu dosya REFERANSTIR — Streamlit tek config.toml okur.
+# Light moda geçmek için sidebar'daki ☀️ butonunu kullanın.
+# Eğer config.toml ile değiştirmek isterseniz:
+#   cp .streamlit/config_light.toml .streamlit/config.toml
+
+[theme]
+base = "light"
+primaryColor              = "#2E7D32"
+backgroundColor           = "#FFFFFF"
+secondaryBackgroundColor  = "#F1F8E9"
+textColor                 = "#1B2A1B"
+linkColor                 = "#1565C0"
+font                      = "sans serif"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = false
+
+[client]
+showErrorDetails = true
+toolbarMode      = "minimal"
