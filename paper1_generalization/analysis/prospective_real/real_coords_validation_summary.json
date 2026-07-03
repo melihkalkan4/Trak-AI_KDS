@@ -1,0 +1,184 @@
+{
+  "site": {
+    "id": "EVR01R",
+    "name": "Gercek parsel (Vize) \u2014 real surveyed field",
+    "centroid_lat": 41.53119125,
+    "centroid_lon": 27.861465499999998,
+    "area_m2": 6200.4,
+    "area_da": 6.2,
+    "area_ha": 0.62,
+    "inward_buffer_m_used": 10.0,
+    "used_area_m2": 3129.2,
+    "n_ring_pts": 5,
+    "corners_latlon": [
+      [
+        41.53179,
+        27.86159
+      ],
+      [
+        41.531521,
+        27.862092
+      ],
+      [
+        41.530694,
+        27.861425
+      ],
+      [
+        41.53076,
+        27.860755
+      ]
+    ],
+    "polygon_lonlat_ring": [
+      [
+        27.8616255,
+        41.5316604
+      ],
+      [
+        27.8619317,
+        41.5314963
+      ],
+      [
+        27.8613628,
+        41.5307908
+      ],
+      [
+        27.8609532,
+        41.5308312
+      ],
+      [
+        27.8616255,
+        41.5316604
+      ]
+    ]
+  },
+  "tolerance_days": 2,
+  "generated_utc": "2026-06-20T19:11:05.276906+00:00",
+  "windows": [
+    {
+      "year": "2025",
+      "raw_s2": {
+        "n_predictions": 335,
+        "n_matched": 210,
+        "coverage_pct": 62.69,
+        "overall_model": {
+          "n": 210,
+          "R2": 0.7750793525114045,
+          "MAE": 0.08442890155008863,
+          "RMSE": 0.10596839798166607,
+          "bias": 0.03266668438795073,
+          "MAPE_pct": 52.87024669024293
+        },
+        "overall_naive_persistence": {
+          "n": 210,
+          "R2": 0.8986421130056221,
+          "MAE": 0.054657242114373616,
+          "RMSE": 0.07113617024092415,
+          "bias": -0.005276136875549953,
+          "MAPE_pct": 28.40223529853108
+        },
+        "wilcoxon_model_vs_naive": {
+          "n": 210,
+          "median_abs_err_model": 0.0694217759847642,
+          "median_abs_err_naive": 0.04177023625373841,
+          "mean_abs_err_model": 0.08442890155008863,
+          "mean_abs_err_naive": 0.054657242114373616,
+          "wilcoxon_statistic": 15758.0,
+          "wilcoxon_p_value": 0.9999999448607767
+        }
+      },
+      "unified": {
+        "n_predictions": 335,
+        "n_matched": 331,
+        "coverage_pct": 98.81,
+        "overall_model": {
+          "n": 331,
+          "R2": 0.7830662129828845,
+          "MAE": 0.08569884398636506,
+          "RMSE": 0.10521290639325845,
+          "bias": 0.04058377680542613,
+          "MAPE_pct": 45.74167435454797
+        },
+        "overall_naive_persistence": {
+          "n": 331,
+          "R2": 0.9108752240405298,
+          "MAE": 0.050802374134735574,
+          "RMSE": 0.06743799415481982,
+          "bias": -0.014987972013134601,
+          "MAPE_pct": 20.64572537491172
+        },
+        "wilcoxon_model_vs_naive": {
+          "n": 331,
+          "median_abs_err_model": 0.07711557211024433,
+          "median_abs_err_naive": 0.031624955177307124,
+          "mean_abs_err_model": 0.08569884398636506,
+          "mean_abs_err_naive": 0.050802374134735574,
+          "wilcoxon_statistic": 40513.0,
+          "wilcoxon_p_value": 0.999999999999964
+        }
+      }
+    },
+    {
+      "year": "2026",
+      "raw_s2": {
+        "n_predictions": 136,
+        "n_matched": 81,
+        "coverage_pct": 59.56,
+        "overall_model": {
+          "n": 81,
+          "R2": -0.19092859083625013,
+          "MAE": 0.17567749239669905,
+          "RMSE": 0.1967422000055235,
+          "bias": -0.1130274458749058,
+          "MAPE_pct": 24.994799822268966
+        },
+        "overall_naive_persistence": {
+          "n": 81,
+          "R2": 0.540171209462956,
+          "MAE": 0.07901137190336062,
+          "RMSE": 0.12225109068316965,
+          "bias": 0.044641931141747374,
+          "MAPE_pct": 15.71943979395285
+        },
+        "wilcoxon_model_vs_naive": {
+          "n": 81,
+          "median_abs_err_model": 0.21614999999999995,
+          "median_abs_err_naive": 0.0484499766349793,
+          "mean_abs_err_model": 0.17567749239669905,
+          "mean_abs_err_naive": 0.07901137190336062,
+          "wilcoxon_statistic": 2797.0,
+          "wilcoxon_p_value": 0.9999999562559229
+        }
+      },
+      "unified": {
+        "n_predictions": 136,
+        "n_matched": 132,
+        "coverage_pct": 97.06,
+        "overall_model": {
+          "n": 132,
+          "R2": -1.3193035872543293,
+          "MAE": 0.16370038709581794,
+          "RMSE": 0.1836277957331197,
+          "bias": -0.14012767077074803,
+          "MAPE_pct": 19.720902405755723
+        },
+        "overall_naive_persistence": {
+          "n": 132,
+          "R2": 0.4902826819996603,
+          "MAE": 0.057375846199315,
+          "RMSE": 0.08608437204193643,
+          "bias": 0.013198868195938357,
+          "MAPE_pct": 8.485616397616447
+        },
+        "wilcoxon_model_vs_naive": {
+          "n": 132,
+          "median_abs_err_model": 0.16610374999999988,
+          "median_abs_err_naive": 0.03856497964859007,
+          "mean_abs_err_model": 0.16370038709581794,
+          "mean_abs_err_naive": 0.057375846199315,
+          "wilcoxon_statistic": 7802.0,
+          "wilcoxon_p_value": 0.9999999999999954
+        }
+      }
+    }
+  ]
+}

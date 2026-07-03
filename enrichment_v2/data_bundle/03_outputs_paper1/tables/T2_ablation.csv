@@ -1,0 +1,5 @@
+crop,cv,A_full_model,A_full_r2,A_full_rmse,A_full_n,A_matched_model,A_matched_r2,A_matched_rmse,A_matched_n,B_model,B_r2,B_rmse,B_n,C_model,C_r2,C_rmse,C_n,dR2_NDVI_matched,dR2_soil_matched,dR2_NDVI_naive_full
+bugday,LOYO,elastic_net,-0.0918,72.706,589,gpr,-0.5747,88.414,213,gpr,-0.5355,87.307,213,xgboost,-0.3114,80.684,213,0.0392,0.2241,-0.4437
+bugday,LOILO,gpr,0.4413,52.009,589,gpr,0.4476,52.366,213,gpr,0.4293,53.226,213,xgboost,0.4268,53.342,213,-0.0183,-0.0025,-0.012
+aycicegi,LOYO,random_forest,0.0509,49.542,576,random_forest,-0.1936,58.962,209,random_forest,0.2374,47.131,209,gpr,0.3865,42.273,209,0.4309,0.1491,0.1865
+aycicegi,LOILO,xgboost,0.504,35.816,576,random_forest,0.4672,39.395,209,gpr,0.4496,40.039,209,gpr,0.582,34.892,209,-0.0176,0.1324,-0.0543

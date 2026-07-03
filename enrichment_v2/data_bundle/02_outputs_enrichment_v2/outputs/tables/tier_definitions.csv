@@ -1,0 +1,5 @@
+tier,composition,note
+A,climate only (unchanged),baseline
+B,"climate + {NDVI, NDRE, EVI} (crop-specific window means)",advisor B
+C,B + soil,advisor C
+D,C + phenological distribution metrics (median/std/CV/P10/P90/range),advisor D

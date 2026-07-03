@@ -1,0 +1,83 @@
+%% Paper 1 — elsarticle SKELETON (Computers and Electronics in Agriculture)
+%% Structural skeleton only. Prose to be finalized from docs/WRITING_DOSSIER.md.
+%% All numbers trace to docs/numbers_ledger.md. Citations are placeholders; verify
+%% every \cite key against refs/references.bib (each marked VERIFY). No invented DOIs.
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage{amsmath,graphicx,booktabs,siunitx}
+\journal{Computers and Electronics in Agriculture}
+
+\begin{document}
+\begin{frontmatter}
+\title{Spatial skill is not temporal skill: an honest cross-validation audit of
+satellite-driven wheat and sunflower yield prediction in Trakya, T\"urkiye}
+
+\author[a]{Melih Kalkan}
+\author[a]{\c{C}avdaro\u{g}lu} %% VERIFY full name/initials/affiliation
+\address[a]{VERIFY: institution, Trakya, T\"urkiye}
+
+\begin{abstract}
+%% From manuscript/paper1.md Abstract (numbers verified in docs/numbers_ledger.md).
+Satellite- and machine-learning-based crop-yield models are frequently reported with high
+accuracy, but the cross-validation design often rewards spatial interpolation rather than the
+temporal extrapolation operational use requires. Re-analysing winter wheat and sunflower over 29
+Trakya districts (2004--2025) under a frozen, recompute-faithful protocol, we contrast
+leave-one-year-out (LOYO, temporal), leave-one-district-out (LOILO, spatial), and spatiotemporal
+cross-validation against climatology and persistence baselines. Under temporal validation no
+machine-learning configuration beats climatology for wheat (best skill score $-0.172$, 95\,\% CI
+$[-0.238,-0.109]$), whereas a multimodal model does for sunflower ($R^2=0.386$; skill score
+$+0.224\,[+0.167,+0.276]$). We quantify a large, significant spatial-vs-temporal generalization gap
+(e.g.\ wheat climate tier $\Delta R^2=+0.639\,[+0.545,+0.735]$), show NDVI's marginal value is
+crop-specific via a matched-sample ablation, and document a senescence collapse in forward NDVI
+forecasting. Cross-validated accuracy is not operational skill.
+\end{abstract}
+
+\begin{keyword}
+crop yield prediction \sep spatial vs temporal cross-validation \sep generalization gap \sep
+NDVI \sep climatology baseline \sep operational validation
+\end{keyword}
+\end{frontmatter}
+
+%% Highlights (submit separately; 3-5 bullets, <=85 chars) -- see manuscript/paper1.md.
+
+\section{Introduction}\label{sec:intro}
+% paper1.md Sec 1. Cite \cite{vanklompenburg2020review,roberts2017crossval,ploton2020spatial}. [VERIFY keys]
+
+\section{Study area and data}\label{sec:data}
+% paper1.md Sec 2. TUIK yields; Sentinel-2 \cite{drusch2012sentinel2}; GEE \cite{gorelick2017gee};
+% SoilGrids \cite{poggio2021soilgrids}. Tiers A/B/C; n=589/576 (climate), 213/209 (NDVI). [VERIFY]
+
+\section{Methods}\label{sec:methods}
+% paper1.md Sec 3 + docs/methods_as_implemented.md. CV regimes; models; baselines B0-B3;
+% bootstrap (iid+cluster); paired Wilcoxon + rank-biserial; matched ablation; Moran's I
+% \cite{moran1950notes}; FLOV. Reproduction fidelity max|delta|=0.0.
+
+\section{Results}\label{sec:results}
+% paper1.md Sec 4. Tables 1-2, Figs 1-6.
+\begin{table}[t]\centering\caption{Cross-validated performance (excerpt; full in T1\_master\_results.csv).}
+\label{tab:t1}\begin{tabular}{llrrr}\toprule
+Crop & Model (LOYO) & $R^2$ & RMSE & SS vs B0\\\midrule
+Wheat & B0 climatology & 0.213 & 61.7 & 0.000\\
+Wheat & Layer C XGBoost & -0.311 & 80.7 & -0.172\\
+Sunflower & B0 climatology & 0.033 & 50.0 & 0.000\\
+Sunflower & Layer C GPR & 0.386 & 42.3 & +0.225\\\bottomrule
+\end{tabular}\end{table}
+
+\section{Discussion}\label{sec:discussion}
+% paper1.md Sec 5.
+
+\section{Limitations}\label{sec:limitations}
+% paper1.md Sec 6. EVR_01 now REAL surveyed coords (0.62 ha, single small field, subpixel);
+% small-n LOYO; single region; EVR_02-05 still placeholder.
+
+\section{Conclusion}\label{sec:conclusion}
+% paper1.md Sec 7.
+
+\section*{Data and code availability}
+% paper1_generalization/ ; run_all.py.
+
+\section*{Acknowledgements}
+T\"UB\.ITAK 2209-A %% [VERIFY grant id]
+
+\bibliographystyle{elsarticle-num}
+\bibliography{../refs/references}
+\end{document}

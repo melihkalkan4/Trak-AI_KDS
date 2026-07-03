@@ -1,0 +1,14 @@
+SPATIOTEMPORAL CV SCENARIO (#11)
+================================
+Implemented in src/cp25 _block_groups + LeaveOneGroupOut over block_id =
+  year_block(5, linspace over year range) * n_space_clusters + KMeans(lat/lon, k=5).
+
+SCENARIO = A  (cell holdout) = 'spatiotemporal block interpolation'.
+Holding out one (year-block x space-cluster) cell leaves, in training, both other years of
+the same regions and other regions of the same years. This is therefore NOT strict
+spatiotemporal extrapolation (Scenario B, where the test year's ALL regions and the test
+region's ALL years would be removed). The paper should name this regime 'spatiotemporal
+block interpolation' (Scenario A), distinct from LOYO (temporal) and LOILO (spatial).
+
+Scenario B (strict extrapolation) is an optional stricter variant; not run here to avoid
+changing the published metric definition — flagged in HANDOFF as available on request.

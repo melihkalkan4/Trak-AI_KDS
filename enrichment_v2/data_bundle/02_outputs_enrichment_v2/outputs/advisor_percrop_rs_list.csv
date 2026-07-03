@@ -1,0 +1,3 @@
+crop,n,effective_RS_indices,ineffective_RS_indices,selected_RS_features
+bugday,213,"EVI, NDRE",NDVI,EVI_peak_p10; EVI_peak_cv; EVI_grainfill_range; EVI_greenup_cv; NDRE_peak_p10; EVI_grainfill_p10; NDRE_peak_mean; NDRE_peak_stdDev
+aycicegi,209,"NDRE, NDVI",EVI,NDVI_greenup_cv; NDVI_peak_p10; NDRE_peak_p10; NDRE_peak_cv

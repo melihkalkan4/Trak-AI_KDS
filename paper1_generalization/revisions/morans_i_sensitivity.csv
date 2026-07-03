@@ -1,0 +1,9 @@
+crop,k,morans_I,E_I,z_norm,p_norm,p_sim,n_ilce,scale
+bugday,3,0.2407,-0.0357,2.0883,0.0368,0.025,29,GLOBAL Moran's I (single statistic over all districts)
+bugday,4,0.2572,-0.0357,2.643,0.0082,0.016,29,GLOBAL Moran's I (single statistic over all districts)
+bugday,5,0.2375,-0.0357,2.8233,0.0048,0.007,29,GLOBAL Moran's I (single statistic over all districts)
+bugday,6,0.2054,-0.0357,2.7512,0.0059,0.011,29,GLOBAL Moran's I (single statistic over all districts)
+aycicegi,3,0.1726,-0.037,1.5584,0.1191,0.061,28,GLOBAL Moran's I (single statistic over all districts)
+aycicegi,4,0.1173,-0.037,1.3788,0.1679,0.081,28,GLOBAL Moran's I (single statistic over all districts)
+aycicegi,5,0.0841,-0.037,1.2365,0.2163,0.116,28,GLOBAL Moran's I (single statistic over all districts)
+aycicegi,6,0.0695,-0.037,1.1924,0.2331,0.109,28,GLOBAL Moran's I (single statistic over all districts)

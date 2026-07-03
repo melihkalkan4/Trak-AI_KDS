@@ -1,0 +1,9 @@
+crop,tier,model,cv,n,r2,rmse,baseline_rmse_matched,skill_score,ss_ci_low_clustered,ss_ci_high_clustered
+aycicegi,A,random_forest,LOYO,209,-0.199,59.095,54.44,-0.0855,-0.2545,0.0068
+aycicegi,B,random_forest,LOYO,209,-0.2528,60.407,54.44,-0.1096,-0.2484,-0.0265
+aycicegi,C,gpr,LOYO,209,-0.0568,55.481,54.44,-0.0191,-0.2392,0.1336
+aycicegi,D,random_forest,LOYO,209,-0.0267,54.684,54.44,-0.0045,-0.0674,0.0693
+bugday,A,gpr,LOYO,213,-0.517,86.777,68.813,-0.261,-0.5429,-0.1275
+bugday,B,random_forest,LOYO,213,-0.2662,79.28,68.813,-0.1521,-0.3709,-0.035
+bugday,C,gpr,LOYO,213,-0.0909,73.589,68.813,-0.0694,-0.1691,-0.0203
+bugday,D,gpr,LOYO,213,0.0184,69.805,68.813,-0.0144,-0.0872,0.07

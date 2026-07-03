@@ -1,0 +1,23 @@
+{
+  "source": "era5_cds_month",
+  "params": {
+    "area_pad_deg": 0.1,
+    "lat": 41.531191,
+    "lon": 27.861465,
+    "month": 4,
+    "site_id": "EVR01R",
+    "source": "reanalysis-era5-land",
+    "variables": [
+      "2m_temperature",
+      "2m_dewpoint_temperature",
+      "total_precipitation",
+      "surface_net_solar_radiation",
+      "total_evaporation"
+    ],
+    "year": 2025
+  },
+  "content_type": "application/python-pickle",
+  "size_bytes": 2580,
+  "sha256": "52e021c7a4a729fec6373c6011fbc2e7618476f1a03c32809b51ca3b3ed5987b",
+  "created_utc": "2026-06-20T16:57:45.627774+00:00"
+}

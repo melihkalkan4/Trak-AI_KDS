@@ -1,0 +1,595 @@
+crop,tier,feature,group,importance,status,note
+bugday,A,gdd_cum_season,climate,0.08575,selected,
+bugday,A,gdd_flowering,climate,0.0502,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+bugday,A,vernalization_days,climate,0.03063,selected,
+bugday,A,tp_season_sum,climate,0.17052,selected,
+bugday,A,tp_winter_sum,climate,0.03381,dropped_collinear,collinear(|r|=0.93) with tp_season_sum
+bugday,A,tp_flowering,climate,0.06229,selected,
+bugday,A,tp_grain_fill,climate,0.20995,selected,
+bugday,A,aridity_index,climate,0.07732,dropped_collinear,collinear(|r|=0.90) with tp_season_sum
+bugday,A,heat_stress_days,climate,0.01148,selected,
+bugday,A,t2m_flowering_mean,climate,0.0862,selected,
+bugday,A,t2m_flowering_max,climate,0.02699,selected,
+bugday,A,tdiff_mean,climate,0.02048,selected,
+bugday,A,ssr_flowering_sum,climate,0.10613,selected,
+bugday,A,ssr_season_sum,climate,0.02825,selected,
+bugday,B,gdd_cum_season,climate,0.03883,selected,
+bugday,B,gdd_flowering,climate,0.0125,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+bugday,B,vernalization_days,climate,0.01574,selected,
+bugday,B,tp_season_sum,climate,0.08467,selected,
+bugday,B,tp_winter_sum,climate,0.02819,dropped_collinear,collinear(|r|=0.93) with tp_season_sum
+bugday,B,tp_flowering,climate,0.02787,selected,
+bugday,B,tp_grain_fill,climate,0.05327,selected,
+bugday,B,aridity_index,climate,0.05976,dropped_collinear,collinear(|r|=0.90) with tp_season_sum
+bugday,B,heat_stress_days,climate,0.00763,dropped_lowrank,
+bugday,B,t2m_flowering_mean,climate,0.02258,selected,
+bugday,B,t2m_flowering_max,climate,0.01165,dropped_lowrank,
+bugday,B,tdiff_mean,climate,0.00813,dropped_lowrank,
+bugday,B,ssr_flowering_sum,climate,0.04871,selected,
+bugday,B,ssr_season_sum,climate,0.01242,dropped_lowrank,
+bugday,B,NDVI_greenup_mean,index_mean,0.00384,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_mean
+bugday,B,EVI_greenup_mean,index_mean,0.01012,dropped_collinear,collinear(|r|=1.00) with EVI2_greenup_mean
+bugday,B,EVI2_greenup_mean,index_mean,0.01062,dropped_lowrank,
+bugday,B,NDRE_greenup_mean,index_mean,0.00649,dropped_collinear,collinear(|r|=0.94) with EVI2_greenup_mean
+bugday,B,CIre_greenup_mean,index_mean,0.00565,dropped_collinear,collinear(|r|=0.91) with EVI2_greenup_mean
+bugday,B,NDWI_greenup_mean,index_mean,0.02385,selected,
+bugday,B,GNDVI_greenup_mean,index_mean,0.00761,dropped_collinear,collinear(|r|=0.92) with EVI2_greenup_mean
+bugday,B,OSAVI_greenup_mean,index_mean,0.00394,dropped_collinear,collinear(|r|=0.99) with EVI2_greenup_mean
+bugday,B,NDVI_peak_mean,index_mean,0.00445,dropped_collinear,collinear(|r|=0.96) with EVI_peak_mean
+bugday,B,EVI_peak_mean,index_mean,0.00755,dropped_collinear,collinear(|r|=0.95) with NDRE_peak_mean
+bugday,B,EVI2_peak_mean,index_mean,0.00649,dropped_collinear,collinear(|r|=1.00) with EVI_peak_mean
+bugday,B,NDRE_peak_mean,index_mean,0.01056,dropped_collinear,collinear(|r|=0.91) with CIre_peak_mean
+bugday,B,CIre_peak_mean,index_mean,0.10769,selected,
+bugday,B,NDWI_peak_mean,index_mean,0.01567,selected,
+bugday,B,GNDVI_peak_mean,index_mean,0.01066,dropped_lowrank,
+bugday,B,OSAVI_peak_mean,index_mean,0.00457,dropped_collinear,collinear(|r|=0.98) with GNDVI_peak_mean
+bugday,B,NDVI_grainfill_mean,index_mean,0.01387,dropped_collinear,collinear(|r|=0.96) with EVI_grainfill_mean
+bugday,B,EVI_grainfill_mean,index_mean,0.01868,selected,
+bugday,B,EVI2_grainfill_mean,index_mean,0.0146,dropped_collinear,collinear(|r|=0.99) with EVI_grainfill_mean
+bugday,B,NDRE_grainfill_mean,index_mean,0.01317,dropped_collinear,collinear(|r|=0.97) with EVI_grainfill_mean
+bugday,B,CIre_grainfill_mean,index_mean,0.05308,selected,
+bugday,B,NDWI_grainfill_mean,index_mean,0.18857,selected,
+bugday,B,GNDVI_grainfill_mean,index_mean,0.01726,selected,
+bugday,B,OSAVI_grainfill_mean,index_mean,0.00905,dropped_collinear,collinear(|r|=0.99) with EVI_grainfill_mean
+bugday,C,gdd_cum_season,climate,0.0151,selected,
+bugday,C,gdd_flowering,climate,0.00597,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+bugday,C,vernalization_days,climate,0.0129,selected,
+bugday,C,tp_season_sum,climate,0.08412,selected,
+bugday,C,tp_winter_sum,climate,0.01987,dropped_collinear,collinear(|r|=0.93) with tp_season_sum
+bugday,C,tp_flowering,climate,0.02142,selected,
+bugday,C,tp_grain_fill,climate,0.05744,selected,
+bugday,C,aridity_index,climate,0.04928,dropped_collinear,collinear(|r|=0.90) with tp_season_sum
+bugday,C,heat_stress_days,climate,0.00814,dropped_lowrank,
+bugday,C,t2m_flowering_mean,climate,0.01148,dropped_lowrank,
+bugday,C,t2m_flowering_max,climate,0.00912,dropped_lowrank,
+bugday,C,tdiff_mean,climate,0.00564,dropped_lowrank,
+bugday,C,ssr_flowering_sum,climate,0.04736,selected,
+bugday,C,ssr_season_sum,climate,0.00982,dropped_lowrank,
+bugday,C,NDVI_greenup_mean,index_mean,0.00348,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_mean
+bugday,C,EVI_greenup_mean,index_mean,0.00881,dropped_collinear,collinear(|r|=1.00) with EVI2_greenup_mean
+bugday,C,EVI2_greenup_mean,index_mean,0.00888,dropped_lowrank,
+bugday,C,NDRE_greenup_mean,index_mean,0.0048,dropped_collinear,collinear(|r|=0.94) with EVI2_greenup_mean
+bugday,C,CIre_greenup_mean,index_mean,0.00438,dropped_collinear,collinear(|r|=0.91) with EVI2_greenup_mean
+bugday,C,NDWI_greenup_mean,index_mean,0.01973,selected,
+bugday,C,GNDVI_greenup_mean,index_mean,0.00469,dropped_collinear,collinear(|r|=0.92) with EVI2_greenup_mean
+bugday,C,OSAVI_greenup_mean,index_mean,0.0035,dropped_collinear,collinear(|r|=0.99) with EVI2_greenup_mean
+bugday,C,NDVI_peak_mean,index_mean,0.00327,dropped_collinear,collinear(|r|=0.96) with EVI_peak_mean
+bugday,C,EVI_peak_mean,index_mean,0.00757,dropped_collinear,collinear(|r|=0.95) with NDRE_peak_mean
+bugday,C,EVI2_peak_mean,index_mean,0.00395,dropped_collinear,collinear(|r|=1.00) with EVI_peak_mean
+bugday,C,NDRE_peak_mean,index_mean,0.0084,dropped_collinear,collinear(|r|=0.91) with CIre_peak_mean
+bugday,C,CIre_peak_mean,index_mean,0.07609,selected,
+bugday,C,NDWI_peak_mean,index_mean,0.01022,dropped_lowrank,
+bugday,C,GNDVI_peak_mean,index_mean,0.00525,dropped_lowrank,
+bugday,C,OSAVI_peak_mean,index_mean,0.0034,dropped_collinear,collinear(|r|=0.98) with GNDVI_peak_mean
+bugday,C,NDVI_grainfill_mean,index_mean,0.01312,dropped_collinear,collinear(|r|=0.96) with EVI_grainfill_mean
+bugday,C,EVI_grainfill_mean,index_mean,0.01714,selected,
+bugday,C,EVI2_grainfill_mean,index_mean,0.01328,dropped_collinear,collinear(|r|=0.99) with EVI_grainfill_mean
+bugday,C,NDRE_grainfill_mean,index_mean,0.01242,dropped_collinear,collinear(|r|=0.97) with EVI_grainfill_mean
+bugday,C,CIre_grainfill_mean,index_mean,0.04604,selected,
+bugday,C,NDWI_grainfill_mean,index_mean,0.14121,selected,
+bugday,C,GNDVI_grainfill_mean,index_mean,0.01894,selected,
+bugday,C,OSAVI_grainfill_mean,index_mean,0.00855,dropped_collinear,collinear(|r|=0.99) with EVI_grainfill_mean
+bugday,C,clay_0_30_mean,soil,0.00476,dropped_lowrank,
+bugday,C,sand_0_30_mean,soil,0.00744,dropped_lowrank,
+bugday,C,silt_0_30_mean,soil,0.00602,dropped_lowrank,
+bugday,C,phh2o_0_30_mean,soil,0.01243,dropped_lowrank,
+bugday,C,soc_0_30_mean,soil,0.00427,dropped_collinear,collinear(|r|=0.90) with nitrogen_0_30_mean
+bugday,C,cec_0_30_mean,soil,0.01394,selected,
+bugday,C,bdod_0_30_mean,soil,0.01251,dropped_lowrank,
+bugday,C,nitrogen_0_30_mean,soil,0.00871,dropped_lowrank,
+bugday,C,cfvo_0_30_mean,soil,0.12073,selected,
+bugday,C,awc_0_30,soil,0.00442,dropped_collinear,collinear(|r|=0.91) with silt_0_30_mean
+bugday,D,gdd_cum_season,climate,0.00415,dropped_lowrank,
+bugday,D,gdd_flowering,climate,0.00166,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+bugday,D,vernalization_days,climate,0.00505,dropped_lowrank,
+bugday,D,tp_season_sum,climate,0.06853,selected,
+bugday,D,tp_winter_sum,climate,0.01636,dropped_collinear,collinear(|r|=0.93) with tp_season_sum
+bugday,D,tp_flowering,climate,0.00795,dropped_lowrank,
+bugday,D,tp_grain_fill,climate,0.0067,dropped_lowrank,
+bugday,D,aridity_index,climate,0.02271,dropped_collinear,collinear(|r|=0.90) with tp_season_sum
+bugday,D,heat_stress_days,climate,0.00212,dropped_lowrank,
+bugday,D,t2m_flowering_mean,climate,0.00211,dropped_lowrank,
+bugday,D,t2m_flowering_max,climate,0.00177,dropped_lowrank,
+bugday,D,tdiff_mean,climate,0.00198,dropped_lowrank,
+bugday,D,ssr_flowering_sum,climate,0.01852,selected,
+bugday,D,ssr_season_sum,climate,0.00419,dropped_lowrank,
+bugday,D,NDVI_greenup_mean,index_mean,0.00042,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_mean
+bugday,D,EVI_greenup_mean,index_mean,0.00075,dropped_collinear,collinear(|r|=1.00) with EVI2_greenup_mean
+bugday,D,EVI2_greenup_mean,index_mean,0.00147,dropped_lowrank,
+bugday,D,NDRE_greenup_mean,index_mean,0.00049,dropped_collinear,collinear(|r|=0.94) with EVI2_greenup_mean
+bugday,D,CIre_greenup_mean,index_mean,0.00053,dropped_collinear,collinear(|r|=0.91) with EVI2_greenup_mean
+bugday,D,NDWI_greenup_mean,index_mean,0.00271,dropped_lowrank,
+bugday,D,GNDVI_greenup_mean,index_mean,0.00056,dropped_collinear,collinear(|r|=0.92) with EVI2_greenup_mean
+bugday,D,OSAVI_greenup_mean,index_mean,0.00063,dropped_collinear,collinear(|r|=0.99) with EVI2_greenup_mean
+bugday,D,NDVI_peak_mean,index_mean,0.0004,dropped_collinear,collinear(|r|=0.96) with EVI_peak_mean
+bugday,D,EVI_peak_mean,index_mean,0.00103,dropped_collinear,collinear(|r|=0.95) with NDRE_peak_mean
+bugday,D,EVI2_peak_mean,index_mean,0.00095,dropped_collinear,collinear(|r|=1.00) with EVI_peak_mean
+bugday,D,NDRE_peak_mean,index_mean,0.00168,dropped_collinear,collinear(|r|=0.91) with CIre_peak_mean
+bugday,D,CIre_peak_mean,index_mean,0.00283,dropped_lowrank,
+bugday,D,NDWI_peak_mean,index_mean,0.00277,dropped_lowrank,
+bugday,D,GNDVI_peak_mean,index_mean,0.00096,dropped_lowrank,
+bugday,D,OSAVI_peak_mean,index_mean,0.00046,dropped_collinear,collinear(|r|=0.98) with GNDVI_peak_mean
+bugday,D,NDVI_grainfill_mean,index_mean,0.00268,dropped_lowrank,
+bugday,D,EVI_grainfill_mean,index_mean,0.00121,dropped_collinear,collinear(|r|=0.96) with NDVI_grainfill_mean
+bugday,D,EVI2_grainfill_mean,index_mean,0.0016,dropped_collinear,collinear(|r|=0.96) with NDVI_grainfill_mean
+bugday,D,NDRE_grainfill_mean,index_mean,0.00119,dropped_collinear,collinear(|r|=0.96) with NDVI_grainfill_mean
+bugday,D,CIre_grainfill_mean,index_mean,0.00275,dropped_lowrank,
+bugday,D,NDWI_grainfill_mean,index_mean,0.01776,selected,
+bugday,D,GNDVI_grainfill_mean,index_mean,0.00386,dropped_lowrank,
+bugday,D,OSAVI_grainfill_mean,index_mean,0.00074,dropped_collinear,collinear(|r|=0.99) with NDVI_grainfill_mean
+bugday,D,clay_0_30_mean,soil,0.00118,dropped_lowrank,
+bugday,D,sand_0_30_mean,soil,0.0022,dropped_lowrank,
+bugday,D,silt_0_30_mean,soil,0.00264,dropped_lowrank,
+bugday,D,phh2o_0_30_mean,soil,0.00157,dropped_lowrank,
+bugday,D,soc_0_30_mean,soil,0.00095,dropped_collinear,collinear(|r|=0.90) with nitrogen_0_30_mean
+bugday,D,cec_0_30_mean,soil,0.00161,dropped_lowrank,
+bugday,D,bdod_0_30_mean,soil,0.00246,dropped_lowrank,
+bugday,D,nitrogen_0_30_mean,soil,0.0033,dropped_lowrank,
+bugday,D,cfvo_0_30_mean,soil,0.01616,selected,
+bugday,D,awc_0_30,soil,0.00227,dropped_collinear,collinear(|r|=0.91) with silt_0_30_mean
+bugday,D,NDVI_greenup_median,index_dist,0.00071,dropped_collinear,collinear(|r|=0.95) with EVI2_greenup_mean
+bugday,D,NDVI_greenup_stdDev,index_dist,0.00203,dropped_collinear,collinear(|r|=0.90) with GNDVI_greenup_range
+bugday,D,NDVI_greenup_p10,index_dist,0.00192,dropped_collinear,collinear(|r|=0.96) with NDRE_greenup_p10
+bugday,D,NDVI_greenup_p90,index_dist,0.00048,dropped_collinear,collinear(|r|=0.94) with EVI_greenup_range
+bugday,D,NDVI_greenup_cv,index_dist,0.01466,selected,
+bugday,D,NDVI_greenup_range,index_dist,0.00136,dropped_collinear,collinear(|r|=0.95) with NDVI_greenup_stdDev
+bugday,D,EVI_greenup_median,index_dist,0.00313,dropped_collinear,collinear(|r|=0.97) with EVI2_greenup_mean
+bugday,D,EVI_greenup_stdDev,index_dist,0.00163,dropped_collinear,collinear(|r|=0.90) with NDVI_greenup_stdDev
+bugday,D,EVI_greenup_p10,index_dist,0.00129,dropped_collinear,collinear(|r|=0.99) with EVI2_greenup_p10
+bugday,D,EVI_greenup_p90,index_dist,0.00114,dropped_collinear,collinear(|r|=0.92) with EVI2_greenup_mean
+bugday,D,EVI_greenup_cv,index_dist,0.00413,dropped_lowrank,
+bugday,D,EVI_greenup_range,index_dist,0.00103,dropped_collinear,collinear(|r|=0.96) with OSAVI_greenup_stdDev
+bugday,D,EVI2_greenup_median,index_dist,0.00142,dropped_collinear,collinear(|r|=0.97) with EVI2_greenup_mean
+bugday,D,EVI2_greenup_stdDev,index_dist,0.00082,dropped_collinear,collinear(|r|=0.91) with NDVI_greenup_stdDev
+bugday,D,EVI2_greenup_p10,index_dist,0.00147,dropped_lowrank,
+bugday,D,EVI2_greenup_p90,index_dist,0.00065,dropped_collinear,collinear(|r|=0.93) with EVI2_greenup_mean
+bugday,D,EVI2_greenup_cv,index_dist,0.00122,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_cv
+bugday,D,EVI2_greenup_range,index_dist,0.0007,dropped_collinear,collinear(|r|=1.00) with EVI_greenup_range
+bugday,D,NDRE_greenup_median,index_dist,0.00056,dropped_collinear,collinear(|r|=0.94) with EVI2_greenup_mean
+bugday,D,NDRE_greenup_stdDev,index_dist,0.00121,dropped_collinear,collinear(|r|=0.98) with NDVI_greenup_stdDev
+bugday,D,NDRE_greenup_p10,index_dist,0.00412,dropped_lowrank,
+bugday,D,NDRE_greenup_p90,index_dist,0.00057,dropped_collinear,collinear(|r|=0.93) with EVI_greenup_range
+bugday,D,NDRE_greenup_cv,index_dist,0.00134,dropped_collinear,collinear(|r|=0.96) with NDVI_greenup_cv
+bugday,D,NDRE_greenup_range,index_dist,0.00179,dropped_collinear,collinear(|r|=0.93) with NDVI_greenup_stdDev
+bugday,D,CIre_greenup_median,index_dist,0.0014,dropped_collinear,collinear(|r|=0.90) with EVI2_greenup_mean
+bugday,D,CIre_greenup_stdDev,index_dist,0.00157,dropped_lowrank,
+bugday,D,CIre_greenup_p10,index_dist,0.00442,dropped_lowrank,
+bugday,D,CIre_greenup_p90,index_dist,0.00043,dropped_collinear,collinear(|r|=0.90) with CIre_greenup_stdDev
+bugday,D,CIre_greenup_cv,index_dist,0.00329,dropped_lowrank,
+bugday,D,CIre_greenup_range,index_dist,0.00058,dropped_collinear,collinear(|r|=0.90) with EVI_greenup_range
+bugday,D,NDWI_greenup_median,index_dist,0.00498,dropped_collinear,collinear(|r|=0.97) with NDWI_greenup_mean
+bugday,D,NDWI_greenup_stdDev,index_dist,0.00227,dropped_lowrank,
+bugday,D,NDWI_greenup_p10,index_dist,0.00175,dropped_lowrank,
+bugday,D,NDWI_greenup_p90,index_dist,0.00222,dropped_lowrank,
+bugday,D,NDWI_greenup_cv,index_dist,0.00419,dropped_lowrank,
+bugday,D,NDWI_greenup_range,index_dist,0.00185,dropped_collinear,collinear(|r|=0.98) with NDWI_greenup_stdDev
+bugday,D,GNDVI_greenup_median,index_dist,0.00109,dropped_collinear,collinear(|r|=0.93) with EVI2_greenup_mean
+bugday,D,GNDVI_greenup_stdDev,index_dist,0.00188,dropped_collinear,collinear(|r|=0.90) with GNDVI_greenup_range
+bugday,D,GNDVI_greenup_p10,index_dist,0.00165,dropped_collinear,collinear(|r|=0.96) with NDRE_greenup_p10
+bugday,D,GNDVI_greenup_p90,index_dist,0.0005,dropped_collinear,collinear(|r|=0.91) with EVI2_greenup_mean
+bugday,D,GNDVI_greenup_cv,index_dist,0.00228,dropped_collinear,collinear(|r|=0.95) with NDVI_greenup_cv
+bugday,D,GNDVI_greenup_range,index_dist,0.00287,dropped_lowrank,
+bugday,D,OSAVI_greenup_median,index_dist,0.00102,dropped_collinear,collinear(|r|=0.96) with EVI2_greenup_mean
+bugday,D,OSAVI_greenup_stdDev,index_dist,0.00133,dropped_lowrank,
+bugday,D,OSAVI_greenup_p10,index_dist,0.00092,dropped_collinear,collinear(|r|=0.97) with EVI2_greenup_p10
+bugday,D,OSAVI_greenup_p90,index_dist,0.00035,dropped_collinear,collinear(|r|=0.92) with EVI2_greenup_mean
+bugday,D,OSAVI_greenup_cv,index_dist,0.00906,dropped_collinear,collinear(|r|=0.97) with NDVI_greenup_cv
+bugday,D,OSAVI_greenup_range,index_dist,0.00088,dropped_collinear,collinear(|r|=0.98) with OSAVI_greenup_stdDev
+bugday,D,NDVI_peak_median,index_dist,0.0014,dropped_collinear,collinear(|r|=0.96) with GNDVI_peak_mean
+bugday,D,NDVI_peak_stdDev,index_dist,0.00908,dropped_collinear,collinear(|r|=0.98) with NDRE_peak_stdDev
+bugday,D,NDVI_peak_p10,index_dist,0.00113,dropped_lowrank,
+bugday,D,NDVI_peak_p90,index_dist,0.00432,dropped_collinear,collinear(|r|=0.95) with NDRE_peak_p90
+bugday,D,NDVI_peak_cv,index_dist,0.00038,dropped_collinear,collinear(|r|=0.97) with EVI_peak_cv
+bugday,D,NDVI_peak_range,index_dist,0.0015,dropped_collinear,collinear(|r|=0.96) with NDVI_peak_stdDev
+bugday,D,EVI_peak_median,index_dist,0.00063,dropped_collinear,collinear(|r|=0.95) with GNDVI_peak_mean
+bugday,D,EVI_peak_stdDev,index_dist,0.00314,dropped_collinear,collinear(|r|=0.93) with NDVI_peak_stdDev
+bugday,D,EVI_peak_p10,index_dist,0.00102,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_p10
+bugday,D,EVI_peak_p90,index_dist,0.00227,dropped_collinear,collinear(|r|=0.93) with NDVI_peak_p90
+bugday,D,EVI_peak_cv,index_dist,0.0018,dropped_collinear,collinear(|r|=0.95) with GNDVI_peak_cv
+bugday,D,EVI_peak_range,index_dist,0.00363,dropped_collinear,collinear(|r|=0.91) with NDVI_peak_p90
+bugday,D,EVI2_peak_median,index_dist,0.00081,dropped_collinear,collinear(|r|=0.95) with GNDVI_peak_mean
+bugday,D,EVI2_peak_stdDev,index_dist,0.00216,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_stdDev
+bugday,D,EVI2_peak_p10,index_dist,0.00092,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_p10
+bugday,D,EVI2_peak_p90,index_dist,0.00164,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_p90
+bugday,D,EVI2_peak_cv,index_dist,0.00084,dropped_collinear,collinear(|r|=1.00) with EVI_peak_cv
+bugday,D,EVI2_peak_range,index_dist,0.00209,dropped_collinear,collinear(|r|=0.91) with NDVI_peak_stdDev
+bugday,D,NDRE_peak_median,index_dist,0.00088,dropped_collinear,collinear(|r|=0.95) with GNDVI_peak_mean
+bugday,D,NDRE_peak_stdDev,index_dist,0.04134,dropped_collinear,collinear(|r|=0.91) with CIre_peak_stdDev
+bugday,D,NDRE_peak_p10,index_dist,0.0008,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_p10
+bugday,D,NDRE_peak_p90,index_dist,0.02032,dropped_collinear,collinear(|r|=0.97) with CIre_peak_stdDev
+bugday,D,NDRE_peak_cv,index_dist,0.00157,dropped_collinear,collinear(|r|=0.96) with EVI_peak_cv
+bugday,D,NDRE_peak_range,index_dist,0.03732,dropped_collinear,collinear(|r|=0.97) with NDRE_peak_stdDev
+bugday,D,CIre_peak_median,index_dist,0.00128,dropped_collinear,collinear(|r|=0.91) with GNDVI_peak_mean
+bugday,D,CIre_peak_stdDev,index_dist,0.04273,selected,
+bugday,D,CIre_peak_p10,index_dist,0.00083,dropped_collinear,collinear(|r|=0.94) with NDVI_peak_p10
+bugday,D,CIre_peak_p90,index_dist,0.01436,dropped_collinear,collinear(|r|=0.99) with CIre_peak_stdDev
+bugday,D,CIre_peak_cv,index_dist,0.00081,dropped_collinear,collinear(|r|=0.92) with EVI_peak_cv
+bugday,D,CIre_peak_range,index_dist,0.01798,dropped_collinear,collinear(|r|=0.99) with CIre_peak_stdDev
+bugday,D,NDWI_peak_median,index_dist,0.00135,dropped_collinear,collinear(|r|=0.94) with NDWI_peak_mean
+bugday,D,NDWI_peak_stdDev,index_dist,0.01208,dropped_collinear,collinear(|r|=0.98) with NDWI_peak_range
+bugday,D,NDWI_peak_p10,index_dist,0.00177,dropped_lowrank,
+bugday,D,NDWI_peak_p90,index_dist,0.03301,selected,
+bugday,D,NDWI_peak_cv,index_dist,0.00071,dropped_lowrank,
+bugday,D,NDWI_peak_range,index_dist,0.01406,selected,
+bugday,D,GNDVI_peak_median,index_dist,0.00154,dropped_collinear,collinear(|r|=0.96) with GNDVI_peak_mean
+bugday,D,GNDVI_peak_stdDev,index_dist,0.0089,dropped_lowrank,
+bugday,D,GNDVI_peak_p10,index_dist,0.00121,dropped_collinear,collinear(|r|=0.93) with GNDVI_peak_cv
+bugday,D,GNDVI_peak_p90,index_dist,0.00639,dropped_collinear,collinear(|r|=0.95) with CIre_peak_stdDev
+bugday,D,GNDVI_peak_cv,index_dist,0.00261,dropped_lowrank,
+bugday,D,GNDVI_peak_range,index_dist,0.00763,dropped_collinear,collinear(|r|=0.97) with GNDVI_peak_stdDev
+bugday,D,OSAVI_peak_median,index_dist,0.00077,dropped_collinear,collinear(|r|=0.96) with GNDVI_peak_mean
+bugday,D,OSAVI_peak_stdDev,index_dist,0.0023,dropped_collinear,collinear(|r|=0.95) with GNDVI_peak_stdDev
+bugday,D,OSAVI_peak_p10,index_dist,0.00088,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_p10
+bugday,D,OSAVI_peak_p90,index_dist,0.00157,dropped_lowrank,
+bugday,D,OSAVI_peak_cv,index_dist,0.00082,dropped_collinear,collinear(|r|=0.97) with GNDVI_peak_cv
+bugday,D,OSAVI_peak_range,index_dist,0.00289,dropped_collinear,collinear(|r|=0.92) with GNDVI_peak_stdDev
+bugday,D,NDVI_grainfill_median,index_dist,0.00223,dropped_collinear,collinear(|r|=0.97) with NDVI_grainfill_mean
+bugday,D,NDVI_grainfill_stdDev,index_dist,0.002,dropped_lowrank,
+bugday,D,NDVI_grainfill_p10,index_dist,0.00826,dropped_collinear,collinear(|r|=0.93) with OSAVI_grainfill_p10
+bugday,D,NDVI_grainfill_p90,index_dist,0.00268,dropped_collinear,collinear(|r|=0.91) with NDVI_grainfill_mean
+bugday,D,NDVI_grainfill_cv,index_dist,0.00109,dropped_collinear,collinear(|r|=0.91) with OSAVI_grainfill_cv
+bugday,D,NDVI_grainfill_range,index_dist,0.00147,dropped_collinear,collinear(|r|=0.99) with NDVI_grainfill_stdDev
+bugday,D,EVI_grainfill_median,index_dist,0.00075,dropped_collinear,collinear(|r|=0.93) with NDVI_grainfill_mean
+bugday,D,EVI_grainfill_stdDev,index_dist,0.00092,dropped_collinear,collinear(|r|=0.96) with EVI_grainfill_p90
+bugday,D,EVI_grainfill_p10,index_dist,0.00194,dropped_collinear,collinear(|r|=0.97) with EVI2_grainfill_p10
+bugday,D,EVI_grainfill_p90,index_dist,0.00412,dropped_collinear,collinear(|r|=0.94) with NDRE_grainfill_p90
+bugday,D,EVI_grainfill_cv,index_dist,0.00113,dropped_collinear,collinear(|r|=0.93) with OSAVI_grainfill_cv
+bugday,D,EVI_grainfill_range,index_dist,0.00103,dropped_collinear,collinear(|r|=0.98) with EVI_grainfill_p90
+bugday,D,EVI2_grainfill_median,index_dist,0.00081,dropped_collinear,collinear(|r|=0.93) with NDVI_grainfill_mean
+bugday,D,EVI2_grainfill_stdDev,index_dist,0.00054,dropped_collinear,collinear(|r|=0.90) with NDVI_grainfill_stdDev
+bugday,D,EVI2_grainfill_p10,index_dist,0.0042,dropped_collinear,collinear(|r|=0.94) with OSAVI_grainfill_p10
+bugday,D,EVI2_grainfill_p90,index_dist,0.00239,dropped_collinear,collinear(|r|=0.99) with EVI_grainfill_p90
+bugday,D,EVI2_grainfill_cv,index_dist,0.00101,dropped_collinear,collinear(|r|=0.99) with EVI_grainfill_cv
+bugday,D,EVI2_grainfill_range,index_dist,0.00084,dropped_collinear,collinear(|r|=0.90) with NDVI_grainfill_stdDev
+bugday,D,NDRE_grainfill_median,index_dist,0.00142,dropped_collinear,collinear(|r|=0.95) with NDVI_grainfill_mean
+bugday,D,NDRE_grainfill_stdDev,index_dist,0.00163,dropped_collinear,collinear(|r|=0.97) with NDVI_grainfill_stdDev
+bugday,D,NDRE_grainfill_p10,index_dist,0.00318,dropped_lowrank,
+bugday,D,NDRE_grainfill_p90,index_dist,0.00852,dropped_collinear,collinear(|r|=0.90) with CIre_grainfill_p90
+bugday,D,NDRE_grainfill_cv,index_dist,0.00147,dropped_lowrank,
+bugday,D,NDRE_grainfill_range,index_dist,0.00179,dropped_collinear,collinear(|r|=0.96) with NDVI_grainfill_stdDev
+bugday,D,CIre_grainfill_median,index_dist,0.00088,dropped_collinear,collinear(|r|=0.91) with NDVI_grainfill_mean
+bugday,D,CIre_grainfill_stdDev,index_dist,0.00729,dropped_collinear,collinear(|r|=0.99) with CIre_grainfill_cv
+bugday,D,CIre_grainfill_p10,index_dist,0.00719,dropped_lowrank,
+bugday,D,CIre_grainfill_p90,index_dist,0.08006,selected,
+bugday,D,CIre_grainfill_cv,index_dist,0.01185,selected,
+bugday,D,CIre_grainfill_range,index_dist,0.01836,dropped_collinear,collinear(|r|=0.95) with CIre_grainfill_p90
+bugday,D,NDWI_grainfill_median,index_dist,0.01969,dropped_collinear,collinear(|r|=0.97) with NDWI_grainfill_mean
+bugday,D,NDWI_grainfill_stdDev,index_dist,0.00364,dropped_lowrank,
+bugday,D,NDWI_grainfill_p10,index_dist,0.01135,selected,
+bugday,D,NDWI_grainfill_p90,index_dist,0.02137,selected,
+bugday,D,NDWI_grainfill_cv,index_dist,0.00204,dropped_lowrank,
+bugday,D,NDWI_grainfill_range,index_dist,0.002,dropped_collinear,collinear(|r|=0.99) with NDWI_grainfill_stdDev
+bugday,D,GNDVI_grainfill_median,index_dist,0.004,dropped_collinear,collinear(|r|=0.97) with GNDVI_grainfill_mean
+bugday,D,GNDVI_grainfill_stdDev,index_dist,0.00962,dropped_collinear,collinear(|r|=0.96) with GNDVI_grainfill_range
+bugday,D,GNDVI_grainfill_p10,index_dist,0.01813,selected,
+bugday,D,GNDVI_grainfill_p90,index_dist,0.00157,dropped_collinear,collinear(|r|=0.90) with GNDVI_grainfill_mean
+bugday,D,GNDVI_grainfill_cv,index_dist,0.00617,dropped_lowrank,
+bugday,D,GNDVI_grainfill_range,index_dist,0.00985,dropped_lowrank,
+bugday,D,OSAVI_grainfill_median,index_dist,0.00083,dropped_collinear,collinear(|r|=0.96) with NDVI_grainfill_mean
+bugday,D,OSAVI_grainfill_stdDev,index_dist,0.00064,dropped_collinear,collinear(|r|=0.97) with NDVI_grainfill_stdDev
+bugday,D,OSAVI_grainfill_p10,index_dist,0.02089,selected,
+bugday,D,OSAVI_grainfill_p90,index_dist,0.0021,dropped_lowrank,
+bugday,D,OSAVI_grainfill_cv,index_dist,0.00147,dropped_lowrank,
+bugday,D,OSAVI_grainfill_range,index_dist,0.00103,dropped_collinear,collinear(|r|=0.96) with NDVI_grainfill_stdDev
+bugday,D,elevation_m,topo,0.0078,dropped_lowrank,
+bugday,D,slope_deg,topo,0.00106,dropped_collinear,collinear(|r|=0.96) with twi
+bugday,D,northness,topo,0.00094,dropped_lowrank,
+bugday,D,eastness,topo,0.00145,dropped_lowrank,
+bugday,D,twi,topo,0.00117,dropped_lowrank,
+aycicegi,A,gdd_cum_season,climate,0.0966,selected,
+aycicegi,A,gdd_flowering,climate,0.07056,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+aycicegi,A,vernalization_days,climate,0.0,selected,
+aycicegi,A,tp_season_sum,climate,0.22219,selected,
+aycicegi,A,tp_winter_sum,climate,0.0,selected,
+aycicegi,A,tp_flowering,climate,0.08296,selected,
+aycicegi,A,tp_grain_fill,climate,0.06747,selected,
+aycicegi,A,aridity_index,climate,0.07917,selected,
+aycicegi,A,heat_stress_days,climate,0.03169,dropped_collinear,collinear(|r|=0.95) with t2m_flowering_max
+aycicegi,A,t2m_flowering_mean,climate,0.07348,selected,
+aycicegi,A,t2m_flowering_max,climate,0.04042,selected,
+aycicegi,A,tdiff_mean,climate,0.03084,selected,
+aycicegi,A,ssr_flowering_sum,climate,0.04384,selected,
+aycicegi,A,ssr_season_sum,climate,0.16077,selected,
+aycicegi,B,gdd_cum_season,climate,0.0491,selected,
+aycicegi,B,gdd_flowering,climate,0.04391,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+aycicegi,B,vernalization_days,climate,0.0,dropped_lowrank,
+aycicegi,B,tp_season_sum,climate,0.09913,selected,
+aycicegi,B,tp_winter_sum,climate,0.0,dropped_lowrank,
+aycicegi,B,tp_flowering,climate,0.03601,selected,
+aycicegi,B,tp_grain_fill,climate,0.03632,selected,
+aycicegi,B,aridity_index,climate,0.03856,selected,
+aycicegi,B,heat_stress_days,climate,0.01408,dropped_collinear,collinear(|r|=0.95) with t2m_flowering_max
+aycicegi,B,t2m_flowering_mean,climate,0.04877,selected,
+aycicegi,B,t2m_flowering_max,climate,0.01645,selected,
+aycicegi,B,tdiff_mean,climate,0.01041,dropped_lowrank,
+aycicegi,B,ssr_flowering_sum,climate,0.02503,selected,
+aycicegi,B,ssr_season_sum,climate,0.08553,selected,
+aycicegi,B,NDVI_greenup_mean,index_mean,0.00909,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_mean
+aycicegi,B,EVI_greenup_mean,index_mean,0.01029,dropped_lowrank,
+aycicegi,B,EVI2_greenup_mean,index_mean,0.0046,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_mean
+aycicegi,B,NDRE_greenup_mean,index_mean,0.00604,dropped_collinear,collinear(|r|=0.97) with EVI_greenup_mean
+aycicegi,B,CIre_greenup_mean,index_mean,0.02165,selected,
+aycicegi,B,NDWI_greenup_mean,index_mean,0.01394,dropped_lowrank,
+aycicegi,B,GNDVI_greenup_mean,index_mean,0.01454,dropped_lowrank,
+aycicegi,B,OSAVI_greenup_mean,index_mean,0.00531,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_mean
+aycicegi,B,NDVI_peak_mean,index_mean,0.1578,selected,
+aycicegi,B,EVI_peak_mean,index_mean,0.03509,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_mean
+aycicegi,B,EVI2_peak_mean,index_mean,0.01597,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_mean
+aycicegi,B,NDRE_peak_mean,index_mean,0.01504,dropped_collinear,collinear(|r|=0.99) with NDVI_peak_mean
+aycicegi,B,CIre_peak_mean,index_mean,0.01905,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,B,NDWI_peak_mean,index_mean,0.033,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,B,GNDVI_peak_mean,index_mean,0.01228,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_mean
+aycicegi,B,OSAVI_peak_mean,index_mean,0.03386,dropped_collinear,collinear(|r|=1.00) with NDVI_peak_mean
+aycicegi,B,NDVI_harvest_mean,index_mean,0.00829,dropped_collinear,collinear(|r|=0.99) with NDRE_harvest_mean
+aycicegi,B,EVI_harvest_mean,index_mean,0.00607,dropped_collinear,collinear(|r|=0.98) with NDVI_harvest_mean
+aycicegi,B,EVI2_harvest_mean,index_mean,0.00675,dropped_collinear,collinear(|r|=0.97) with NDVI_harvest_mean
+aycicegi,B,NDRE_harvest_mean,index_mean,0.01319,dropped_collinear,collinear(|r|=0.97) with CIre_harvest_mean
+aycicegi,B,CIre_harvest_mean,index_mean,0.01327,dropped_collinear,collinear(|r|=0.91) with GNDVI_harvest_mean
+aycicegi,B,NDWI_harvest_mean,index_mean,0.02103,selected,
+aycicegi,B,GNDVI_harvest_mean,index_mean,0.01481,selected,
+aycicegi,B,OSAVI_harvest_mean,index_mean,0.00574,dropped_collinear,collinear(|r|=0.96) with GNDVI_harvest_mean
+aycicegi,C,gdd_cum_season,climate,0.01484,dropped_lowrank,
+aycicegi,C,gdd_flowering,climate,0.04083,dropped_collinear,collinear(|r|=1.00) with t2m_flowering_mean
+aycicegi,C,vernalization_days,climate,0.0,dropped_lowrank,
+aycicegi,C,tp_season_sum,climate,0.09235,selected,
+aycicegi,C,tp_winter_sum,climate,0.0,dropped_lowrank,
+aycicegi,C,tp_flowering,climate,0.02562,selected,
+aycicegi,C,tp_grain_fill,climate,0.03595,selected,
+aycicegi,C,aridity_index,climate,0.03352,selected,
+aycicegi,C,heat_stress_days,climate,0.00796,dropped_collinear,collinear(|r|=0.95) with t2m_flowering_max
+aycicegi,C,t2m_flowering_mean,climate,0.04608,selected,
+aycicegi,C,t2m_flowering_max,climate,0.01478,dropped_lowrank,
+aycicegi,C,tdiff_mean,climate,0.00531,dropped_lowrank,
+aycicegi,C,ssr_flowering_sum,climate,0.01931,selected,
+aycicegi,C,ssr_season_sum,climate,0.07834,selected,
+aycicegi,C,NDVI_greenup_mean,index_mean,0.00686,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_mean
+aycicegi,C,EVI_greenup_mean,index_mean,0.00725,dropped_lowrank,
+aycicegi,C,EVI2_greenup_mean,index_mean,0.00374,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_mean
+aycicegi,C,NDRE_greenup_mean,index_mean,0.00616,dropped_collinear,collinear(|r|=0.97) with EVI_greenup_mean
+aycicegi,C,CIre_greenup_mean,index_mean,0.01812,selected,
+aycicegi,C,NDWI_greenup_mean,index_mean,0.00743,dropped_lowrank,
+aycicegi,C,GNDVI_greenup_mean,index_mean,0.01153,dropped_lowrank,
+aycicegi,C,OSAVI_greenup_mean,index_mean,0.00513,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_mean
+aycicegi,C,NDVI_peak_mean,index_mean,0.14999,selected,
+aycicegi,C,EVI_peak_mean,index_mean,0.03244,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_mean
+aycicegi,C,EVI2_peak_mean,index_mean,0.01341,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_mean
+aycicegi,C,NDRE_peak_mean,index_mean,0.01273,dropped_collinear,collinear(|r|=0.99) with NDVI_peak_mean
+aycicegi,C,CIre_peak_mean,index_mean,0.01161,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,C,NDWI_peak_mean,index_mean,0.01592,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,C,GNDVI_peak_mean,index_mean,0.00743,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_mean
+aycicegi,C,OSAVI_peak_mean,index_mean,0.03512,dropped_collinear,collinear(|r|=1.00) with NDVI_peak_mean
+aycicegi,C,NDVI_harvest_mean,index_mean,0.00412,dropped_collinear,collinear(|r|=0.97) with EVI2_harvest_mean
+aycicegi,C,EVI_harvest_mean,index_mean,0.00364,dropped_collinear,collinear(|r|=0.98) with NDVI_harvest_mean
+aycicegi,C,EVI2_harvest_mean,index_mean,0.0043,dropped_collinear,collinear(|r|=0.95) with NDRE_harvest_mean
+aycicegi,C,NDRE_harvest_mean,index_mean,0.00484,dropped_collinear,collinear(|r|=0.97) with CIre_harvest_mean
+aycicegi,C,CIre_harvest_mean,index_mean,0.00908,dropped_lowrank,
+aycicegi,C,NDWI_harvest_mean,index_mean,0.0077,dropped_lowrank,
+aycicegi,C,GNDVI_harvest_mean,index_mean,0.00701,dropped_collinear,collinear(|r|=0.91) with CIre_harvest_mean
+aycicegi,C,OSAVI_harvest_mean,index_mean,0.00325,dropped_collinear,collinear(|r|=0.98) with CIre_harvest_mean
+aycicegi,C,clay_0_30_mean,soil,0.0052,dropped_lowrank,
+aycicegi,C,sand_0_30_mean,soil,0.01942,selected,
+aycicegi,C,silt_0_30_mean,soil,0.00418,dropped_collinear,collinear(|r|=0.92) with awc_0_30
+aycicegi,C,phh2o_0_30_mean,soil,0.01232,dropped_lowrank,
+aycicegi,C,soc_0_30_mean,soil,0.00636,dropped_lowrank,
+aycicegi,C,cec_0_30_mean,soil,0.03331,selected,
+aycicegi,C,bdod_0_30_mean,soil,0.01388,dropped_lowrank,
+aycicegi,C,nitrogen_0_30_mean,soil,0.01487,dropped_lowrank,
+aycicegi,C,cfvo_0_30_mean,soil,0.04699,selected,
+aycicegi,C,awc_0_30,soil,0.03977,selected,
+aycicegi,D,gdd_cum_season,climate,0.00437,dropped_lowrank,
+aycicegi,D,gdd_flowering,climate,0.0275,selected,
+aycicegi,D,vernalization_days,climate,0.0,dropped_lowrank,
+aycicegi,D,tp_season_sum,climate,0.03813,selected,
+aycicegi,D,tp_winter_sum,climate,0.0,dropped_lowrank,
+aycicegi,D,tp_flowering,climate,0.01091,selected,
+aycicegi,D,tp_grain_fill,climate,0.01154,selected,
+aycicegi,D,aridity_index,climate,0.02366,selected,
+aycicegi,D,heat_stress_days,climate,0.00284,dropped_collinear,collinear(|r|=0.95) with t2m_flowering_max
+aycicegi,D,t2m_flowering_mean,climate,0.02441,dropped_collinear,collinear(|r|=1.00) with gdd_flowering
+aycicegi,D,t2m_flowering_max,climate,0.01011,dropped_lowrank,
+aycicegi,D,tdiff_mean,climate,0.00152,dropped_lowrank,
+aycicegi,D,ssr_flowering_sum,climate,0.00651,dropped_lowrank,
+aycicegi,D,ssr_season_sum,climate,0.01485,selected,
+aycicegi,D,NDVI_greenup_mean,index_mean,0.00067,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_mean
+aycicegi,D,EVI_greenup_mean,index_mean,0.0015,dropped_lowrank,
+aycicegi,D,EVI2_greenup_mean,index_mean,0.00092,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_mean
+aycicegi,D,NDRE_greenup_mean,index_mean,0.00074,dropped_collinear,collinear(|r|=0.97) with EVI_greenup_mean
+aycicegi,D,CIre_greenup_mean,index_mean,0.00164,dropped_lowrank,
+aycicegi,D,NDWI_greenup_mean,index_mean,0.00118,dropped_lowrank,
+aycicegi,D,GNDVI_greenup_mean,index_mean,0.00202,dropped_lowrank,
+aycicegi,D,OSAVI_greenup_mean,index_mean,0.00087,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_mean
+aycicegi,D,NDVI_peak_mean,index_mean,0.01493,selected,
+aycicegi,D,EVI_peak_mean,index_mean,0.00239,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_mean
+aycicegi,D,EVI2_peak_mean,index_mean,0.00119,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_mean
+aycicegi,D,NDRE_peak_mean,index_mean,0.00049,dropped_collinear,collinear(|r|=0.99) with NDVI_peak_mean
+aycicegi,D,CIre_peak_mean,index_mean,0.00046,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,D,NDWI_peak_mean,index_mean,0.00103,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,D,GNDVI_peak_mean,index_mean,0.00057,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_mean
+aycicegi,D,OSAVI_peak_mean,index_mean,0.00217,dropped_collinear,collinear(|r|=1.00) with NDVI_peak_mean
+aycicegi,D,NDVI_harvest_mean,index_mean,0.00056,dropped_collinear,collinear(|r|=0.98) with EVI_harvest_mean
+aycicegi,D,EVI_harvest_mean,index_mean,0.00063,dropped_collinear,collinear(|r|=1.00) with EVI2_harvest_mean
+aycicegi,D,EVI2_harvest_mean,index_mean,0.00079,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,NDRE_harvest_mean,index_mean,0.00078,dropped_collinear,collinear(|r|=0.95) with EVI2_harvest_mean
+aycicegi,D,CIre_harvest_mean,index_mean,0.00053,dropped_collinear,collinear(|r|=0.98) with EVI2_harvest_mean
+aycicegi,D,NDWI_harvest_mean,index_mean,0.0018,dropped_lowrank,
+aycicegi,D,GNDVI_harvest_mean,index_mean,0.0015,dropped_lowrank,
+aycicegi,D,OSAVI_harvest_mean,index_mean,0.00065,dropped_collinear,collinear(|r|=0.96) with GNDVI_harvest_mean
+aycicegi,D,clay_0_30_mean,soil,0.00243,dropped_lowrank,
+aycicegi,D,sand_0_30_mean,soil,0.01003,dropped_lowrank,
+aycicegi,D,silt_0_30_mean,soil,0.00186,dropped_collinear,collinear(|r|=0.92) with awc_0_30
+aycicegi,D,phh2o_0_30_mean,soil,0.0017,dropped_lowrank,
+aycicegi,D,soc_0_30_mean,soil,0.00241,dropped_lowrank,
+aycicegi,D,cec_0_30_mean,soil,0.00539,dropped_lowrank,
+aycicegi,D,bdod_0_30_mean,soil,0.00175,dropped_lowrank,
+aycicegi,D,nitrogen_0_30_mean,soil,0.00443,dropped_lowrank,
+aycicegi,D,cfvo_0_30_mean,soil,0.00414,dropped_lowrank,
+aycicegi,D,awc_0_30,soil,0.0196,selected,
+aycicegi,D,NDVI_greenup_median,index_dist,0.00085,dropped_collinear,collinear(|r|=0.92) with EVI_greenup_mean
+aycicegi,D,NDVI_greenup_stdDev,index_dist,0.00112,dropped_collinear,collinear(|r|=0.99) with NDVI_greenup_range
+aycicegi,D,NDVI_greenup_p10,index_dist,0.04511,selected,
+aycicegi,D,NDVI_greenup_p90,index_dist,0.00098,dropped_collinear,collinear(|r|=0.92) with NDVI_greenup_range
+aycicegi,D,NDVI_greenup_cv,index_dist,0.00212,dropped_lowrank,
+aycicegi,D,NDVI_greenup_range,index_dist,0.00167,dropped_collinear,collinear(|r|=0.91) with EVI2_greenup_stdDev
+aycicegi,D,EVI_greenup_median,index_dist,0.00088,dropped_collinear,collinear(|r|=0.95) with EVI_greenup_mean
+aycicegi,D,EVI_greenup_stdDev,index_dist,0.00975,dropped_lowrank,
+aycicegi,D,EVI_greenup_p10,index_dist,0.00234,dropped_collinear,collinear(|r|=0.97) with EVI2_greenup_p10
+aycicegi,D,EVI_greenup_p90,index_dist,0.00494,dropped_collinear,collinear(|r|=0.92) with EVI_greenup_mean
+aycicegi,D,EVI_greenup_cv,index_dist,0.0078,dropped_collinear,collinear(|r|=0.99) with EVI2_greenup_cv
+aycicegi,D,EVI_greenup_range,index_dist,0.00773,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_stdDev
+aycicegi,D,EVI2_greenup_median,index_dist,0.001,dropped_collinear,collinear(|r|=0.94) with EVI_greenup_mean
+aycicegi,D,EVI2_greenup_stdDev,index_dist,0.00616,dropped_collinear,collinear(|r|=0.99) with EVI_greenup_stdDev
+aycicegi,D,EVI2_greenup_p10,index_dist,0.00345,dropped_lowrank,
+aycicegi,D,EVI2_greenup_p90,index_dist,0.00246,dropped_collinear,collinear(|r|=0.92) with EVI_greenup_mean
+aycicegi,D,EVI2_greenup_cv,index_dist,0.01079,selected,
+aycicegi,D,EVI2_greenup_range,index_dist,0.00421,dropped_collinear,collinear(|r|=0.98) with EVI_greenup_stdDev
+aycicegi,D,NDRE_greenup_median,index_dist,0.00101,dropped_collinear,collinear(|r|=0.93) with EVI_greenup_mean
+aycicegi,D,NDRE_greenup_stdDev,index_dist,0.00215,dropped_collinear,collinear(|r|=0.99) with NDRE_greenup_range
+aycicegi,D,NDRE_greenup_p10,index_dist,0.00547,dropped_lowrank,
+aycicegi,D,NDRE_greenup_p90,index_dist,0.00158,dropped_collinear,collinear(|r|=0.90) with NDRE_greenup_stdDev
+aycicegi,D,NDRE_greenup_cv,index_dist,0.00166,dropped_lowrank,
+aycicegi,D,NDRE_greenup_range,index_dist,0.00643,dropped_lowrank,
+aycicegi,D,CIre_greenup_median,index_dist,0.00079,dropped_collinear,collinear(|r|=0.90) with EVI_greenup_mean
+aycicegi,D,CIre_greenup_stdDev,index_dist,0.00112,dropped_collinear,collinear(|r|=0.99) with CIre_greenup_cv
+aycicegi,D,CIre_greenup_p10,index_dist,0.00793,dropped_lowrank,
+aycicegi,D,CIre_greenup_p90,index_dist,0.00179,dropped_lowrank,
+aycicegi,D,CIre_greenup_cv,index_dist,0.00222,dropped_lowrank,
+aycicegi,D,CIre_greenup_range,index_dist,0.00116,dropped_collinear,collinear(|r|=0.95) with CIre_greenup_p90
+aycicegi,D,NDWI_greenup_median,index_dist,0.00154,dropped_collinear,collinear(|r|=0.97) with NDWI_greenup_mean
+aycicegi,D,NDWI_greenup_stdDev,index_dist,0.00942,dropped_collinear,collinear(|r|=0.99) with NDWI_greenup_range
+aycicegi,D,NDWI_greenup_p10,index_dist,0.00376,dropped_lowrank,
+aycicegi,D,NDWI_greenup_p90,index_dist,0.00417,dropped_lowrank,
+aycicegi,D,NDWI_greenup_cv,index_dist,0.00289,dropped_lowrank,
+aycicegi,D,NDWI_greenup_range,index_dist,0.01245,selected,
+aycicegi,D,GNDVI_greenup_median,index_dist,0.00375,dropped_collinear,collinear(|r|=0.97) with GNDVI_greenup_mean
+aycicegi,D,GNDVI_greenup_stdDev,index_dist,0.00303,dropped_collinear,collinear(|r|=0.96) with GNDVI_greenup_range
+aycicegi,D,GNDVI_greenup_p10,index_dist,0.01447,selected,
+aycicegi,D,GNDVI_greenup_p90,index_dist,0.00205,dropped_collinear,collinear(|r|=0.90) with GNDVI_greenup_mean
+aycicegi,D,GNDVI_greenup_cv,index_dist,0.00456,dropped_lowrank,
+aycicegi,D,GNDVI_greenup_range,index_dist,0.00365,dropped_lowrank,
+aycicegi,D,OSAVI_greenup_median,index_dist,0.00047,dropped_collinear,collinear(|r|=0.94) with EVI_greenup_mean
+aycicegi,D,OSAVI_greenup_stdDev,index_dist,0.00199,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_stdDev
+aycicegi,D,OSAVI_greenup_p10,index_dist,0.00712,dropped_collinear,collinear(|r|=0.93) with NDVI_greenup_p10
+aycicegi,D,OSAVI_greenup_p90,index_dist,0.00127,dropped_collinear,collinear(|r|=0.92) with EVI_greenup_mean
+aycicegi,D,OSAVI_greenup_cv,index_dist,0.0016,dropped_collinear,collinear(|r|=0.91) with NDVI_greenup_cv
+aycicegi,D,OSAVI_greenup_range,index_dist,0.00206,dropped_collinear,collinear(|r|=0.96) with EVI_greenup_stdDev
+aycicegi,D,NDVI_peak_median,index_dist,0.07873,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_mean
+aycicegi,D,NDVI_peak_stdDev,index_dist,0.00501,dropped_collinear,collinear(|r|=0.95) with NDWI_peak_stdDev
+aycicegi,D,NDVI_peak_p10,index_dist,0.0006,dropped_collinear,collinear(|r|=0.99) with NDRE_peak_p10
+aycicegi,D,NDVI_peak_p90,index_dist,0.00176,dropped_collinear,collinear(|r|=0.94) with NDVI_peak_stdDev
+aycicegi,D,NDVI_peak_cv,index_dist,0.00158,dropped_collinear,collinear(|r|=0.98) with NDRE_peak_cv
+aycicegi,D,NDVI_peak_range,index_dist,0.00298,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_stdDev
+aycicegi,D,EVI_peak_median,index_dist,0.00273,dropped_collinear,collinear(|r|=0.94) with NDVI_peak_mean
+aycicegi,D,EVI_peak_stdDev,index_dist,0.0023,dropped_collinear,collinear(|r|=0.99) with NDVI_peak_stdDev
+aycicegi,D,EVI_peak_p10,index_dist,0.0016,dropped_collinear,collinear(|r|=0.98) with EVI2_peak_p10
+aycicegi,D,EVI_peak_p90,index_dist,0.0004,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_stdDev
+aycicegi,D,EVI_peak_cv,index_dist,0.00113,dropped_collinear,collinear(|r|=0.96) with NDVI_peak_cv
+aycicegi,D,EVI_peak_range,index_dist,0.00074,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_stdDev
+aycicegi,D,EVI2_peak_median,index_dist,0.00361,dropped_collinear,collinear(|r|=0.94) with NDVI_peak_mean
+aycicegi,D,EVI2_peak_stdDev,index_dist,0.00135,dropped_collinear,collinear(|r|=0.99) with NDVI_peak_stdDev
+aycicegi,D,EVI2_peak_p10,index_dist,0.00249,dropped_lowrank,
+aycicegi,D,EVI2_peak_p90,index_dist,0.0004,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_stdDev
+aycicegi,D,EVI2_peak_cv,index_dist,0.00126,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_cv
+aycicegi,D,EVI2_peak_range,index_dist,0.00146,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_stdDev
+aycicegi,D,NDRE_peak_median,index_dist,0.02884,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_mean
+aycicegi,D,NDRE_peak_stdDev,index_dist,0.0013,dropped_collinear,collinear(|r|=0.98) with NDVI_peak_stdDev
+aycicegi,D,NDRE_peak_p10,index_dist,0.00226,dropped_lowrank,
+aycicegi,D,NDRE_peak_p90,index_dist,0.00089,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_stdDev
+aycicegi,D,NDRE_peak_cv,index_dist,0.00177,dropped_lowrank,
+aycicegi,D,NDRE_peak_range,index_dist,0.00049,dropped_collinear,collinear(|r|=0.97) with NDVI_peak_stdDev
+aycicegi,D,CIre_peak_median,index_dist,0.00153,dropped_collinear,collinear(|r|=0.93) with NDVI_peak_mean
+aycicegi,D,CIre_peak_stdDev,index_dist,0.00156,dropped_lowrank,
+aycicegi,D,CIre_peak_p10,index_dist,0.00372,dropped_lowrank,
+aycicegi,D,CIre_peak_p90,index_dist,0.00073,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_stdDev
+aycicegi,D,CIre_peak_cv,index_dist,0.00296,dropped_lowrank,
+aycicegi,D,CIre_peak_range,index_dist,0.00061,dropped_collinear,collinear(|r|=0.93) with NDVI_peak_stdDev
+aycicegi,D,NDWI_peak_median,index_dist,0.00207,dropped_lowrank,
+aycicegi,D,NDWI_peak_stdDev,index_dist,0.17235,selected,
+aycicegi,D,NDWI_peak_p10,index_dist,0.00212,dropped_lowrank,
+aycicegi,D,NDWI_peak_p90,index_dist,0.00146,dropped_collinear,collinear(|r|=0.96) with NDWI_peak_stdDev
+aycicegi,D,NDWI_peak_cv,index_dist,0.00273,dropped_lowrank,
+aycicegi,D,NDWI_peak_range,index_dist,0.03245,dropped_collinear,collinear(|r|=0.98) with NDWI_peak_stdDev
+aycicegi,D,GNDVI_peak_median,index_dist,0.00151,dropped_collinear,collinear(|r|=0.92) with NDVI_peak_mean
+aycicegi,D,GNDVI_peak_stdDev,index_dist,0.00112,dropped_collinear,collinear(|r|=0.95) with NDWI_peak_stdDev
+aycicegi,D,GNDVI_peak_p10,index_dist,0.00234,dropped_collinear,collinear(|r|=0.92) with EVI2_peak_p10
+aycicegi,D,GNDVI_peak_p90,index_dist,0.00072,dropped_collinear,collinear(|r|=0.93) with NDWI_peak_stdDev
+aycicegi,D,GNDVI_peak_cv,index_dist,0.00114,dropped_lowrank,
+aycicegi,D,GNDVI_peak_range,index_dist,0.00157,dropped_collinear,collinear(|r|=0.94) with NDWI_peak_stdDev
+aycicegi,D,OSAVI_peak_median,index_dist,0.0086,dropped_collinear,collinear(|r|=0.95) with NDVI_peak_mean
+aycicegi,D,OSAVI_peak_stdDev,index_dist,0.00276,dropped_collinear,collinear(|r|=0.97) with NDWI_peak_stdDev
+aycicegi,D,OSAVI_peak_p10,index_dist,0.00099,dropped_collinear,collinear(|r|=0.95) with EVI2_peak_p10
+aycicegi,D,OSAVI_peak_p90,index_dist,0.00037,dropped_collinear,collinear(|r|=0.95) with NDWI_peak_stdDev
+aycicegi,D,OSAVI_peak_cv,index_dist,0.00061,dropped_collinear,collinear(|r|=0.96) with NDRE_peak_cv
+aycicegi,D,OSAVI_peak_range,index_dist,0.00226,dropped_collinear,collinear(|r|=0.96) with NDWI_peak_stdDev
+aycicegi,D,NDVI_harvest_median,index_dist,0.0011,dropped_collinear,collinear(|r|=0.96) with EVI_harvest_median
+aycicegi,D,NDVI_harvest_stdDev,index_dist,0.00076,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,NDVI_harvest_p10,index_dist,0.0014,dropped_collinear,collinear(|r|=0.98) with NDRE_harvest_p10
+aycicegi,D,NDVI_harvest_p90,index_dist,0.00058,dropped_collinear,collinear(|r|=0.99) with NDRE_harvest_p90
+aycicegi,D,NDVI_harvest_cv,index_dist,0.00106,dropped_collinear,collinear(|r|=0.97) with EVI_harvest_cv
+aycicegi,D,NDVI_harvest_range,index_dist,0.00044,dropped_collinear,collinear(|r|=0.99) with NDVI_harvest_p90
+aycicegi,D,EVI_harvest_median,index_dist,0.00129,dropped_collinear,collinear(|r|=0.93) with CIre_harvest_median
+aycicegi,D,EVI_harvest_stdDev,index_dist,0.00188,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,EVI_harvest_p10,index_dist,0.00163,dropped_collinear,collinear(|r|=0.99) with EVI2_harvest_p10
+aycicegi,D,EVI_harvest_p90,index_dist,0.00042,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,EVI_harvest_cv,index_dist,0.00205,dropped_collinear,collinear(|r|=0.94) with NDRE_harvest_cv
+aycicegi,D,EVI_harvest_range,index_dist,0.00417,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,EVI2_harvest_median,index_dist,0.00138,dropped_collinear,collinear(|r|=0.91) with GNDVI_harvest_mean
+aycicegi,D,EVI2_harvest_stdDev,index_dist,0.00099,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,EVI2_harvest_p10,index_dist,0.00303,dropped_collinear,collinear(|r|=0.92) with GNDVI_harvest_p10
+aycicegi,D,EVI2_harvest_p90,index_dist,0.00039,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,EVI2_harvest_cv,index_dist,0.00201,dropped_collinear,collinear(|r|=1.00) with EVI_harvest_cv
+aycicegi,D,EVI2_harvest_range,index_dist,0.00176,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,NDRE_harvest_median,index_dist,0.0012,dropped_collinear,collinear(|r|=0.96) with EVI_harvest_median
+aycicegi,D,NDRE_harvest_stdDev,index_dist,0.00057,dropped_collinear,collinear(|r|=0.95) with NDVI_harvest_p90
+aycicegi,D,NDRE_harvest_p10,index_dist,0.00147,dropped_lowrank,
+aycicegi,D,NDRE_harvest_p90,index_dist,0.00098,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_stdDev
+aycicegi,D,NDRE_harvest_cv,index_dist,0.0055,dropped_lowrank,
+aycicegi,D,NDRE_harvest_range,index_dist,0.00097,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,CIre_harvest_median,index_dist,0.00136,dropped_lowrank,
+aycicegi,D,CIre_harvest_stdDev,index_dist,0.00383,dropped_lowrank,
+aycicegi,D,CIre_harvest_p10,index_dist,0.00191,dropped_lowrank,
+aycicegi,D,CIre_harvest_p90,index_dist,0.00091,dropped_collinear,collinear(|r|=0.91) with NDWI_harvest_mean
+aycicegi,D,CIre_harvest_cv,index_dist,0.00262,dropped_lowrank,
+aycicegi,D,CIre_harvest_range,index_dist,0.00094,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,NDWI_harvest_median,index_dist,0.00173,dropped_collinear,collinear(|r|=0.91) with NDWI_harvest_mean
+aycicegi,D,NDWI_harvest_stdDev,index_dist,0.0014,dropped_collinear,collinear(|r|=0.94) with CIre_harvest_stdDev
+aycicegi,D,NDWI_harvest_p10,index_dist,0.00598,dropped_lowrank,
+aycicegi,D,NDWI_harvest_p90,index_dist,0.00202,dropped_collinear,collinear(|r|=0.92) with NDWI_harvest_mean
+aycicegi,D,NDWI_harvest_cv,index_dist,0.00318,dropped_lowrank,
+aycicegi,D,NDWI_harvest_range,index_dist,0.00221,dropped_collinear,collinear(|r|=0.94) with GNDVI_harvest_range
+aycicegi,D,GNDVI_harvest_median,index_dist,0.00178,dropped_collinear,collinear(|r|=0.92) with GNDVI_harvest_mean
+aycicegi,D,GNDVI_harvest_stdDev,index_dist,0.00208,dropped_collinear,collinear(|r|=0.90) with CIre_harvest_stdDev
+aycicegi,D,GNDVI_harvest_p10,index_dist,0.00354,dropped_collinear,collinear(|r|=0.94) with OSAVI_harvest_p10
+aycicegi,D,GNDVI_harvest_p90,index_dist,0.00065,dropped_collinear,collinear(|r|=0.93) with NDWI_harvest_range
+aycicegi,D,GNDVI_harvest_cv,index_dist,0.0039,dropped_lowrank,
+aycicegi,D,GNDVI_harvest_range,index_dist,0.00281,dropped_lowrank,
+aycicegi,D,OSAVI_harvest_median,index_dist,0.00074,dropped_collinear,collinear(|r|=0.96) with CIre_harvest_median
+aycicegi,D,OSAVI_harvest_stdDev,index_dist,0.00054,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,OSAVI_harvest_p10,index_dist,0.00359,dropped_lowrank,
+aycicegi,D,OSAVI_harvest_p90,index_dist,0.00021,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,OSAVI_harvest_cv,index_dist,0.00287,dropped_collinear,collinear(|r|=0.96) with NDRE_harvest_cv
+aycicegi,D,OSAVI_harvest_range,index_dist,0.0032,dropped_collinear,collinear(|r|=0.90) with NDWI_harvest_mean
+aycicegi,D,elevation_m,topo,0.00925,dropped_lowrank,
+aycicegi,D,slope_deg,topo,0.00153,dropped_collinear,collinear(|r|=0.96) with twi
+aycicegi,D,northness,topo,0.00066,dropped_lowrank,
+aycicegi,D,eastness,topo,0.00193,dropped_lowrank,
+aycicegi,D,twi,topo,0.00467,dropped_lowrank,

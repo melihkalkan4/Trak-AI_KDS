@@ -1,0 +1,589 @@
+[real-coords] site: EVR01R {'centroid_lat': 41.53119125, 'centroid_lon': 27.861465499999998, 'area_m2': 6200.4, 'area_da': 6.2, 'area_ha': 0.62, 'inward_buffer_m_used': 10.0, 'used_area_m2': 3129.2, 'n_ring_pts': 5}
+[32m2026-06-20 20:01:03[0m [1mINFO    [0m [36mprospective_validation.model_loader:load_frozen_champion:176[0m [1mRegistering CP2 custom layers (SelfAttention, ExtractLastNDVI, ScaleDelta) …[0m
+[32m2026-06-20 20:01:14[0m [1mINFO    [0m [36mprospective_validation.model_loader:load_frozen_champion:180[0m [1mLoading frozen LSTM champion: model_lstm_sunflower.keras[0m
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[32m2026-06-20 20:01:14[0m [1mINFO    [0m [36mprospective_validation.model_loader:load_frozen_champion:217[0m [1mFrozen champion loaded. LSTM sha256=43ef61b5a70f16cd (truncated)[0m
+
+[real-coords] window 2025: 2025-01-01 -> 2025-12-31
+[32m2026-06-20 20:01:14[0m [1mINFO    [0m [36mprospective_validation.feature_builder:build_unified_features:171[0m [1m[features] building unified features for EVR01R 2025-01-01→2025-12-31[0m
+2026-06-20 20:01:15,786 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:01:15,787 INFO Request ID is 486b2ead-ac44-4dbc-80d8-b4b6c5b5fb99
+2026-06-20 20:01:15,891 INFO status has been updated to accepted
+2026-06-20 20:07:38,375 INFO status has been updated to running
+2026-06-20 20:13:40,101 INFO status has been updated to successful
+   📥 İndiriliyor: 2025-01 (31 gün)
+cc24e34434f92bf29f0eee6d9cb335f8.zip:   0%|          | 0.00/140k [00:00<?, ?B/s]cc24e34434f92bf29f0eee6d9cb335f8.zip: 100%|██████████| 140k/140k [00:00<00:00, 220kB/s]                                                                                       2026-06-20 20:13:42,220 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:13:42,220 INFO Request ID is b0628d00-3ae3-4426-90f9-9d2a2f34deec
+2026-06-20 20:13:42,314 INFO status has been updated to accepted
+2026-06-20 20:14:03,693 INFO status has been updated to running
+2026-06-20 20:20:03,611 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_01.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-02 (28 gün)
+f7c0e88dd405aaba0ccdd7a4d99d321c.zip:   0%|          | 0.00/139k [00:00<?, ?B/s]f7c0e88dd405aaba0ccdd7a4d99d321c.zip: 100%|██████████| 139k/139k [00:00<00:00, 208kB/s]                                                                                       2026-06-20 20:20:05,922 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:20:05,922 INFO Request ID is b04520bc-a96f-4ce4-9fba-c6ca98c60f39
+2026-06-20 20:20:06,035 INFO status has been updated to accepted
+2026-06-20 20:20:27,419 INFO status has been updated to running
+2026-06-20 20:26:27,747 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 672
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 28 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_02.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-03 (31 gün)
+b4f542b20e910bc3dfd40f12aeb092e8.zip:   0%|          | 0.00/141k [00:00<?, ?B/s]b4f542b20e910bc3dfd40f12aeb092e8.zip: 100%|██████████| 141k/141k [00:00<00:00, 206kB/s]                                                                                       2026-06-20 20:26:30,075 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:26:30,075 INFO Request ID is f5c176ff-49fb-4d93-aaa7-99d3aa77846f
+2026-06-20 20:26:30,155 INFO status has been updated to accepted
+2026-06-20 20:26:51,724 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_03.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-05 (31 gün)
+a387824d1736cd64e2bb7cd82fdace99.zip:   0%|          | 0.00/143k [00:00<?, ?B/s]a387824d1736cd64e2bb7cd82fdace99.zip: 100%|██████████| 143k/143k [00:00<00:00, 228kB/s]                                                                                       2026-06-20 20:26:54,147 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:26:54,147 INFO Request ID is df03ffc6-c0ca-465b-a7fd-380b34efb63c
+2026-06-20 20:26:54,229 INFO status has been updated to accepted
+2026-06-20 20:27:26,948 INFO status has been updated to running
+2026-06-20 20:35:14,842 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_05.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-06 (30 gün)
+46dc9be6fe12439b2d0a9706e192f8a.zip:   0%|          | 0.00/139k [00:00<?, ?B/s]46dc9be6fe12439b2d0a9706e192f8a.zip: 100%|██████████| 139k/139k [00:00<00:00, 233kB/s]                                                                                      2026-06-20 20:35:16,904 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:35:16,904 INFO Request ID is 769da4be-e58e-4bb4-a6a2-9a6efe6022b3
+2026-06-20 20:35:16,993 INFO status has been updated to accepted
+2026-06-20 20:35:30,709 INFO status has been updated to running
+2026-06-20 20:45:41,914 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 720
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 30 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_06.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-07 (31 gün)
+d37a0f16ac4f9e68a915f6876e48bdd2.zip:   0%|          | 0.00/140k [00:00<?, ?B/s]d37a0f16ac4f9e68a915f6876e48bdd2.zip: 100%|██████████| 140k/140k [00:00<00:00, 233kB/s]                                                                                       2026-06-20 20:45:44,824 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:45:44,824 INFO Request ID is 3a2a7fd7-5e56-4861-ab71-d71257ace171
+2026-06-20 20:45:45,875 INFO status has been updated to accepted
+2026-06-20 20:46:07,531 INFO status has been updated to running
+2026-06-20 20:52:06,391 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_07.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-08 (31 gün)
+75b3b926e2c90e23f0b02347fb8021f1.zip:   0%|          | 0.00/141k [00:00<?, ?B/s]75b3b926e2c90e23f0b02347fb8021f1.zip: 100%|██████████| 141k/141k [00:00<00:00, 173kB/s]                                                                                       2026-06-20 20:52:09,304 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 20:52:09,304 INFO Request ID is 3c4b5685-ced5-484a-b7f7-965fa8d78159
+2026-06-20 20:52:09,465 INFO status has been updated to accepted
+2026-06-20 20:52:20,921 INFO status has been updated to running
+2026-06-20 21:02:35,007 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_08.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-09 (30 gün)
+f3f9928f7de5c08aff648ee555bc700e.zip:   0%|          | 0.00/140k [00:00<?, ?B/s]f3f9928f7de5c08aff648ee555bc700e.zip: 100%|██████████| 140k/140k [00:00<00:00, 213kB/s]                                                                                       2026-06-20 21:02:37,390 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:02:37,390 INFO Request ID is b0a8d0f3-0358-4a05-a5ce-ffbceb5c853a
+2026-06-20 21:02:37,476 INFO status has been updated to accepted
+2026-06-20 21:02:59,565 INFO status has been updated to running
+2026-06-20 21:10:59,636 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 720
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 30 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_09.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-10 (31 gün)
+5213dfa69f3e54944a9dbe0057533c2f.zip:   0%|          | 0.00/142k [00:00<?, ?B/s]5213dfa69f3e54944a9dbe0057533c2f.zip: 100%|██████████| 142k/142k [00:00<00:00, 219kB/s]                                                                                       2026-06-20 21:11:03,073 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:11:03,073 INFO Request ID is ead42893-411e-4ac2-b530-c489311ec255
+2026-06-20 21:11:03,169 INFO status has been updated to accepted
+2026-06-20 21:11:16,876 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ead42893-411e-4ac2-b530-c489311ec255?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 11001] getaddrinfo failed)"))], attempt 1 of 500
+Retrying in 120 seconds
+2026-06-20 21:19:23,442 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_10.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-11 (30 gün)
+6b6f47124848f541fe6593e6e3bb6ac7.zip:   0%|          | 0.00/140k [00:00<?, ?B/s]6b6f47124848f541fe6593e6e3bb6ac7.zip: 100%|██████████| 140k/140k [00:00<00:00, 216kB/s]                                                                                       2026-06-20 21:19:25,537 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:19:25,538 INFO Request ID is 3f7b9186-d268-4632-9144-86cd3c3a95de
+2026-06-20 21:19:26,468 INFO status has been updated to accepted
+2026-06-20 21:19:48,771 INFO status has been updated to running
+2026-06-20 21:27:52,983 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 720
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 30 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_11.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2025-12 (31 gün)
+63e488ca5e3afff33575330d4b330133.zip:   0%|          | 0.00/141k [00:00<?, ?B/s]63e488ca5e3afff33575330d4b330133.zip: 100%|██████████| 141k/141k [00:01<00:00, 96.6kB/s]                                                                                        [32m2026-06-20 21:27:56[0m [1mINFO    [0m [36mprospective_validation.fetchers.era5:fetch_era5_daily:205[0m [1m[era5] EVR01R 2025-01-01→2025-12-31: 365 daily rows from 12 months[0m
+[32m2026-06-20 21:28:33[0m [1mINFO    [0m [36mprospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:132[0m [1m[s2] EVR01R 2025-01-01→2025-12-31: 60 cloud-free passes (full year: 60)[0m
+[32m2026-06-20 21:29:48[0m [1mINFO    [0m [36mprospective_validation.frozen_model_predictor:predict_ndvi_series:146[0m [1m[predictor] produced 335 predictions (2025-01-30 → 2025-12-30)[0m
+[32m2026-06-20 21:29:48[0m [1mINFO    [0m [36mprospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:96[0m [1m[s2] cache hit for EVR01R 2025-01-01→2025-12-31 (60 rows)[0m
+[32m2026-06-20 21:29:49[0m [1mINFO    [0m [36mprospective_validation.live_validator:report:145[0m [1m[validator] EVR01R: matched 210/335 (62.7%) — R²=0.775, MAE=0.0844, naive MAE=0.0547[0m
+[32m2026-06-20 21:29:49[0m [1mINFO    [0m [36mprospective_validation.live_validator:report:145[0m [1m[validator] EVR01R: matched 331/335 (98.8%) — R²=0.783, MAE=0.0857, naive MAE=0.0508[0m
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_czqva583\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2025_12.zip
+      🗑️  Silindi: data_0.nc
+🛰️ Sentinel-2: 2025-2025 arası uydu indeksleri (NDVI, EVI, NDWI) çekiliyor...
+   Veriler GEE sunucularında işleniyor, lütfen bekleyin...
+✅ Sentinel-2 verisi başarıyla çekildi (60 net uydu geçişi).
+[real-coords] 2025 done: {"n_predictions": 335, "n_matched": 210, "coverage_pct": 62.69, "overall_model": {"n": 210, "R2": 0.7750793525114045, "MAE": 0.08442890155008863, "RMSE": 0.10596839798166607, "bias": 0.03266668438795073, "MAPE_pct": 52.87024669024293}, "overall_naive_persistence": {"n": 210, "R2": 0.8986421130056221, "MAE": 0.054657242114373616, "RMSE": 0.07113617024092415, "bias": -0.005276136875549953, "MAPE_pct
+
+[real-coords] window 2026: 2026-01-01 -> 2026-06-20
+[32m2026-06-20 21:29:49[0m [1mINFO    [0m [36mprospective_validation.feature_builder:build_unified_features:171[0m [1m[features] building unified features for EVR01R 2026-01-01→2026-06-20[0m
+2026-06-20 21:29:51,193 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:29:51,194 INFO Request ID is 81fb6196-f7b0-48dc-9aa2-4463e7e29ea7
+2026-06-20 21:29:51,295 INFO status has been updated to accepted
+2026-06-20 21:30:14,264 INFO status has been updated to running
+2026-06-20 21:36:18,876 INFO status has been updated to successful
+   📥 İndiriliyor: 2026-01 (31 gün)
+e3e1e88004cf90454fd8013192e96a0c.zip:   0%|          | 0.00/142k [00:00<?, ?B/s]e3e1e88004cf90454fd8013192e96a0c.zip: 100%|██████████| 142k/142k [00:01<00:00, 99.1kB/s]                                                                                        2026-06-20 21:36:23,940 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:36:23,941 INFO Request ID is fd26b5d3-4e63-4948-a06e-1b86011c14c4
+2026-06-20 21:36:24,029 INFO status has been updated to accepted
+2026-06-20 21:36:46,026 INFO status has been updated to running
+2026-06-20 21:44:49,041 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_gzk164ou\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2026_01.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2026-02 (28 gün)
+47748212036b773fa72bbe3720c10857.zip:   0%|          | 0.00/138k [00:00<?, ?B/s]47748212036b773fa72bbe3720c10857.zip: 100%|██████████| 138k/138k [00:01<00:00, 101kB/s]                                                                                       2026-06-20 21:44:55,271 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:44:55,271 INFO Request ID is b9863b5d-7bef-4598-af27-cc6a875a9da0
+2026-06-20 21:44:55,347 INFO status has been updated to accepted
+2026-06-20 21:45:17,096 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/b9863b5d-7bef-4598-af27-cc6a875a9da0?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 11001] getaddrinfo failed)"))], attempt 1 of 500
+Retrying in 120 seconds
+2026-06-20 21:51:17,506 INFO status has been updated to successful
+   ✅ İndirildi: 0.13 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_gzk164ou\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.13 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 672
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 28 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2026_02.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2026-03 (31 gün)
+70538bd013c3aee04cb1d27848938ad0.zip:   0%|          | 0.00/142k [00:00<?, ?B/s]70538bd013c3aee04cb1d27848938ad0.zip: 100%|██████████| 142k/142k [00:01<00:00, 94.8kB/s]                                                                                        2026-06-20 21:51:22,524 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:51:22,525 INFO Request ID is fc51df55-0aa0-48be-b018-a1d706c9be05
+2026-06-20 21:51:22,623 INFO status has been updated to accepted
+2026-06-20 21:51:44,085 INFO status has been updated to running
+2026-06-20 21:59:52,258 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_gzk164ou\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2026_03.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2026-04 (30 gün)
+569737dfba11bdcb7a6c5aad212a65cd.zip:   0%|          | 0.00/140k [00:00<?, ?B/s]569737dfba11bdcb7a6c5aad212a65cd.zip: 100%|██████████| 140k/140k [00:01<00:00, 94.6kB/s]                                                                                        2026-06-20 21:59:57,028 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 21:59:57,029 INFO Request ID is af55b838-9434-4a6a-bb95-fb5263e9534f
+2026-06-20 21:59:57,133 INFO status has been updated to accepted
+2026-06-20 22:00:18,703 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/af55b838-9434-4a6a-bb95-fb5263e9534f?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 11001] getaddrinfo failed)"))], attempt 1 of 500
+Retrying in 120 seconds
+2026-06-20 22:06:20,429 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_gzk164ou\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 720
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 30 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2026_04.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2026-05 (31 gün)
+4c0538c82c3d21ce64d44a66a07a4758.zip:   0%|          | 0.00/143k [00:00<?, ?B/s]4c0538c82c3d21ce64d44a66a07a4758.zip: 100%|██████████| 143k/143k [00:01<00:00, 99.2kB/s]                                                                                        2026-06-20 22:06:26,159 INFO [2025-12-11T00:00:00] Please note that a dedicated catalogue entry for this dataset, post-processed and stored in Analysis Ready Cloud Optimized (ARCO) format (Zarr), is available for optimised time-series retrievals (i.e. for retrieving data from selected variables for a single point over an extended period of time in an efficient way). You can discover it [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries?tab=overview)
+2026-06-20 22:06:26,160 INFO Request ID is 66aa18d6-190c-451d-a4a0-41fe3e5f3ec9
+2026-06-20 22:06:26,244 INFO status has been updated to accepted
+2026-06-20 22:06:49,200 INFO status has been updated to running
+2026-06-20 22:10:48,209 INFO status has been updated to successful
+   ✅ İndirildi: 0.14 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_gzk164ou\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.14 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 744
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 31 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2026_05.zip
+      🗑️  Silindi: data_0.nc
+   📥 İndiriliyor: 2026-06 (30 gün)
+fa04a70cfcd8511d0851c4e7c1d883fd.zip:   0%|          | 0.00/99.0k [00:00<?, ?B/s]fa04a70cfcd8511d0851c4e7c1d883fd.zip: 100%|██████████| 99.0k/99.0k [00:00<00:00, 161kB/s]                                                                                         [32m2026-06-20 22:10:49[0m [1mINFO    [0m [36mprospective_validation.fetchers.era5:fetch_era5_daily:205[0m [1m[era5] EVR01R 2026-01-01→2026-06-20: 166 daily rows from 6 months[0m
+[32m2026-06-20 22:10:57[0m [1mINFO    [0m [36mprospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:132[0m [1m[s2] EVR01R 2026-01-01→2026-06-20: 20 cloud-free passes (full year: 20)[0m
+[32m2026-06-20 22:11:05[0m [1mINFO    [0m [36mprospective_validation.frozen_model_predictor:predict_ndvi_series:146[0m [1m[predictor] produced 136 predictions (2026-01-30 → 2026-06-14)[0m
+[32m2026-06-20 22:11:05[0m [1mINFO    [0m [36mprospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:96[0m [1m[s2] cache hit for EVR01R 2026-01-01→2026-06-20 (20 rows)[0m
+[32m2026-06-20 22:11:05[0m [1mINFO    [0m [36mprospective_validation.live_validator:report:145[0m [1m[validator] EVR01R: matched 81/136 (59.6%) — R²=-0.191, MAE=0.1757, naive MAE=0.0790[0m
+[32m2026-06-20 22:11:05[0m [1mINFO    [0m [36mprospective_validation.live_validator:report:145[0m [1m[validator] EVR01R: matched 132/136 (97.1%) — R²=-1.319, MAE=0.1637, naive MAE=0.0574[0m
+   ✅ İndirildi: 0.10 MB
+   📂 ZIP dosyası işleniyor...
+      Dosya tipi: ZIP arşivi
+      ZIP açılıyor...
+      ZIP içeriği: ['data_0.nc']
+      NetCDF bulundu: data_0.nc
+   ✅ Çıkarıldı: C:\Users\MELIHK~1\AppData\Local\Temp\flov_era5_gzk164ou\data_0.nc
+   ⚙️  NetCDF açılıyor: data_0.nc
+      Dosya boyutu: 0.10 MB
+      netcdf4 engine deneniyor...
+   ✅ Açıldı: netcdf4 engine
+      Boyutlar: ['valid_time', 'latitude', 'longitude']
+      Değişkenler: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   🔄 Veri işleniyor (saatlik → günlük)...
+      Zaman boyutu: valid_time
+      Konum boyutları: latitude, longitude
+      Saatlik kayıt sayısı: 356
+      Agregasyon kuralları: ['t2m', 'd2m', 'tp', 'ssr', 'e']
+   ✅ İşlendi: 15 gün
+      Sütunlar: ['date', 't2m_mean', 't2m_min', 't2m_max', 'd2m_mean', 'tp_sum', 'ssr_sum', 'e_sum']
+      🗑️  Silindi: era5_EVR01R_2026_06.zip
+      🗑️  Silindi: data_0.nc
+🛰️ Sentinel-2: 2026-2026 arası uydu indeksleri (NDVI, EVI, NDWI) çekiliyor...
+   Veriler GEE sunucularında işleniyor, lütfen bekleyin...
+✅ Sentinel-2 verisi başarıyla çekildi (20 net uydu geçişi).
+[real-coords] 2026 done: {"n_predictions": 136, "n_matched": 81, "coverage_pct": 59.56, "overall_model": {"n": 81, "R2": -0.19092859083625013, "MAE": 0.17567749239669905, "RMSE": 0.1967422000055235, "bias": -0.1130274458749058, "MAPE_pct": 24.994799822268966}, "overall_naive_persistence": {"n": 81, "R2": 0.540171209462956, "MAE": 0.07901137190336062, "RMSE": 0.12225109068316965, "bias": 0.044641931141747374, "MAPE_pct": 1
+
+[save] real_coords_validation_summary.json
+{
+  "site": {
+    "id": "EVR01R",
+    "name": "Gercek parsel (Vize) \u2014 real surveyed field",
+    "centroid_lat": 41.53119125,
+    "centroid_lon": 27.861465499999998,
+    "area_m2": 6200.4,
+    "area_da": 6.2,
+    "area_ha": 0.62,
+    "inward_buffer_m_used": 10.0,
+    "used_area_m2": 3129.2,
+    "n_ring_pts": 5,
+    "corners_latlon": [
+      [
+        41.53179,
+        27.86159
+      ],
+      [
+        41.531521,
+        27.862092
+      ],
+      [
+        41.530694,
+        27.861425
+      ],
+      [
+        41.53076,
+        27.860755
+      ]
+    ],
+    "polygon_lonlat_ring": [
+      [
+        27.8616255,
+        41.5316604
+      ],
+      [
+        27.8619317,
+        41.5314963
+      ],
+      [
+        27.8613628,
+        41.5307908
+      ],
+      [
+        27.8609532,
+        41.5308312
+      ],
+      [
+        27.8616255,
+        41.5316604
+      ]
+    ]
+  },
+  "tolerance_days": 2,
+  "generated_utc": "2026-06-20T19:11:05.276906+00:00",
+  "windows": [
+    {
+      "year": "2025",
+      "raw_s2": {
+        "n_predictions": 335,
+        "n_matched": 210,
+        "coverage_pct": 62.69,
+        "overall_model": {
+          "n": 210,
+          "R2": 0.7750793525114045,
+          "MAE": 0.08442890155008863,
+          "RMSE": 0.10596839798166607,
+          "bias": 0.03266668438795073,
+          "MAPE_pct": 52.87024669024293
+        },
+        "overall_naive_persistence": {
+          "n": 210,
+          "R2": 0.8986421130056221,
+          "MAE": 0.054657242114373616,
+          "

@@ -1,0 +1,7 @@
+crop,model,cv,n,r2,rmse,mae,skill_score_vs_clim,cp25_layerA_r2,delta_vs_layerA
+bugday,LSTM_monthly_climate,LOYO,589,0.0956,66.172,53.105,-0.0717,-0.092,0.1876
+bugday,LSTM_monthly_climate,LOILO,589,0.2905,58.611,46.496,,0.441,-0.1505
+bugday,LSTM_monthly_climate,GAP_LOILO_minus_LOYO,589,0.1949,,,,,
+aycicegi,LSTM_monthly_climate,LOYO,576,-0.0077,51.05,40.359,-0.021,0.051,-0.0587
+aycicegi,LSTM_monthly_climate,LOILO,576,0.4145,38.913,30.369,,0.504,-0.0895
+aycicegi,LSTM_monthly_climate,GAP_LOILO_minus_LOYO,576,0.4222,,,,,

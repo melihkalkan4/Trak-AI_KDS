@@ -1,0 +1,9 @@
+crop,tier,model,n,baseline_rmse_matched,rmse,r2,skill_score,ss_ci_low_clustered,ss_ci_high_clustered
+aycicegi,A,random_forest,209,54.44,59.095,-0.199,-0.0855,-0.2545,0.0068
+aycicegi,B,gpr,209,54.44,51.838,0.0775,0.0478,-0.0949,0.2401
+aycicegi,C,gpr,209,54.44,51.883,0.0758,0.047,-0.066,0.1351
+aycicegi,D,gpr,209,54.44,48.521,0.1917,0.1087,0.0327,0.1612
+bugday,A,gpr,213,68.813,86.777,-0.517,-0.261,-0.5429,-0.1275
+bugday,B,gpr,213,68.813,72.061,-0.0461,-0.0472,-0.2102,0.0376
+bugday,C,xgboost,213,68.813,70.586,-0.0037,-0.0258,-0.1749,0.057
+bugday,D,xgboost,213,68.813,64.884,0.1519,0.0571,-0.0543,0.1554

@@ -1,0 +1,15 @@
+POST-RESTART VERIFICATION (after Claude Code closed mid-session)
+================================================================
+Re-checked the full T0–T9 checklist against on-disk state. No half-finished operation found.
+
+- Branch: feature/rs-enrichment-v2 (correct).
+- Running background jobs: 0 (nothing left mid-run).
+- All T1–T9 + advisor (p2–p5) output files present and non-empty.
+- INTEGRITY GATE re-verified NOW: 145 protected artifacts, 0 changed, 0 missing -> INTACT.
+  checksums_after.txt == checksums_before.txt (byte-identical).
+- Validation values intact: EVI/EVI2 clamp applied (wheat 67662 px / sunflower 2037 px removed;
+  all stats in [-1,1]); AWC 0.138-0.154 (plausible, Saxton-Rawls); T7 obs/feat >= 15.2 (none risky).
+- Phase-2 (Landsat backfill, Sentinel-1 SAR, AoA mapping, Moran-eigenvector): NOT executed,
+  untouched — correctly out of scope per the checklist.
+
+Conclusion: nothing to complete; the run was already finished before the close. Integrity holds.

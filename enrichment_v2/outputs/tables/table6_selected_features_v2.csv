@@ -1,0 +1,9 @@
+crop,tier,n_selected,features
+bugday,A,11,tp_grain_fill; tp_season_sum; ssr_flowering_sum; t2m_flowering_mean; gdd_cum_season; tp_flowering; vernalization_days; ssr_season_sum; t2m_flowering_max; tdiff_mean; heat_stress_days
+bugday,B,14,NDWI_grainfill_mean; CIre_peak_mean; tp_season_sum; tp_grain_fill; CIre_grainfill_mean; ssr_flowering_sum; gdd_cum_season; tp_flowering; NDWI_greenup_mean; t2m_flowering_mean; EVI_grainfill_mean; GNDVI_grainfill_mean; vernalization_days; NDWI_peak_mean
+bugday,C,14,NDWI_grainfill_mean; cfvo_0_30_mean; tp_season_sum; CIre_peak_mean; tp_grain_fill; ssr_flowering_sum; CIre_grainfill_mean; tp_flowering; NDWI_greenup_mean; GNDVI_grainfill_mean; EVI_grainfill_mean; gdd_cum_season; cec_0_30_mean; vernalization_days
+bugday,D,14,CIre_grainfill_p90; tp_season_sum; CIre_peak_stdDev; NDWI_peak_p90; NDWI_grainfill_p90; OSAVI_grainfill_p10; ssr_flowering_sum; GNDVI_grainfill_p10; NDWI_grainfill_mean; cfvo_0_30_mean; NDVI_greenup_cv; NDWI_peak_range; CIre_grainfill_cv; NDWI_grainfill_p10
+aycicegi,A,12,tp_season_sum; ssr_season_sum; gdd_cum_season; tp_flowering; aridity_index; t2m_flowering_mean; tp_grain_fill; ssr_flowering_sum; t2m_flowering_max; tdiff_mean; tp_winter_sum; vernalization_days
+aycicegi,B,13,NDVI_peak_mean; tp_season_sum; ssr_season_sum; gdd_cum_season; t2m_flowering_mean; aridity_index; tp_grain_fill; tp_flowering; ssr_flowering_sum; CIre_greenup_mean; NDWI_harvest_mean; t2m_flowering_max; GNDVI_harvest_mean
+aycicegi,C,13,NDVI_peak_mean; tp_season_sum; ssr_season_sum; cfvo_0_30_mean; t2m_flowering_mean; awc_0_30; tp_grain_fill; aridity_index; cec_0_30_mean; tp_flowering; sand_0_30_mean; ssr_flowering_sum; CIre_greenup_mean
+aycicegi,D,13,NDWI_peak_stdDev; NDVI_greenup_p10; tp_season_sum; gdd_flowering; aridity_index; awc_0_30; NDVI_peak_mean; ssr_season_sum; GNDVI_greenup_p10; NDWI_greenup_range; tp_grain_fill; tp_flowering; EVI2_greenup_cv

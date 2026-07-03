@@ -1,0 +1,11 @@
+crop,issuance_stage,n_features,model,cv,n,model_rmse,climatology_rmse,model_r2,skill_score_vs_clim
+aycicegi,pre_season,6,xgboost,LOYO,209,54.514,54.44,-0.0203,-0.0014
+aycicegi,vegetative,9,random_forest,LOYO,209,50.959,54.44,0.1085,0.0639
+aycicegi,flowering,15,random_forest,LOYO,209,41.524,54.44,0.408,0.2372
+aycicegi,grain_fill,18,gpr,LOYO,209,41.578,54.44,0.4065,0.2363
+aycicegi,end_of_season,27,gpr,LOYO,209,42.273,54.44,0.3865,0.2235
+bugday,pre_season,6,random_forest,LOYO,213,68.689,68.813,0.0495,0.0018
+bugday,vegetative,9,elastic_net,LOYO,213,74.521,68.813,-0.1187,-0.0829
+bugday,flowering,15,gpr,LOYO,213,79.31,68.813,-0.2671,-0.1525
+bugday,grain_fill,18,xgboost,LOYO,213,79.502,68.813,-0.2733,-0.1553
+bugday,end_of_season,27,xgboost,LOYO,213,80.364,68.813,-0.301,-0.1679

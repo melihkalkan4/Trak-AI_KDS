@@ -1,0 +1,6 @@
+bugday/A: 15 test years
+aycicegi/A: 15 test years
+bugday/B: 4 test years  [FEW TEST YEARS — interpret with caution]
+aycicegi/B: 4 test years  [FEW TEST YEARS — interpret with caution]
+bugday/C: 4 test years  [FEW TEST YEARS — interpret with caution]
+aycicegi/C: 4 test years  [FEW TEST YEARS — interpret with caution]

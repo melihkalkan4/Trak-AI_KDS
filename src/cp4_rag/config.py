@@ -34,7 +34,7 @@ OLLAMA_MODEL = "gemma3:4b"
 
 # Düşük temperature = daha az halüsinasyon
 LLM_TEMPERATURE = 0.1
-LLM_NUM_CTX = 1024  # KV cache belleği: 4096->1024 ile ~600 MB tasarruf
+LLM_NUM_CTX = 4096  # gemma3:4b natif maksimum context — saha verisinin tamamı sığar
 
 # ============================================================
 # CHUNK AYARLARI (PDF → parçalara bölme)

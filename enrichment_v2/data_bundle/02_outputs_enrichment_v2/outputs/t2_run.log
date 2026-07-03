@@ -1,0 +1,23 @@
+[t2] extracting bugday ...
+  [bugday] 2017 done (3 windows, 1 reduce)
+  [bugday] 2018 done (3 windows, 1 reduce)
+  [bugday] 2019 done (3 windows, 1 reduce)
+  [bugday] 2020 done (3 windows, 1 reduce)
+  [bugday] 2021 done (3 windows, 1 reduce)
+  [bugday] 2022 done (3 windows, 1 reduce)
+  [bugday] 2023 done (3 windows, 1 reduce)
+  [bugday] 2024 done (3 windows, 1 reduce)
+[t2] saved indices_bugday.csv: 232 rows × 172 cols
+[t2] bugday EVI/EVI2 stats in [-1,1]: True (min=-0.105 max=0.855) | clamp diag: {'window': '2017-04-01..2017-05-31', 'evi_px_total': 104639758.39999996, 'evi_px_clamped': 67661.91372549019, 'clamped_frac': 0.000647}
+[t2] extracting aycicegi ...
+  [aycicegi] 2017 done (3 windows, 1 reduce)
+  [aycicegi] 2018 done (3 windows, 1 reduce)
+  [aycicegi] 2019 done (3 windows, 1 reduce)
+  [aycicegi] 2020 done (3 windows, 1 reduce)
+  [aycicegi] 2021 done (3 windows, 1 reduce)
+  [aycicegi] 2022 done (3 windows, 1 reduce)
+  [aycicegi] 2023 done (3 windows, 1 reduce)
+  [aycicegi] 2024 done (3 windows, 1 reduce)
+[t2] saved indices_aycicegi.csv: 232 rows × 172 cols
+[t2] aycicegi EVI/EVI2 stats in [-1,1]: True (min=0.033 max=0.824) | clamp diag: {'window': '2017-07-01..2017-08-31', 'evi_px_total': 195555650.09019598, 'evi_px_clamped': 2037.121568627451, 'clamped_frac': 1e-05}
+[t2] done.

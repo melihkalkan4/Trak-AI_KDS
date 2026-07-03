@@ -1,0 +1,58 @@
+ilce_id,ilce,il,crop,urun_tr,n_years,yil_min,yil_max,mean_kg_da,std_kg_da,cv_pct,min_kg_da,min_yil,max_kg_da,max_yil
+1163,Babaeski,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,215.3,56.3,26.2,112.0,2025,313.0,2022
+1163,Babaeski,Kırklareli,bugday,Buğday,22,2004,2025,382.4,55.4,14.5,280.0,2010,483.0,2021
+1250,Çerkezköy,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,180.3,41.2,22.9,98.0,2007,250.0,2019
+1250,Çerkezköy,Tekirdağ,bugday,Buğday,22,2004,2025,374.6,60.8,16.2,273.0,2005,527.0,2021
+1258,Çorlu,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,190.0,44.9,23.6,88.0,2023,267.0,2020
+1258,Çorlu,Tekirdağ,bugday,Buğday,22,2004,2025,405.6,51.7,12.8,324.0,2018,527.0,2021
+1270,Demirköy,Kırklareli,bugday,Buğday,13,2004,2025,269.2,44.3,16.5,174.0,2011,362.0,2021
+1295,Merkez,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,211.1,54.9,26.0,107.0,2025,298.0,2010
+1295,Merkez,Edirne,bugday,Buğday,22,2004,2025,400.6,59.3,14.8,315.0,2004,559.0,2023
+1307,Enez,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,204.5,53.3,26.1,121.0,2025,292.0,2020
+1307,Enez,Edirne,bugday,Buğday,22,2004,2025,355.6,57.4,16.1,247.0,2011,506.0,2023
+1385,Havsa,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,210.3,42.5,20.2,132.0,2024,308.0,2014
+1385,Havsa,Edirne,bugday,Buğday,22,2004,2025,382.5,62.5,16.3,237.0,2006,533.0,2023
+1388,Hayrabolu,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,198.0,41.4,20.9,113.0,2023,270.0,2019
+1388,Hayrabolu,Tekirdağ,bugday,Buğday,22,2004,2025,403.2,64.0,15.9,294.0,2010,500.0,2012
+1412,İpsala,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,208.5,45.8,22.0,142.0,2024,300.0,2010
+1412,İpsala,Edirne,bugday,Buğday,22,2004,2025,384.7,81.4,21.2,273.0,2005,576.0,2023
+1464,Keşan,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,228.6,37.3,16.3,155.0,2025,287.0,2014
+1464,Keşan,Edirne,bugday,Buğday,22,2004,2025,413.0,66.5,16.1,311.0,2005,559.0,2023
+1471,Merkez,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,205.3,51.1,24.9,134.0,2025,289.0,2020
+1471,Merkez,Kırklareli,bugday,Buğday,22,2004,2025,335.9,64.6,19.2,189.0,2010,458.0,2017
+1480,Kofçaz,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,145.0,43.5,30.0,52.0,2005,230.0,2013
+1480,Kofçaz,Kırklareli,bugday,Buğday,22,2004,2025,267.6,52.5,19.6,147.0,2010,360.0,2021
+1502,Lalapaşa,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,177.7,49.6,27.9,70.0,2025,261.0,2023
+1502,Lalapaşa,Edirne,bugday,Buğday,22,2004,2025,331.0,68.5,20.7,227.0,2025,459.0,2023
+1505,Lüleburgaz,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,218.9,47.6,21.8,92.0,2025,319.0,2019
+1505,Lüleburgaz,Kırklareli,bugday,Buğday,22,2004,2025,385.0,48.3,12.5,263.0,2025,483.0,2021
+1511,Malkara,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,198.6,33.1,16.7,136.0,2007,250.0,2019
+1511,Malkara,Tekirdağ,bugday,Buğday,22,2004,2025,405.7,57.2,14.1,311.0,2005,527.0,2021
+1523,Meriç,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,229.8,59.0,25.7,127.0,2005,352.0,2022
+1523,Meriç,Edirne,bugday,Buğday,22,2004,2025,374.3,57.3,15.3,237.0,2006,510.0,2023
+1538,Muratlı,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,206.3,49.6,24.0,85.0,2023,288.0,2020
+1538,Muratlı,Tekirdağ,bugday,Buğday,22,2004,2025,435.8,64.7,14.8,316.0,2025,589.0,2021
+1572,Pehlivanköy,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,221.6,61.1,27.6,128.0,2004,325.0,2020
+1572,Pehlivanköy,Kırklareli,bugday,Buğday,22,2004,2025,369.4,50.6,13.7,280.0,2010,458.0,2017
+1577,Pınarhisar,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,213.5,65.3,30.6,103.0,2025,372.0,2020
+1577,Pınarhisar,Kırklareli,bugday,Buğday,22,2004,2025,375.7,55.0,14.6,282.0,2004,458.0,2017
+1596,Saray,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,194.3,42.4,21.8,100.0,2025,260.0,2019
+1596,Saray,Tekirdağ,bugday,Buğday,22,2004,2025,395.8,64.0,16.2,263.0,2025,536.0,2021
+1652,Şarköy,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,192.5,41.4,21.5,107.0,2023,260.0,2018
+1652,Şarköy,Tekirdağ,bugday,Buğday,22,2004,2025,387.5,61.9,16.0,257.0,2005,527.0,2021
+1673,Merkez,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),9,2004,2012,177.3,22.8,12.8,136.0,2007,212.0,2006
+1673,Merkez,Tekirdağ,bugday,Buğday,9,2004,2012,396.3,57.3,14.4,301.0,2010,500.0,2012
+1705,Uzunköprü,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,225.5,65.8,29.2,127.0,2007,350.0,2010
+1705,Uzunköprü,Edirne,bugday,Buğday,22,2004,2025,384.5,52.8,13.7,283.0,2011,515.0,2023
+1714,Vize,Kırklareli,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,209.9,40.6,19.4,149.0,2004,277.0,2021
+1714,Vize,Kırklareli,bugday,Buğday,22,2004,2025,388.3,42.8,11.0,315.0,2010,483.0,2021
+1825,Marmaraereğlisi,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,205.6,45.7,22.2,85.0,2007,265.0,2021
+1825,Marmaraereğlisi,Tekirdağ,bugday,Buğday,22,2004,2025,434.2,65.0,15.0,339.0,2010,589.0,2021
+1988,Süloğlu,Edirne,aycicegi_yaglik,Ayçiçeği (Yağlık),22,2004,2025,217.7,47.6,21.9,149.0,2008,302.0,2021
+1988,Süloğlu,Edirne,bugday,Buğday,22,2004,2025,350.3,70.0,20.0,273.0,2005,576.0,2023
+2094,Ergene,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),13,2013,2025,208.7,54.7,26.2,100.0,2025,260.0,2019
+2094,Ergene,Tekirdağ,bugday,Buğday,13,2013,2025,410.2,77.7,18.9,226.0,2025,545.0,2021
+2095,Kapaklı,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),13,2013,2025,200.6,47.8,23.8,107.0,2023,250.0,2019
+2095,Kapaklı,Tekirdağ,bugday,Buğday,13,2013,2025,391.2,54.7,14.0,290.0,2018,527.0,2021
+2096,Süleymanpaşa,Tekirdağ,aycicegi_yaglik,Ayçiçeği (Yağlık),13,2013,2025,207.9,43.3,20.8,112.0,2023,250.0,2021
+2096,Süleymanpaşa,Tekirdağ,bugday,Buğday,13,2013,2025,418.3,57.4,13.7,336.0,2018,554.0,2021

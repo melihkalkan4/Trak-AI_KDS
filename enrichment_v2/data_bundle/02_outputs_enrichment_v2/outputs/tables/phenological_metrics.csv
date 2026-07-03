@@ -1,0 +1,8 @@
+metric,definition,meaning
+mean,district cropland mean,central tendency
+median,district cropland median,robust central tendency
+stdDev,std across cropland pixels,intra-district heterogeneity (advisor)
+cv,stdDev/mean,relative variability (advisor)
+P10,10th percentile,weak-field tail (advisor)
+P90,90th percentile,strong-field tail (advisor)
+range,P90-P10,heterogeneity spread (advisor)
