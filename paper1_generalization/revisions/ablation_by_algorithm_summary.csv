@@ -1,0 +1,5 @@
+crop,cv,mean_delta_ndvi,median_delta_ndvi,mean_delta_soil,median_delta_soil,n_algos
+aycicegi,LOILO,-0.0012,0.0118,0.1425,0.1428,5
+aycicegi,LOYO,0.3816,0.431,0.2168,0.2124,5
+bugday,LOILO,0.0444,0.0593,0.0337,0.0318,5
+bugday,LOYO,-0.0012,0.0392,0.3312,0.2418,5

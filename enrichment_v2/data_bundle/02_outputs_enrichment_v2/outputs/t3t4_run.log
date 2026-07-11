@@ -1,0 +1,19 @@
+#### T3 soil ####
+[t3] saved soil_features.csv: 29 districts × 31 cols
+[t3] ranges:
+   clay_0_30_mean: 30.52 .. 38.14 (median 33.46)
+   sand_0_30_mean: 26.24 .. 34.98 (median 29.72)
+   phh2o_0_30_mean: 6.58 .. 7.31 (median 7.05)
+   soc_0_30_mean: 15.94 .. 26.81 (median 22.46)
+   cec_0_30_mean: 21.81 .. 27.41 (median 24.28)
+   bdod_0_30_mean: 1.36 .. 1.44 (median 1.38)
+   awc_0_30: 0.14 .. 0.15 (median 0.14)
+[t3] AWC in plausible (0,0.35) cm3/cm3: True  [Saxton & Rawls 2006]
+#### T4 topo ####
+[t4] saved topo_features.csv: 29 districts × 8 cols
+   elevation_m: 39.188 .. 441.737 (median 126.564)
+   slope_deg: 2.285 .. 5.567 (median 3.068)
+   northness: -0.241 .. 0.070 (median -0.020)
+   eastness: -0.118 .. 0.105 (median -0.057)
+   twi: 7.797 .. 9.404 (median 8.895)
+T3T4_DONE

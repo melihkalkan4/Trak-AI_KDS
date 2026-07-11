@@ -487,9 +487,9 @@ def generate_chat_response(
     print(f"[LLM] Sorgu tipi: {query_type} | Soru: {user_question[:60]}")
 
     rich_context = build_rich_context()
-    # Prompt cok uzunsa kisalt (gemma3:4b 4096 token siniri)
-    if len(rich_context) > 2500:
-        rich_context = rich_context[:2500] + "\n...(kisaltildi)"
+    # Prompt cok uzunsa kisalt (gemma3:4b 4096 token = ~12k karakter, guvenli marj 6500)
+    if len(rich_context) > 6500:
+        rich_context = rich_context[:6500] + "\n...(kisaltildi)"
     print(f"[LLM] Rich context uzunlugu: {len(rich_context)} karakter")
 
     sources = []

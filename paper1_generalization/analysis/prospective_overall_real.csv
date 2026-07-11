@@ -1,0 +1,5 @@
+year,actual_source,n_matched,coverage_pct,model_R2,model_MAE,persistence_R2,persistence_MAE,model_beats_persistence,wilcoxon_p
+2025,raw_s2,210,62.69,0.7751,0.0844,0.8986,0.0547,False,0.9999999448607767
+2025,unified,331,98.81,0.7831,0.0857,0.9109,0.0508,False,0.999999999999964
+2026,raw_s2,81,59.56,-0.1909,0.1757,0.5402,0.079,False,0.9999999562559229
+2026,unified,132,97.06,-1.3193,0.1637,0.4903,0.0574,False,0.9999999999999954

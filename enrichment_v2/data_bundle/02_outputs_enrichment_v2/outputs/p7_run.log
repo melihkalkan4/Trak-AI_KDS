@@ -1,0 +1,21 @@
+  [p7] ova1_ahmetbey 2017: cropland 2524.1ha wheat 911.9 sun 1314.2 | wNDVI 0.8085 sNDVI 0.683
+  [p7] ova1_ahmetbey 2018: cropland 2524.1ha wheat 1195.9 sun 788.6 | wNDVI 0.7223 sNDVI 0.6378
+  [p7] ova1_ahmetbey 2019: cropland 2524.1ha wheat 1014.5 sun 1195.2 | wNDVI 0.8157 sNDVI 0.6983
+  [p7] ova1_ahmetbey 2020: cropland 2524.1ha wheat 1436.5 sun 625.5 | wNDVI 0.8254 sNDVI 0.6198
+  [p7] ova1_ahmetbey 2021: cropland 2524.1ha wheat 974.6 sun 1234.0 | wNDVI 0.8086 sNDVI 0.6784
+  [p7] ova1_ahmetbey 2022: cropland 2524.1ha wheat 1410.0 sun 838.6 | wNDVI 0.7811 sNDVI 0.6531
+  [p7] ova1_ahmetbey 2023: cropland 2524.1ha wheat 1243.8 sun 868.1 | wNDVI 0.8477 sNDVI 0.6359
+  [p7] ova1_ahmetbey 2024: cropland 2524.1ha wheat 1527.0 sun 205.3 | wNDVI 0.8068 sNDVI 0.5913
+  [p7] ova2_musellim 2017: cropland 4916.9ha wheat 2266.9 sun 1615.0 | wNDVI 0.818 sNDVI 0.6164
+  [p7] ova2_musellim 2018: cropland 4916.9ha wheat 2251.7 sun 1032.7 | wNDVI 0.7618 sNDVI 0.599
+  [p7] ova2_musellim 2019: cropland 4916.9ha wheat 2734.0 sun 391.8 | wNDVI 0.7934 sNDVI 0.5729
+  [p7] ova2_musellim 2020: cropland 4916.9ha wheat 2916.1 sun 252.5 | wNDVI 0.8152 sNDVI 0.5967
+  [p7] ova2_musellim 2021: cropland 4916.9ha wheat 2404.8 sun 445.0 | wNDVI 0.7956 sNDVI 0.587
+  [p7] ova2_musellim 2022: cropland 4916.9ha wheat 2788.8 sun 332.2 | wNDVI 0.7771 sNDVI 0.5755
+  [p7] ova2_musellim 2023: cropland 4916.9ha wheat 2547.2 sun 141.7 | wNDVI 0.831 sNDVI 0.624
+  [p7] ova2_musellim 2024: cropland 4916.9ha wheat 2809.9 sun 57.2 | wNDVI 0.8085 sNDVI 0.6733
+[p7] saved plains_test_summary.csv + plains_geometry.json
+
+ova1_ahmetbey: mean cropland 2524ha | mean wheat 1214ha sun 884ha | wheat peak NDVI 0.802 NDRE 0.608 | sun peak NDVI 0.650
+
+ova2_musellim: mean cropland 4917ha | mean wheat 2590ha sun 534ha | wheat peak NDVI 0.800 NDRE 0.611 | sun peak NDVI 0.606

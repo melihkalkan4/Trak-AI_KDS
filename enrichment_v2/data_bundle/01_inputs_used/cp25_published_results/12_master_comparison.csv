@@ -1,0 +1,9 @@
+layer,model,crop,n,r2_loyo,rmse_loyo,ss_loyo
+B0,Climatology,bugday,589,0.213,61.743,0.0
+B3,ClimateProxy,bugday,589,0.126,65.064,-0.054
+A,elastic_net,bugday,589,-0.092,72.706,-0.178
+B,gpr,bugday,213,-0.536,87.307,-0.266
+C,xgboost,bugday,213,-0.311,80.684,-0.17
+A,random_forest,aycicegi,576,0.051,49.542,0.009
+B,random_forest,aycicegi,209,0.237,47.131,0.136
+C,gpr,aycicegi,209,0.386,42.273,0.225

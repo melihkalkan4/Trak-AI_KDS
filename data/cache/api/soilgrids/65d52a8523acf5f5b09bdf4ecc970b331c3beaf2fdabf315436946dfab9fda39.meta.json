@@ -1,0 +1,24 @@
+{
+  "source": "soilgrids",
+  "params": {
+    "buffer_m": 2000,
+    "depths": [
+      "0-5cm",
+      "5-15cm",
+      "15-30cm"
+    ],
+    "lat": 41.531191,
+    "lon": 27.861465,
+    "properties": [
+      "clay",
+      "sand",
+      "phh2o"
+    ],
+    "site_id": "EVR01R",
+    "source": "isric_soilgrids_v2"
+  },
+  "content_type": "application/python-pickle",
+  "size_bytes": 226,
+  "sha256": "1759f9bd34d2d1555ae661bd149926d8f8e96b9fd620c4bbdebd5cd40f321629",
+  "created_utc": "2026-06-20T16:51:11.548025+00:00"
+}

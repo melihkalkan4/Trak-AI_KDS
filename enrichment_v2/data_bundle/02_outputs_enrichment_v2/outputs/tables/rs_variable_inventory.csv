@@ -1,0 +1,18 @@
+group,variable,formula,rationale
+thesis_original,ndvi_max,max NDVI over season,peak greenness (thesis)
+thesis_original,ndvi_mean_season,mean NDVI over season,seasonal vigour (thesis)
+thesis_original,ndvi_integral,∑ NDVI over season,cumulative biomass (thesis)
+thesis_original,ndvi_flowering,NDVI in flowering window,reproductive-stage canopy (thesis)
+thesis_original,ndvi_grain_fill,NDVI in grain-fill window,grain-fill canopy (thesis)
+thesis_original,ndvi_spring_slope,green-up slope,emergence vigour (thesis)
+thesis_original,greenness_days,days NDVI>thr,growing-season length (thesis)
+new_index,NDVI,(B8-B4)/(B8+B4),baseline greenness
+new_index,EVI,2.5*(B8-B4)/(B8+6*B4-7.5*B2+1),reduces NDVI saturation at high biomass (wheat dense period) — advisor
+new_index,EVI2,2.5*(B8-B4)/(B8+2.4*B4+1),EVI without blue band (more robust)
+new_index,NDRE,(B8-B5)/(B8+B5),red-edge; higher yield correlation than NDVI — advisor
+new_index,CIre,(B7/B5)-1,red-edge chlorophyll index
+new_index,NDWI,(B8-B11)/(B8+B11),canopy water content / stress
+new_index,GNDVI,(B8-B3)/(B8+B3),green-band chlorophyll sensitivity
+new_index,OSAVI,(B8-B4)/(B8+B4+0.16),soil-adjusted (sparse canopy)
+soil,clay/sand/silt/phh2o/soc (0-30),SoilGrids depth-weighted,thesis soil set
+soil,cec/bdod/nitrogen/cfvo + AWC,SoilGrids + Saxton-Rawls AWC,enrichment (water/nutrient capacity)

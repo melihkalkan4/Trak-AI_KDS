@@ -1,0 +1,21 @@
+[gen] Layer A · bugday ...
+[gen] Layer A · aycicegi ...
+[gen] Layer B · bugday ...
+[gen] Layer B · aycicegi ...
+[gen] Layer C · bugday ...
+[gen] Layer C · aycicegi ...
+[save] per_sample_predictions.csv  rows=30557
+
+========== FIDELITY GATE ==========
+checks: 92 | PASS: 92 | FAIL: 0
+Traceback (most recent call last):
+  File "C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\paper1_generalization\repro\01_regenerate_per_sample.py", line 126, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\paper1_generalization\repro\01_regenerate_per_sample.py", line 92, in main
+    print(f"global max |\u0394| across all metrics: {chk['max_abs_diff'].max():.4f}", flush=True)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Melih Kalkan\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1254.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u0394' in position 12: character maps to <undefined>

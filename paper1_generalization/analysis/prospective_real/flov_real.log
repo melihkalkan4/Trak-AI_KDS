@@ -1,0 +1,106 @@
+2026-06-20 19:50:46.662 | DEBUG    | prospective_validation.logging_setup:configure_logging:56 | Loguru configured: file=C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\paper1_generalization\analysis\prospective_real\flov_real.log, rotation=100 MB
+2026-06-20 19:50:46.708 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] lstm_champion_sunflower unchanged (43ef61b5a70f)
+2026-06-20 19:50:46.767 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_yield_sunflower unchanged (9cc638a6a951)
+2026-06-20 19:50:46.789 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] scaler_sunflower unchanged (1212fc508136)
+2026-06-20 19:50:46.803 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] feature_names unchanged (8d1948d9824f)
+2026-06-20 19:50:46.835 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_xgb_sunflower unchanged (1b8f2a14404f)
+2026-06-20 19:50:46.860 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_scaler_sunflower unchanged (53e405f78848)
+2026-06-20 19:50:46.886 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_feature_names_sunf unchanged (62724be6ab8f)
+2026-06-20 19:50:46.887 | INFO     | prospective_validation.model_loader:load_frozen_champion:176 | Registering CP2 custom layers (SelfAttention, ExtractLastNDVI, ScaleDelta) …
+2026-06-20 19:50:59.818 | INFO     | prospective_validation.model_loader:load_frozen_champion:180 | Loading frozen LSTM champion: model_lstm_sunflower.keras
+2026-06-20 19:51:00.469 | INFO     | prospective_validation.model_loader:load_frozen_champion:217 | Frozen champion loaded. LSTM sha256=43ef61b5a70f16cd (truncated)
+2026-06-20 19:51:00.521 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] sunflower_doy_climatology unchanged (3cd26360ff41)
+2026-06-20 19:51:01.552 | INFO     | prospective_validation.feature_builder:build_unified_features:171 | [features] building unified features for EVR01R 2025-04-01→2025-06-15
+2026-06-20 19:51:11.546 | DEBUG    | prospective_validation.audit:audited:94 | [audit] soilgrids OK in 9.90s (cache_hit=False)
+2026-06-20 19:51:11.548 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT soilgrids 65d52a8523ac (226 bytes)
+2026-06-20 19:51:11.549 | INFO     | prospective_validation.fetchers.soilgrids:fetch_soilgrids_static:79 | [soilgrids] EVR01R cached (9 keys)
+2026-06-20 19:57:45.626 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 387.47s (cache_hit=False)
+2026-06-20 19:57:45.628 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 0db1b2f56288 (2580 bytes)
+2026-06-20 20:01:03.405 | DEBUG    | prospective_validation.logging_setup:configure_logging:56 | Loguru configured: file=C:\Users\Melih Kalkan\Desktop\Trak-AI_KDS\paper1_generalization\analysis\prospective_real\flov_real.log, rotation=100 MB
+2026-06-20 20:01:03.425 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] lstm_champion_sunflower unchanged (43ef61b5a70f)
+2026-06-20 20:01:03.439 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_yield_sunflower unchanged (9cc638a6a951)
+2026-06-20 20:01:03.454 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] scaler_sunflower unchanged (1212fc508136)
+2026-06-20 20:01:03.469 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] feature_names unchanged (8d1948d9824f)
+2026-06-20 20:01:03.484 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_xgb_sunflower unchanged (1b8f2a14404f)
+2026-06-20 20:01:03.499 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_scaler_sunflower unchanged (53e405f78848)
+2026-06-20 20:01:03.514 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_feature_names_sunf unchanged (62724be6ab8f)
+2026-06-20 20:01:03.514 | INFO     | prospective_validation.model_loader:load_frozen_champion:176 | Registering CP2 custom layers (SelfAttention, ExtractLastNDVI, ScaleDelta) …
+2026-06-20 20:01:14.059 | INFO     | prospective_validation.model_loader:load_frozen_champion:180 | Loading frozen LSTM champion: model_lstm_sunflower.keras
+2026-06-20 20:01:14.384 | INFO     | prospective_validation.model_loader:load_frozen_champion:217 | Frozen champion loaded. LSTM sha256=43ef61b5a70f16cd (truncated)
+2026-06-20 20:01:14.414 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] sunflower_doy_climatology unchanged (3cd26360ff41)
+2026-06-20 20:01:14.498 | INFO     | prospective_validation.feature_builder:build_unified_features:171 | [features] building unified features for EVR01R 2025-01-01→2025-12-31
+2026-06-20 20:01:14.501 | DEBUG    | prospective_validation.cache:get:73 | [cache] HIT soilgrids 65d52a8523ac
+2026-06-20 20:01:14.503 | DEBUG    | prospective_validation.audit:audited:94 | [audit] soilgrids OK in 0.00s (cache_hit=True)
+2026-06-20 20:13:41.528 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 747.02s (cache_hit=False)
+2026-06-20 20:13:41.532 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 8afafb8480d7 (2624 bytes)
+2026-06-20 20:20:05.156 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 383.62s (cache_hit=False)
+2026-06-20 20:20:05.159 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 610a856cfdc4 (2498 bytes)
+2026-06-20 20:26:29.358 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 384.20s (cache_hit=False)
+2026-06-20 20:26:29.361 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 504a62d7f721 (2624 bytes)
+2026-06-20 20:26:29.362 | DEBUG    | prospective_validation.cache:get:73 | [cache] HIT era5_cds_month 0db1b2f56288
+2026-06-20 20:26:29.366 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 0.00s (cache_hit=True)
+2026-06-20 20:26:53.097 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 23.73s (cache_hit=False)
+2026-06-20 20:26:53.099 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month b8c21f155f12 (2624 bytes)
+2026-06-20 20:35:16.171 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 503.07s (cache_hit=False)
+2026-06-20 20:35:16.173 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 0830a06723ff (2580 bytes)
+2026-06-20 20:45:43.243 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 627.07s (cache_hit=False)
+2026-06-20 20:45:43.249 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 347efe8b3cf0 (2624 bytes)
+2026-06-20 20:52:08.452 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 385.20s (cache_hit=False)
+2026-06-20 20:52:08.458 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 15123cdb9059 (2624 bytes)
+2026-06-20 21:02:36.629 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 628.17s (cache_hit=False)
+2026-06-20 21:02:36.632 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month ed9b1b412905 (2580 bytes)
+2026-06-20 21:11:02.049 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 505.41s (cache_hit=False)
+2026-06-20 21:11:02.051 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 7e7a10ec02de (2624 bytes)
+2026-06-20 21:19:24.949 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 502.90s (cache_hit=False)
+2026-06-20 21:19:24.953 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 42fd86b7e7cc (2580 bytes)
+2026-06-20 21:27:56.268 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 511.31s (cache_hit=False)
+2026-06-20 21:27:56.286 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 63a655b1925b (2624 bytes)
+2026-06-20 21:27:56.500 | INFO     | prospective_validation.fetchers.era5:fetch_era5_daily:205 | [era5] EVR01R 2025-01-01→2025-12-31: 365 daily rows from 12 months
+2026-06-20 21:28:33.143 | DEBUG    | prospective_validation.audit:audited:94 | [audit] s2_gee OK in 32.10s (cache_hit=False)
+2026-06-20 21:28:33.151 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT s2_gee 06253a859367 (3045 bytes)
+2026-06-20 21:28:33.152 | INFO     | prospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:132 | [s2] EVR01R 2025-01-01→2025-12-31: 60 cloud-free passes (full year: 60)
+2026-06-20 21:28:33.534 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] lstm_champion_sunflower unchanged (43ef61b5a70f)
+2026-06-20 21:28:33.591 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_yield_sunflower unchanged (9cc638a6a951)
+2026-06-20 21:28:33.655 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] scaler_sunflower unchanged (1212fc508136)
+2026-06-20 21:28:33.716 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_xgb_sunflower unchanged (1b8f2a14404f)
+2026-06-20 21:28:33.762 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_scaler_sunflower unchanged (53e405f78848)
+2026-06-20 21:28:33.820 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] feature_names unchanged (8d1948d9824f)
+2026-06-20 21:28:33.876 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_feature_names_sunf unchanged (62724be6ab8f)
+2026-06-20 21:29:48.848 | INFO     | prospective_validation.frozen_model_predictor:predict_ndvi_series:146 | [predictor] produced 335 predictions (2025-01-30 → 2025-12-30)
+2026-06-20 21:29:48.912 | DEBUG    | prospective_validation.cache:get:73 | [cache] HIT s2_gee 06253a859367
+2026-06-20 21:29:48.925 | DEBUG    | prospective_validation.audit:audited:94 | [audit] s2_gee OK in 0.00s (cache_hit=True)
+2026-06-20 21:29:48.926 | INFO     | prospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:96 | [s2] cache hit for EVR01R 2025-01-01→2025-12-31 (60 rows)
+2026-06-20 21:29:49.127 | INFO     | prospective_validation.live_validator:report:145 | [validator] EVR01R: matched 210/335 (62.7%) — R²=0.775, MAE=0.0844, naive MAE=0.0547
+2026-06-20 21:29:49.210 | INFO     | prospective_validation.live_validator:report:145 | [validator] EVR01R: matched 331/335 (98.8%) — R²=0.783, MAE=0.0857, naive MAE=0.0508
+2026-06-20 21:29:49.255 | INFO     | prospective_validation.feature_builder:build_unified_features:171 | [features] building unified features for EVR01R 2026-01-01→2026-06-20
+2026-06-20 21:29:49.258 | DEBUG    | prospective_validation.cache:get:73 | [cache] HIT soilgrids 65d52a8523ac
+2026-06-20 21:29:49.264 | DEBUG    | prospective_validation.audit:audited:94 | [audit] soilgrids OK in 0.00s (cache_hit=True)
+2026-06-20 21:36:22.079 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 392.80s (cache_hit=False)
+2026-06-20 21:36:22.086 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 1df4eb3bec0b (2624 bytes)
+2026-06-20 21:44:53.626 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 511.53s (cache_hit=False)
+2026-06-20 21:44:53.639 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 296a90c7b80b (2498 bytes)
+2026-06-20 21:51:20.954 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 387.31s (cache_hit=False)
+2026-06-20 21:51:20.961 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month a26ad9f67da1 (2624 bytes)
+2026-06-20 21:59:55.494 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 514.52s (cache_hit=False)
+2026-06-20 21:59:55.502 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month 82273f154800 (2580 bytes)
+2026-06-20 22:06:24.109 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 388.60s (cache_hit=False)
+2026-06-20 22:06:24.119 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month c48e9757ad91 (2624 bytes)
+2026-06-20 22:10:49.570 | DEBUG    | prospective_validation.audit:audited:94 | [audit] era5_cds OK in 265.43s (cache_hit=False)
+2026-06-20 22:10:49.574 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT era5_cds_month a478824e7a07 (1965 bytes)
+2026-06-20 22:10:49.596 | INFO     | prospective_validation.fetchers.era5:fetch_era5_daily:205 | [era5] EVR01R 2026-01-01→2026-06-20: 166 daily rows from 6 months
+2026-06-20 22:10:57.644 | DEBUG    | prospective_validation.audit:audited:94 | [audit] s2_gee OK in 8.04s (cache_hit=False)
+2026-06-20 22:10:57.647 | DEBUG    | prospective_validation.cache:put:99 | [cache] PUT s2_gee fd01dff346ce (1762 bytes)
+2026-06-20 22:10:57.647 | INFO     | prospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:132 | [s2] EVR01R 2026-01-01→2026-06-20: 20 cloud-free passes (full year: 20)
+2026-06-20 22:10:57.764 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] lstm_champion_sunflower unchanged (43ef61b5a70f)
+2026-06-20 22:10:57.778 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_yield_sunflower unchanged (9cc638a6a951)
+2026-06-20 22:10:57.791 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] scaler_sunflower unchanged (1212fc508136)
+2026-06-20 22:10:57.803 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_xgb_sunflower unchanged (1b8f2a14404f)
+2026-06-20 22:10:57.814 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] yield_scaler_sunflower unchanged (53e405f78848)
+2026-06-20 22:10:57.826 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] feature_names unchanged (8d1948d9824f)
+2026-06-20 22:10:57.839 | DEBUG    | prospective_validation.integrity:ensure_unchanged:124 | [integrity] xgb_feature_names_sunf unchanged (62724be6ab8f)
+2026-06-20 22:11:05.126 | INFO     | prospective_validation.frozen_model_predictor:predict_ndvi_series:146 | [predictor] produced 136 predictions (2026-01-30 → 2026-06-14)
+2026-06-20 22:11:05.142 | DEBUG    | prospective_validation.cache:get:73 | [cache] HIT s2_gee fd01dff346ce
+2026-06-20 22:11:05.144 | DEBUG    | prospective_validation.audit:audited:94 | [audit] s2_gee OK in 0.00s (cache_hit=True)
+2026-06-20 22:11:05.144 | INFO     | prospective_validation.fetchers.sentinel2:fetch_sentinel2_daily:96 | [s2] cache hit for EVR01R 2026-01-01→2026-06-20 (20 rows)
+2026-06-20 22:11:05.243 | INFO     | prospective_validation.live_validator:report:145 | [validator] EVR01R: matched 81/136 (59.6%) — R²=-0.191, MAE=0.1757, naive MAE=0.0790
+2026-06-20 22:11:05.260 | INFO     | prospective_validation.live_validator:report:145 | [validator] EVR01R: matched 132/136 (97.1%) — R²=-1.319, MAE=0.1637, naive MAE=0.0574

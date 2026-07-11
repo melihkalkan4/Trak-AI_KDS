@@ -1,0 +1,10 @@
+PER-STAGE RECONCILIATION (#9)
+=============================
+AUTHORITATIVE source = real surveyed parcel, raw Sentinel-2 actuals (this table).
+Manuscript Table-5 values (flowering -0.51 / grain-fill +0.59 / maturity -13.7) came from
+the REAL-coords 2025 run (interpolated NDVI_int variant); the older reports/cp25 per_stage
+(flowering +0.74 / grain-fill -0.96 / maturity -5.65) came from the PLACEHOLDER-coords run.
+Both are now superseded by this single real-parcel table, which ALSO reports persistence and
+MAE/RMSE/median|err| per stage. R2 is unstable at low-NDVI-variance stages (emergence,
+maturity) so MAE/RMSE/median|err| are the well-posed per-stage metrics; the robust statement
+is the overall model-vs-persistence comparison (R03/F4: persistence wins, Wilcoxon p=1.000).

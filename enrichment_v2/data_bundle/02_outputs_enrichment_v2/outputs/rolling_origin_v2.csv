@@ -1,0 +1,9 @@
+crop,tier,n_test_years,rolling_mean_skill_vs_clim
+bugday,A,4,-0.3639
+bugday,B,4,-0.0566
+bugday,C,4,0.0288
+bugday,D,4,0.0823
+aycicegi,A,4,0.0089
+aycicegi,B,4,0.1435
+aycicegi,C,4,0.0652
+aycicegi,D,4,0.1403

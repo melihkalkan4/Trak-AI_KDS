@@ -1,0 +1,7 @@
+crop,window,months,mask
+winter wheat,greenup,02-03,crop-specific phenology classification (validated vs TÜİK ekilen_alan)
+winter wheat,peak,04-05,crop-specific phenology classification (validated vs TÜİK ekilen_alan)
+winter wheat,grainfill,06-06,crop-specific phenology classification (validated vs TÜİK ekilen_alan)
+sunflower,greenup,06-06,crop-specific phenology classification (validated vs TÜİK ekilen_alan)
+sunflower,peak,07-08,crop-specific phenology classification (validated vs TÜİK ekilen_alan)
+sunflower,harvest,09-09,crop-specific phenology classification (validated vs TÜİK ekilen_alan)

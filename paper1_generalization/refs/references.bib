@@ -1,0 +1,164 @@
+% Paper 1 — reference SKELETON.
+% RULE: no fabricated DOIs / details. Every entry below is a well-known, real
+% anchor work, but EACH carries note={VERIFY ...}; the human author must verify
+% exact volume/pages/DOI before submission. Any claim not backed by a verified
+% source is marked [VERIFY: needs citation] in the manuscript instead of citing
+% an invented reference. See refs/citation_todo.md.
+
+% ===== Cross-validation / spatial-temporal generalization (core framing) =====
+@article{roberts2017crossval,
+  author  = {Roberts, David R. and Bahn, Volker and Ciuti, Simone and others},
+  title   = {Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure},
+  journal = {Ecography},
+  year    = {2017},
+  note    = {VERIFY volume(40)/issue/pages/DOI. Canonical block-CV reference.}
+}
+@article{ploton2020spatial,
+  author  = {Ploton, Pierre and Mortier, Fr{\'e}d{\'e}ric and R{\'e}jou-M{\'e}chain, Maxime and others},
+  title   = {Spatial validation reveals poor predictive performance of large-scale ecological mapping models},
+  journal = {Nature Communications},
+  year    = {2020},
+  note    = {VERIFY volume(11)/article no./DOI. Spatial-CV optimism critique.}
+}
+@article{meyer2021aoa,
+  author  = {Meyer, Hanna and Pebesma, Edzer},
+  title   = {Predicting into unknown space? Estimating the area of applicability of spatial prediction models},
+  journal = {Methods in Ecology and Evolution},
+  year    = {2021},
+  note    = {VERIFY volume/pages/DOI. Area-of-applicability / extrapolation.}
+}
+@article{kattenborn2022spatial,
+  author  = {Kattenborn, Teja and Schiefer, Felix and Frey, Julian and others},
+  title   = {Spatially autocorrelated training and validation samples inflate performance assessment of convolutional neural networks},
+  journal = {ISPRS Open Journal of Photogrammetry and Remote Sensing},
+  year    = {2022},
+  note    = {VERIFY exact title/volume/DOI. Spatial autocorrelation leakage.}
+}
+
+% ===== Crop-yield ML + remote sensing (target-journal context) =====
+@article{vanklompenburg2020review,
+  author  = {van Klompenburg, Thomas and Kassahun, Ayalew and Catal, Cagatay},
+  title   = {Crop yield prediction using machine learning: A systematic literature review},
+  journal = {Computers and Electronics in Agriculture},
+  year    = {2020},
+  note    = {VERIFY volume(177)/article 105709/DOI. Target-journal review.}
+}
+@article{bolton2013forecasting,
+  author  = {Bolton, Douglas K. and Friedl, Mark A.},
+  title   = {Forecasting crop yield using remotely sensed vegetation indices and crop phenology metrics},
+  journal = {Agricultural and Forest Meteorology},
+  year    = {2013},
+  note    = {VERIFY volume(173)/pages/DOI. NDVI+phenology yield forecasting.}
+}
+@article{lobell2013satellite,
+  author  = {Lobell, David B.},
+  title   = {The use of satellite data for crop yield gap and crop production analyses},
+  journal = {Field Crops Research},
+  year    = {2013},
+  note    = {VERIFY volume/pages/DOI.}
+}
+@article{schwalbert2020soybean,
+  author  = {Schwalbert, Rai A. and Amado, Telmo and Corassa, Geomar and others},
+  title   = {Satellite-based soybean yield forecast: Integrating machine learning and weather data},
+  journal = {Agricultural and Forest Meteorology},
+  year    = {2020},
+  note    = {VERIFY full author list/volume/pages/DOI. LSTM+RS yield example.}
+}
+
+% ===== Baselines / forecasting honesty =====
+@article{hyndman2006another,
+  author  = {Hyndman, Rob J. and Koehler, Anne B.},
+  title   = {Another look at measures of forecast accuracy},
+  journal = {International Journal of Forecasting},
+  year    = {2006},
+  note    = {VERIFY volume(22)/pages/DOI. MAPE/skill-metric caveats.}
+}
+
+% ===== Data sources =====
+@article{drusch2012sentinel2,
+  author  = {Drusch, M. and Del Bello, U. and Carlier, S. and others},
+  title   = {Sentinel-2: ESA's optical high-resolution mission for GMES operational services},
+  journal = {Remote Sensing of Environment},
+  year    = {2012},
+  note    = {VERIFY volume(120)/pages/DOI.}
+}
+@article{gorelick2017gee,
+  author  = {Gorelick, Noel and Hancher, Matt and Dixon, Mike and others},
+  title   = {Google Earth Engine: Planetary-scale geospatial analysis for everyone},
+  journal = {Remote Sensing of Environment},
+  year    = {2017},
+  note    = {VERIFY volume(202)/pages/DOI.}
+}
+@article{hersbach2020era5,
+  author  = {Hersbach, Hans and Bell, Bill and Berrisford, Paul and others},
+  title   = {The ERA5 global reanalysis},
+  journal = {Quarterly Journal of the Royal Meteorological Society},
+  year    = {2020},
+  note    = {VERIFY volume(146)/pages/DOI.}
+}
+@article{poggio2021soilgrids,
+  author  = {Poggio, Laura and de Sousa, Luis M. and Batjes, Niels H. and others},
+  title   = {SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty},
+  journal = {SOIL},
+  year    = {2021},
+  note    = {VERIFY volume(7)/pages/DOI.}
+}
+
+% ===== Models / methods =====
+@article{breiman2001rf,
+  author  = {Breiman, Leo},
+  title   = {Random Forests},
+  journal = {Machine Learning},
+  year    = {2001},
+  note    = {VERIFY volume(45)/pages/DOI.}
+}
+@inproceedings{chen2016xgboost,
+  author    = {Chen, Tianqi and Guestrin, Carlos},
+  title     = {XGBoost: A Scalable Tree Boosting System},
+  booktitle = {Proceedings of the 22nd ACM SIGKDD},
+  year      = {2016},
+  note      = {VERIFY pages/DOI.}
+}
+@book{rasmussen2006gpr,
+  author    = {Rasmussen, Carl Edward and Williams, Christopher K. I.},
+  title     = {Gaussian Processes for Machine Learning},
+  publisher = {MIT Press},
+  year      = {2006},
+  note      = {VERIFY ISBN.}
+}
+@inproceedings{lundberg2017shap,
+  author    = {Lundberg, Scott M. and Lee, Su-In},
+  title     = {A Unified Approach to Interpreting Model Predictions},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2017},
+  note      = {VERIFY volume(30)/pages.}
+}
+
+% ===== Spatial statistics =====
+@article{moran1950notes,
+  author  = {Moran, P. A. P.},
+  title   = {Notes on continuous stochastic phenomena},
+  journal = {Biometrika},
+  year    = {1950},
+  note    = {VERIFY volume(37)/pages/DOI.}
+}
+@article{anselin1995lisa,
+  author  = {Anselin, Luc},
+  title   = {Local Indicators of Spatial Association---LISA},
+  journal = {Geographical Analysis},
+  year    = {1995},
+  note    = {VERIFY volume(27)/pages/DOI.}
+}
+@article{wilcoxon1945,
+  author  = {Wilcoxon, Frank},
+  title   = {Individual comparisons by ranking methods},
+  journal = {Biometrics Bulletin},
+  year    = {1945},
+  note    = {VERIFY volume(1)/pages/DOI.}
+}
+
+% ===== [VERIFY] PLACEHOLDERS the author must add (no invented entries) =====
+% - Turkish/Trakya wheat & sunflower agronomy & TÜİK yield-statistics source.
+% - Sunflower phenology / senescence NDVI behaviour reference.
+% - Winter-wheat vernalization requirement reference.
+% - A LOYO-vs-LOILO or "extrapolation vs interpolation in agriculture" study, if one exists.

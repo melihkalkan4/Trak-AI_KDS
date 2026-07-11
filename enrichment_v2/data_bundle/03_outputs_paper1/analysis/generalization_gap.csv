@@ -1,0 +1,7 @@
+layer,crop,best_loyo_model,r2_loyo_best,best_loilo_model,r2_loilo_best,best_spatio_model,r2_spatio_best,dR2_loilo_minus_loyo_best,fixed_model,r2_loyo_fixed,r2_loilo_fixed,dR2_fixed,dR2_fixed_ci_lo,dR2_fixed_ci_hi,n_paired,n_nonzero,median_abserr_loyo,median_abserr_loilo,wilcoxon_W,wilcoxon_p,rank_biserial
+A,bugday,elastic_net,-0.0918,gpr,0.4413,gpr,0.3206,0.5332,gpr,-0.1979,0.4413,0.6392,0.5451,0.735,589,589,47.405,31.234,43362.0,6.154207240733836e-26,0.5009
+A,aycicegi,random_forest,0.0509,xgboost,0.504,gpr,0.3869,0.453,xgboost,-0.076,0.504,0.5799,0.4902,0.6736,576,576,37.169,20.883,39269.0,5.558776504469592e-28,0.5274
+B,bugday,gpr,-0.5355,gpr,0.4293,xgboost,0.3137,0.9648,gpr,-0.5355,0.4293,0.9648,0.7652,1.1708,213,213,55.661,29.616,4829.0,3.0606233356084687e-13,0.5762
+B,aycicegi,random_forest,0.2374,gpr,0.4496,gpr,0.4336,0.2122,gpr,0.2139,0.4496,0.2357,0.1409,0.3259,209,209,32.674,22.769,6463.0,2.582395324160083e-07,0.411
+C,bugday,xgboost,-0.3114,xgboost,0.4268,xgboost,0.4795,0.7382,xgboost,-0.3114,0.4268,0.7382,0.5273,0.968,213,213,50.484,31.251,6410.0,3.0928576605223175e-08,0.4375
+C,aycicegi,gpr,0.3865,gpr,0.582,gpr,0.5564,0.1956,gpr,0.3865,0.582,0.1956,0.1184,0.266,209,209,28.014,21.21,7452.0,5.775577465966487e-05,0.3208

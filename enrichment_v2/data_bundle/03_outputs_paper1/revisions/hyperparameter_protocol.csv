@@ -1,0 +1,7 @@
+protocol,seed,model,search_range,inner_cv,opt_metric,selected,scaler,oof_stacking
+fixed pre-specified (no test-set tuning); leakage-free,42,PLS,none (fixed),none,n/a,"n_components=3, scale=True",StandardScaler(train-fold),n/a
+fixed pre-specified (no test-set tuning); leakage-free,42,ElasticNet,none (fixed),none,n/a,"alpha=1.0, l1_ratio=0.5, max_iter=10000",StandardScaler(train-fold),n/a
+fixed pre-specified (no test-set tuning); leakage-free,42,RandomForest,none (fixed),none,n/a,"n_estimators=300, max_depth=5",none,n/a
+fixed pre-specified (no test-set tuning); leakage-free,42,XGBoost,none (fixed),none,n/a,"n_estimators=200, max_depth=4, learning_rate=0.05",none,n/a
+fixed pre-specified (no test-set tuning); leakage-free,42,GPR,none (fixed),none,n/a,"Matern(nu=2.5)+WhiteKernel, normalize_y=True, alpha=1e-4",StandardScaler(train-fold),n/a
+fixed pre-specified (no test-set tuning); leakage-free,42,"Stacking (tier C, LOYO only)",none (fixed),cv=3 (OOF base preds),n/a,"base=[RF,XGB,GPR], meta=Ridge(alpha=1.0)",StandardScaler(train-fold),YES (cv=3 cross_val_predict)

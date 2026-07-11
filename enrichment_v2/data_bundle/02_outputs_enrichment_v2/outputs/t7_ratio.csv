@@ -1,0 +1,9 @@
+crop,tier,n,n_candidate,n_selected,cap_k,obs_per_feat,risky
+bugday,A,213,14,11,14,19.4,False
+bugday,B,213,38,14,14,15.2,False
+bugday,C,213,48,14,14,15.2,False
+bugday,D,213,197,14,14,15.2,False
+aycicegi,A,209,14,12,13,17.4,False
+aycicegi,B,209,38,13,13,16.1,False
+aycicegi,C,209,48,13,13,16.1,False
+aycicegi,D,209,197,13,13,16.1,False

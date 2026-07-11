@@ -1,0 +1,3 @@
+crop,model,r2_LOYO,r2_LOILO,gap_dR2,n_LOYO,n_LOILO
+bugday,gpr,-0.198,0.441,0.639,589,589
+aycicegi,xgboost,-0.076,0.504,0.58,576,576

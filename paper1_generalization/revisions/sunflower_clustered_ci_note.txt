@@ -1,0 +1,1 @@
+Sunflower skill-score year-clustered confidence intervals that INCLUDE ZERO (substantial across-year uncertainty): tierC/stacking, tierB/random_forest, tierB/gpr, tierC/xgboost, tierC/elastic_net, tierC/pls, tierA/random_forest, tierB/elastic_net, tierA/elastic_net, tierB/xgboost, tierB/pls, tierA/pls, tierA/xgboost, tierA/gpr. This is reported, not hidden (#6).

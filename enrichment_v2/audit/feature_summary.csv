@@ -1,0 +1,34 @@
+family,feature,min,max,mean,nan_pct,n_nan,n_inf,n_out_of_bounds,extreme_gt_1e3,clamp_applied,clamp_guard_gap,verdict,n_nonfinite
+index,NDVI,-0.3398,0.9102,0.4166,25.05,1860.0,0.0,0,0.0,N,Y,CLEAN (code guard gap — preventive),
+index,EVI,-0.1055,0.8554,0.2941,25.05,1860.0,0.0,0,0.0,Y,N,CLEAN,
+index,EVI2,-0.0977,0.7929,0.2745,25.05,1860.0,0.0,0,0.0,Y,N,CLEAN,
+index,NDRE,-0.379,0.7538,0.2763,25.05,1860.0,0.0,0,0.0,N,Y,CLEAN (code guard gap — preventive),
+index,CIre,-0.485,5.7812,0.9362,25.05,1860.0,0.0,0,0.0,N,Y,CLEAN (code guard gap — preventive),
+index,NDWI,-0.3163,0.754,0.0231,25.05,1860.0,0.0,0,0.0,N,Y,CLEAN (code guard gap — preventive),
+index,GNDVI,-0.34,0.8397,0.4706,25.05,1860.0,0.0,0,0.0,N,Y,CLEAN (code guard gap — preventive),
+index,OSAVI,-0.1525,0.7051,0.2954,25.05,1860.0,0.0,0,0.0,N,Y,CLEAN (code guard gap — preventive),
+climate,tp_season_sum,85.52,879.53,364.92,0.0,,,0,,n/a,,CLEAN,0.0
+climate,tp_winter_sum,74.24,613.0,325.18,49.44,,,0,,n/a,,CLEAN,576.0
+climate,tp_flowering,0.01,121.22,34.25,0.0,,,0,,n/a,,CLEAN,0.0
+climate,tp_grain_fill,0.0,129.3,29.71,0.0,,,0,,n/a,,CLEAN,0.0
+climate,gdd_cum_season,1937.85,4716.01,2969.93,0.0,,,0,,n/a,,CLEAN,0.0
+climate,aridity_index,0.07,1.14,0.35,0.0,,,0,,n/a,,CLEAN,0.0
+climate,t2m_flowering_mean,13.85,29.76,21.45,0.0,,,0,,n/a,,CLEAN,0.0
+climate,raw_annual_precip_mm,307.0,965.0,594.0,0.0,,,0,,n/a,,CLEAN,0.0
+soil,phh2o_0_30_mean,6.582,7.311,6.999,0.0,,,0,,n/a,,CLEAN,0.0
+soil,soc_0_30_mean,15.94,26.808,21.698,0.0,,,0,,n/a,,CLEAN,0.0
+soil,cec_0_30_mean,21.814,27.406,24.398,0.0,,,0,,n/a,,CLEAN,0.0
+soil,bdod_0_30_mean,1.357,1.444,1.384,0.0,,,0,,n/a,,CLEAN,0.0
+soil,cfvo_0_30_mean,8.843,15.659,12.755,0.0,,,0,,n/a,,CLEAN,0.0
+soil,awc_0_30,0.138,0.154,0.145,0.0,,,0,,n/a,,CLEAN,0.0
+soil,clay_0_30_mean,30.522,38.142,33.312,0.0,,,0,,n/a,,CLEAN,0.0
+soil,sand_0_30_mean,26.242,34.981,29.856,0.0,,,0,,n/a,,CLEAN,0.0
+soil,silt_0_30_mean,33.413,41.791,36.832,0.0,,,0,,n/a,,CLEAN,0.0
+topo,elevation_m,39.188,441.737,143.335,0.0,,,0,,n/a,,CLEAN,0.0
+topo,slope_deg,2.285,5.567,3.291,0.0,,,0,,n/a,,CLEAN,0.0
+topo,northness,-0.241,0.07,-0.049,0.0,,,0,,n/a,,CLEAN,0.0
+topo,eastness,-0.118,0.105,-0.042,0.0,,,0,,n/a,,CLEAN,0.0
+topo,twi,7.797,9.404,8.861,0.0,,,0,,n/a,,CLEAN,0.0
+yield,bugday,147.0,589.0,385.0,0.0,,,0,,n/a,,CLEAN,0.0
+yield,aycicegi_yaglik,52.0,372.0,206.0,0.0,,,0,,n/a,,CLEAN,0.0
+anomaly,z_scores,-2.47,2.47,0.0,24.98,,,0,,n/a,,CLEAN,0.0
