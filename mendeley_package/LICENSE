@@ -1,0 +1,46 @@
+Dataset: "Spatial skill is not temporal skill — TRAK-AI crop-yield cross-validation audit
+(Trakya, Türkiye)"  — derived data deposit accompanying the IJEG manuscript.
+
+SPDX-License-Identifier: CC-BY-4.0
+------------------------------------------------------------------------------------------
+This dataset (all files in this deposit, EXCEPT where a third-party source imposes its own
+terms below) is released under the Creative Commons Attribution 4.0 International License
+(CC-BY-4.0). You are free to share and adapt the material for any purpose, provided you give
+appropriate credit. Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+HOW TO ATTRIBUTE THIS DEPOSIT
+  Kalkan, M., & Çavdaroğlu, G. Ç. (2026). Spatial skill is not temporal skill: a cross-validation
+  audit of satellite-driven winter-wheat and sunflower yield prediction in Trakya, Türkiye
+  [Data set]. Mendeley Data. DOI: [reserved — inserted on deposit].
+
+THIRD-PARTY SOURCE TERMS (the derived values in this deposit are produced from the sources
+below; each must be attributed as stated — verified against each provider's data policy):
+
+  • Sentinel-2 L2A (spectral indices, distribution/phenological metrics) — Copernicus free,
+    full and open data policy. Attribution: "Contains modified Copernicus Sentinel data
+    [2017–2024]". Derivative/"altered" products may be redistributed under this policy.
+    https://www.copernicus.eu/en/access-data/copyright-and-licences
+
+  • NASA POWER / MERRA-2 (climate features) — CC-BY-4.0; no use restrictions; cite NASA POWER.
+    https://power.larc.nasa.gov/docs/referencing/
+
+  • ISRIC SoilGrids (soil features, AWC via Saxton–Rawls) — CC-BY-4.0.
+    https://www.isric.org/about/data-policy
+
+  • ESA WorldCover v200 2021 (cropland mask only; not redistributed as a layer) — CC-BY-4.0.
+    Attribution: "© ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data 2021".
+    https://esa-worldcover.org/en/data-access
+
+  • SRTM (topographic covariates — documented, NOT used in any modelled tier) — public domain
+    (NASA/USGS).
+
+  • TÜİK / TURKSTAT (Turkish Statistical Institute) district crop yields and planted area — public
+    official statistics, redistributed here in a curated, study-scoped form for reproducibility,
+    with attribution to TÜİK. TÜİK does not publish an explicit open-data licence; these values
+    are freely and publicly accessible official statistics. If TÜİK requests removal, the curated
+    TÜİK files (06_tuik_reference/) will be withdrawn and replaced by retrieval instructions.
+    Source: https://www.tuik.gov.tr/  (accessed [access date — to be confirmed by author]).
+
+NO WARRANTY. The data are provided "as is", without warranty of any kind. See the manuscript and
+its Supplementary for methods, uncertainty, and the honest (audit) interpretation of all values.

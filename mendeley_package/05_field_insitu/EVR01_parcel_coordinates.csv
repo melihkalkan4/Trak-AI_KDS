@@ -1,0 +1,6 @@
+site_id,corner,lat,lon,area_ha,note
+EVR_01,1,41.53179,27.86159,0.62,field-surveyed 0.62 ha winter-wheat parcel near Vize (Kırklareli)
+EVR_01,2,41.531521,27.862092,0.62,field-surveyed 0.62 ha winter-wheat parcel near Vize (Kırklareli)
+EVR_01,3,41.530694,27.861425,0.62,field-surveyed 0.62 ha winter-wheat parcel near Vize (Kırklareli)
+EVR_01,4,41.53076,27.860755,0.62,field-surveyed 0.62 ha winter-wheat parcel near Vize (Kırklareli)
+EVR_01,centroid,41.531191,27.861465,0.62,field-surveyed 0.62 ha winter-wheat parcel near Vize (Kırklareli)
