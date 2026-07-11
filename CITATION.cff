@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software (this repository) and the companion article below."
+title: "TRAK-AI KDS: an offline-first Edge–Fog–Cloud decision-support system for precision agriculture in Trakya, Türkiye"
+type: software
+version: 1.0.0
+date-released: "2026-07-11"
+license: MIT
+repository-code: "https://github.com/melihkalkan4/Trak-AI_KDS"
+authors:
+  - family-names: Kalkan
+    given-names: Melih
+    affiliation: "Işık University, Department of Management Information Systems, İstanbul, Türkiye"
+    orcid: "https://orcid.org/0009-0004-7719-5333"
+  - family-names: Çavdaroğlu
+    given-names: Gülsüm Çiğdem
+    affiliation: "Işık University, Department of Management Information Systems, İstanbul, Türkiye"
+    orcid: "https://orcid.org/0000-0002-4875-4800"
+keywords:
+  - decision support system
+  - precision agriculture
+  - offline-first edge computing
+  - retrieval-augmented generation
+  - crop yield forecasting
+preferred-citation:
+  type: article
+  title: "Spatial skill is not temporal skill: a cross-validation audit of satellite-driven winter-wheat and sunflower yield prediction in Trakya, Türkiye"
+  authors:
+    - family-names: Kalkan
+      given-names: Melih
+      orcid: "https://orcid.org/0009-0004-7719-5333"
+    - family-names: Çavdaroğlu
+      given-names: Gülsüm Çiğdem
+      orcid: "https://orcid.org/0000-0002-4875-4800"
+  journal: "International Journal of Engineering and Geosciences"
+  year: 2026
+  notes: "Manuscript under review. DOI to be assigned on publication."
+references:
+  - type: data
+    title: "Spatial skill is not temporal skill — TRAK-AI crop-yield cross-validation audit (Trakya, Türkiye)"
+    authors:
+      - family-names: Kalkan
+        given-names: Melih
+      - family-names: Çavdaroğlu
+        given-names: Gülsüm Çiğdem
+    year: 2026
+    doi: "10.17632/f6d29w5zjk.1"
+    notes: "Mendeley Data, CC-BY-4.0."
