@@ -16,12 +16,15 @@
  *                           ENA GPIO 14 (PWM ch0), ENB GPIO 12 (PWM ch1)
  */
 
+// Sırlar (WiFi kimlik bilgileri, OTA şifresi) secrets.h içindedir; secrets.h
+// gitignore'ludur. secrets.template.h dosyasını secrets.h'ye kopyalayıp gerçek
+// değerleri doldurun. Depoya gerçek şifre COMMIT ETMEYİN.
+#include "secrets.h"
+
 // ════════════════════════════════════════════════════════════════════
 // WiFi & MQTT
 // ════════════════════════════════════════════════════════════════════
-#define WIFI_SSID         "FiberHGW_ZTZ3KR"
-#define WIFI_PASSWORD     "haezTk773xFs"
-
+// WIFI_SSID ve WIFI_PASSWORD secrets.h içinde tanımlıdır.
 #define MQTT_HOST         "192.168.1.107"
 #define MQTT_BROKER       MQTT_HOST                    // legacy alias
 #define MQTT_PORT         1883
@@ -35,7 +38,7 @@
 // OTA (Over-The-Air firmware update)
 // ════════════════════════════════════════════════════════════════════
 #define OTA_HOSTNAME      "trak-ai-rover"
-#define OTA_PASSWORD      "trakai2026"
+// OTA_PASSWORD secrets.h içinde tanımlıdır.
 #define OTA_PORT          3232
 
 // ════════════════════════════════════════════════════════════════════

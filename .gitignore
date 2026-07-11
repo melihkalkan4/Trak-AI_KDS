@@ -8,6 +8,10 @@ keys/
 .env
 .cdsapirc
 
+# Firmware sırları (WiFi/OTA kimlik bilgileri) — secrets.template.h'yi secrets.h'ye kopyala, doldur
+secrets.h
+**/secrets.h
+
 # Veri Dosyaları (Sadece klasör yapısı gitsin, içindeki dosyalar gitmesin)
 data/raw/*
 !data/raw/.gitkeep
